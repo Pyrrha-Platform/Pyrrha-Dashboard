@@ -1,0 +1,23 @@
+@import '@carbon/themes/scss/themes';
+@import 'carbon-components/scss/globals/scss/styles.scss';
+$small: 672px;
+
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
+@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
+@import 'carbon-components/scss/globals/scss/typography.scss';
+@import 'carbon-components/scss/globals/scss/vars.scss';
+
+@import './content/FirefightersPage/firefighters-page.scss';
+
+@import './components/SideMenu/SideMenu.scss';
+@import './components/Tile/Tile.scss';
+
+
+$carbon--theme: $carbon--theme--g10;
+
+@include carbon--theme();
+
+$feature-flags: (
+  ui-shell: true,
+  grid-columns-16: true,
+);
