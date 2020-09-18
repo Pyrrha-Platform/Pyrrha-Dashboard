@@ -17,13 +17,6 @@ import {
   Delete20,
   Add20
 } from "@carbon/icons-react/lib/add/20";
-import { Query } from 'react-apollo';
-import API from '../../api-client/api';
-
-const addFirefighter = (id) => {
-
-}
-
 
 /**
  * Simple state manager for modals.
@@ -103,7 +96,7 @@ const props = {
       'Cancel'
     ),
     onRequestClose: action('onRequestClose'),
-    onRequestSubmit: addFirefighter,
+    onRequestSubmit: action('onRequestSubmit'),
   }),
 };
 
@@ -116,11 +109,11 @@ class FirefightersModal extends React.Component {
       const { open } = this.state;
       const { size, ...rest } = props.composedModal();
       const { hasScrollingContent, ...bodyProps } = props.modalBody();
-      console.log('In render() ' + open);
+
       return (
         <ModalStateManager
           renderLauncher={({ setOpen }) => (
-            <Button onClick={() => setOpen(true)}>Launch composed modal</Button>
+            <Button renderIcon={Add20} onClick={() => setOpen(true)}>Add firefighter</Button>
           )}>
           {({ open, setOpen }) => (
             <ComposedModal
@@ -132,20 +125,27 @@ class FirefightersModal extends React.Component {
               <ModalBody
                 {...bodyProps}
                 aria-label={hasScrollingContent ? 'Modal content' : undefined}>
+                  <br />
                   <TextInput
-                    id="test2"
+                    id="id"
+                    placeholder="GRAF001"
+                    labelText="ID:"
+                  />
+                  <br />
+                  <TextInput
+                    id="first"
                     placeholder="Joan"
                     labelText="First name:"
                   />
                   <br />
                   <TextInput
-                    id="test3"
+                    id="last"
                     placeholder="Herrera"
                     labelText="Last name:"
                   />
                   <br />
                   <TextInput
-                    id="test4"
+                    id="email"
                     placeholder="graf001@graf.cat"
                     labelText="Email:"
                   />

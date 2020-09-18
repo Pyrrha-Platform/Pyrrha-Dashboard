@@ -1,5 +1,6 @@
 import time
 from flask import Flask
+from flask import jsonify
 
 app = Flask(__name__)
 
@@ -9,19 +10,50 @@ def get_current_time():
 
 @app.route('/api/v1/firefighters', methods=['GET'])
 def get_all_firefighters():
-    return [{'firefighter': 1}, {'firefighter': 2}, {'firefighter': 3}]
+    firefighters = [
+        {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}, 
+        {'id': 'GRAF002', 'first': 'Marco', 'last': 'Rodriguez', 'email': 'graf002@graf.cat'}, 
+        {'id': 'GRAF003', 'first': 'Marisol', 'last': 'Santillan', 'email': 'graf003@graf.cat'}, 
+        {'id': 'GRAF004', 'first': 'Upkarno', 'last': 'Lidderez', 'email': 'graf004@graf.cat'}
+    ]
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'firefighters': firefighters
+    }
+    resp = jsonify(message)
+    resp.status_code = 200
+    print(resp)
+    return resp
 
-@app.route('/api/v1/firefighters/<int:id>', methods=['GET'])
+@app.route('/api/v1/firefighters/<string:id>', methods=['GET'])
 def get_firefighter_by_id():
     if 'id' in request.args:
         id = int(request.args['id'])
-        return {'firefighter': id}
+        firefighter = {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}
+        message = {
+            'status': 200,
+            'message': 'OK',
+            'firefighter': firefighter
+        }
+        resp = jsonify(message)
+        resp.status_code = 200
+        print(resp)
+        return resp
     else:
         return "Error: No id field provided. Please specify an id."
 
 @app.route('/api/v1/firefighter', methods=['POST'])
 def add_firefighter():
-    return {'created': 1}
+        message = {
+            'status': 201,
+            'message': 'Created',
+            'firefighter': 'GRAF001'
+        }
+        resp = jsonify(message)
+        resp.status_code = 201
+        print(resp)
+        return resp
 
 
 @app.errorhandler(404)
