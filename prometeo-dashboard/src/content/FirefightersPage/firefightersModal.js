@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
 import { settings } from 'carbon-components';
@@ -16,6 +17,34 @@ import {
   Delete20,
   Add20
 } from "@carbon/icons-react/lib/add/20";
+import { Query } from 'react-apollo';
+import API from '../../api-client/api';
+
+const addFirefighter = (id) => {
+
+}
+
+
+/**
+ * Simple state manager for modals.
+ */
+const ModalStateManager = ({
+  renderLauncher: LauncherContent,
+  children: ModalContent,
+}) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      {!ModalContent || typeof document === 'undefined'
+        ? null
+        : ReactDOM.createPortal(
+            <ModalContent open={open} setOpen={setOpen} />,
+            document.body
+          )}
+      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+    </>
+  );
+};
 
 const { prefix } = settings;
 
@@ -38,14 +67,14 @@ const props = {
     size: select('Size (size)', sizes, titleOnly ? 'sm' : ''),
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: text('Optional Label (label in <ModalHeader>)', 'Optional Label'),
+    label: text('Optional Label (label in <ModalHeader>)', 'Firefighters'),
     title: text(
       'Optional title (title in <ModalHeader>)',
       titleOnly
         ? `
       Passive modal title as the message. Should be direct and 3 lines or less.
     `.trim()
-        : 'Example'
+        : 'Add firefighter'
     ),
     iconDescription: text(
       'Close icon description (iconDescription in <ModalHeader>)',
@@ -56,7 +85,7 @@ const props = {
   modalBody: () => ({
     hasScrollingContent: boolean(
       'Modal contains scrollable content (hasScrollingContent)',
-      true
+      false
     ),
     'aria-label': text('ARIA label for content', 'Example modal content'),
   }),
@@ -71,10 +100,10 @@ const props = {
     ),
     secondaryButtonText: text(
       'Secondary button text (secondaryButtonText in <ModalFooter>)',
-      ''
+      'Cancel'
     ),
     onRequestClose: action('onRequestClose'),
-    onRequestSubmit: action('onRequestSubmit'),
+    onRequestSubmit: addFirefighter,
   }),
 };
 
@@ -85,15 +114,48 @@ class FirefightersModal extends React.Component {
     toggleModal = (open) => this.setState({ open });
     render() {
       const { open } = this.state;
+      const { size, ...rest } = props.composedModal();
+      const { hasScrollingContent, ...bodyProps } = props.modalBody();
+      console.log('In render() ' + open);
       return (
-        <>
-          <Button renderIcon={Add20} onClick={() => this.toggleModal(true)}>Add firefighter</Button>
-          <ComposedModal>
-            <ModalHeader {...props.modalHeader({ titleOnly: true })} />
-            <ModalBody />
-            <ModalFooter {...props.modalFooter()} />
-         </ComposedModal>
-        </>
+        <ModalStateManager
+          renderLauncher={({ setOpen }) => (
+            <Button onClick={() => setOpen(true)}>Launch composed modal</Button>
+          )}>
+          {({ open, setOpen }) => (
+            <ComposedModal
+              {...rest}
+              open={open}
+              size={size || undefined}
+              onClose={() => setOpen(false)}>
+              <ModalHeader {...props.modalHeader()} />
+              <ModalBody
+                {...bodyProps}
+                aria-label={hasScrollingContent ? 'Modal content' : undefined}>
+                  <TextInput
+                    id="test2"
+                    placeholder="Joan"
+                    labelText="First name:"
+                  />
+                  <br />
+                  <TextInput
+                    id="test3"
+                    placeholder="Herrera"
+                    labelText="Last name:"
+                  />
+                  <br />
+                  <TextInput
+                    id="test4"
+                    placeholder="graf001@graf.cat"
+                    labelText="Email:"
+                  />
+                  <br />
+                  <br />
+              </ModalBody>
+              <ModalFooter {...props.modalFooter()} />
+            </ComposedModal>
+          )}
+        </ModalStateManager>
       );
     }
 
