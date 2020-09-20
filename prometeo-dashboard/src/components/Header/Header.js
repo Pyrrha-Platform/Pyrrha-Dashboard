@@ -9,7 +9,6 @@ import {
   HeaderGlobalBar,
   HeaderGlobalAction,
   HeaderPanel,
-  HeaderSideNavItems,
   Switcher,
   SwitcherItem,
   SkipToContent,
@@ -53,7 +52,7 @@ import Translate20 from "@carbon/icons-react/lib/translate/20";
         </HeaderMenu>
       </HeaderNavigation>
       <HeaderGlobalBar>
-        <HeaderGlobalAction aria-label="Search" onClick={console.log('search click')}>
+        <HeaderGlobalAction aria-label="Search" onClick={() => { console.log('search click') }}>
           <Search20 element={Link} to="/" />
         </HeaderGlobalAction>
         <HeaderGlobalAction aria-label="Translate" onClick={toggleActive} isActive={active}>

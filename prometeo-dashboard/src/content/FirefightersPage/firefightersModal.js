@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, select, text } from '@storybook/addon-knobs';
-import { settings } from 'carbon-components';
+import axios from 'axios';
+// import { settings } from 'carbon-components';
 import {
-  Modal,
   TextInput,
   ComposedModal,
   ModalBody,
@@ -13,8 +11,6 @@ import {
   Button
 } from  'carbon-components-react';
 import {
-  Edit20,
-  Delete20,
   Add20
 } from "@carbon/icons-react/lib/add/20";
 
@@ -39,74 +35,59 @@ const ModalStateManager = ({
   );
 };
 
-const { prefix } = settings;
-
-const sizes = {
-  Default: '',
-  'Extra small (xs)': 'xs',
-  'Small (sm)': 'sm',
-  'Large (lg)': 'lg',
-};
+// const { prefix } = settings;
 
 const props = {
   composedModal: ({ titleOnly } = {}) => ({
-    open: boolean('Open (open in <ComposedModal>)', true),
-    onKeyDown: action('onKeyDown'),
-    danger: boolean('Danger mode (danger)', false),
-    selectorPrimaryFocus: text(
-      'Primary focus element selector (selectorPrimaryFocus)',
-      '[data-modal-primary-focus]'
-    ),
-    size: select('Size (size)', sizes, titleOnly ? 'sm' : ''),
+    open: true,
+    danger: false,
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: text('Optional Label (label in <ModalHeader>)', 'Firefighters'),
-    title: text(
-      'Optional title (title in <ModalHeader>)',
-      titleOnly
-        ? `
-      Passive modal title as the message. Should be direct and 3 lines or less.
-    `.trim()
-        : 'Add firefighter'
-    ),
-    iconDescription: text(
-      'Close icon description (iconDescription in <ModalHeader>)',
-      'Close'
-    ),
-    buttonOnClick: action('buttonOnClick'),
+    label: 'Firefighters',
+    title: 'Add firefighter',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
-    hasScrollingContent: boolean(
-      'Modal contains scrollable content (hasScrollingContent)',
-      false
-    ),
-    'aria-label': text('ARIA label for content', 'Example modal content'),
+    hasScrollingContent: false,
+    'aria-label': 'Add firefighter',
   }),
   modalFooter: () => ({
-    primaryButtonText: text(
-      'Primary button text (primaryButtonText in <ModalFooter>)',
-      'Save'
-    ),
-    primaryButtonDisabled: boolean(
-      'Primary button disabled (primaryButtonDisabled in <ModalFooter>)',
-      false
-    ),
-    secondaryButtonText: text(
-      'Secondary button text (secondaryButtonText in <ModalFooter>)',
-      'Cancel'
-    ),
-    onRequestClose: action('onRequestClose'),
-    onRequestSubmit: action('onRequestSubmit'),
+    primaryButtonText: 'Save',
+    primaryButtonDisabled: false,
+    secondaryButtonText: 'Cancel',
+    onRequestSubmit: (event) => { handleSubmit(event); }
   }),
 };
 
+const handleSubmit = event => {
+  console.log('handleSubmit');
+  event.preventDefault();
+
+  axios.post(`/api/v1/firefighters`, { 
+    id: document.getElementById('firefighter-id').value, 
+    first: document.getElementById('firefighter-first').value, 
+    last: document.getElementById('firefighter-last').value, 
+    email: document.getElementById('firefighter-email').value 
+    }).then(res => {
+      console.log(res);
+      console.log(res.data);
+    }
+  )
+}
 
 class FirefightersModal extends React.Component {
 
-    state = { open: false };
+    state = {
+      firefighter: {},
+      open: false,
+    }
+
     toggleModal = (open) => this.setState({ open });
+
     render() {
-      const { open } = this.state;
+      // const { open } = this.state.open;
+      // const { firefighter } = this.state.firefighter;
       const { size, ...rest } = props.composedModal();
       const { hasScrollingContent, ...bodyProps } = props.modalBody();
 
@@ -127,25 +108,25 @@ class FirefightersModal extends React.Component {
                 aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                   <br />
                   <TextInput
-                    id="id"
+                    id="firefighter-id"
                     placeholder="GRAF001"
                     labelText="ID:"
                   />
                   <br />
                   <TextInput
-                    id="first"
+                    id="firefighter-first"
                     placeholder="Joan"
                     labelText="First name:"
                   />
                   <br />
                   <TextInput
-                    id="last"
+                    id="firefighter-last"
                     placeholder="Herrera"
                     labelText="Last name:"
                   />
                   <br />
                   <TextInput
-                    id="email"
+                    id="firefighter-email"
                     placeholder="graf001@graf.cat"
                     labelText="Email:"
                   />

@@ -1,6 +1,5 @@
 import time
-from flask import Flask
-from flask import jsonify
+from flask import Flask, Response, json, request
 
 app = Flask(__name__)
 
@@ -8,26 +7,37 @@ app = Flask(__name__)
 def get_current_time():
     return {'time': time.time()}
 
-@app.route('/api/v1/firefighters', methods=['GET'])
-def get_all_firefighters():
-    firefighters = [
-        {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}, 
-        {'id': 'GRAF002', 'first': 'Marco', 'last': 'Rodriguez', 'email': 'graf002@graf.cat'}, 
-        {'id': 'GRAF003', 'first': 'Marisol', 'last': 'Santillan', 'email': 'graf003@graf.cat'}, 
-        {'id': 'GRAF004', 'first': 'Upkarno', 'last': 'Lidderez', 'email': 'graf004@graf.cat'}
-    ]
-    message = {
-        'status': 200,
-        'message': 'OK',
-        'firefighters': firefighters
-    }
-    resp = jsonify(message)
-    resp.status_code = 200
-    print(resp)
-    return resp
+@app.route('/api/v1/firefighters', methods=['GET', 'POST'])
+def firefighters():
+    if request.method == 'GET':
+        firefighters = [
+            {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}, 
+            {'id': 'GRAF002', 'first': 'Marco', 'last': 'Rodriguez', 'email': 'graf002@graf.cat'}, 
+            {'id': 'GRAF003', 'first': 'Marisol', 'last': 'Santillan', 'email': 'graf003@graf.cat'}, 
+            {'id': 'GRAF004', 'first': 'Upkarno', 'last': 'Lidderez', 'email': 'graf004@graf.cat'}
+        ]
+        message = {
+            'status': 200,
+            'message': 'OK',
+            'firefighters': firefighters
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
+    elif request.method == 'POST':
+        print(request.get_json())
+        message = {
+            'status': 201,
+            'message': 'Created',
+            'firefighter': request.get_json()['id']
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=201, mimetype='application/json')
+        return resp
 
 @app.route('/api/v1/firefighters/<string:id>', methods=['GET'])
-def get_firefighter_by_id():
+def firefighter_by_id():
     if 'id' in request.args:
         id = int(request.args['id'])
         firefighter = {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}
@@ -36,25 +46,11 @@ def get_firefighter_by_id():
             'message': 'OK',
             'firefighter': firefighter
         }
-        resp = jsonify(message)
-        resp.status_code = 200
-        print(resp)
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
         return resp
     else:
         return "Error: No id field provided. Please specify an id."
-
-@app.route('/api/v1/firefighter', methods=['POST'])
-def add_firefighter():
-        message = {
-            'status': 201,
-            'message': 'Created',
-            'firefighter': 'GRAF001'
-        }
-        resp = jsonify(message)
-        resp.status_code = 201
-        print(resp)
-        return resp
-
 
 @app.errorhandler(404)
 def page_not_found(e):

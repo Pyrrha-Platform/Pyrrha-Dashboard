@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import {
-  Button,
   DataTable,
   OverflowMenu,
   OverflowMenuItem,
@@ -14,13 +13,8 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
-  Modal,
-  TextInput,
-  ComposedModal,
 } from  'carbon-components-react';
 import {
-  Edit20,
-  Delete20,
   Add20
 } from "@carbon/icons-react/lib/add/20";
 import FirefightersModal from './firefightersModal';
@@ -69,7 +63,8 @@ class FirefightersTable extends React.Component {
         console.log(data);
         console.log(data.firefighters);
         this.setState({ firefighters: data.firefighters });
-      })
+      }
+    )
   }
 
   render() {
