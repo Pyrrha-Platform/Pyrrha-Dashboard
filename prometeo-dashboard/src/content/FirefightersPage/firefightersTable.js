@@ -74,11 +74,11 @@ class FirefightersTable extends React.Component {
           <div className="bx--col-lg-16 fullwidth">
           
             <DataTable isSortable
-            headers={headerData}
-            rows={this.state.firefighters}
-            editProps={editProps}
-            deleteProps={deleteProps}
-            render={({
+                headers={headerData}
+                rows={this.state.firefighters}
+                editProps={editProps}
+                deleteProps={deleteProps}
+                render={({
               rows,
               headers,
               getHeaderProps,
@@ -91,7 +91,7 @@ class FirefightersTable extends React.Component {
               <TableContainer title="Firefighters">
                 <TableToolbar aria-label="data table toolbar">
                   <TableToolbarContent>
-                    <FirefightersModal />
+                    <FirefightersModal rows={rows} />
                   </TableToolbarContent>
                 </TableToolbar>
                 <Table size='normal' {...getTableProps()}>
