@@ -8,8 +8,6 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
-  OverflowMenu,
-  OverflowMenuItem,
   Button
 } from  'carbon-components-react';
 import {
@@ -22,6 +20,11 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
+  const [row, setRow] = useState(false);
+  const [id, setId] = useState(false);
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+  const [email, setEmail] = useState(false);
   return (
     <>
       {!ModalContent || typeof document === 'undefined'
@@ -30,7 +33,21 @@ const ModalStateManager = ({
             <ModalContent open={open} setOpen={setOpen} />,
             document.body
           )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+      {LauncherContent && <LauncherContent 
+        open={open} 
+        setOpen={setOpen} 
+        row={row} 
+        setRow={setRow} 
+        id={id} 
+        setId={setId} 
+        first={first} 
+        setFirst={setFirst} 
+        last={last} 
+        setLast={setLast} 
+        email={email} 
+        setEmail={setEmail} 
+        />
+      }
     </>
   );
 };
@@ -86,8 +103,13 @@ const handleSubmit = event => {
 
 class NewFirefightersEditModal extends React.Component {
 
-  state = {
-    open: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      row: props.row,
+      open: false,
+    }
+    console.log(this.state.row);
   }
 
   toggleModal = (open) => this.setState({ open });
@@ -99,13 +121,14 @@ class NewFirefightersEditModal extends React.Component {
 
     return (
       <ModalStateManager
-        renderLauncher={({ setOpen }) => (
-          <button onClick={() => setOpen(true)}>Edit</button>
+        renderLauncher={({ open, setOpen, row, setRow, id, setId, first, setFirst, last, setLast, email, setEmail}) => (
+          <button onClick={() => setOpen(true)}>Edit {this.props.row.id}</button>
         )}>
-        {({ open, setOpen }) => (
+        {({ open, setOpen, row, setRow, id, setId, first, setFirst, last, setLast, email, setEmail }) => (
           <ComposedModal
             {...rest}
             open={open}
+            row={this.props.row}
             size={size || undefined}
             onClose={() => setOpen(false)}>
             <ModalHeader {...editProps.modalHeader()} />
@@ -114,26 +137,26 @@ class NewFirefightersEditModal extends React.Component {
               aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                 <br />
                 <TextInput
-                  id="edit-firefighter-id"
-                  placeholder="GRAF001"
+                  id={"edit-firefighter-id-" + this.props.row.cells[0].value}
+                  placeholder={this.props.row.cells[0].value}
                   labelText="ID:"
                 />
                 <br />
                 <TextInput
-                  id="edit-firefighter-first"
-                  placeholder="Joan"
+                  id={"edit-firefighter-first-" + this.props.row.cells[1].value}
+                  placeholder={this.props.row.cells[1].value}
                   labelText="First name:"
                 />
                 <br />
                 <TextInput
-                  id="edit-firefighter-last"
-                  placeholder="Herrera"
+                  id={"edit-firefighter-last-" + this.props.row.cells[2].value}
+                  placeholder={this.props.row.cells[2].value}
                   labelText="Last name:"
                 />
                 <br />
                 <TextInput
-                  id="edit-firefighter-email"
-                  placeholder="graf001@graf.cat"
+                  id={"edit-firefighter-email-" + this.props.row.cells[3].value}
+                  placeholder={this.props.row.cells[3].value}
                   labelText="Email:"
                 />
                 <br />

@@ -122,14 +122,14 @@ const NewFirefightersTable = ( { firefighterId } ) => {
               headers={headerData}
               rows={firefighters}
               render={({
-            rows,
-            headers,
-            getHeaderProps,
-            getRowProps,
-            getTableProps,
-            getToolbarProps,
-            onInputChange,
-            getTableContainerProps
+                rows,
+                headers,
+                getHeaderProps,
+                getRowProps,
+                getTableProps,
+                getToolbarProps,
+                onInputChange,
+                getTableContainerProps
           }) => (
             <TableContainer title="Firefighters">
               <TableToolbar aria-label="data table toolbar">
@@ -158,7 +158,6 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell>
-                        {/* <NewFirefightersModifyModal row={row}></NewFirefightersModifyModal> */}
                         <NewFirefightersEditModal row={row} />
                         <NewFirefightersDeleteModal row={row} />
                       </TableCell>
