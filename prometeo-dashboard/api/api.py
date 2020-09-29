@@ -3,10 +3,6 @@ from flask import Flask, Response, json, request
 
 app = Flask(__name__)
 
-@app.route('/api/time')
-def get_current_time():
-    return {'time': time.time()}
-
 @app.route('/api/v1/firefighters', methods=['GET', 'POST'])
 def firefighters():
     if request.method == 'GET':
@@ -36,10 +32,10 @@ def firefighters():
         resp = Response(body, status=201, mimetype='application/json')
         return resp
 
-@app.route('/api/v1/firefighters/<string:id>', methods=['GET'])
-def firefighter_by_id():
-    if 'id' in request.args:
-        id = int(request.args['id'])
+@app.route('/api/v1/firefighters/<string:id>', methods=['GET', 'PUT', 'DELETE'])
+def firefighter_by_id(id):
+    if request.method == 'GET':
+        # Fetch from database
         firefighter = {'id': 'GRAF001', 'first': 'Joan', 'last': 'Herrera', 'email': 'graf001@graf.cat'}
         message = {
             'status': 200,
@@ -49,6 +45,29 @@ def firefighter_by_id():
         body = json.dumps(message)
         resp = Response(body, status=200, mimetype='application/json')
         return resp
+
+    elif request.method == 'PUT':
+        # Update database
+        message = {
+            'status': 200,
+            'message': 'Updated',
+            'firefighter': id
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
+    elif request.method == 'DELETE':
+        # Update database
+        message = {
+            'status': 200,
+            'message': 'Deleted',
+            'firefighter': id
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
     else:
         return "Error: No id field provided. Please specify an id."
 
