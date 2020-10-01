@@ -56,7 +56,7 @@ import Translate20 from "@carbon/icons-react/lib/translate/20";
           <Search20 element={Link} to="/" />
         </HeaderGlobalAction>
         <HeaderGlobalAction aria-label="Translate" onClick={toggleActive} isActive={active}>
-          <Translate20 element={Link} to="/" />
+          <Translate20 element={Link} to="/language" />
         </HeaderGlobalAction>
         <HeaderGlobalAction aria-label="User Avatar">
           <UserAvatar20 element={Link} to="/profile" />
