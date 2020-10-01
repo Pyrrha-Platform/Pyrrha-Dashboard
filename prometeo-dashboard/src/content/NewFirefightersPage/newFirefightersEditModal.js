@@ -13,7 +13,6 @@ import {
 } from  'carbon-components-react';
 import { 
   iconEdit, iconEditSolid, iconEditOutline, 
-  iconDelete, iconDeleteSolid, iconDeleteOutline, 
 } from 'carbon-icons';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
@@ -84,21 +83,6 @@ const editProps = {
     iconTitle: '',
     className: 'extra-class',
   }),
-  deleteIcon: () => ({
-    style: {
-      margin: '5px',
-    },
-    icon: iconDelete,
-    name: iconDelete,
-    role: 'img',
-    fill: 'grey',
-    fillRule: '',
-    width: '',
-    height: '',
-    description: 'This is a description of the icon and what it does in context',
-    iconTitle: '',
-    className: 'extra-class',
-  }),
 };
 
 // On submit we should be passed the values, not have to look them up
@@ -151,10 +135,7 @@ class NewFirefightersEditModal extends React.Component {
     return (
       <ModalStateManager
         renderLauncher={({ setOpen }) => (
-          <div>
-            <Icon {...editProps.editIcon()} onClick={() => setOpen(true)} title={this.state.id} />
-            <Icon {...editProps.deleteIcon()} onClick={() => setOpen(true)} title={this.state.id} />
-          </div>
+          <Icon {...editProps.editIcon()} onClick={() => setOpen(true)} title={this.state.id} />
         )}>
         {({ open, setOpen }) => (
           <ComposedModal

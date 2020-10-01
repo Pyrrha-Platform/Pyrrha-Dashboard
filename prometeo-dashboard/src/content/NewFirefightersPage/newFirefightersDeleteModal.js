@@ -8,12 +8,14 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
+  Button,
+  Icon
 } from  'carbon-components-react';
-import {
-  Edit20,
-  Delete20
-} from "@carbon/icons-react/lib/edit/20";
+import { 
+  iconDelete, iconDeleteSolid, iconDeleteOutline, 
+} from 'carbon-icons';
 
+// This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
   renderLauncher: LauncherContent,
   children: ModalContent,
@@ -24,69 +26,104 @@ const ModalStateManager = ({
       {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent  
+              open={open} 
+              setOpen={setOpen} 
+            />,
             document.body
-          )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+          )
+      }
+      {LauncherContent && 
+      <LauncherContent 
+        open={open} 
+        setOpen={setOpen} 
+      />
+      }
     </>
   );
 };
 
+// Modal properties
 const deleteProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
-    danger: false,
+    danger: true,
     selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
-  modalHeader: ({ titleOnly } = {}) => ({
+  modalHeader: ({ titleOnly, name } = {}) => ({
     label: 'Firefighters',
-    title: 'Delete firefighter',
+    title: 'Delete firefighter ' + name + '?',
     iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    'aria-label': 'Delete firefighter',
+    'aria-label': 'Delete firefighter?',
   }),
   modalFooter: () => ({
-    primaryButtonText: 'Save',
+    primaryButtonText: 'Delete',
     primaryButtonDisabled: false,
     secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
-    onRequestSubmit: (event) => { handleSubmit(event); }
+    danger: true,
   }),
   menuItem: () => ({
     closeMenu: (event) => { handleSubmit(event); }
   }),
+  deleteIcon: () => ({
+    style: {
+      margin: '5px',
+    },
+    icon: iconDelete,
+    name: iconDelete,
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
+    description: 'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
+  }),
 };
 
-
-const handleSubmit = event => {
+// On submit we should be passed the values, not have to look them up
+const handleSubmit = (id, first, last, email, setOpen) => {
   console.log('handleSubmit');
+  console.log('id ' + id) ;
+  console.log('first ' + first);
+  console.log('last ' + last);
+  console.log('email ' + email);
 
-  axios.put(`/api/v1/firefighters/` + document.getElementById('firefighter-id').value, { 
-      id: document.getElementById('edit-firefighter-id').value, 
-      first: document.getElementById('edit-firefighter-first').value, 
-      last: document.getElementById('edit-firefighter-last').value, 
-      email: document.getElementById('edit-firefighter-email').value 
+  axios.delete(`/api/v1/firefighters/` + id, { 
+      'id': id, 
     }).then(res => {
-      // TODO: Set success message
-      // TODO: Add data to table
-      // TODO: Close modal
+      // TODO: Set success or error message
+      // TODO: Add data to table (or let it redraw)
       console.log(res);
       console.log(res.data);
+      // TODO: Check for error or success
+      setOpen(false);
     }
   );
 
   return true;
 }
 
+// The implementation of the Modal
 class NewFirefightersDeleteModal extends React.Component {
 
-  state = {
-    open: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      row: props.row,
+      id: this.props.row.cells[0].value,
+      first: this.props.row.cells[1].value,
+      last: this.props.row.cells[2].value,
+      email: this.props.row.cells[3].value,
+      open: false,
+    }
+    console.log(this.state.row);
   }
-
-  toggleModal = (open) => this.setState({ open });
 
   render() {
     // const { open } = this.state.open;
@@ -96,46 +133,18 @@ class NewFirefightersDeleteModal extends React.Component {
     return (
       <ModalStateManager
         renderLauncher={({ setOpen }) => (
-          <span></span>
+          <Icon {...deleteProps.deleteIcon()} onClick={() => setOpen(true)} title={this.state.id} />
         )}>
         {({ open, setOpen }) => (
           <ComposedModal
             {...rest}
             open={open}
+            row={this.props.row}
             size={size || undefined}
             onClose={() => setOpen(false)}>
-            <ModalHeader {...deleteProps.modalHeader()} />
-            <ModalBody
-              {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
-                <br />
-                <TextInput
-                  id="delete-firefighter-id"
-                  placeholder="GRAF001"
-                  labelText="ID:"
-                />
-                <br />
-                <TextInput
-                  id="delete-firefighter-first"
-                  placeholder="Joan"
-                  labelText="First name:"
-                />
-                <br />
-                <TextInput
-                  id="delete-firefighter-last"
-                  placeholder="Herrera"
-                  labelText="Last name:"
-                />
-                <br />
-                <TextInput
-                  id="delete-firefighter-email"
-                  placeholder="graf001@graf.cat"
-                  labelText="Email:"
-                />
-                <br />
-                <br />
-            </ModalBody>
-            <ModalFooter {...deleteProps.modalFooter()} />
+            <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.first + ' ' + this.state.last })} />
+            <ModalBody />
+            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.first, this.state.last, this.state.email, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
