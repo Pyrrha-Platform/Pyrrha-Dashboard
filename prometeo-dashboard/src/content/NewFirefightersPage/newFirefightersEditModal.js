@@ -85,7 +85,7 @@ const editProps = {
   }),
 };
 
-// On submit we should be passed the values, not have to look them up
+// On submit we should be passed the values.
 const handleSubmit = (id, first, last, email, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
