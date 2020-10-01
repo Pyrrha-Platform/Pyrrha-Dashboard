@@ -96,7 +96,7 @@ class NewFirefightersDeleteModal extends React.Component {
     return (
       <ModalStateManager
         renderLauncher={({ setOpen }) => (
-          <button onClick={() => setOpen(true)}>Delete</button>
+          <span></span>
         )}>
         {({ open, setOpen }) => (
           <ComposedModal

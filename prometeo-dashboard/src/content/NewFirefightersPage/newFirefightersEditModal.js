@@ -8,50 +8,43 @@ import {
   ModalBody,
   ModalHeader,
   ModalFooter,
-  Button
+  Button,
+  Icon
 } from  'carbon-components-react';
-import {
-  Edit20,
-  Delete20
-} from "@carbon/icons-react/lib/edit/20";
+import { 
+  iconEdit, iconEditSolid, iconEditOutline, 
+  iconDelete, iconDeleteSolid, iconDeleteOutline, 
+} from 'carbon-icons';
 
+// This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
   renderLauncher: LauncherContent,
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
-  const [row, setRow] = useState(false);
-  const [id, setId] = useState(false);
-  const [first, setFirst] = useState(false);
-  const [last, setLast] = useState(false);
-  const [email, setEmail] = useState(false);
   return (
     <>
       {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent  
+              open={open} 
+              setOpen={setOpen} 
+            />,
             document.body
-          )}
-      {LauncherContent && <LauncherContent 
+          )
+      }
+      {LauncherContent && 
+      <LauncherContent 
         open={open} 
         setOpen={setOpen} 
-        row={row} 
-        setRow={setRow} 
-        id={id} 
-        setId={setId} 
-        first={first} 
-        setFirst={setFirst} 
-        last={last} 
-        setLast={setLast} 
-        email={email} 
-        setEmail={setEmail} 
-        />
+      />
       }
     </>
   );
 };
 
+// Modal properties
 const editProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
@@ -72,47 +65,83 @@ const editProps = {
     primaryButtonDisabled: false,
     secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
-    onRequestSubmit: (event) => { handleSubmit(event); }
   }),
   menuItem: () => ({
     closeMenu: (event) => { handleSubmit(event); }
   }),
+  editIcon: () => ({
+    style: {
+      margin: '5px',
+    },
+    icon: iconEdit,
+    name: iconEdit,
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
+    description: 'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
+  }),
+  deleteIcon: () => ({
+    style: {
+      margin: '5px',
+    },
+    icon: iconDelete,
+    name: iconDelete,
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
+    description: 'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
+  }),
 };
 
-
-
-const handleSubmit = event => {
+// On submit we should be passed the values, not have to look them up
+const handleSubmit = (id, first, last, email, setOpen) => {
   console.log('handleSubmit');
+  console.log('id ' + id) ;
+  console.log('first ' + first);
+  console.log('last ' + last);
+  console.log('email ' + email);
 
-  axios.put(`/api/v1/firefighters/` + document.getElementById('firefighter-id').value, { 
-      id: document.getElementById('edit-firefighter-id').value, 
-      first: document.getElementById('edit-firefighter-first').value, 
-      last: document.getElementById('edit-firefighter-last').value, 
-      email: document.getElementById('edit-firefighter-email').value 
+  axios.put(`/api/v1/firefighters/` + id, { 
+      'id': id, 
+      'first': first, 
+      'last': last, 
+      'email': email 
     }).then(res => {
-      // TODO: Set success message
-      // TODO: Add data to table
-      // TODO: Close modal
+      // TODO: Set success or error message
+      // TODO: Add data to table (or let it redraw)
       console.log(res);
       console.log(res.data);
+      // TODO: Check for error or success
+      setOpen(false);
     }
   );
 
   return true;
 }
 
+// The implementation of the Modal
 class NewFirefightersEditModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       row: props.row,
+      id: this.props.row.cells[0].value,
+      first: this.props.row.cells[1].value,
+      last: this.props.row.cells[2].value,
+      email: this.props.row.cells[3].value,
       open: false,
     }
     console.log(this.state.row);
   }
-
-  toggleModal = (open) => this.setState({ open });
 
   render() {
     // const { open } = this.state.open;
@@ -121,10 +150,13 @@ class NewFirefightersEditModal extends React.Component {
 
     return (
       <ModalStateManager
-        renderLauncher={({ open, setOpen, row, setRow, id, setId, first, setFirst, last, setLast, email, setEmail}) => (
-          <button onClick={() => setOpen(true)}>Edit {this.props.row.id}</button>
+        renderLauncher={({ setOpen }) => (
+          <div>
+            <Icon {...editProps.editIcon()} onClick={() => setOpen(true)} title={this.state.id} />
+            <Icon {...editProps.deleteIcon()} onClick={() => setOpen(true)} title={this.state.id} />
+          </div>
         )}>
-        {({ open, setOpen, row, setRow, id, setId, first, setFirst, last, setLast, email, setEmail }) => (
+        {({ open, setOpen }) => (
           <ComposedModal
             {...rest}
             open={open}
@@ -137,32 +169,40 @@ class NewFirefightersEditModal extends React.Component {
               aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                 <br />
                 <TextInput
-                  id={"edit-firefighter-id-" + this.props.row.cells[0].value}
-                  placeholder={this.props.row.cells[0].value}
+                  id={this.state.id}
+                  value={this.state.id}
+                  placeholder={this.state.id}
                   labelText="ID:"
+                  onChange={(e) => this.state.id = e.target.value.trim()}
                 />
                 <br />
                 <TextInput
-                  id={"edit-firefighter-first-" + this.props.row.cells[1].value}
-                  placeholder={this.props.row.cells[1].value}
+                  id={this.state.first}
+                  value={this.state.first}
+                  placeholder={this.state.first}
                   labelText="First name:"
+                  onChange={(e) => this.state.first = e.target.value.trim()}
                 />
                 <br />
                 <TextInput
-                  id={"edit-firefighter-last-" + this.props.row.cells[2].value}
-                  placeholder={this.props.row.cells[2].value}
+                  id={this.state.last}
+                  value={this.state.last}
+                  placeholder={this.state.last}
                   labelText="Last name:"
+                  onChange={(e) => this.state.last = e.target.value.trim()}
                 />
                 <br />
                 <TextInput
-                  id={"edit-firefighter-email-" + this.props.row.cells[3].value}
-                  placeholder={this.props.row.cells[3].value}
+                  id={this.state.email}
+                  value={this.state.email}
+                  placeholder={this.state.email}
                   labelText="Email:"
+                  onChange={(e) => this.state.email = e.target.value.trim()}
                 />
                 <br />
                 <br />
             </ModalBody>
-            <ModalFooter {...editProps.modalFooter()} />
+            <ModalFooter {...editProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.first, this.state.last, this.state.email, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
