@@ -55,11 +55,11 @@ import Translate20 from "@carbon/icons-react/lib/translate/20";
         <HeaderGlobalAction aria-label="Search" onClick={() => { console.log('search click') }}>
           <Search20 element={Link} to="/" />
         </HeaderGlobalAction>
-        <HeaderGlobalAction aria-label="Translate" onClick={toggleActive} isActive={active}>
-          <Translate20 element={Link} to="/language" />
+        <HeaderGlobalAction aria-label="Translate" onClick={toggleActive} isActive={active} element={Link} to="/language">
+          <Translate20 />
         </HeaderGlobalAction>
-        <HeaderGlobalAction aria-label="User Avatar">
-          <UserAvatar20 element={Link} to="/profile" />
+        <HeaderGlobalAction aria-label="User Avatar" href="javascript:void(0)" element={Link} to="/profile">
+          <UserAvatar20 />
         </HeaderGlobalAction>
       </HeaderGlobalBar>
       <HeaderPanel aria-label="Header Panel" expanded={active}>

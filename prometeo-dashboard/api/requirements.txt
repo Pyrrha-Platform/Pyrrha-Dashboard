@@ -1,0 +1,9 @@
+Flask>=1.0.0
+gunicorn==19.7.1
+prometheus-client
+ibmcloudenv
+livereload
+flask_wtf
+requests
+mariadb
+python-dotenv
