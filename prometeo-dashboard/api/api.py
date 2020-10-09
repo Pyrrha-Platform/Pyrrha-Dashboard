@@ -30,13 +30,13 @@ def firefighters():
         message = {
             'status': 201,
             'message': 'Created',
-            'firefighter': request.get_json()['id']
+            'firefighter': firefighter.id
         }
         body = json.dumps(message)
         resp = Response(body, status=201, mimetype='application/json')
         return resp
 
-@app.route('/api/v1/firefighters/<string:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/v1/firefighters/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def firefighter_by_id(id):
 
     if request.method == 'GET':
@@ -55,7 +55,7 @@ def firefighter_by_id(id):
         message = {
             'status': 200,
             'message': 'Updated',
-            'firefighter': id
+            'firefighter': firefighter.id
         }
         body = json.dumps(message)
         resp = Response(body, status=200, mimetype='application/json')
@@ -66,7 +66,7 @@ def firefighter_by_id(id):
         message = {
             'status': 200,
             'message': 'Deleted',
-            'firefighter': id
+            'firefighter': firefighter.id
         }
         body = json.dumps(message)
         resp = Response(body, status=200, mimetype='application/json')
@@ -82,142 +82,3 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return "{ 'message': 'Error: Internal server error.' }", 500
-
-
-
-def add_firefighter(data):
-
-    firefighter = None
-
-    id = data['id']
-    first = data['first']
-    last = data['last']
-    email = data['email']
-
-    print(id)
-    print(first)
-    print(last)
-    print(email)
-
-    try:
-        conn = mariadb.connect(
-            user = os.getenv("MARIADB_USERNAME"),
-            password = os.getenv("MARIADB_PASSWORD"),
-            host = os.getenv("MARIADB_HOST"),
-            database = "prometeo",
-            port = int(os.getenv("MARIADB_PORT"))
-        )
-
-        cursor = conn.cursor()
-        
-        print("Add firefighter")
-        cursor.execute('INSERT INTO newfirefighters (id, first, last, email) VALUES (?, ?, ?, ?)', (id, first, last, email))
-        if cursor.lastrowid() > 0:
-            print("firefighters - Added firefighter")
-            conn.commit()
-        else:
-            print("firefighters - No firefighter added")
-            return None
-
-    except mariadb.Error as f:
-        print("Error connecting to MariaDB:")
-        print(f)
-
-    except Exception as e:
-        print('Error making the update')
-        print(e)
-        return None
-
-    finally:
-        cursor.close()
-        conn.close()
-
-    return firefighter
-
-
-def update_firefighter(data):
-
-    firefighter = None
-
-    print(data)
-
-    try:
-        conn = mariadb.connect(
-            user = os.getenv("MARIADB_USERNAME"),
-            password = os.getenv("MARIADB_PASSWORD"),
-            host = os.getenv("MARIADB_HOST"),
-            database = "prometeo",
-            port = int(os.getenv("MARIADB_PORT"))
-        )
-
-        cursor = conn.cursor()
-
-        print("Update firefighter")
-        cursor.execute('UPDATE newfirefighters SET (id = ?, first = ?, last = ?, email = ?) WHERE id = ?', (id, first, last, email, id))
-        data = cursor.fetchall()
-        if len(data[0][0]) == 0:
-            print("firefighter - Updated firefighter")
-            print(data)
-           
-        else:
-            print("firefighters - firefighter not updated")
-            return None
-
-    except mariadb.Error as f:
-        print("Error connecting to MariaDB:")
-        print(f)
-            #sys.exit(1)
-
-    except Exception as e:
-        print('Error getting the data')
-        print(e)
-        return None
-
-    finally:
-        cursor.close()
-        conn.close()
-
-    return firefighter
-
-
-def delete_firefighter(id):
-
-    firefighter = None
-
-    try:
-        conn = mariadb.connect(
-            user = os.getenv("MARIADB_USERNAME"),
-            password = os.getenv("MARIADB_PASSWORD"),
-            host = os.getenv("MARIADB_HOST"),
-            database = "prometeo",
-            port = int(os.getenv("MARIADB_PORT"))
-        )
-
-        cursor = conn.cursor()
-
-        print("Update firefighter")
-        cursor.execute('DELETE FROM newfirefighters WHERE id = ?', (id,))
-        data = cursor.fetchall()
-        if len(data[0][0]) == 0:
-            print("firefighter - Deleted firefighter")
-            print(data)
-           
-        else:
-            print("firefighters - firefighter not deleted")
-            return None
-
-    except mariadb.Error as f:
-        print("Error connecting to MariaDB:")
-        print(f)
-            #sys.exit(1)
-
-    except Exception as e:
-        print('Error getting the data')
-        print(e)
-        return None
-
-    finally:
-        cursor.close()
-        conn.close()
-
-    return firefighter

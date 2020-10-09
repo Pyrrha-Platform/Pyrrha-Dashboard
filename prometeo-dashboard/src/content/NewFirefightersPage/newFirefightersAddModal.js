@@ -69,15 +69,15 @@ const addProps = {
 };
 
 // On submit we should be passed the values.
-const handleSubmit = (id, first, last, email, setOpen) => {
+const handleSubmit = (code, first, last, email, setOpen) => {
   console.log('handleSubmit');
-  console.log('id ' + id) ;
+  console.log('code ' + code) ;
   console.log('first ' + first);
   console.log('last ' + last);
   console.log('email ' + email);
 
   axios.post(`/api/v1/firefighters`, { 
-      'id': id, 
+      'code': code, 
       'first': first, 
       'last': last, 
       'email': email 
@@ -101,7 +101,7 @@ class NewFirefightersAddModal extends React.Component {
       super(props);
       this.state = {
         row: props.row,
-        id: '',
+        code: '',
         first: '',
         last: '',
         email: '',
@@ -132,11 +132,11 @@ class NewFirefightersAddModal extends React.Component {
                 aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                   <br />
                     <TextInput
-                      id={this.state.id}
-                      value={this.state.id}
+                      id={this.state.code}
+                      value={this.state.code}
                       placeholder="GRAF001"
-                      labelText="ID:"
-                      onChange={(e) => this.state.id = e.target.value.trim()}
+                      labelText="Code:"
+                      onChange={(e) => this.state.code = e.target.value.trim()}
                     />
                     <br />
                     <TextInput
@@ -165,7 +165,7 @@ class NewFirefightersAddModal extends React.Component {
                   <br />
                   <br />
               </ModalBody>
-              <ModalFooter {...addProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.first, this.state.last, this.state.email, setOpen); }} />
+              <ModalFooter {...addProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.code, this.state.first, this.state.last, this.state.email, setOpen); }} />
             </ComposedModal>
           )}
         </ModalStateManager>

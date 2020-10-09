@@ -62,7 +62,7 @@ const handleSubmit = event => {
   console.log('handleSubmit');
 
   axios.post(`/api/v1/firefighters`, { 
-      id: document.getElementById('firefighter-id').value, 
+      code: document.getElementById('firefighter-code').code, 
       first: document.getElementById('firefighter-first').value, 
       last: document.getElementById('firefighter-last').value, 
       email: document.getElementById('firefighter-email').value 
@@ -108,9 +108,9 @@ class FirefightersModal extends React.Component {
                 aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                   <br />
                   <TextInput
-                    id="firefighter-id"
+                    id="firefighter-code"
                     placeholder="GRAF001"
-                    labelText="ID:"
+                    labelText="Code:"
                   />
                   <br />
                   <TextInput

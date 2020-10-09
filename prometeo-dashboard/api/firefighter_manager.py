@@ -12,7 +12,7 @@ class firefighter_manager(object):
         self.logger = logging.getLogger('prometeo.firefighters.fire_fighters')
         self.logger.debug('creating an instance of firefighters')
 
-    def insert_firefighter(self, id, first, last, email):
+    def insert_firefighter(self, code, first, last, email):
 
         firefighter = None
        
@@ -26,12 +26,13 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.callproc('sp_create_firefighter', (id, first, last, email))
+            cursor.execute('INSERT INTO firefighters (code, first, last, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
 
-            data = cursor.fetchall()
+            id = cursor.lastrowid()
 
-            if len(data[0][0]) == 0:
-                con.commit()
+            if id > 0:
+                firefighter = {'id': id} 
+                conn.commit()
                 return True
             else:
                 return False
@@ -43,7 +44,12 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-    def update_firefighter(self, bomberoid, nombre, apellidos, email):
+        return firefighter
+
+    def update_firefighter(self, id, code, first, last, email):
+        
+        firefighter = None
+        
         try:
             conn = mariadb.connect(
                 user = os.getenv("MARIADB_USERNAME"),
@@ -54,13 +60,13 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.callproc('sp_update_firefighter', (bomberoid, nombre, apellidos, email))
+            cursor.execute('UPDATE firefighters SET (id = ?, first = ?, last = ?, email = ?) WHERE id = ?', (id, first, last, email, id))
 
             data = cursor.fetchall()
 
             if len(data[0][0]) == 0:
-                con.commit()
-                return True
+                conn.commit()
+                firefighter = {'id': id} 
             else:
                 return False
 
@@ -71,10 +77,47 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-    def get_firefighter(self, bomberoid):
+        return firefighter
+
+    def delete_firefighter(self, id):
+        
+        firefighter = None       
+        
+        try:
+            conn = mariadb.connect(
+                user = os.getenv("MARIADB_USERNAME"),
+                password = os.getenv("MARIADB_PASSWORD"),
+                host = os.getenv("MARIADB_HOST"),
+                database = "prometeo",
+                port = int(os.getenv("MARIADB_PORT")))
+
+            cursor = conn.cursor()
+
+            cursor.callproc('sp_delete_firefighter', (id))
+            cursor.execute('UPDATE firefighters SET (deleted_at = NOW()) WHERE id = ?', (id,))
+            
+            data = cursor.fetchall()
+
+            if len(data[0][0]) == 0:
+                conn.commit()
+                firefighter = {'id': id} 
+            else:
+                return False
+
+        except Exception as e:
+            return None
+
+        finally:
+            cursor.close()
+            conn.close()
+
+        return firefighter
+
+    def get_firefighter(self, id):
+        
         print("get_firefighter - entro en la funcion")
 
-        firefighter = None
+        firefighter = {}
 
         try:
             conn = mariadb.connect(
@@ -86,13 +129,12 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT id, first, last, email FROM newfirefighters WHERE id = ?', (id,))
+            cursor.execute('SELECT id, code, first, last, email FROM firefighters WHERE id = ?', (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                firefighter = {'id': data[0], 'first': data[1], 'last': data[2], 'email': data[3]} 
-                return firefighter
+                firefighter = {'id': data[0], 'code': data[1],'first': data[2], 'last': data[3], 'email': data[4]} 
             else:
                 return None
 
@@ -102,6 +144,8 @@ class firefighter_manager(object):
         finally:
             cursor.close()
             conn.close()
+
+        return firefighter
 
     def get_all_firefighters(self):
         print("get_all_firefighters - entro en la funcion")
@@ -119,13 +163,13 @@ class firefighter_manager(object):
             cursor = conn.cursor()
 
             self.logger.info("get_all_firefighters - llamada a sql")
-            cursor.execute('SELECT id, first, last, email FROM newfirefighters')
+            cursor.execute('SELECT id, code, first, last, email FROM firefighters')
             data = cursor.fetchall()
             if len(data) > 0:
                 self.logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
                     self.logger.info(i)
-                    firefighters.append({'id': i[0], 'first': i[1], 'last': i[2], 'email': i[3]}) 
+                    firefighters.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
                 return firefighters
             else:
                 self.logger.info("get_all_firefighters - NO HAY INFORMACION")

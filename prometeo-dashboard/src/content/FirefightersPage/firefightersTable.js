@@ -25,6 +25,10 @@ const headerData = [
     key: 'id',
   },
   {
+    header: 'Code',
+    key: 'code',
+  },
+  {
     header: 'First name',
     key: 'first',
   },
