@@ -86,15 +86,17 @@ const editProps = {
 };
 
 // On submit we should be passed the values.
-const handleSubmit = (id, first, last, email, setOpen) => {
+const handleSubmit = (id, code, first, last, email, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
+  console.log('code ' + code) ;
   console.log('first ' + first);
   console.log('last ' + last);
   console.log('email ' + email);
 
   axios.put(`/api/v1/firefighters/` + id, { 
       'id': id, 
+      'code': code, 
       'first': first, 
       'last': last, 
       'email': email 
@@ -119,9 +121,10 @@ class NewFirefightersEditModal extends React.Component {
     this.state = {
       row: props.row,
       id: this.props.row.cells[0].value,
-      first: this.props.row.cells[1].value,
-      last: this.props.row.cells[2].value,
-      email: this.props.row.cells[3].value,
+      code: this.props.row.cells[1].value,
+      first: this.props.row.cells[2].value,
+      last: this.props.row.cells[3].value,
+      email: this.props.row.cells[4].value,
       open: false,
     }
     console.log(this.state.row);

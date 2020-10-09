@@ -87,6 +87,7 @@ const NewFirefightersTable = ( { firefighterId } ) => {
         method: 'put',
         body: JSON.stringify({
           id: firefighter.id,
+          code: firefighter.code,
           first: firefighter.first,
           last: firefighter.last,
           email: firefighter.email,

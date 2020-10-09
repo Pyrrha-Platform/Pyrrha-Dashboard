@@ -87,9 +87,10 @@ const deleteProps = {
 };
 
 // On submit we should be passed the values, not have to look them up
-const handleSubmit = (id, first, last, email, setOpen) => {
+const handleSubmit = (id, code, first, last, email, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
+  console.log('code ' + code) ;
   console.log('first ' + first);
   console.log('last ' + last);
   console.log('email ' + email);
@@ -117,9 +118,10 @@ class NewFirefightersDeleteModal extends React.Component {
     this.state = {
       row: props.row,
       id: this.props.row.cells[0].value,
-      first: this.props.row.cells[1].value,
-      last: this.props.row.cells[2].value,
-      email: this.props.row.cells[3].value,
+      code: this.props.row.cells[1].value,
+      first: this.props.row.cells[2].value,
+      last: this.props.row.cells[3].value,
+      email: this.props.row.cells[4].value,
       open: false,
     }
     console.log(this.state.row);
@@ -144,7 +146,7 @@ class NewFirefightersDeleteModal extends React.Component {
             onClose={() => setOpen(false)}>
             <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.first + ' ' + this.state.last })} />
             <ModalBody />
-            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.first, this.state.last, this.state.email, setOpen); }} />
+            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.first, this.state.last, this.state.email, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
