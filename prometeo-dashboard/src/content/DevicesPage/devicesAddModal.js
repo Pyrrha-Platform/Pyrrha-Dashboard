@@ -69,18 +69,16 @@ const addProps = {
 };
 
 // On submit we should be passed the values.
-const handleSubmit = (code, first, last, email, loadDevices, setOpen) => {
+const handleSubmit = (code, model, version, loadDevices, setOpen) => {
   console.log('handleSubmit');
   console.log('code ' + code) ;
-  console.log('first ' + first);
-  console.log('last ' + last);
-  console.log('email ' + email);
+  console.log('model ' + model);
+  console.log('version ' + version);
 
   axios.post(`/api/v1/devices`, { 
       'code': code, 
-      'first': first, 
-      'last': last, 
-      'email': email 
+      'model': model, 
+      'version': version
     }).then(res => {
       // TODO: Set success or error message
       console.log(res);
@@ -105,9 +103,8 @@ class DevicesAddModal extends React.Component {
         row: props.row,
         loadDevices: props.loadDevices,
         code: '',
-        first: '',
-        last: '',
-        email: '',
+        model: '',
+        version: '',
         open: false,
       }
       console.log(this.state.row);
@@ -138,33 +135,25 @@ class DevicesAddModal extends React.Component {
                     <TextInput
                       id={this.state.code}
                       value={this.state.code}
-                      placeholder="GRAF001"
+                      placeholder="0001"
                       labelText="Code:"
                       onChange={(e) => this.state.code = e.target.value.trim()}
                     />
                     <br />
                     <TextInput
-                      id={this.state.first}
-                      value={this.state.first}
-                      placeholder="Joan"
-                      labelText="First name:"
-                      onChange={(e) => this.state.first = e.target.value.trim()}
+                      id={this.state.model}
+                      value={this.state.model}
+                      placeholder="model 1"
+                      labelText="Model:"
+                      onChange={(e) => this.state.model = e.target.value.trim()}
                     />
                     <br />
                     <TextInput
-                      id={this.state.last}
-                      value={this.state.last}
-                      placeholder="Herrera"
-                      labelText="Last name:"
-                      onChange={(e) => this.state.last = e.target.value.trim()}
-                    />
-                    <br />
-                    <TextInput
-                      id={this.state.email}
-                      value={this.state.email}
-                      placeholder="graf004@graf.cat"
-                      labelText="Email:"
-                      onChange={(e) => this.state.email = e.target.value.trim()}
+                      id={this.state.version}
+                      value={this.state.version}
+                      placeholder="1.0"
+                      labelText="Version:"
+                      onChange={(e) => this.state.version = e.target.value.trim()}
                     />
                   <br />
                   <br />

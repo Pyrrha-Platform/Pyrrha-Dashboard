@@ -12,7 +12,7 @@ class event_manager(object):
         self.logger = logging.getLogger('prometeo.events.fire_fighters')
         self.logger.debug('creating an instance of events')
 
-    def insert_event(self, code, first, last, email):
+    def insert_event(self, code, type, firefighters, state):
 
         event = None
        
@@ -28,8 +28,8 @@ class event_manager(object):
 
             cursor = conn.cursor()
 
-            # cursor.execute('INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
-            cursor.callproc('sp_create_event', (data))
+            cursor.execute('INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            # cursor.callproc('sp_create_event', (data))
 
             conn.commit()
 

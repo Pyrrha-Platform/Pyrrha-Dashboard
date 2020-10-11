@@ -138,7 +138,7 @@ class EventsAddModal extends React.Component {
                     <TextInput
                       id={this.state.code}
                       value={this.state.code}
-                      placeholder="GRAF001"
+                      placeholder="REMS-10-01-200"
                       labelText="Code:"
                       onChange={(e) => this.state.code = e.target.value.trim()}
                     />
@@ -146,7 +146,7 @@ class EventsAddModal extends React.Component {
                     <TextInput
                       id={this.state.type}
                       value={this.state.type}
-                      placeholder=""
+                      placeholder="Controlled burn"
                       labelText="Type:"
                       onChange={(e) => this.state.type = e.target.value.trim()}
                     />
@@ -154,7 +154,7 @@ class EventsAddModal extends React.Component {
                     <TextInput
                       id={this.state.firefighters}
                       value={this.state.firefighters}
-                      placeholder=""
+                      placeholder="10"
                       labelText="Firefighters:"
                       onChange={(e) => this.state.firefighters = e.target.value.trim()}
                     />
@@ -162,7 +162,7 @@ class EventsAddModal extends React.Component {
                     <TextInput
                       id={this.state.state}
                       value={this.state.state}
-                      placeholder=""
+                      placeholder="In progress"
                       labelText="State:"
                       onChange={(e) => this.state.state = e.target.value.trim()}
                     />

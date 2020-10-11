@@ -25,7 +25,7 @@ const client = async (url, options) => {
 // Form header data
 const headerData = [
   {
-    header: 'Firefighter ID',
+    header: 'Device ID',
     key: 'id',
   },
   {
@@ -33,16 +33,12 @@ const headerData = [
     key: 'code',
   },
   {
-    header: 'First name',
-    key: 'first',
+    header: 'Model',
+    key: 'model',
   },
   {
-    header: 'Last name',
-    key: 'last',
-  },
-  {
-    header: 'Email',
-    key: 'email',
+    header: 'Version',
+    key: 'version',
   },
 ];
 

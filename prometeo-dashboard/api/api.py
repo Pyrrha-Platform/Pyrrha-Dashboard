@@ -5,6 +5,7 @@ import mariadb
 from flask import Flask, Response, json, request
 from .firefighter_manager import firefighter_manager
 from .event_manager import event_manager
+from .device_manager import device_manager
 
 logger = logging.getLogger('prometeo')
 logger.setLevel(logging.DEBUG)
@@ -226,3 +227,106 @@ def event_by_id(id):
 
     else:
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
+
+
+@app.route('/api/v1/devices', methods=['GET', 'POST'])
+def devices():
+    
+    if request.method == 'GET':
+        devices = device_manager().get_all_devices()
+        message = {
+            'status': 200,
+            'message': 'OK',
+            'devices': devices
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
+    elif request.method == 'POST':
+        created_values = request.get_json()
+
+        # TODO: Better validation
+        if created_values['code'].strip() == '' or created_values['model'].strip() == '' or created_values['version'].strip() == '':
+
+            message = {
+                'status': 400,
+                'message': 'Bad request',
+            }
+            body = json.dumps(message)
+            resp = Response(body, status=400, mimetype='application/json')
+            return resp
+
+        else:
+            device = device_manager().insert_device(
+                created_values['code'], 
+                created_values['model'], 
+                created_values['version']
+            )
+            message = {
+                'status': 201,
+                'message': 'Created',
+                'device': device['id']
+            }
+            body = json.dumps(message)
+            resp = Response(body, status=201, mimetype='application/json')
+            return resp
+
+@app.route('/api/v1/devices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+def device_by_id(id):
+
+    if request.method == 'GET':
+        device = device_manager().get_device(id)
+        message = {
+            'status': 200,
+            'message': 'OK',
+            'device': device
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
+    elif request.method == 'PUT':
+        updated_values = request.get_json()
+        
+        # TODO: Better validation
+        if updated_values['code'].strip() == '' or updated_values['type'].strip() == '' or updated_values['model'].strip() == '' or updated_values['version'].strip() == '':
+            message = {
+                'status': 400,
+                'message': 'Bad request',
+            }
+            body = json.dumps(message)
+            resp = Response(body, status=400, mimetype='application/json')
+            return resp
+
+        else:
+            device = device_manager().update_device(
+                updated_values['id'], 
+                updated_values['code'], 
+                updated_values['model'], 
+                updated_values['version']
+            )
+            message = {
+                'status': 200,
+                'message': 'Updated',
+                'device': device['id']
+            }
+            body = json.dumps(message)
+            resp = Response(body, status=200, mimetype='application/json')
+            return resp
+
+    elif request.method == 'DELETE':
+        device = device_manager().delete_device(id)
+        print(device)
+        message = {
+            'status': 200,
+            'message': 'Deleted',
+            'device': device['id']
+        }
+        body = json.dumps(message)
+        resp = Response(body, status=200, mimetype='application/json')
+        return resp
+
+    else:
+        return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
+

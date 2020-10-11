@@ -131,12 +131,12 @@ class device_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL AND device_id = ?', (id,))
+            cursor.execute('SELECT IntSensorId, SensorID, model, version FROM sensors WHERE deleted_at IS NULL AND IntSensorId = ?', (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                device = {'id': data[0], 'code': data[1],'first': data[2], 'last': data[3], 'email': data[4]} 
+                device = {'id': data[0], 'code': data[1], 'model': data[2], 'version': data[3]} 
             else:
                 return None
 
@@ -155,6 +155,8 @@ class device_manager(object):
         devices = []
 
         try:
+            print("get_all_devices - trying")
+
             conn = mariadb.connect(
                 user = os.getenv('MARIADB_USERNAME'),
                 password = os.getenv('MARIADB_PASSWORD'),
@@ -163,21 +165,28 @@ class device_manager(object):
                 port = int(os.getenv('MARIADB_PORT'))
             )
 
+            print("get_all_devices - before cursor")
             cursor = conn.cursor()
+            print("get_all_devices - after cursor")
 
-            self.logger.info("get_all_devices - llamada a sql")
-            cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL')
+            print("get_all_devices - llamada a sql")
+            # cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL')
+            cursor.callproc('sp_select_all_devices')
+            print("get_all_devices - sp_select_all_devices")
             data = cursor.fetchall()
+            print("get_all_devices - fetchall")
+            print(data)
             if len(data) > 0:
-                self.logger.info("get_all_devices - Hay informacion")
+                print("get_all_devices - Hay informacion")
                 for i in data:
-                    self.logger.info(i)
-                    devices.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
+                    print(i)
+                    devices.append({'id': i[0], 'code': i[1], 'model': i[2], 'version': i[3]} ) 
             else:
-                self.logger.info("get_all_devices - NO HAY INFORMACION")
+                print("get_all_devices - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            self.logger.info("get_all_devices - Estoy en la excepcion")
+            print("get_all_devices - Estoy en la excepcion")
+            print(e)
             return None
 
         finally:
