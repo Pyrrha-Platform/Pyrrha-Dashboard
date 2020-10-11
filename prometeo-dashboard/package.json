@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "dependencies": {
-    "@carbon/charts-react": "^0.38.0",
+    "@carbon/charts": "^0.40.0",
+    "@carbon/charts-react": "^0.40.0",
     "@carbon/grid": "^10.15.0",
     "@carbon/icons-react": "^10.17.0",
     "@carbon/layout": "^10.13.0",
@@ -19,6 +20,7 @@
     "carbon-components": "10.3.0",
     "carbon-components-react": "7.3.0",
     "carbon-icons": "7.0.7",
+    "d3": "5.x",
     "graphql": "14.3.1",
     "node-sass": "4.13.1",
     "react": "^16.13.1",
