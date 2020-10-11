@@ -69,7 +69,7 @@ const addProps = {
 };
 
 // On submit we should be passed the values.
-const handleSubmit = (code, first, last, email, setOpen) => {
+const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
   console.log('handleSubmit');
   console.log('code ' + code) ;
   console.log('first ' + first);
@@ -83,11 +83,13 @@ const handleSubmit = (code, first, last, email, setOpen) => {
       'email': email 
     }).then(res => {
       // TODO: Set success or error message
-      // TODO: Add data to table (or let it redraw)
       console.log(res);
       console.log(res.data);
+
+      // Refresh data
+      loadFirefighters();
+
       // TODO: Check for error or success
-      // TODO: Clear form back to default values
       setOpen(false);
     }
   );
@@ -95,12 +97,13 @@ const handleSubmit = (code, first, last, email, setOpen) => {
   return true;
 }
 
-class NewFirefightersAddModal extends React.Component {
+class FirefightersAddModal extends React.Component {
 
     constructor(props) {
       super(props);
       this.state = {
         row: props.row,
+        loadFirefighters: props.loadFirefighters,
         code: '',
         first: '',
         last: '',
@@ -124,6 +127,7 @@ class NewFirefightersAddModal extends React.Component {
             <ComposedModal
               {...rest}
               open={open}
+              loadFirefighters={this.props.loadFirefighters}
               size={size || undefined}
               onClose={() => setOpen(false)}>
               <ModalHeader {...addProps.modalHeader()} />
@@ -165,7 +169,7 @@ class NewFirefightersAddModal extends React.Component {
                   <br />
                   <br />
               </ModalBody>
-              <ModalFooter {...addProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.code, this.state.first, this.state.last, this.state.email, setOpen); }} />
+              <ModalFooter {...addProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.code, this.state.first, this.state.last, this.state.email, this.state.loadFirefighters, setOpen); }} />
             </ComposedModal>
           )}
         </ModalStateManager>
@@ -175,4 +179,4 @@ class NewFirefightersAddModal extends React.Component {
   
 }
 
-export default NewFirefightersAddModal;
+export default FirefightersAddModal;

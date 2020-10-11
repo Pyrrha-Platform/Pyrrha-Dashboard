@@ -11,9 +11,9 @@ import {
   TableToolbar,
   TableToolbarContent,
 } from  'carbon-components-react';
-import FirefightersAddModal from './firefightersAddModal';
-import FirefightersEditModal from './firefightersEditModal';
-import FirefightersDeleteModal from './firefightersDeleteModal';
+import EventsAddModal from './eventsAddModal';
+import EventsEditModal from './eventsEditModal';
+import EventsDeleteModal from './eventsDeleteModal';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -25,7 +25,7 @@ const client = async (url, options) => {
 // Form header data
 const headerData = [
   {
-    header: 'Firefighter ID',
+    header: 'Event ID',
     key: 'id',
   },
   {
@@ -33,34 +33,34 @@ const headerData = [
     key: 'code',
   },
   {
-    header: 'First name',
-    key: 'first',
+    header: 'Type',
+    key: 'type',
   },
   {
-    header: 'Last name',
-    key: 'last',
+    header: 'Firefighters',
+    key: 'firefighters',
   },
   {
-    header: 'Email',
-    key: 'email',
+    header: 'State',
+    key: 'state',
   },
 ];
 
 // Table and data
-const NewFirefightersTable = ( { firefighterId } ) => {
+const NewEventsTable = ( { eventId } ) => {
 
-  const [firefighters, setFirefighters] = React.useState([]);
+  const [events, setEvents] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
 
   React.useEffect(() => {
-    loadFirefighters();
+    loadEvents();
   }, [fetched]);
 
-  const loadFirefighters = React.useCallback(async () => {
+  const loadEvents = React.useCallback(async () => {
     try {
-      const data = await client(`/api/v1/firefighters`);
+      const data = await client(`/api/v1/events`);
       console.log(data);
-      setFirefighters(data.firefighters);
+      setEvents(data.events);
     } catch (e) {
       console.log(e);
     }
@@ -73,7 +73,7 @@ const NewFirefightersTable = ( { firefighterId } ) => {
         
           <DataTable isSortable
               headers={headerData}
-              rows={firefighters}
+              rows={events}
               render={({
                 rows,
                 headers,
@@ -84,10 +84,10 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                 onInputChange,
                 getTableContainerProps
           }) => (
-            <TableContainer title="Firefighters">
+            <TableContainer title="Events">
               <TableToolbar aria-label="data table toolbar">
                 <TableToolbarContent>
-                  <FirefightersAddModal rows={rows} loadFirefighters={loadFirefighters} />
+                  <EventsAddModal rows={rows} loadEvents={loadEvents} />
                 </TableToolbarContent>
               </TableToolbar>
               <Table size='normal' {...getTableProps()}>
@@ -110,8 +110,8 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell>
-                        <FirefightersEditModal row={row} loadFirefighters={loadFirefighters} />
-                        <FirefightersDeleteModal row={row} loadFirefighters={loadFirefighters} />
+                        <EventsEditModal row={row} loadEvents={loadEvents} />
+                        <EventsDeleteModal row={row} loadEvents={loadEvents} />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -126,4 +126,4 @@ const NewFirefightersTable = ( { firefighterId } ) => {
     );
   }
 
-export default NewFirefightersTable;
+export default NewEventsTable;

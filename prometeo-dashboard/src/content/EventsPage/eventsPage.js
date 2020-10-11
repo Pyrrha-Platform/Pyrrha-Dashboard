@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import NewFirefightersTable from './newFirefightersTable';
+import EventsTable from './eventsTable';
 
-function NewFirefightersPage() {
+function EventsPage() {
   return (
     <div>
       <Header />
       <SideMenu />
-      <NewFirefightersTable />
+      <EventsTable />
     </div>
   );
 }
 
-export default NewFirefightersPage;
+export default EventsPage;

@@ -4,7 +4,8 @@ import logo from './logo.svg';
 import { Button } from 'carbon-components-react';
 import './App.scss';
 import FirefightersPage from './content/FirefightersPage';
-import NewFirefightersPage from './content/NewFirefightersPage';
+import EventsPage from './content/EventsPage';
+import DevicesPage from './content/DevicesPage';
 
 function App() {
   
@@ -29,8 +30,6 @@ function App() {
             <Link className="App-link" to="/devices">Devices</Link>
             &nbsp;|&nbsp;
             <Link className="App-link" to="/reports">Reports</Link>
-            &nbsp;|&nbsp;
-            <Link className="App-link" to="/newfirefighters">New Firefighters</Link>
           </div>
           <Switch>
             <Route exact path="/">
@@ -52,16 +51,16 @@ function App() {
                 <Button>Button</Button>
             </Route>
             <Route path="/events">
-                <FirefightersPage />
+                <EventsPage />
             </Route>
             <Route path="/devices">
-                <FirefightersPage />
+                <DevicesPage />
             </Route>
             <Route path="/reports">
                 <FirefightersPage />
             </Route>
-            <Route path="/newfirefighters">
-                <NewFirefightersPage />
+            <Route path="/firefighters">
+                <FirefightersPage />
             </Route>
           </Switch>
         </BrowserRouter>

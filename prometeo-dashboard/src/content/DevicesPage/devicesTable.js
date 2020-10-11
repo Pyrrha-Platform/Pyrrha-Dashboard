@@ -11,9 +11,9 @@ import {
   TableToolbar,
   TableToolbarContent,
 } from  'carbon-components-react';
-import NewFirefightersAddModal from './newFirefightersAddModal';
-import NewFirefightersEditModal from './newFirefightersEditModal';
-import NewFirefightersDeleteModal from './newFirefightersDeleteModal';
+import DevicesAddModal from './devicesAddModal';
+import DevicesEditModal from './devicesEditModal';
+import DevicesDeleteModal from './devicesDeleteModal';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -47,20 +47,20 @@ const headerData = [
 ];
 
 // Table and data
-const NewFirefightersTable = ( { firefighterId } ) => {
+const NewDevicesTable = ( { deviceId } ) => {
 
-  const [firefighters, setFirefighters] = React.useState([]);
+  const [devices, setDevices] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
 
   React.useEffect(() => {
-    loadFirefighters();
+    loadDevices();
   }, [fetched]);
 
-  const loadFirefighters = React.useCallback(async () => {
+  const loadDevices = React.useCallback(async () => {
     try {
-      const data = await client(`/api/v1/firefighters`);
+      const data = await client(`/api/v1/devices`);
       console.log(data);
-      setFirefighters(data.firefighters);
+      setDevices(data.devices);
     } catch (e) {
       console.log(e);
     }
@@ -73,7 +73,7 @@ const NewFirefightersTable = ( { firefighterId } ) => {
         
           <DataTable isSortable
               headers={headerData}
-              rows={firefighters}
+              rows={devices}
               render={({
                 rows,
                 headers,
@@ -84,10 +84,10 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                 onInputChange,
                 getTableContainerProps
           }) => (
-            <TableContainer title="Firefighters">
+            <TableContainer title="Devices">
               <TableToolbar aria-label="data table toolbar">
                 <TableToolbarContent>
-                  <NewFirefightersAddModal rows={rows} />
+                  <DevicesAddModal rows={rows} loadDevices={loadDevices} />
                 </TableToolbarContent>
               </TableToolbar>
               <Table size='normal' {...getTableProps()}>
@@ -110,8 +110,8 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell>
-                        <NewFirefightersEditModal row={row} rows={rows} loadFirefighters={loadFirefighters} />
-                        <NewFirefightersDeleteModal row={row} rows={rows} loadFirefighters={loadFirefighters} />
+                        <DevicesEditModal row={row} loadDevices={loadDevices} />
+                        <DevicesDeleteModal row={row} loadDevices={loadDevices} />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -126,4 +126,4 @@ const NewFirefightersTable = ( { firefighterId } ) => {
     );
   }
 
-export default NewFirefightersTable;
+export default NewDevicesTable;

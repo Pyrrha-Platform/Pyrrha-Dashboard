@@ -5,16 +5,16 @@ import os
 import logging
 from dotenv import load_dotenv
 
-class firefighter_manager(object):
+class device_manager(object):
 
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('prometeo.firefighters.fire_fighters')
-        self.logger.debug('creating an instance of firefighters')
+        self.logger = logging.getLogger('prometeo.devices.fire_fighters')
+        self.logger.debug('creating an instance of devices')
 
-    def insert_firefighter(self, code, first, last, email):
+    def insert_device(self, code, first, last, email):
 
-        firefighter = None
+        device = None
        
         try:
             conn = mariadb.connect(
@@ -28,14 +28,14 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO firefighters (firefighter_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            cursor.execute('INSERT INTO devices (device_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
 
             conn.commit()
 
             id = cursor.lastrowid
 
             if id > 0:
-                firefighter = {'id': id} 
+                device = {'id': id} 
             else:
                 return False
 
@@ -46,11 +46,11 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighter
+        return device
 
-    def update_firefighter(self, id, code, first, last, email):
+    def update_device(self, id, code, first, last, email):
         
-        firefighter = None
+        device = None
         
         try:
             conn = mariadb.connect(
@@ -64,11 +64,11 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_id = ?', (code, first, last, email, id))
+            cursor.execute('UPDATE devices SET device_code = ?, name = ?, surname = ?, email = ? WHERE device_id = ?', (code, first, last, email, id))
 
             if cursor.rowcount == 1:
                 conn.commit()
-                firefighter = {'id': id} 
+                device = {'id': id} 
             else:
                 return False
 
@@ -79,11 +79,11 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighter
+        return device
 
-    def delete_firefighter(self, id):
+    def delete_device(self, id):
         
-        firefighter = None       
+        device = None       
         
         try:
             conn = mariadb.connect(
@@ -97,11 +97,11 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_id =  ?', (id,))
+            cursor.execute('UPDATE devices SET deleted_at = NOW() WHERE device_id =  ?', (id,))
             
             if cursor.rowcount == 1:
                 conn.commit()
-                firefighter = {'id': id} 
+                device = {'id': id} 
             else:
                 return False
 
@@ -112,13 +112,13 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighter
+        return device
 
-    def get_firefighter(self, id):
+    def get_device(self, id):
         
-        print("get_firefighter - entro en la funcion")
+        print("get_device - entro en la funcion")
 
-        firefighter = {}
+        device = {}
 
         try:
             conn = mariadb.connect(
@@ -131,12 +131,12 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_id = ?', (id,))
+            cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL AND device_id = ?', (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                firefighter = {'id': data[0], 'code': data[1],'first': data[2], 'last': data[3], 'email': data[4]} 
+                device = {'id': data[0], 'code': data[1],'first': data[2], 'last': data[3], 'email': data[4]} 
             else:
                 return None
 
@@ -147,12 +147,12 @@ class firefighter_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighter
+        return device
 
-    def get_all_firefighters(self):
-        print("get_all_firefighters - entro en la funcion")
+    def get_all_devices(self):
+        print("get_all_devices - entro en la funcion")
 
-        firefighters = []
+        devices = []
 
         try:
             conn = mariadb.connect(
@@ -165,23 +165,23 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            self.logger.info("get_all_firefighters - llamada a sql")
-            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
+            self.logger.info("get_all_devices - llamada a sql")
+            cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL')
             data = cursor.fetchall()
             if len(data) > 0:
-                self.logger.info("get_all_firefighters - Hay informacion")
+                self.logger.info("get_all_devices - Hay informacion")
                 for i in data:
                     self.logger.info(i)
-                    firefighters.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
+                    devices.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
             else:
-                self.logger.info("get_all_firefighters - NO HAY INFORMACION")
+                self.logger.info("get_all_devices - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            self.logger.info("get_all_firefighters - Estoy en la excepcion")
+            self.logger.info("get_all_devices - Estoy en la excepcion")
             return None
 
         finally:
             cursor.close()
             conn.close()
 
-        return firefighters
+        return devices

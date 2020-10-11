@@ -51,13 +51,13 @@ const deleteProps = {
     selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly, name } = {}) => ({
-    label: 'Firefighters',
-    title: 'Delete firefighter ' + name + '?',
+    label: 'Events',
+    title: 'Delete event ' + name + '?',
     iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    'aria-label': 'Delete firefighter?',
+    'aria-label': 'Delete event?',
   }),
   modalFooter: () => ({
     primaryButtonText: 'Delete',
@@ -87,33 +87,23 @@ const deleteProps = {
 };
 
 // On submit we should be passed the values, not have to look them up
-const handleSubmit = (id, code, first, last, email, row, rows, loadFirefighters, setOpen) => {
+const handleSubmit = (id, code, type, firefighters, state, loadEvents, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
   console.log('code ' + code) ;
-  console.log('first ' + first);
-  console.log('last ' + last);
-  console.log('email ' + email);
+  console.log('type ' + type);
+  console.log('firefighters ' + firefighters);
+  console.log('state ' + state);
 
-  axios.delete(`/api/v1/firefighters/` + id, { 
+  axios.delete(`/api/v1/events/` + id, { 
       'id': id, 
     }).then(res => {
       // TODO: Set success or error message
       console.log(res);
       console.log(res.data);
 
-      // Add data to table (or let it redraw)
-      /*
-      for (var i = 0; i < rows.length; i++) { 
-        if (rows[i].id == id) { 
-          console.log('ID matched');
-          rows.splice(i, 1); 
-        } 
-      }
-      setFirefighters(rows);
-      */
-
-      loadFirefighters();
+      // Refresh data
+      loadEvents();
 
       // TODO: Check for error or success
       setOpen(false);
@@ -124,19 +114,18 @@ const handleSubmit = (id, code, first, last, email, row, rows, loadFirefighters,
 }
 
 // The implementation of the Modal
-class NewFirefightersDeleteModal extends React.Component {
+class EventsDeleteModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       row: props.row,
-      rows: props.rows,
-      loadFirefighters: props.loadFirefighters,
+      loadEvents: props.loadEvents,
       id: this.props.row.cells[0].value,
       code: this.props.row.cells[1].value,
-      first: this.props.row.cells[2].value,
-      last: this.props.row.cells[3].value,
-      email: this.props.row.cells[4].value,
+      type: this.props.row.cells[2].value,
+      firefighters: this.props.row.cells[3].value,
+      state: this.props.row.cells[4].value,
       open: false,
     }
     console.log(this.state.row);
@@ -157,13 +146,12 @@ class NewFirefightersDeleteModal extends React.Component {
             {...rest}
             open={open}
             row={this.props.row}
-            rows={this.props.rows}
-            loadFirefighters={this.props.loadFirefighters}
+            loadEvents={this.props.loadEvents}
             size={size || undefined}
             onClose={() => setOpen(false)}>
-            <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.first + ' ' + this.state.last })} />
+            <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.code + ' ' + this.state.type })} />
             <ModalBody />
-            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.first, this.state.last, this.state.email, this.state.row, this.state.rows, this.state.loadFirefighters, setOpen); }} />
+            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.type, this.state.firefighters, this.state.state, this.state.loadEvents, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
@@ -173,4 +161,4 @@ class NewFirefightersDeleteModal extends React.Component {
   
 }
 
-export default NewFirefightersDeleteModal;
+export default EventsDeleteModal;

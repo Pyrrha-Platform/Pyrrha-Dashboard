@@ -86,7 +86,7 @@ const editProps = {
 };
 
 // On submit we should be passed the values.
-const handleSubmit = (id, code, first, last, email, setOpen) => {
+const handleSubmit = (id, code, first, last, email, loadFirefighters, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
   console.log('code ' + code) ;
@@ -102,9 +102,12 @@ const handleSubmit = (id, code, first, last, email, setOpen) => {
       'email': email 
     }).then(res => {
       // TODO: Set success or error message
-      // TODO: Add data to table (or let it redraw)
       console.log(res);
       console.log(res.data);
+
+      // Refresh data
+      loadFirefighters();
+
       // TODO: Check for error or success
       setOpen(false);
     }
@@ -114,12 +117,13 @@ const handleSubmit = (id, code, first, last, email, setOpen) => {
 }
 
 // The implementation of the Modal
-class NewFirefightersEditModal extends React.Component {
+class FirefightersEditModal extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       row: props.row,
+      loadFirefighters: props.loadFirefighters,
       id: this.props.row.cells[0].value,
       code: this.props.row.cells[1].value,
       first: this.props.row.cells[2].value,
@@ -145,6 +149,7 @@ class NewFirefightersEditModal extends React.Component {
             {...rest}
             open={open}
             row={this.props.row}
+            loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
             onClose={() => setOpen(false)}>
             <ModalHeader {...editProps.modalHeader()} />
@@ -153,11 +158,11 @@ class NewFirefightersEditModal extends React.Component {
               aria-label={hasScrollingContent ? 'Modal content' : undefined}>
                 <br />
                 <TextInput
-                  id={this.state.id}
-                  value={this.state.id}
-                  placeholder={this.state.id}
-                  labelText="ID:"
-                  onChange={(e) => this.state.id = e.target.value.trim()}
+                  id={this.state.code}
+                  value={this.state.code}
+                  placeholder={this.state.code}
+                  labelText="Code:"
+                  onChange={(e) => this.state.code = e.target.value.trim()}
                 />
                 <br />
                 <TextInput
@@ -186,7 +191,7 @@ class NewFirefightersEditModal extends React.Component {
                 <br />
                 <br />
             </ModalBody>
-            <ModalFooter {...editProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.first, this.state.last, this.state.email, setOpen); }} />
+            <ModalFooter {...editProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.first, this.state.last, this.state.email, this.state.loadFirefighters, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
@@ -196,4 +201,4 @@ class NewFirefightersEditModal extends React.Component {
   
 }
 
-export default NewFirefightersEditModal;
+export default FirefightersEditModal;
