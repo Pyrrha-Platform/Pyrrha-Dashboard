@@ -1,7 +1,7 @@
 .dashboard-content {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    padding-left: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 3rem;
     max-width: 1600px;
   }
   
@@ -19,4 +19,13 @@
 
 .fullwidth {
   width: 100%;
+}
+
+.dashboard-label {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.dashboard-gray {
+  background-color: #ddd;
 }

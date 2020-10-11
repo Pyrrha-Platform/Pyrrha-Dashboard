@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-    DonutChart 
+    GaugeChart 
 } from '@carbon/charts-react';
 import "@carbon/charts/styles.css";
 
@@ -35,29 +35,89 @@ const DashboardGrid = ( { deviceId } ) => {
       }
     });
 
+    const headerStyle = {
+        fontSize: '150%',
+        fontWeight: 'bold',
+        marginBottom: '15px',
+    };
+
     const state = {
-        data: [
+        coData: [
             {
-                "group": "CO",
-                "value": 25
-            },
-            {
-                "group": "Non CO",
+                "group": "value",
                 "value": 75
             }
         ],
-        options: {
+        coOptions: {
             "title": "CO",
-            "legend": false,
             "resizable": true,
-            "donut": {
-                "center": {
-                    "label": "CO"
-                },
-                "alignment": "center"
+            "gauge": {
+                "type": "full"
             },
-            "height": "400px"
-        }
+            "color": {
+                "scale": {
+                    "value": "#da1e28"
+                }
+            },
+            "height": "100px"
+        },
+        no2Data: [
+            {
+                "group": "value",
+                "value": 50
+            }
+        ],
+        no2Options: {
+            "title": "NO2",
+            "resizable": true,
+            "gauge": {
+                "type": "full"
+            },
+            "color": {
+                "scale": {
+                    "value": "#ff832b"
+                }
+            },
+            "height": "100px"
+        },
+        tmpData: [
+            {
+                "group": "value",
+                "value": 25
+            }
+        ],
+        tmpOptions: {
+            "title": "Temp",
+            "resizable": true,
+            "gauge": {
+                "type": "full"
+            },
+            "color": {
+                "scale": {
+                    "value": "#24a148"
+                }
+            },
+            "height": "100px"
+        },
+        humData: [
+            {
+                "group": "value",
+                "value": 0
+            }
+        ],
+        humOptions: {
+            "title": "Hum",
+            "resizable": true,
+            "gauge": {
+                "type": "full"
+            },
+            "color": {
+                "scale": {
+                    "value": "#eee"
+                }
+            },
+            "height": "100px"
+        },
     };
   
     return (
@@ -65,21 +125,38 @@ const DashboardGrid = ( { deviceId } ) => {
         <div className="bx--row dashboard-page__r2">
             <div className="bx--col-md-4">
                 <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
+                    <div className="bx--row dashboard-page__r2 dashboard-gray">
                         <div className="bx--col-md-2">
-                            <DonutChart
-                                data={state.data}
-                                options={state.options}>
-                            </DonutChart>
+                            <p style={headerStyle}>GRAF 4</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            NO<sub>2</sub>
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            Temperature
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            Humidity
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
                         </div>
                     </div>
                 </div>
@@ -87,17 +164,37 @@ const DashboardGrid = ( { deviceId } ) => {
             <div className="bx--col-md-4">
                 <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
                     <div className="bx--row dashboard-page__r2">
-                    <div className="bx--col-md-2">
-                            CO
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 7</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            NO<sub>2</sub>
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            Temperature
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
                         </div>
                         <div className="bx--col-md-2">
-                            Humidity
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
                         </div>
                     </div>
                 </div>
@@ -105,26 +202,232 @@ const DashboardGrid = ( { deviceId } ) => {
         </div>
         <div className="bx--row dashboard-page__r3">
             <div className="bx--col-md-4">
-                Carbon is Modular
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 5</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="bx--col-md-4">
-                Carbon is Consistent
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 1</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div className="bx--row dashboard-page__r43">
             <div className="bx--col-md-4">
-                Carbon is Modular
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 3</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="bx--col-md-4">
-                Carbon is Consistent
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 6</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div className="bx--row dashboard-page__r5">
             <div className="bx--col-md-4">
-                Carbon is Modular
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 2</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="bx--col-md-4">
-                Carbon is Consistent
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>GRAF 8</p>
+                            <p>40ppm</p>
+                            <GaugeChart
+                                data={state.coData}
+                                options={state.coOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>20ppm</p>
+                            <GaugeChart
+                                data={state.no2Data}
+                                options={state.no2Options}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>28&#8451;</p>
+                            <GaugeChart
+                                data={state.tmpData}
+                                options={state.tmpOptions}>
+                            </GaugeChart>
+                        </div>
+                        <div className="bx--col-md-2">
+                            <p style={headerStyle}>&nbsp;</p>
+                            <p>72%</p>
+                            <GaugeChart
+                                data={state.humData}
+                                options={state.humOptions}>
+                            </GaugeChart>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
       </div>
