@@ -29,6 +29,10 @@ const headerData = [
     key: 'id',
   },
   {
+    header: 'Code',
+    key: 'code',
+  },
+  {
     header: 'First name',
     key: 'first',
   },
@@ -62,58 +66,6 @@ const NewFirefightersTable = ( { firefighterId } ) => {
     }
   });
 
-  const onAddClicked = async (id, first, last, email) => {
-    try {
-      const response = await client(`/api/v1/firefighters`, {
-        method: 'post',
-        body: JSON.stringify({
-          id: id,
-          first: first,
-          last: last,
-          email: email,
-        }),
-      });
-      console.log(response);
-      loadFirefighters();
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // When the firefighters edit button is used
-  const onEditClicked = async (firefighter) => {
-    try {
-      const response = await client(`/api/v1/firefighters/${firefighter.id}`, {
-        method: 'put',
-        body: JSON.stringify({
-          id: firefighter.id,
-          code: firefighter.code,
-          first: firefighter.first,
-          last: firefighter.last,
-          email: firefighter.email,
-        }),
-      });
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // When the firefighters delete button is used
-  const onDeleteClicked = async (firefighter) => {
-    try {
-      const response = await client(`/api/v1/firefighters/${firefighter.id}`, {
-        method: 'delete',
-        body: JSON.stringify({
-          id: firefighter.id,
-        }),
-      });
-      console.log(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
       <div className="bx--row sensors-page__r2">
@@ -135,7 +87,6 @@ const NewFirefightersTable = ( { firefighterId } ) => {
             <TableContainer title="Firefighters">
               <TableToolbar aria-label="data table toolbar">
                 <TableToolbarContent>
-                  {/* <NewFirefightersAddModal rows={rows} /> */}
                   <NewFirefightersAddModal rows={rows} />
                 </TableToolbarContent>
               </TableToolbar>
@@ -159,8 +110,8 @@ const NewFirefightersTable = ( { firefighterId } ) => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell>
-                        <NewFirefightersEditModal row={row} />
-                        <NewFirefightersDeleteModal row={row} />
+                        <NewFirefightersEditModal row={row} rows={rows} loadFirefighters={loadFirefighters} />
+                        <NewFirefightersDeleteModal row={row} rows={rows} loadFirefighters={loadFirefighters} />
                       </TableCell>
                     </TableRow>
                   ))}

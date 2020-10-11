@@ -26,7 +26,7 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO firefighters (code, first, last, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            cursor.execute('INSERT INTO firefighters (firefighter_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
 
             id = cursor.lastrowid()
 
@@ -60,7 +60,7 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE firefighters SET (id = ?, first = ?, last = ?, email = ?) WHERE id = ?', (id, first, last, email, id))
+            cursor.execute('UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_id = ?', (code, first, last, email, id))
 
             data = cursor.fetchall()
 
@@ -93,12 +93,9 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.callproc('sp_delete_firefighter', (id))
-            cursor.execute('UPDATE firefighters SET (deleted_at = NOW()) WHERE id = ?', (id,))
+            cursor.execute('UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_id =  ?', (id,))
             
-            data = cursor.fetchall()
-
-            if len(data[0][0]) == 0:
+            if cursor.rowcount == 1:
                 conn.commit()
                 firefighter = {'id': id} 
             else:
@@ -129,7 +126,7 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT id, code, first, last, email FROM firefighters WHERE id = ?', (id,))
+            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_id = ?', (id,))
 
             data = cursor.fetchone()
 
@@ -163,14 +160,13 @@ class firefighter_manager(object):
             cursor = conn.cursor()
 
             self.logger.info("get_all_firefighters - llamada a sql")
-            cursor.execute('SELECT id, code, first, last, email FROM firefighters')
+            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
             data = cursor.fetchall()
             if len(data) > 0:
                 self.logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
                     self.logger.info(i)
                     firefighters.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
-                return firefighters
             else:
                 self.logger.info("get_all_firefighters - NO HAY INFORMACION")
                 return None
@@ -181,3 +177,5 @@ class firefighter_manager(object):
         finally:
             cursor.close()
             conn.close()
+
+        return firefighters

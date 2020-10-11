@@ -30,7 +30,7 @@ def firefighters():
         message = {
             'status': 201,
             'message': 'Created',
-            'firefighter': firefighter.id
+            'firefighter': firefighter['id']
         }
         body = json.dumps(message)
         resp = Response(body, status=201, mimetype='application/json')
@@ -55,18 +55,19 @@ def firefighter_by_id(id):
         message = {
             'status': 200,
             'message': 'Updated',
-            'firefighter': firefighter.id
+            'firefighter': firefighter['id']
         }
         body = json.dumps(message)
         resp = Response(body, status=200, mimetype='application/json')
         return resp
 
     elif request.method == 'DELETE':
-        firefighter = firefighter_manager().delete_firefighter(request.get_json())
+        firefighter = firefighter_manager().delete_firefighter(id)
+        print(firefighter)
         message = {
             'status': 200,
             'message': 'Deleted',
-            'firefighter': firefighter.id
+            'firefighter': firefighter['id']
         }
         body = json.dumps(message)
         resp = Response(body, status=200, mimetype='application/json')

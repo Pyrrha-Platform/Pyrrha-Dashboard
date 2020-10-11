@@ -87,7 +87,7 @@ const deleteProps = {
 };
 
 // On submit we should be passed the values, not have to look them up
-const handleSubmit = (id, code, first, last, email, setOpen) => {
+const handleSubmit = (id, code, first, last, email, row, rows, loadFirefighters, setOpen) => {
   console.log('handleSubmit');
   console.log('id ' + id) ;
   console.log('code ' + code) ;
@@ -99,9 +99,22 @@ const handleSubmit = (id, code, first, last, email, setOpen) => {
       'id': id, 
     }).then(res => {
       // TODO: Set success or error message
-      // TODO: Add data to table (or let it redraw)
       console.log(res);
       console.log(res.data);
+
+      // Add data to table (or let it redraw)
+      /*
+      for (var i = 0; i < rows.length; i++) { 
+        if (rows[i].id == id) { 
+          console.log('ID matched');
+          rows.splice(i, 1); 
+        } 
+      }
+      setFirefighters(rows);
+      */
+
+      loadFirefighters();
+
       // TODO: Check for error or success
       setOpen(false);
     }
@@ -117,6 +130,8 @@ class NewFirefightersDeleteModal extends React.Component {
     super(props);
     this.state = {
       row: props.row,
+      rows: props.rows,
+      loadFirefighters: props.loadFirefighters,
       id: this.props.row.cells[0].value,
       code: this.props.row.cells[1].value,
       first: this.props.row.cells[2].value,
@@ -142,11 +157,13 @@ class NewFirefightersDeleteModal extends React.Component {
             {...rest}
             open={open}
             row={this.props.row}
+            rows={this.props.rows}
+            loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
             onClose={() => setOpen(false)}>
             <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.first + ' ' + this.state.last })} />
             <ModalBody />
-            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.first, this.state.last, this.state.email, setOpen); }} />
+            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.first, this.state.last, this.state.email, this.state.row, this.state.rows, this.state.loadFirefighters, setOpen); }} />
           </ComposedModal>
         )}
       </ModalStateManager>
