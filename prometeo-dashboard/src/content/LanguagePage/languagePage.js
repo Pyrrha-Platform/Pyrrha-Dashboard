@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import DevicesTable from './devicesTable';
+import LanguageGrid from './languageGrid';
 
-function DevicesPage() {
+function LanguagePage() {
   return (
     <div>
       <Header />
       {/* <SideMenu /> */}
-      <DevicesTable />
+      <LanguageGrid />
     </div>
   );
 }
 
-export default DevicesPage;
+export default LanguagePage;

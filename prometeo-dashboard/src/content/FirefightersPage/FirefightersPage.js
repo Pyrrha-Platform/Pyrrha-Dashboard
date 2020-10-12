@@ -7,7 +7,7 @@ function FirefightersPage() {
   return (
     <div>
       <Header />
-      <SideMenu />
+      {/* <SideMenu /> */}
       <FirefightersTable />
     </div>
   );

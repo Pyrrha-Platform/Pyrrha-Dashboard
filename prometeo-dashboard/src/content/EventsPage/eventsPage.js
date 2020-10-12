@@ -7,7 +7,7 @@ function EventsPage() {
   return (
     <div>
       <Header />
-      <SideMenu />
+      {/* <SideMenu /> */}
       <EventsTable />
     </div>
   );

@@ -7,7 +7,7 @@ function ReportsPage() {
   return (
     <div>
       <Header />
-      <SideMenu />
+      {/* <SideMenu /> */}
       <ReportsGrid />
     </div>
   );

@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import DevicesTable from './devicesTable';
+import ProfileGrid from './profileGrid';
 
-function DevicesPage() {
+function ProfilePage() {
   return (
     <div>
       <Header />
       {/* <SideMenu /> */}
-      <DevicesTable />
+      <ProfileGrid />
     </div>
   );
 }
 
-export default DevicesPage;
+export default ProfilePage;

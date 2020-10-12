@@ -7,7 +7,7 @@ function DashboardPage() {
   return (
     <div>
       <Header />
-      <SideMenu />
+      {/* <SideMenu /> */}
       <DashboardGrid />
     </div>
   );

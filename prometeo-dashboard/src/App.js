@@ -11,6 +11,8 @@ import EventsPage from './content/EventsPage';
 import DevicesPage from './content/DevicesPage';
 import DashboardPage from './content/DashboardPage';
 import ReportsPage from './content/ReportsPage';
+import LanguagePage from './content/LanguagePage';
+import ProfilePage from './content/ProfilePage';
 
 function App() {
   
@@ -42,6 +44,12 @@ function App() {
             </Route>
             <Route path="/firefighters">
               <FirefightersPage />
+            </Route>
+            <Route path="/language">
+              <LanguagePage />
+            </Route>
+            <Route path="/profile">
+              <ProfilePage />
             </Route>
           </Switch>
         </BrowserRouter>
