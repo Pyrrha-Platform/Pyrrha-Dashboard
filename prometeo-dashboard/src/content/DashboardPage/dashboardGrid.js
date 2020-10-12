@@ -1,7 +1,10 @@
 import React from 'react';
 import { 
-    GaugeChart 
+    GaugeChart
 } from '@carbon/charts-react';
+import { 
+    Link, 
+} from 'react-router-dom';
 import "@carbon/charts/styles.css";
 
 // Utility to access the backend API
@@ -35,10 +38,19 @@ const DashboardGrid = ( { deviceId } ) => {
       }
     });
 
+    const headStyle = {
+        fontSize: '200%',
+        fontWeight: 'bold',
+    }
+
     const headerStyle = {
         fontSize: '150%',
         fontWeight: 'bold',
         marginBottom: '15px',
+    };
+
+    const tileStyle = {
+        backgroundColor: '#ddd'
     };
 
     const state = {
@@ -125,7 +137,19 @@ const DashboardGrid = ( { deviceId } ) => {
         <div className="bx--row dashboard-page__r2">
             <div className="bx--col-md-4">
                 <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2 dashboard-gray">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-8">
+                            <h1 style={headStyle}>Dashboard</h1>
+                            <h2>10 minute average</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>                        
+        <div className="bx--row dashboard-page__r2">
+            <div className="bx--col-md-4">
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
                         <div className="bx--col-md-2">
                             <p style={headerStyle}>GRAF 4</p>
                             <p>40ppm</p>
@@ -243,36 +267,44 @@ const DashboardGrid = ( { deviceId } ) => {
                 <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
                     <div className="bx--row dashboard-page__r2">
                         <div className="bx--col-md-2">
-                            <p style={headerStyle}>GRAF 1</p>
-                            <p>40ppm</p>
-                            <GaugeChart
-                                data={state.coData}
-                                options={state.coOptions}>
-                            </GaugeChart>
+                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=co">
+                                <p style={headerStyle}>GRAF 1</p>
+                                <p>40ppm</p>
+                                <GaugeChart
+                                    data={state.coData}
+                                    options={state.coOptions}>
+                                </GaugeChart>
+                            </Link>
                         </div>
                         <div className="bx--col-md-2">
-                            <p style={headerStyle}>&nbsp;</p>
-                            <p>20ppm</p>
-                            <GaugeChart
-                                data={state.no2Data}
-                                options={state.no2Options}>
-                            </GaugeChart>
+                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=no2">
+                                <p style={headerStyle}>&nbsp;</p>
+                                <p>20ppm</p>
+                                <GaugeChart
+                                    data={state.no2Data}
+                                    options={state.no2Options}>
+                                </GaugeChart>
+                            </Link>
                         </div>
                         <div className="bx--col-md-2">
-                            <p style={headerStyle}>&nbsp;</p>
-                            <p>28&#8451;</p>
-                            <GaugeChart
-                                data={state.tmpData}
-                                options={state.tmpOptions}>
-                            </GaugeChart>
+                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=tmp">
+                                <p style={headerStyle}>&nbsp;</p>
+                                <p>28&#8451;</p>
+                                <GaugeChart
+                                    data={state.tmpData}
+                                    options={state.tmpOptions}>
+                                </GaugeChart>
+                            </Link>
                         </div>
                         <div className="bx--col-md-2">
-                            <p style={headerStyle}>&nbsp;</p>
-                            <p>72%</p>
-                            <GaugeChart
-                                data={state.humData}
-                                options={state.humOptions}>
-                            </GaugeChart>
+                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=hum">
+                                <p style={headerStyle}>&nbsp;</p>
+                                <p>72%</p>
+                                <GaugeChart
+                                    data={state.humData}
+                                    options={state.humOptions}>
+                                </GaugeChart>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Link, Switch, Route } from 'react-router-dom';
+import { 
+    BrowserRouter, 
+    Link, 
+    Switch, 
+    Route 
+} from 'react-router-dom';
 import './App.scss';
 import FirefightersPage from './content/FirefightersPage';
 import EventsPage from './content/EventsPage';
