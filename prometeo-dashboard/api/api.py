@@ -331,14 +331,27 @@ def device_by_id(id):
     else:
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
-@app.route('/api/v1/dashboard/<int:max>', methods=['GET'])
-def dashboard(max):
+@app.route('/api/v1/dashboard-now', methods=['GET'])
+def dashboard_now():
     
-    dashboard = dashboard_manager().get_dashboard(max)
+    firefighters = dashboard_manager().get_dashboard_now()
     message = {
         'status': 200,
         'message': 'OK',
-        'dashboard': dashboard
+        'firefighters': firefighters
+    }
+    body = json.dumps(message)
+    resp = Response(body, status=200, mimetype='application/json')
+    return resp
+
+@app.route('/api/v1/dashboard/<int:firefighter_id>', methods=['GET'])
+def get_dashboard_for(firefighter_id):
+    
+    firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'firefighter': firefighter
     }
     body = json.dumps(message)
     resp = Response(body, status=200, mimetype='application/json')

@@ -136,7 +136,7 @@ class firefighter_manager(object):
             data = cursor.fetchone()
 
             if len(data) > 0:
-                firefighter = {'id': data[0], 'code': data[1],'first': data[2], 'last': data[3], 'email': data[4]} 
+                firefighter = {'id': data[0], 'code': data[1], 'first': data[2], 'last': data[3], 'email': data[4]} 
             else:
                 return None
 
