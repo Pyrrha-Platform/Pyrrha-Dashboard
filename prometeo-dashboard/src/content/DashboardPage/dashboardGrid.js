@@ -10,6 +10,8 @@ import {
     Switch
   } from  'carbon-components-react';
 import "@carbon/charts/styles.css";
+import FirefighterChart from '../../components/FirefighterChart/FirefighterChart';
+import FirefighterGauge from '../../components/FirefighterGauge/FirefighterGauge';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -25,22 +27,48 @@ const headerData = [
 // Table and data
 const DashboardGrid = ( { deviceId } ) => {
 
-    const [devices, setDashboard] = React.useState([]);
+    const [rawData, setRawData] = React.useState([]);
+    const [transformedData, setTransformedData] = React.useState([]);
     const [fetched, setFetched] = React.useState(false);
+    const [data, setData] = React.useState([]);
   
     React.useEffect(() => {
       loadDashboard();
+      changeData();
     }, [fetched]);
   
     const loadDashboard = React.useCallback(async () => {
       try {
-        const data = await client(`/api/v1/dashboard/1`);
+        const data = await client(`/api/v1/dashboard-now`);
         console.log(data);
-        setDashboard(data.devices);
+        setRawData(data.firefighters);
+        setTransformedData(transformData(data.firefighters));
       } catch (e) {
         console.log(e);
       }
     });
+
+    //
+    const datas = [
+        [10, 30, 40, 20],
+        [10, 40, 30, 20, 50, 10],
+        [60, 30, 40, 20, 30]
+    ];
+    var i = 0;
+    
+    const changeData = React.useCallback(async () => {
+        console.log('In changeData');
+        setData(datas[i++]);
+        if (i === datas.length) i = 0;
+    });
+    //
+
+    const transformData = ( { data } ) => {
+        // Need to take the raw array of firefighter info and put it into the format 
+        // that the gauges expect... an data array an options object. There are 4
+        // gauges per firefighter. 
+        return data;
+    }
 
     const headStyle = {
         fontSize: '200%',
@@ -145,19 +173,60 @@ const DashboardGrid = ( { deviceId } ) => {
                     <div className="bx--row dashboard-page__r2">
                         <div className="bx--col-md-8">
                             <h1 style={headStyle}>Dashboard</h1>
+                            {/*
                             <ContentSwitcher onChange={() => {}}>
-                                <Switch name="10min" text="10 minute average" />
-                                <Switch name="30min" text="30 minute average" />
-                                <Switch name="1hr" text="1 hour average" />
-                                <Switch name="2hr" text="2 hour average" />
-                                <Switch name="4hr" text="4 hour average" />
-                                <Switch name="6hr" text="6 hour average" />
+                                <Switch name="Now" text="Now" />
+                                <Switch name="10min" text="10 min avg" />
+                                <Switch name="30min" text="30 min avg" />
+                                <Switch name="1hr" text="1 hr avg" />
+                                <Switch name="4hr" text="4 hr avg" />
+                                <Switch name="6hr" text="6 hr avg" />
                             </ContentSwitcher>
+                            */}
                         </div>
                     </div>
                 </div>
             </div>
         </div>                        
+
+        <div className="bx--row">
+            <div className="bx--col label-firefighter">GRAF7<br />10 min avg</div>
+            <div className="bx--col label-firefighter"></div>
+            <div className="bx--col label-firefighter"></div>
+            <div className="bx--col label-firefighter"></div>
+        </div>
+        <div className="bx--row">
+            <div className="bx--col">
+            <div><FirefighterGauge firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+            <div className="label-legend">CO</div>
+            </div>
+            <div className="bx--col">
+            <div><FirefighterGauge firefighterId={1} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+            <div className="label-legend">NO<sub>2</sub></div>
+            </div>
+            <div className="bx--col">
+            <div><FirefighterGauge firefighterId={1} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+            <div className="label-legend">Temperature</div>
+            </div>
+            <div className="bx--col">
+            <div><FirefighterGauge firefighterId={1} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+            <div className="label-legend">Humidity</div>
+            </div>
+        </div>
+
+        <div className="bx--row dashboard-page__r2">
+            <div className="bx--col-md-4">
+                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
+                    <div className="bx--row dashboard-page__r2">
+                        <div className="bx--col-md-2" id="graf7-co-chart">
+                            <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
+                            {/* <FirefighterChart firefighterId={1} type={'NO2'} initialNumber={30} unit={'ppm'} /> */}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div className="bx--row dashboard-page__r2">
             <div className="bx--col-md-4">
                 <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
