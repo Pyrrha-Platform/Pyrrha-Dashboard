@@ -23,6 +23,10 @@
   padding: $spacing-05;
 }
 
+.details-page__switcher {
+  padding-bottom: $spacing-09;
+}
+
 .details-page__p {
   @include carbon--type-style('productive-heading-03');
   margin-top: $spacing-06;

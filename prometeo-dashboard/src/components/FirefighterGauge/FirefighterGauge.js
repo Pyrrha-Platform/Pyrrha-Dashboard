@@ -41,9 +41,9 @@ function FirefighterGauge({ firefighterId, type, initialNumber, unit, number, li
         };
     }
    
-    var red = 'red';
-    var yellow = 'yellow';
-    var green = 'green';
+    var red = '#da1e28';
+    var yellow = '#f1c21b';
+    var green = '#24a148';
     var initialColor = '#ddd';
    
     const getStatusColor = (type, initialNumber) => {

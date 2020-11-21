@@ -11,9 +11,9 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }){
         width = 1200 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
-    var red = 'red';
-    var yellow = 'yellow';
-    var green = 'green';
+    var red = '#da1e28';
+    var yellow = '#f1c21b';
+    var green = '#24a148';
     var initialColor = '#ddd';
  
     const getStatusColor = (type, initialNumber) => {
@@ -126,8 +126,8 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }){
                 // Add the area
                 svg.append("path")
                 .datum(data)
-                .attr("fill", "#a6c8ff")
-                .attr("stroke", "#0043ce")
+                .attr("fill", "#78a9ff")
+                .attr("stroke", "#0f62fe")
                 .attr("stroke-width", 1.5)
                 .attr("d", d3.area()
                     .x(function(d) { return x(d.time) })

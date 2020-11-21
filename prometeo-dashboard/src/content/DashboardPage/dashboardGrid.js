@@ -1,13 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { 
-    Link, 
-} from 'react-router-dom';
-import {
-    ContentSwitcher,
-    Switch
-  } from  'carbon-components-react';
 import "@carbon/charts/styles.css";
-import FirefighterChart from '../../components/FirefighterChart/FirefighterChart';
 import FirefighterGauge from '../../components/FirefighterGauge/FirefighterGauge';
 
 // Utility to access the backend API
