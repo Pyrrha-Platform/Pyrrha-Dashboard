@@ -1,2 +1,2 @@
-import DetailsPage from './detailsPage';
+import DetailsPage from "./detailsPage";
 export default DetailsPage;

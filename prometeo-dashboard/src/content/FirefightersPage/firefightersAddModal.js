@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -9,11 +9,9 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-} from  'carbon-components-react';
-import { 
-  iconAdd, iconAddSolid, iconAddOutline, 
-} from 'carbon-icons';
-import { Add16 } from '@carbon/icons-react';
+} from "carbon-components-react";
+import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
+import { Add16 } from "@carbon/icons-react";
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -23,22 +21,13 @@ const ModalStateManager = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
+      {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent  
-              open={open} 
-              setOpen={setOpen} 
-            />,
+            <ModalContent open={open} setOpen={setOpen} />,
             document.body
-          )
-      }
-      {LauncherContent && 
-      <LauncherContent 
-        open={open} 
-        setOpen={setOpen} 
-      />
-      }
+          )}
+      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
   );
 };
@@ -49,40 +38,44 @@ const addProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
+    selectorPrimaryFocus: "[data-modal-primary-focus]",
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: 'Firefighters',
-    title: 'Add firefighter',
-    iconDescription: 'Close',
+    label: "Firefighters",
+    title: "Add firefighter",
+    iconDescription: "Close",
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    'aria-label': 'Add firefighter',
+    "aria-label": "Add firefighter",
   }),
   modalFooter: () => ({
-    primaryButtonText: 'Save',
+    primaryButtonText: "Save",
     primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
+    secondaryButtonText: "Cancel",
     shouldCloseAfterSubmit: true,
-    onRequestSubmit: (event) => { handleSubmit(event); }
+    onRequestSubmit: (event) => {
+      handleSubmit(event);
+    },
   }),
 };
 
 // On submit we should be passed the values.
 const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
-  console.log('handleSubmit');
-  console.log('code ' + code) ;
-  console.log('first ' + first);
-  console.log('last ' + last);
-  console.log('email ' + email);
+  console.log("handleSubmit");
+  console.log("code " + code);
+  console.log("first " + first);
+  console.log("last " + last);
+  console.log("email " + email);
 
-  axios.post(`/api/v1/firefighters`, { 
-      'code': code, 
-      'first': first, 
-      'last': last, 
-      'email': email 
-    }).then(res => {
+  axios
+    .post(`/api/v1/firefighters`, {
+      code: code,
+      first: first,
+      last: last,
+      email: email,
+    })
+    .then((res) => {
       // TODO: Set success or error message
       console.log(res);
       console.log(res.data);
@@ -92,92 +85,110 @@ const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
 
       // TODO: Check for error or success
       setOpen(false);
-    }
-  );
+    });
 
   return true;
-}
+};
 
 class FirefightersAddModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      row: props.row,
+      loadFirefighters: props.loadFirefighters,
+      code: "",
+      first: "",
+      last: "",
+      email: "",
+      open: false,
+    };
+    console.log(this.state.row);
+  }
 
-    constructor(props) {
-      super(props);
-      this.state = {
-        row: props.row,
-        loadFirefighters: props.loadFirefighters,
-        code: '',
-        first: '',
-        last: '',
-        email: '',
-        open: false,
-      }
-      console.log(this.state.row);
-    }
+  render() {
+    // const { open } = this.state.open;
+    const { size, ...rest } = addProps.composedModal();
+    const { hasScrollingContent, ...bodyProps } = addProps.modalBody();
 
-    render() {
-      // const { open } = this.state.open;
-      const { size, ...rest } = addProps.composedModal();
-      const { hasScrollingContent, ...bodyProps } = addProps.modalBody();
-
-      return (
-        <ModalStateManager
-          renderLauncher={({ setOpen }) => (
-            <Button onClick={() => setOpen(true)} renderIcon={Add16}  iconDescription="Add firefighter">Add firefighter</Button>
-          )}>
-          {({ open, setOpen }) => (
-            <ComposedModal
-              {...rest}
-              open={open}
-              loadFirefighters={this.props.loadFirefighters}
-              size={size || undefined}
-              onClose={() => setOpen(false)}>
-              <ModalHeader {...addProps.modalHeader()} />
-              <ModalBody
-                {...bodyProps}
-                aria-label={hasScrollingContent ? 'Modal content' : undefined}>
-                  <br />
-                    <TextInput
-                      id={this.state.code}
-                      value={this.state.code}
-                      placeholder="GRAF001"
-                      labelText="Code:"
-                      onChange={(e) => this.state.code = e.target.value.trim()}
-                    />
-                    <br />
-                    <TextInput
-                      id={this.state.first}
-                      value={this.state.first}
-                      placeholder="Joan"
-                      labelText="First name:"
-                      onChange={(e) => this.state.first = e.target.value.trim()}
-                    />
-                    <br />
-                    <TextInput
-                      id={this.state.last}
-                      value={this.state.last}
-                      placeholder="Herrera"
-                      labelText="Last name:"
-                      onChange={(e) => this.state.last = e.target.value.trim()}
-                    />
-                    <br />
-                    <TextInput
-                      id={this.state.email}
-                      value={this.state.email}
-                      placeholder="graf004@graf.cat"
-                      labelText="Email:"
-                      onChange={(e) => this.state.email = e.target.value.trim()}
-                    />
-                  <br />
-                  <br />
-              </ModalBody>
-              <ModalFooter {...addProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.code, this.state.first, this.state.last, this.state.email, this.state.loadFirefighters, setOpen); }} />
-            </ComposedModal>
-          )}
-        </ModalStateManager>
-      );
-    }
-
-  
+    return (
+      <ModalStateManager
+        renderLauncher={({ setOpen }) => (
+          <Button
+            onClick={() => setOpen(true)}
+            renderIcon={Add16}
+            iconDescription="Add firefighter"
+          >
+            Add firefighter
+          </Button>
+        )}
+      >
+        {({ open, setOpen }) => (
+          <ComposedModal
+            {...rest}
+            open={open}
+            loadFirefighters={this.props.loadFirefighters}
+            size={size || undefined}
+            onClose={() => setOpen(false)}
+          >
+            <ModalHeader {...addProps.modalHeader()} />
+            <ModalBody
+              {...bodyProps}
+              aria-label={hasScrollingContent ? "Modal content" : undefined}
+            >
+              <br />
+              <TextInput
+                id={this.state.code}
+                value={this.state.code}
+                placeholder="GRAF001"
+                labelText="Code:"
+                onChange={(e) => (this.state.code = e.target.value.trim())}
+              />
+              <br />
+              <TextInput
+                id={this.state.first}
+                value={this.state.first}
+                placeholder="Joan"
+                labelText="First name:"
+                onChange={(e) => (this.state.first = e.target.value.trim())}
+              />
+              <br />
+              <TextInput
+                id={this.state.last}
+                value={this.state.last}
+                placeholder="Herrera"
+                labelText="Last name:"
+                onChange={(e) => (this.state.last = e.target.value.trim())}
+              />
+              <br />
+              <TextInput
+                id={this.state.email}
+                value={this.state.email}
+                placeholder="graf004@graf.cat"
+                labelText="Email:"
+                onChange={(e) => (this.state.email = e.target.value.trim())}
+              />
+              <br />
+              <br />
+            </ModalBody>
+            <ModalFooter
+              {...addProps.modalFooter()}
+              shouldCloseAfterSubmit={true}
+              onRequestSubmit={() => {
+                handleSubmit(
+                  this.state.code,
+                  this.state.first,
+                  this.state.last,
+                  this.state.email,
+                  this.state.loadFirefighters,
+                  setOpen
+                );
+              }}
+            />
+          </ComposedModal>
+        )}
+      </ModalStateManager>
+    );
+  }
 }
 
 export default FirefightersAddModal;

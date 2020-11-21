@@ -1,2 +1,2 @@
-import SensorTable from './SensorTable';
+import SensorTable from "./SensorTable";
 export default SensorTable;
