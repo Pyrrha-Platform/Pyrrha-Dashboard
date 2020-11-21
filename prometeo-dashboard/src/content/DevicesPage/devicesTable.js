@@ -63,8 +63,20 @@ const NewDevicesTable = ( { deviceId } ) => {
   });
 
   return (
-    <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-      <div className="bx--row sensors-page__r2">
+    <div className="bx--grid bx--grid--full-width devices-content">
+      <div className="bx--row">
+          <div className="bx--col-md-16">
+              <h1 className="devices-page__heading">Devices</h1>
+          </div>
+      </div>   
+
+      <div className="bx--row">
+          <div className="bx--col-md-16">
+              <h1 className="devices-page__subheading">These are all the devices registered in the system.</h1>
+          </div>
+      </div> 
+
+      <div className="bx--row devices-page__r2">
         <div className="bx--col-lg-16 fullwidth">
         
           <DataTable isSortable
@@ -80,7 +92,7 @@ const NewDevicesTable = ( { deviceId } ) => {
                 onInputChange,
                 getTableContainerProps
           }) => (
-            <TableContainer title="Devices">
+            <TableContainer>
               <TableToolbar aria-label="data table toolbar">
                 <TableToolbarContent>
                   <DevicesAddModal rows={rows} loadDevices={loadDevices} />
@@ -118,7 +130,7 @@ const NewDevicesTable = ( { deviceId } ) => {
 
         </div>
       </div>
-      </div>
+    </div>
     );
   }
 

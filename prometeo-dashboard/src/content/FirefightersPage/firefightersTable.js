@@ -67,61 +67,73 @@ const NewFirefightersTable = ( { firefighterId } ) => {
   });
 
   return (
-    <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-      <div className="bx--row sensors-page__r2">
-        <div className="bx--col-lg-16 fullwidth">
-        
-          <DataTable isSortable
-              headers={headerData}
-              rows={firefighters}
-              render={({
-                rows,
-                headers,
-                getHeaderProps,
-                getRowProps,
-                getTableProps,
-                getToolbarProps,
-                onInputChange,
-                getTableContainerProps
-          }) => (
-            <TableContainer title="Firefighters">
-              <TableToolbar aria-label="data table toolbar">
-                <TableToolbarContent>
-                  <FirefightersAddModal rows={rows} loadFirefighters={loadFirefighters} />
-                </TableToolbarContent>
-              </TableToolbar>
-              <Table size='normal' {...getTableProps()}>
-                <TableHead>
-                  <TableRow>
-                    {headers.map(header => (
-                      <TableHeader {...getHeaderProps({ header })}>
-                        {header.header}
-                      </TableHeader>
-                    ))}
-                    <TableHeader>
-                        Actions
-                    </TableHeader>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
-                      {row.cells.map(cell => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                      <TableCell>
-                        <FirefightersEditModal row={row} loadFirefighters={loadFirefighters} />
-                        <FirefightersDeleteModal row={row} loadFirefighters={loadFirefighters} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>)}
-          />
+      <div className="bx--grid bx--grid--full-width firefighters-content">
+        <div className="bx--row">
+            <div className="bx--col-md-16">
+                <h1 className="firefighters-page__heading">Firefighters</h1>
+            </div>
+        </div>   
 
+        <div className="bx--row">
+            <div className="bx--col-md-16">
+                <h1 className="firefighters-page__subheading">These are all the firefighters registered in the system.</h1>
+            </div>
+        </div> 
+
+        <div className="bx--row firefighters-page__r2">
+          <div className="bx--col-lg-16 fullwidth">
+          
+            <DataTable isSortable
+                headers={headerData}
+                rows={firefighters}
+                render={({
+                  rows,
+                  headers,
+                  getHeaderProps,
+                  getRowProps,
+                  getTableProps,
+                  getToolbarProps,
+                  onInputChange,
+                  getTableContainerProps
+            }) => (
+              <TableContainer>
+                <TableToolbar aria-label="data table toolbar">
+                  <TableToolbarContent>
+                    <FirefightersAddModal rows={rows} loadFirefighters={loadFirefighters} />
+                  </TableToolbarContent>
+                </TableToolbar>
+                <Table size='normal' {...getTableProps()}>
+                  <TableHead>
+                    <TableRow>
+                      {headers.map(header => (
+                        <TableHeader {...getHeaderProps({ header })}>
+                          {header.header}
+                        </TableHeader>
+                      ))}
+                      <TableHeader>
+                          Actions
+                      </TableHeader>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map(row => (
+                      <TableRow key={row.id}>
+                        {row.cells.map(cell => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
+                        <TableCell>
+                          <FirefightersEditModal row={row} loadFirefighters={loadFirefighters} />
+                          <FirefightersDeleteModal row={row} loadFirefighters={loadFirefighters} />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>)}
+            />
+
+          </div>
         </div>
-      </div>
       </div>
     );
   }
