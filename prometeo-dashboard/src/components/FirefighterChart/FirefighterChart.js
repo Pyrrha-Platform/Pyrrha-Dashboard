@@ -8,8 +8,8 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }){
 
     //
     var margin = {top: 10, right: 30, bottom: 30, left: 50},
-        width = 600 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
+        width = 1200 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     var red = 'red';
     var yellow = 'yellow';

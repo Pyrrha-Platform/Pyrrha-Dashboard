@@ -18,7 +18,7 @@ const client = async (url, options) => {
 };
 
 // Table and data
-const DashboardGrid = ( { deviceId } ) => {
+const DetailsGrid = ( { deviceId } ) => {
 
     // Initially loaded data from database
     const [rawData, setRawData] = useState([]);
@@ -26,12 +26,12 @@ const DashboardGrid = ( { deviceId } ) => {
     const [fetched, setFetched] = useState(false);
 
     useEffect(() => {
-      loadDashboard();
+      loadDetails();
     }, [fetched]);
   
-    const loadDashboard = useCallback(async () => {
+    const loadDetails = useCallback(async () => {
       try {
-        const data = await client(`/api/v1/dashboard-now`);
+        const data = await client(`/api/v1/detail-now`);
         console.log(data);
         setRawData(data.firefighters);
         setTransformedData(transformData(data.firefighters));
@@ -61,28 +61,38 @@ const DashboardGrid = ( { deviceId } ) => {
     }
  
     return (
-      <div className="bx--grid bx--grid--full-width dashboard-content">
+      <div className="bx--grid bx--grid--full-width detail-content">
         <div className="bx--row">
             <div className="bx--col-md-16">
-                <h1 className="dashboard-page__heading">Dashboard</h1>
+                <h1 className="detail-page__heading">Details</h1>
+                {/* 
+                <ContentSwitcher onChange={() => {}}>
+                    <Switch name="Now" text="Now" />
+                    <Switch name="10min" text="10 min avg" />
+                    <Switch name="30min" text="30 min avg" />
+                    <Switch name="1hr" text="1 hr avg" />
+                    <Switch name="4hr" text="4 hr avg" />
+                    <Switch name="6hr" text="6 hr avg" />
+                </ContentSwitcher>
+                */}
             </div>
         </div>   
 
         <div className="bx--row">
             <div className="bx--col-md-16">
-                <h1 className="dashboard-page__subheading">You are now viewing the real-time data and 10 minute average exposure thresholds.</h1>
+                <h1 className="detail-page__subheading">You are now viewing the details for the readings for a specific firefighter.</h1>
             </div>
         </div> 
 
         <div class="bx--row">
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                            GRAF7<br />10 min avg
+                            Now
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={7} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -103,13 +113,13 @@ const DashboardGrid = ( { deviceId } ) => {
                 </div>
             </div>
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                        GRAF8<br />10 min avg
+                        10 min avg
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={8} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -133,13 +143,13 @@ const DashboardGrid = ( { deviceId } ) => {
 
         <div class="bx--row">
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                            GRAF9<br />10 min avg
+                            30 min avg
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={9} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -160,13 +170,13 @@ const DashboardGrid = ( { deviceId } ) => {
                 </div>
             </div>
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                        GRAF10<br />10 min avg
+                        1 hr avg
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={10} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -190,13 +200,13 @@ const DashboardGrid = ( { deviceId } ) => {
 
         <div class="bx--row">
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                            GRAF11<br />11 min avg
+                            4 hr avg
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={11} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -217,13 +227,13 @@ const DashboardGrid = ( { deviceId } ) => {
                 </div>
             </div>
             <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-                <div className="bx--grid bx--grid--full-width dashboard-content">
-                    <div className="bx--row dashboard-tile">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col-md-8 label-firefighter">
-                        GRAF12<br />10 min avg
+                        8 hr avg
                         </div>
                     </div>
-                    <div className="bx--row dashboard-tile">
+                    <div className="bx--row detail-tile">
                         <div className="bx--col bx--col-md-2">
                             <div><FirefighterGauge firefighterId={12} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
                             <div className="label-legend">CO</div>
@@ -245,20 +255,27 @@ const DashboardGrid = ( { deviceId } ) => {
             </div>
         </div>  
 
-        {/* 
-        <div className="bx--row dashboard-tile">
-            <div className="bx--col-md-4">
-                <div className="bx--row dashboard-tile2">
-                    <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
-                    <FirefighterChart firefighterId={1} type={'NO2'} initialNumber={30} unit={'ppm'} /> 
+
+        <div class="bx--row">
+            <div class="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
+                <div className="bx--grid bx--grid--full-width detail-content">
+                    <div className="bx--row detail-tile">
+                        <div className="bx--col-md-16 label-firefighter">
+                            CO<br/>4 hr avg
+                        </div>
+                    </div>
+                    <div className="bx--row detail-tile">
+                        <div className="bx--col bx--col-md-16">
+                            <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        */}
+        </div>  
 
       </div>
     );
     
 }
   
-export default DashboardGrid;
+export default DetailsGrid;

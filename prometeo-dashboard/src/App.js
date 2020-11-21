@@ -10,6 +10,7 @@ import FirefightersPage from './content/FirefightersPage';
 import EventsPage from './content/EventsPage';
 import DevicesPage from './content/DevicesPage';
 import DashboardPage from './content/DashboardPage';
+import DetailsPage from './content/DetailsPage';
 import ReportsPage from './content/ReportsPage';
 import LanguagePage from './content/LanguagePage';
 import ProfilePage from './content/ProfilePage';
@@ -20,6 +21,8 @@ function App() {
         <BrowserRouter>
           <div>
             <Link className="App-link" to="/">Dashboard</Link>
+            &nbsp;|&nbsp;
+            <Link className="App-link" to="/details">Details</Link>
             &nbsp;|&nbsp;
             <Link className="App-link" to="/firefighters">Firefighters</Link>
             &nbsp;|&nbsp;
@@ -36,6 +39,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <DashboardPage />
+            </Route>
+            <Route path="/details">
+              <DetailsPage />
             </Route>
             <Route path="/events">
               <EventsPage />
