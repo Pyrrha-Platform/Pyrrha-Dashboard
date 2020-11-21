@@ -1,2 +1,2 @@
-import EventsPage from './eventsPage';
+import EventsPage from "./eventsPage";
 export default EventsPage;

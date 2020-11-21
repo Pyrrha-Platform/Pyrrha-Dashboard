@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   DataTable,
   TableContainer,
@@ -10,10 +10,10 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
-} from  'carbon-components-react';
-import EventsAddModal from './eventsAddModal';
-import EventsEditModal from './eventsEditModal';
-import EventsDeleteModal from './eventsDeleteModal';
+} from "carbon-components-react";
+import EventsAddModal from "./eventsAddModal";
+import EventsEditModal from "./eventsEditModal";
+import EventsDeleteModal from "./eventsDeleteModal";
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -25,30 +25,29 @@ const client = async (url, options) => {
 // Form header data
 const headerData = [
   {
-    header: 'Event ID',
-    key: 'id',
+    header: "Event ID",
+    key: "id",
   },
   {
-    header: 'Code',
-    key: 'code',
+    header: "Code",
+    key: "code",
   },
   {
-    header: 'Type',
-    key: 'type',
+    header: "Type",
+    key: "type",
   },
   {
-    header: 'Firefighters',
-    key: 'firefighters',
+    header: "Firefighters",
+    key: "firefighters",
   },
   {
-    header: 'State',
-    key: 'state',
+    header: "State",
+    key: "state",
   },
 ];
 
 // Table and data
-const NewEventsTable = ( { eventId } ) => {
-
+const NewEventsTable = ({ eventId }) => {
   const [events, setEvents] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
 
@@ -70,60 +69,61 @@ const NewEventsTable = ( { eventId } ) => {
     <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
       <div className="bx--row sensors-page__r2">
         <div className="bx--col-lg-16 fullwidth">
-        
-          <DataTable isSortable
-              headers={headerData}
-              rows={events}
-              render={({
-                rows,
-                headers,
-                getHeaderProps,
-                getRowProps,
-                getTableProps,
-                getToolbarProps,
-                onInputChange,
-                getTableContainerProps
-          }) => (
-            <TableContainer title="Events">
-              <TableToolbar aria-label="data table toolbar">
-                <TableToolbarContent>
-                  <EventsAddModal rows={rows} loadEvents={loadEvents} />
-                </TableToolbarContent>
-              </TableToolbar>
-              <Table size='normal' {...getTableProps()}>
-                <TableHead>
-                  <TableRow>
-                    {headers.map(header => (
-                      <TableHeader {...getHeaderProps({ header })}>
-                        {header.header}
-                      </TableHeader>
-                    ))}
-                    <TableHeader>
-                        Actions
-                    </TableHeader>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map(row => (
-                    <TableRow key={row.id}>
-                      {row.cells.map(cell => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
+          <DataTable
+            isSortable
+            headers={headerData}
+            rows={events}
+            render={({
+              rows,
+              headers,
+              getHeaderProps,
+              getRowProps,
+              getTableProps,
+              getToolbarProps,
+              onInputChange,
+              getTableContainerProps,
+            }) => (
+              <TableContainer title="Events">
+                <TableToolbar aria-label="data table toolbar">
+                  <TableToolbarContent>
+                    <EventsAddModal rows={rows} loadEvents={loadEvents} />
+                  </TableToolbarContent>
+                </TableToolbar>
+                <Table size="normal" {...getTableProps()}>
+                  <TableHead>
+                    <TableRow>
+                      {headers.map((header) => (
+                        <TableHeader {...getHeaderProps({ header })}>
+                          {header.header}
+                        </TableHeader>
                       ))}
-                      <TableCell>
-                        <EventsEditModal row={row} loadEvents={loadEvents} />
-                        <EventsDeleteModal row={row} loadEvents={loadEvents} />
-                      </TableCell>
+                      <TableHeader>Actions</TableHeader>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>)}
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row) => (
+                      <TableRow key={row.id}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
+                        <TableCell>
+                          <EventsEditModal row={row} loadEvents={loadEvents} />
+                          <EventsDeleteModal
+                            row={row}
+                            loadEvents={loadEvents}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
           />
-
         </div>
       </div>
-      </div>
-    );
-  }
+    </div>
+  );
+};
 
 export default NewEventsTable;

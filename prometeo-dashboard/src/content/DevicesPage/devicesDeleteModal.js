@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import axios from "axios";
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -9,11 +9,9 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-  Icon
-} from  'carbon-components-react';
-import { 
-  iconDelete, iconDeleteSolid, iconDeleteOutline, 
-} from 'carbon-icons';
+  Icon,
+} from "carbon-components-react";
+import { iconDelete, iconDeleteSolid, iconDeleteOutline } from "carbon-icons";
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -23,22 +21,13 @@ const ModalStateManager = ({
   const [open, setOpen] = useState(false);
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
+      {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent  
-              open={open} 
-              setOpen={setOpen} 
-            />,
+            <ModalContent open={open} setOpen={setOpen} />,
             document.body
-          )
-      }
-      {LauncherContent && 
-      <LauncherContent 
-        open={open} 
-        setOpen={setOpen} 
-      />
-      }
+          )}
+      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
   );
 };
@@ -48,55 +37,60 @@ const deleteProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: true,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
+    selectorPrimaryFocus: "[data-modal-primary-focus]",
   }),
   modalHeader: ({ titleOnly, name } = {}) => ({
-    label: 'Devices',
-    title: 'Delete device ' + name + '?',
-    iconDescription: 'Close',
+    label: "Devices",
+    title: "Delete device " + name + "?",
+    iconDescription: "Close",
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    'aria-label': 'Delete device?',
+    "aria-label": "Delete device?",
   }),
   modalFooter: () => ({
-    primaryButtonText: 'Delete',
+    primaryButtonText: "Delete",
     primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
+    secondaryButtonText: "Cancel",
     shouldCloseAfterSubmit: true,
     danger: true,
   }),
   menuItem: () => ({
-    closeMenu: (event) => { handleSubmit(event); }
+    closeMenu: (event) => {
+      handleSubmit(event);
+    },
   }),
   deleteIcon: () => ({
     style: {
-      margin: '5px',
+      margin: "5px",
     },
     icon: iconDelete,
     name: iconDelete,
-    role: 'img',
-    fill: 'grey',
-    fillRule: '',
-    width: '',
-    height: '',
-    description: 'This is a description of the icon and what it does in context',
-    iconTitle: '',
-    className: 'extra-class',
+    role: "img",
+    fill: "grey",
+    fillRule: "",
+    width: "",
+    height: "",
+    description:
+      "This is a description of the icon and what it does in context",
+    iconTitle: "",
+    className: "extra-class",
   }),
 };
 
 // On submit we should be passed the values, not have to look them up
 const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
-  console.log('handleSubmit');
-  console.log('id ' + id) ;
-  console.log('code ' + code) ;
-  console.log('model ' + model);
-  console.log('version ' + version);
+  console.log("handleSubmit");
+  console.log("id " + id);
+  console.log("code " + code);
+  console.log("model " + model);
+  console.log("version " + version);
 
-  axios.delete(`/api/v1/devices/` + id, { 
-      'id': id, 
-    }).then(res => {
+  axios
+    .delete(`/api/v1/devices/` + id, {
+      id: id,
+    })
+    .then((res) => {
       // TODO: Set success or error message
       console.log(res);
       console.log(res.data);
@@ -106,15 +100,13 @@ const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
 
       // TODO: Check for error or success
       setOpen(false);
-    }
-  );
+    });
 
   return true;
-}
+};
 
 // The implementation of the Modal
 class DevicesDeleteModal extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -125,7 +117,7 @@ class DevicesDeleteModal extends React.Component {
       model: this.props.row.cells[2].value,
       version: this.props.row.cells[3].value,
       open: false,
-    }
+    };
     console.log(this.state.row);
   }
 
@@ -137,8 +129,13 @@ class DevicesDeleteModal extends React.Component {
     return (
       <ModalStateManager
         renderLauncher={({ setOpen }) => (
-          <Icon {...deleteProps.deleteIcon()} onClick={() => setOpen(true)} title={this.state.id} />
-        )}>
+          <Icon
+            {...deleteProps.deleteIcon()}
+            onClick={() => setOpen(true)}
+            title={this.state.id}
+          />
+        )}
+      >
         {({ open, setOpen }) => (
           <ComposedModal
             {...rest}
@@ -146,17 +143,34 @@ class DevicesDeleteModal extends React.Component {
             row={this.props.row}
             loadDevices={this.props.loadDevices}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
-            <ModalHeader {...deleteProps.modalHeader({ titleOnly: true, name: this.state.code + ' ' + this.state.model })} />
+            onClose={() => setOpen(false)}
+          >
+            <ModalHeader
+              {...deleteProps.modalHeader({
+                titleOnly: true,
+                name: this.state.code + " " + this.state.model,
+              })}
+            />
             <ModalBody />
-            <ModalFooter {...deleteProps.modalFooter()} shouldCloseAfterSubmit={true} onRequestSubmit={() => { handleSubmit(this.state.id, this.state.code, this.state.model, this.state.version, this.state.loadDevices, setOpen); }} />
+            <ModalFooter
+              {...deleteProps.modalFooter()}
+              shouldCloseAfterSubmit={true}
+              onRequestSubmit={() => {
+                handleSubmit(
+                  this.state.id,
+                  this.state.code,
+                  this.state.model,
+                  this.state.version,
+                  this.state.loadDevices,
+                  setOpen
+                );
+              }}
+            />
           </ComposedModal>
         )}
       </ModalStateManager>
     );
   }
-
-  
 }
 
 export default DevicesDeleteModal;

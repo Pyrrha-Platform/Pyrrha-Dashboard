@@ -1,2 +1,2 @@
-import SideMenu from './SideMenu.js';
+import SideMenu from "./SideMenu.js";
 export default SideMenu;
