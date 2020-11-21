@@ -4,6 +4,9 @@ $feature-flags: (
 );
 
 @import '@carbon/themes/scss/themes';
+
+@include carbon--theme($carbon--theme--g10);
+
 @import 'carbon-components/scss/globals/scss/styles.scss';
 @import 'carbon-components/scss/globals/grid/grid';
 $small: 672px;
@@ -24,6 +27,3 @@ $small: 672px;
 @import './components/Tile/Tile.scss';
 
 
-$carbon--theme: $carbon--theme--g10;
-
-@include carbon--theme();
