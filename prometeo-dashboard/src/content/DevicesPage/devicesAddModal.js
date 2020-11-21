@@ -13,6 +13,7 @@ import {
 import { 
   iconAdd, iconAddSolid, iconAddOutline, 
 } from 'carbon-icons';
+import { Add16 } from '@carbon/icons-react';
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -118,7 +119,7 @@ class DevicesAddModal extends React.Component {
       return (
         <ModalStateManager
           renderLauncher={({ setOpen }) => (
-            <Button onClick={() => setOpen(true)}>Add device</Button>
+            <Button onClick={() => setOpen(true)} renderIcon={Add16}  iconDescription="Add device">Add device</Button>
           )}>
           {({ open, setOpen }) => (
             <ComposedModal

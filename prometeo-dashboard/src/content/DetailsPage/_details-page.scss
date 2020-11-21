@@ -1,29 +1,33 @@
 @import './mixins.scss';
 @import './overrides.scss';
 
-.dashboard-page__illo {
+.details-page__illo {
   max-width: 100%;
 }
 
-.dashboard-page__banner {
+.details-page__banner {
   padding-top: $spacing-05;
   padding-bottom: $spacing-07 * 4;
-  @include dashboard-page-background;
+  @include details-page-background;
 }
 
-.dashboard-page__heading {
+.details-page__heading {
   @include carbon--type-style('productive-heading-05');
   padding: $spacing-05;
   padding-top: $spacing-08;
 }
 
-.dashboard-page__subheading {
+.details-page__subheading {
   @include carbon--type-style('productive-heading-03');
   @include carbon--font-weight('semibold');
   padding: $spacing-05;
 }
 
-.dashboard-page__p {
+.details-page__switcher {
+  padding-bottom: $spacing-09;
+}
+
+.details-page__p {
   @include carbon--type-style('productive-heading-03');
   margin-top: $spacing-06;
   margin-bottom: $spacing-08;
@@ -32,31 +36,31 @@
   }
 }
 
-.dashboard-page__r1 {
+.details-page__r1 {
   padding-top: $spacing-05;
   padding-bottom: $spacing-05;
 }
 
-.dashboard-page__r2 {
+.details-page__r2 {
   margin-top: rem(-40px);
 }
 
-.dashboard-page__r3 {
+.details-page__r3 {
   padding-top: $spacing-09;
   padding-bottom: $spacing-09;
-  @include dashboard-page-background;
+  @include details-page-background;
 }
 
-.dashboard-page__label {
+.details-page__label {
   @include carbon--type-style('heading-01');
 }
 
-.dashboard-page__tab-content {
+.details-page__tab-content {
   padding-top: $layout-05;
   padding-bottom: $layout-05;
 }
 
-.dashboard-content {
+.details-content {
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 3rem;
@@ -72,26 +76,26 @@
   width: 100%;
 }
 
-.dashboard-head {
+.details-head {
   font-size: 200%;
   font-weight: bold;
   margin-top: $layout-03;
   margin-bottom: $layout-03;
 }
 
-.dashboard-header {
+.details-header {
   font-size: 150%;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-.dashboard-tile {
+.details-tile {
   background-color: #f4f4f4;
   margin-top: 0;
   padding-bottom: 15px;
 }
 
-.dashboard-label {
+.details-label {
   font-size: 120%;
   font-weight: bold;
 }
@@ -99,7 +103,7 @@
   border: 5px solid #fff;
 }
 
-.dashboard-gray {
+.details-gray {
   background-color: #ddd;
 }
 

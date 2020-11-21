@@ -6,6 +6,7 @@ from flask import Flask, Response, json, request
 from .firefighter_manager import firefighter_manager
 from .event_manager import event_manager
 from .device_manager import device_manager
+from .dashboard_manager import dashboard_manager
 
 logger = logging.getLogger('prometeo')
 logger.setLevel(logging.DEBUG)
@@ -330,3 +331,28 @@ def device_by_id(id):
     else:
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
+@app.route('/api/v1/dashboard-now', methods=['GET'])
+def dashboard_now():
+    
+    firefighters = dashboard_manager().get_dashboard_now()
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'firefighters': firefighters
+    }
+    body = json.dumps(message)
+    resp = Response(body, status=200, mimetype='application/json')
+    return resp
+
+@app.route('/api/v1/dashboard/<int:firefighter_id>', methods=['GET'])
+def get_dashboard_for(firefighter_id):
+    
+    firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'firefighter': firefighter
+    }
+    body = json.dumps(message)
+    resp = Response(body, status=200, mimetype='application/json')
+    return resp

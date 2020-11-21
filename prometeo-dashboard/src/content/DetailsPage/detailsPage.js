@@ -1,16 +1,16 @@
 import React from 'react';
 import Header from '../../components/Header';
 import SideMenu from '../../components/SideMenu';
-import ReportsGrid from './reportsGrid';
+import DetailsGrid from './detailsGrid';
 
-function ReportsPage() {
+function DetailsPage() {
   return (
     <div>
       <Header />
       {/* <SideMenu /> */}
-      <ReportsGrid />
+      <DetailsGrid />
     </div>
   );
 }
 
-export default ReportsPage;
+export default DetailsPage;
