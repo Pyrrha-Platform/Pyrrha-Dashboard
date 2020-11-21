@@ -46,7 +46,7 @@ const DashboardGrid = ( { deviceId } ) => {
     useEffect(() => {
         changeReadings();
         console.log(readings);
-      }, [readings]);
+    }, [readings]);
 
     const changeReadings = useCallback(async () => {
         console.log('In changeReadings');
@@ -61,341 +61,210 @@ const DashboardGrid = ( { deviceId } ) => {
     }
  
     return (
-      <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-        <div className="bx--row dashboard-page__r2">
-            <div className="bx--col-md-8">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-8">
-                            <h1 className="dashboard-head">Dashboard</h1>
-                            {/*
-                            <ContentSwitcher onChange={() => {}}>
-                                <Switch name="Now" text="Now" />
-                                <Switch name="10min" text="10 min avg" />
-                                <Switch name="30min" text="30 min avg" />
-                                <Switch name="1hr" text="1 hr avg" />
-                                <Switch name="4hr" text="4 hr avg" />
-                                <Switch name="6hr" text="6 hr avg" />
-                            </ContentSwitcher>
-                            */}
-                        </div>
-                    </div>
-                </div>
+      <div className="bx--grid bx--grid--full-width dashboard-content">
+        <div className="bx--row">
+            <div className="bx--col-md-16">
+                <h1 className="dashboard-page__heading">Dashboard</h1>
+                {/* 
+                <ContentSwitcher onChange={() => {}}>
+                    <Switch name="Now" text="Now" />
+                    <Switch name="10min" text="10 min avg" />
+                    <Switch name="30min" text="30 min avg" />
+                    <Switch name="1hr" text="1 hr avg" />
+                    <Switch name="4hr" text="4 hr avg" />
+                    <Switch name="6hr" text="6 hr avg" />
+                </ContentSwitcher>
+                */}
             </div>
-        </div>                        
+        </div>   
 
         <div className="bx--row">
-            <div className="bx--col label-firefighter">GRAF7<br />10 min avg</div>
-            <div className="bx--col label-firefighter"></div>
-            <div className="bx--col label-firefighter"></div>
-            <div className="bx--col label-firefighter"></div>
-        </div>
-        <div className="bx--row">
-            <div className="bx--col">
-            <div><FirefighterGauge firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
-            <div className="label-legend">CO</div>
+            <div className="bx--col-md-16">
+                <h1 className="dashboard-page__subheading">You are now viewing the real-time data and 10 minute average exposure thresholds.</h1>
             </div>
-            <div className="bx--col">
-            <div><FirefighterGauge firefighterId={1} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
-            <div className="label-legend">NO<sub>2</sub></div>
-            </div>
-            <div className="bx--col">
-            <div><FirefighterGauge firefighterId={1} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
-            <div className="label-legend">Temperature</div>
-            </div>
-            <div className="bx--col">
-            <div><FirefighterGauge firefighterId={1} type={'Hum'} initialNumber={72} unit={'%'} /></div>
-            <div className="label-legend">Humidity</div>
-            </div>
-        </div>
+        </div> 
 
-        <div className="bx--row dashboard-page__r2">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 4</p>
-                            <p>40ppm</p>
-
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF7<br />10 min avg
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
+                    </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 7</p>
-                            <p>40ppm</p>
-
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF8<br />10 min avg
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
+                    </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="bx--row dashboard-page__r3">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 5</p>
-                            <p>40ppm</p>
+        </div>           
 
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF9<br />10 min avg
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
+                    </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=co">
-                                <p className="dashboard-header">GRAF 1</p>
-                                <p>40ppm</p>
- 
-                            </Link>
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF10<br />10 min avg
                         </div>
-                        <div className="bx--col-md-2">
-                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=no2">
-                                <p className="dashboard-header">&nbsp;</p>
-                                <p>20ppm</p>
-
-                            </Link>
+                    </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=tmp">
-                                <p className="dashboard-header">&nbsp;</p>
-                                <p>28&#8451;</p>
-
-                            </Link>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <Link className="App-link" to="/reports?code=GRAF1&amp;reading=hum">
-                                <p className="dashboard-header">&nbsp;</p>
-                                <p>72%</p>
-
-                            </Link>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="bx--row dashboard-page__r4">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 3</p>
+        </div>     
 
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF11<br />11 min avg
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-
+                    </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
                         </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 6</p>
-                            <p>40ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width dashboard-content">
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF12<br />10 min avg
                         </div>
                     </div>
+                    <div className="bx--row dashboard-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        {/* 
+        <div className="bx--row dashboard-tile">
+            <div className="bx--col-md-4">
+                <div className="bx--row dashboard-tile2">
+                    <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
+                    <FirefighterChart firefighterId={1} type={'NO2'} initialNumber={30} unit={'ppm'} /> 
                 </div>
             </div>
         </div>
-        <div className="bx--row dashboard-page__r5">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 2</p>
-                            <p>40ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 8</p>
-                            <p>40ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div className="bx--row dashboard-page__r5">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 2</p>
-                            <p>40ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">GRAF 8</p>
-                            <p>40ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>20ppm</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>28&#8451;</p>
-
-                        </div>
-                        <div className="bx--col-md-2">
-                            <p className="dashboard-header">&nbsp;</p>
-                            <p>72%</p>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div className="bx--row dashboard-page__r2">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-                    <div className="bx--row dashboard-page__r2">
-                        <div className="bx--col-md-2" id="graf7-co-chart">
-                            <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
-                            {/* <FirefighterChart firefighterId={1} type={'NO2'} initialNumber={30} unit={'ppm'} /> */}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        */}
 
       </div>
     );

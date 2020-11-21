@@ -1,5 +1,11 @@
+$feature-flags: (
+  ui-shell: true,
+  grid-columns-16: true,
+);
+
 @import '@carbon/themes/scss/themes';
 @import 'carbon-components/scss/globals/scss/styles.scss';
+@import 'carbon-components/scss/globals/grid/grid';
 $small: 672px;
 
 @import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
@@ -11,7 +17,6 @@ $small: 672px;
 @import './content/DevicesPage/devices-page.scss';
 @import './content/EventsPage/events-page.scss';
 @import './content/FirefightersPage/firefighters-page.scss';
-@import './content/LanguagePage/language-page.scss';
 @import './content/ProfilePage/profile-page.scss';
 @import './content/ReportsPage/reports-page.scss';
 @import './content/DashboardPage/dashboard-page.scss';
@@ -23,8 +28,3 @@ $small: 672px;
 $carbon--theme: $carbon--theme--g10;
 
 @include carbon--theme();
-
-$feature-flags: (
-  ui-shell: true,
-  grid-columns-16: true,
-);

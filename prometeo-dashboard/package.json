@@ -34,10 +34,18 @@
     "start-api": "cd api && ./venv/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "ci-check": "yarn format:diff",
+    "clean": "yarn cache clean && yarn install",
+    "format": "prettier --write \"**/*.{js,md,scss}\"",
+    "format:diff": "prettier --list-different \"**/*.{js,md,scss}\"",
+    "format:staged": "prettier --write",
+    "deploy": "rm -rf ./build && yarn build && ibmcloud cf push -f manifest.yml"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:react-hooks/recommended"
+    ]
   },
   "proxy": "http://localhost:5000",
   "browserslist": {
@@ -51,5 +59,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

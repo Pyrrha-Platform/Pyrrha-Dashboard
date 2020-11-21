@@ -101,6 +101,7 @@ function FirefighterGauge({ firefighterId, type, initialNumber, unit, number, li
     }
     //
 
+    // For initial load
     const draw = (firefighterId, type, initialNumber, unit) => {
         const color = getStatusColor(type, initialNumber);
         console.log('draw()', firefighterId, type, initialNumber, unit);
@@ -116,6 +117,7 @@ function FirefighterGauge({ firefighterId, type, initialNumber, unit, number, li
         label.append("tspan").attr("class", "label-unit").text(unit).attr("x", "0").attr("dy", "1.2em");
     }
 
+    // On each change
     const change = (firefighterId, type, number, limit) => {
         console.log('change()', firefighterId, type, number, limit);
         d3.select("#angle-" + type + "-" + firefighterId).transition().duration(750).style("fill", getStatusColor(type, limit)).attrTween("d", arcTween(limit * tau));

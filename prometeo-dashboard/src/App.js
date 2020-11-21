@@ -28,6 +28,10 @@ function App() {
             <Link className="App-link" to="/devices">Devices</Link>
             &nbsp;|&nbsp;
             <Link className="App-link" to="/reports">Reports</Link>
+            &nbsp;|&nbsp;
+            <Link className="App-link" to="/profile">Profile</Link>
+            &nbsp;|&nbsp;
+            <Link className="App-link" to="/language">Language</Link>
           </div>
           <Switch>
             <Route exact path="/">

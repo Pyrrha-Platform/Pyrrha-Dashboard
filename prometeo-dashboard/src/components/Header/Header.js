@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Header,
   HeaderName,
@@ -11,6 +11,7 @@ import {
   HeaderPanel,
   Switcher,
   SwitcherItem,
+  SwitcherItemLink,
   SkipToContent,
 } from "carbon-components-react/lib/components/UIShell";
 import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
@@ -19,19 +20,10 @@ import Translate20 from "@carbon/icons-react/lib/translate/20";
 
 function PrometeoHeader() {
 
-    let active = false;
-    let language = 'EN';
+    const history = useHistory()
+    const [active, setActive] = useState(false);
+    const [language, setLanguage] = useState('EN');
   
-    const toggleActive = function() {
-      console.log('Toggling state from ' + active + ' to ' + !active);
-      active = !active;
-    }
-
-    const setLanguage = function(newLanguage) {
-      console.log('Toggling language to ' + newLanguage);
-      language = newLanguage;
-    }
-
     return (
       <Header aria-label="Prometeo">
         <SkipToContent />
@@ -42,6 +34,16 @@ function PrometeoHeader() {
           <HeaderMenuItem isCurrentPage href="/">
             Dashboard
           </HeaderMenuItem>
+          <HeaderMenuItem element={Link} to="/events">
+            Events
+          </HeaderMenuItem>
+          <HeaderMenuItem element={Link} to="/devices">
+            Devices
+          </HeaderMenuItem>
+          <HeaderMenuItem element={Link} to="/firefighters">
+            Firefighters
+          </HeaderMenuItem>
+          {/* 
           <HeaderMenu aria-label="Administration" menuLinkName="Administration">
             <HeaderMenuItem element={Link} to="/events">
               Events
@@ -56,6 +58,7 @@ function PrometeoHeader() {
               Reports
             </HeaderMenuItem>
           </HeaderMenu>
+          */}
         </HeaderNavigation>
         <HeaderGlobalBar>
           {/* 
@@ -63,20 +66,29 @@ function PrometeoHeader() {
             <Search20 element={Link} to="/" />
           </HeaderGlobalAction>
           */}
-          <HeaderGlobalAction aria-label="Translate" onClick={toggleActive} isActive={active} element={Link} to="/language" href="/language">
+          <HeaderGlobalAction aria-label="Translate" onClick={ () => setActive(!active) } isActive={active}>
             <Translate20 />
           </HeaderGlobalAction>
-          <HeaderGlobalAction aria-label="User Avatar" element={Link} to="/profile" href="/profile">
+          <HeaderGlobalAction aria-label="User Avatar" onClick={ () => history.push({ pathname: '/profile' }) }>
             <UserAvatar20 />
           </HeaderGlobalAction>
         </HeaderGlobalBar>
         <HeaderPanel aria-label="Header Panel" expanded={active}>
           <Switcher aria-label="Switcher Container">
-            <SwitcherItem isSelected aria-label="English" href="#" onClick={setLanguage('EN')}>
-              English
+            <SwitcherItem aria-label="English" className="Switcher-module--link">
+              <SwitcherItemLink onClick={() => setLanguage('EN')} isSelected={ (language === 'EN') } >
+                English
+              </SwitcherItemLink>
             </SwitcherItem>
-            <SwitcherItem aria-label="Spanish" href="#" onClick={setLanguage('ES')}>
-              Spanish
+            <SwitcherItem aria-label="Spanish">
+              <SwitcherItemLink onClick={() => setLanguage('ES')} isSelected={ (language === 'ES') }>
+                Spanish
+              </SwitcherItemLink>
+            </SwitcherItem>
+            <SwitcherItem aria-label="Catalan">
+              <SwitcherItemLink onClick={() => setLanguage('CA')} isSelected={ (language === 'CA') }>
+                Catalan
+              </SwitcherItemLink>
             </SwitcherItem>
           </Switcher>
         </HeaderPanel>

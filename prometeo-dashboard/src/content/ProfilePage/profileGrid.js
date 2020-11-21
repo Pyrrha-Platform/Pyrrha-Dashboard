@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { 
-    AreaChart 
-} from '@carbon/charts-react';
+    Link, 
+} from 'react-router-dom';
+import {
+    ContentSwitcher,
+    Switch
+  } from  'carbon-components-react';
 import "@carbon/charts/styles.css";
+import FirefighterChart from '../../components/FirefighterChart/FirefighterChart';
+import FirefighterGauge from '../../components/FirefighterGauge/FirefighterGauge';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -11,225 +17,255 @@ const client = async (url, options) => {
     return data;
 };
 
-const headerData = [
-
-];
-
 // Table and data
 const ProfileGrid = ( { deviceId } ) => {
 
-    /*
+    // Initially loaded data from database
+    const [rawData, setRawData] = useState([]);
+    const [transformedData, setTransformedData] = useState([]);
+    const [fetched, setFetched] = useState(false);
 
-    const [devices, setDevices] = React.useState([]);
-    const [fetched, setFetched] = React.useState(false);
-  
-    React.useEffect(() => {
-      loadDevices();
+    useEffect(() => {
+      loadProfile();
     }, [fetched]);
   
-    const loadDevices = React.useCallback(async () => {
+    const loadProfile = useCallback(async () => {
       try {
-        const data = await client(`/api/v1/devices`);
+        const data = await client(`/api/v1/profile-now`);
         console.log(data);
-        setDevices(data.devices);
+        setRawData(data.firefighters);
+        setTransformedData(transformData(data.firefighters));
       } catch (e) {
         console.log(e);
       }
     });
 
-    */
+    // WebSocket updates (readings variable changes)
+    const [readings, setReadings] = useState([]);
 
-    const headStyle = {
-        fontSize: '200%',
-        fontWeight: 'bold',
+    useEffect(() => {
+        changeReadings();
+        console.log(readings);
+    }, [readings]);
+
+    const changeReadings = useCallback(async () => {
+        console.log('In changeReadings');
+        // For each reading, update the correct gauge
+    });
+
+    const transformData = ( { data } ) => {
+        // Need to take the raw array of firefighter info and put it into the format 
+        // that the gauges expect... an data array an options object. There are 4
+        // gauges per firefighter. 
+        return data;
     }
-
-    const headerStyle = {
-        fontSize: '150%',
-        fontWeight: 'bold',
-        marginBottom: '15px',
-    };
-
-    const tileStyle = {
-        backgroundColor: '#ddd'
-    };
-
-    /*
-
-    const state = {
-        data: [
-            {
-                "group": "CO 10min",
-                "date": "2019-01-01T05:00:00.000Z",
-                "value": 0
-            },
-            {
-                "group": "CO 10min",
-                "date": "2019-01-06T05:00:00.000Z",
-                "value": 57312
-            },
-            {
-                "group": "CO 10min",
-                "date": "2019-01-08T05:00:00.000Z",
-                "value": 21432
-            },
-            {
-                "group": "CO 10min",
-                "date": "2019-01-15T05:00:00.000Z",
-                "value": 70323
-            },
-            {
-                "group": "CO 10min",
-                "date": "2019-01-19T05:00:00.000Z",
-                "value": 21300
-            },
-            {
-                "group": "CO 2hr",
-                "date": "2019-01-01T05:00:00.000Z",
-                "value": 50000
-            },
-            {
-                "group": "CO 2hr",
-                "date": "2019-01-05T05:00:00.000Z",
-                "value": 15000
-            },
-            {
-                "group": "CO 2hr",
-                "date": "2019-01-08T05:00:00.000Z",
-                "value": 20000
-            },
-            {
-                "group": "CO 2hr",
-                "date": "2019-01-13T05:00:00.000Z",
-                "value": 39213
-            },
-            {
-                "group": "CO 2hr",
-                "date": "2019-01-19T05:00:00.000Z",
-                "value": 61213
-            },
-            {
-                "group": "CO 4hr",
-                "date": "2019-01-02T05:00:00.000Z",
-                "value": 10
-            },
-            {
-                "group": "CO 4hr",
-                "date": "2019-01-06T05:00:00.000Z",
-                "value": 37312
-            },
-            {
-                "group": "CO 4hr",
-                "date": "2019-01-08T05:00:00.000Z",
-                "value": 51432
-            },
-            {
-                "group": "CO 4hr",
-                "date": "2019-01-13T05:00:00.000Z",
-                "value": 40323
-            },
-            {
-                "group": "CO 4hr",
-                "date": "2019-01-19T05:00:00.000Z",
-                "value": 31300
-            },
-            {
-                "group": "CO 8hr",
-                "date": "2019-01-02T05:00:00.000Z",
-                "value": 10
-            },
-            {
-                "group": "CO 8hr",
-                "date": "2019-01-06T05:00:00.000Z",
-                "value": 37312
-            },
-            {
-                "group": "CO 8hr",
-                "date": "2019-01-08T05:00:00.000Z",
-                "value": 51432
-            },
-            {
-                "group": "CO 8hr",
-                "date": "2019-01-13T05:00:00.000Z",
-                "value": 40323
-            },
-            {
-                "group": "CO 8hr",
-                "date": "2019-01-19T05:00:00.000Z",
-                "value": 31300
-            },
-            {
-                "group": "CO Limit",
-                "date": "2019-01-02T05:00:00.000Z",
-                "value": 80000
-            },
-            {
-                "group": "CO Limit",
-                "date": "2019-01-06T05:00:00.000Z",
-                "value": 80000
-            },
-            {
-                "group": "CO Limit",
-                "date": "2019-01-08T05:00:00.000Z",
-                "value": 80000
-            },
-            {
-                "group": "CO Limit",
-                "date": "2019-01-13T05:00:00.000Z",
-                "value": 80000
-            },
-            {
-                "group": "CO Limit",
-                "date": "2019-01-19T05:00:00.000Z",
-                "value": 80000
-            }
-        ],
-        options: {
-            "title": "Carbon Monoxide",
-            "resizable": true,
-            "axes": {
-                "bottom": {
-                    "title": "Time",
-                    "mapsTo": "date",
-                    "scaleType": "time"
-                },
-                "left": {
-                    "mapsTo": "value",
-                    "title": "Measure (PPM)",
-                    "scaleType": "linear"
-                }
-            },
-            "height": "400px"
-        },
-    };
-
-    */
-  
+ 
     return (
-      <div className="bx--grid bx--grid--full-width profile-content sensors-page">
-        <div className="bx--row profile-page__r2">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width profile-content sensors-page">
-                    <div className="bx--row profile-page__r2">
-                        <div className="bx--col-md-8">
-                            <h1 style={headStyle}>Profile</h1>
+      <div className="bx--grid bx--grid--full-width profile-content">
+        <div className="bx--row">
+            <div className="bx--col-md-16">
+                <h1 className="profile-page__heading">Profile</h1>
+                {/* 
+                <ContentSwitcher onChange={() => {}}>
+                    <Switch name="Now" text="Now" />
+                    <Switch name="10min" text="10 min avg" />
+                    <Switch name="30min" text="30 min avg" />
+                    <Switch name="1hr" text="1 hr avg" />
+                    <Switch name="4hr" text="4 hr avg" />
+                    <Switch name="6hr" text="6 hr avg" />
+                </ContentSwitcher>
+                */}
+            </div>
+        </div>   
+
+        <div className="bx--row">
+            <div className="bx--col-md-16">
+                <h1 className="profile-page__subheading">You are now viewing the real-time data and 10 minute average exposure thresholds.</h1>
+            </div>
+        </div> 
+
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF7<br />10 min avg
+                        </div>
+                    </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={7} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                        
-        <div className="bx--row profile-page__r2">
-            <div className="bx--col-md-4">
-                <div className="bx--grid bx--grid--full-width profile-content sensors-page">
-                    <div className="bx--row profile-page__r2">
-                        <div className="bx--col-md-8">
-                            
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF8<br />10 min avg
                         </div>
                     </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={8} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>           
+
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF9<br />10 min avg
+                        </div>
+                    </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={9} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF10<br />10 min avg
+                        </div>
+                    </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={10} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+
+        <div class="bx--row">
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                            GRAF11<br />11 min avg
+                        </div>
+                    </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={11} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+                <div className="bx--grid bx--grid--full-width profile-content">
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col-md-8 label-firefighter">
+                        GRAF12<br />10 min avg
+                        </div>
+                    </div>
+                    <div className="bx--row profile-tile">
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'CO'} initialNumber={30} unit={'ppm'} /></div>
+                            <div className="label-legend">CO</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'NO2'} initialNumber={20} unit={'ppm'} /></div>
+                            <div className="label-legend">NO<sub>2</sub></div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'Tmp'} initialNumber={38} unit={'°C'} /></div>
+                            <div className="label-legend">Temperature</div>
+                        </div>
+                        <div className="bx--col bx--col-md-2">
+                            <div><FirefighterGauge firefighterId={12} type={'Hum'} initialNumber={72} unit={'%'} /></div>
+                            <div className="label-legend">Humidity</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        {/* 
+        <div className="bx--row profile-tile">
+            <div className="bx--col-md-4">
+                <div className="bx--row profile-tile2">
+                    <FirefighterChart firefighterId={1} type={'CO'} initialNumber={30} unit={'ppm'} />
+                    <FirefighterChart firefighterId={1} type={'NO2'} initialNumber={30} unit={'ppm'} /> 
                 </div>
             </div>
         </div>
-        
+        */}
+
       </div>
     );
     
