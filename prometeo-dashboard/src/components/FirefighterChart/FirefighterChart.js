@@ -2,6 +2,8 @@ import * as d3 from "d3";
 import React, { useRef, useEffect } from "react";
 import coData from "./co.csv";
 import no2Data from "./no2.csv";
+import Constants from "../../utils/Constants.js";
+import Utils from "../../utils/Utils.js";
 
 function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
   const ref = useRef();
@@ -10,50 +12,6 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
   var margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
-
-  var red = "#da1e28";
-  var yellow = "#f1c21b";
-  var green = "#24a148";
-  var initialColor = "#ddd";
-
-  const getStatusColor = (type, initialNumber) => {
-    var color = initialColor;
-    if (type === "CO") {
-      if (initialNumber <= 0.81) {
-        color = green;
-      } else if (initialNumber >= 0.99 || initialNumber === -1) {
-        color = red;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
-        color = yellow;
-      }
-    } else if (type === "NO2") {
-      if (initialNumber <= 0.81) {
-        color = green;
-      } else if (initialNumber >= 0.99 || initialNumber === -1) {
-        color = red;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
-        color = yellow;
-      }
-    } else if (type === "Tmp") {
-      if (initialNumber <= 0.25) {
-        color = green;
-      } else if (initialNumber >= 0.35) {
-        color = red;
-      } else if (initialNumber > 0.25 && initialNumber < 0.35) {
-        color = yellow;
-      }
-    } else if (type === "Hum") {
-      if (initialNumber <= 0.6) {
-        color = green;
-      } else if (initialNumber >= 0.8) {
-        color = red;
-      } else if (initialNumber > 0.6 && initialNumber < 0.8) {
-        color = yellow;
-      }
-    }
-    return color;
-  };
-  //
 
   useEffect(() => {
     const svg = d3
@@ -64,7 +22,7 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
 
   useEffect(() => {
     draw(firefighterId, type, initialNumber, unit);
-  }, [initialColor]);
+  }, [Constants.DEFAULT_COLOR]);
 
   const draw = (firefighterId, type, initialNumber, unit) => {
     const svg = d3
@@ -72,16 +30,18 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var color = getStatusColor(type, initialNumber);
+    var color = Utils.getStatusColor(type, initialNumber);
 
     var csv = coData;
+
+
     var threshold = 40;
     if (type === "CO") {
       csv = coData;
-      threshold = 40;
+      threshold = Constants.MAX_CO;
     } else if (type === "NO2") {
       csv = no2Data;
-      threshold = 20;
+      threshold = Constants.MAX_NO2;
     }
 
     // Read the data
@@ -148,8 +108,8 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
       svg
         .append("path")
         .datum(data)
-        .attr("fill", "#78a9ff")
-        .attr("stroke", "#0f62fe")
+        .attr("fill", Constants.BLUE_LT)
+        .attr("stroke", Constants.BLUE_DK)
         .attr("stroke-width", 1.5)
         .attr(
           "d",
@@ -169,7 +129,7 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
       console.log(threshold);
       svg
         .append("line")
-        .style("stroke", "red")
+        .style("stroke", Constants.RED)
         .attr("x1", 0)
         .attr("y1", y(threshold))
         .attr("x2", width)
