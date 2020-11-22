@@ -1,2 +1,2 @@
-import FirefighterChart from "./FirefighterChart.js";
+import FirefighterChart from "./FirefighterChart";
 export default FirefighterChart;

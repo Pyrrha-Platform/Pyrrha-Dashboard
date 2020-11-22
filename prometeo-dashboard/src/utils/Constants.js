@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 
 class Constants {
-
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = "#da1e28";
   static YELLOW = "#f1c21b";
@@ -20,7 +19,6 @@ class Constants {
   static MAX_BNZ = -1; // Not used
   static MAX_ACR = -1; // Not used
   static MAX_FMD = -1; // Not used
-
 }
 
 export default Constants;

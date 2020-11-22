@@ -2,13 +2,31 @@ import * as d3 from "d3";
 import React, { useRef, useEffect } from "react";
 import coData from "./co.csv";
 import no2Data from "./no2.csv";
-import Constants from "../../utils/Constants.js";
-import Utils from "../../utils/Utils.js";
+import Constants from "../../utils/Constants";
+import Utils from "../../utils/Utils";
 
 function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
   const ref = useRef();
 
-  //
+  /*
+  const Chart = ({ dateRange }) => {
+    const [data, setData] = useState()
+    useEffect(() => {
+      // when Chart mounts, do this
+      const newData = getDataWithinRange(dateRange)
+      setData(newData)
+      // when data updates, do this
+      // not used right now
+      return () => {
+        // when data updates, do this
+        // not used right now
+        // before Chart unmounts, do this
+        // not used right now
+      }
+    }, [dateRange])
+  }
+  */
+
   var margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -33,7 +51,6 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
     var color = Utils.getStatusColor(type, initialNumber);
 
     var csv = coData;
-
 
     var threshold = 40;
     if (type === "CO") {

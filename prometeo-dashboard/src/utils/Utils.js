@@ -1,8 +1,7 @@
 import * as d3 from "d3";
-import Constants from "./Constants.js";
+import Constants from "./Constants";
 
 class Utils {
-
   // Manages transitions of gauge angles
   static arcTween = (newAngle) => {
     return function (d) {
@@ -13,8 +12,8 @@ class Utils {
       };
     };
   };
-  
-  // TODO: Use thresholds from constants.js
+
+  // TODO: Use thresholds from constants
   static getStatusColor = (type, initialNumber) => {
     var color = Constants.DEFAULT_COLOR;
     if (type == "CO") {
@@ -52,8 +51,8 @@ class Utils {
     }
     return color;
   };
-  
-  // TODO: Use thresholds from constants.js
+
+  // TODO: Use thresholds from constants
   static getWhole = (value, type) => {
     var number = 0.0;
     if (type == "Tmp") {
@@ -69,7 +68,6 @@ class Utils {
     }
     return number;
   };
-
 }
 
 export default Utils;

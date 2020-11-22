@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import React, { useRef, useEffect } from "react";
-import Constants from "../../utils/Constants.js";
-import Utils from "../../utils/Utils.js";
+import Constants from "../../utils/Constants";
+import Utils from "../../utils/Utils";
 
 function FirefighterGauge({
   firefighterId,
@@ -29,12 +29,8 @@ function FirefighterGauge({
         // not used right now
       }
     }, [dateRange])
-    return (
-      <svg className="Chart" />
-    )
   }
   */
-
 
   // On first load
   useEffect(() => {
