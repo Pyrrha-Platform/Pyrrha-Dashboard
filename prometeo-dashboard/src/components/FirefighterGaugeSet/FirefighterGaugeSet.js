@@ -21,7 +21,7 @@ function FirefighterGaugeSet({
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
-            <Link to={"/details/" + firefighterId}>
+            <Link to={"/details/" + firefighterId} className="bx--link">
               {firefighterCode} - {firefighterFirst} {firefighterLast}
               <br />
               {increment}

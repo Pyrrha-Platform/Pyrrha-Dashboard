@@ -93,7 +93,37 @@ class dashboard_manager(object):
             print("get_dashboard_now - after cursor")
 
             print("get_dashboard_now - llamada a sql")
-            cursor.execute('SELECT * FROM firefighter_sensor_log ORDER BY device_timestamp DESC LIMIT 15')
+            sql = """
+                SELECT 
+                    f.firefighter_id,
+                    name,
+                    surname,
+                    email,
+                    device_id,
+                    temperature,
+                    humidity,
+                    carbon_monoxide,
+                    nitrogen_dioxide,
+                    timestamp_mins
+                FROM
+                    firefighters f
+                INNER JOIN (
+                    SELECT 
+                        fsl1.*
+                    FROM
+                        firefighter_sensor_log fsl1
+                            INNER JOIN
+                        (SELECT 
+                            firefighter_id, MAX(timestamp_mins) AS reading
+                        FROM
+                            firefighter_sensor_log
+                        GROUP BY firefighter_id) fsl2 ON fsl2.firefighter_id = fsl1.firefighter_id
+                            AND fsl1.timestamp_mins = fsl2.reading
+                    ORDER BY reading DESC
+                ) fsl on fsl.firefighter_id = f.firefighter_id
+            """
+            # cursor.execute('SELECT * FROM firefighter_sensor_log ORDER BY device_timestamp DESC LIMIT 15')
+            cursor.execute(sql)
             print("get_dashboard_now - sp_select_all_devices")
             data = cursor.fetchall()
             print("get_dashboard_now - fetchall")
@@ -102,19 +132,17 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     firefighters.append({
-                        'timestamp_mins': i[0], 
-                        'firefighter_id': i[1], 
-                        'device_id': i[2], 
-                        'device_battery_level': i[3],
-                        'temperature': i[4],
-                        'humidity': i[5],
-                        'carbon_monoxide': i[6],
-                        'nitrogen_dioxide': i[7],
-                        'formaldehyde': i[8],
-                        'acrolein': i[9],
-                        'benzene': i[10],
-                        'device_timestamp': i[11],
-                        'device_status_LED': i[12]
+                        'firefighterId': i[0],
+                        'firefighterFirst': i[1],
+                        'firefighterLast': i[2],
+                        'firefighterCode': i[2],
+                        'firefighterEmail': i[3],
+                        'deviceId': i[4],
+                        'temperature': i[5],
+                        'humidity': i[6],
+                        'carbonMonoxide': i[7],
+                        'nitrogenDioxide': i[8],
+                        'timestampMins': i[9], 
                     } )
                 # firefighters = data
             else:

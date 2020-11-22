@@ -40,8 +40,8 @@ const fetchDashboard = async () => {
   try {
     const data = await client(`/api/v1/dashboard-now`);
     console.log(data);
-    const transformedData = transformData(data.firefighters);
-    return transformedData;
+    //return transformData(data.firefighters);
+    return data.firefighters;
   } catch (e) {
     console.log(e);
   }
@@ -53,7 +53,6 @@ const useDashboard = () => {
 
   useEffect(() => {
     setLoading(true);
-
     fetchDashboard().then((dashboard) => {
       setDashboard(dashboard);
       setLoading(false);
