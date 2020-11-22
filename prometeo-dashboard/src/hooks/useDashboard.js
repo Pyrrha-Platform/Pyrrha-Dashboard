@@ -33,6 +33,7 @@ const fetchDashboard = () => {
           humidity: 72,
           carbonMonoxide: 30,
           nitrogenDioxide: 20,
+          increment: "10 min avg",
         },
         {
           firefighterId: 2,
@@ -46,6 +47,7 @@ const fetchDashboard = () => {
           humidity: 72,
           carbonMonoxide: 30,
           nitrogenDioxide: 20,
+          increment: "10 min avg",
         },
         {
           firefighterId: 3,
@@ -59,6 +61,7 @@ const fetchDashboard = () => {
           humidity: 72,
           carbonMonoxide: 30,
           nitrogenDioxide: 20,
+          increment: "10 min avg",
         },
         {
           firefighterId: 4,
@@ -72,6 +75,7 @@ const fetchDashboard = () => {
           humidity: 72,
           carbonMonoxide: 30,
           nitrogenDioxide: 20,
+          increment: "10 min avg",
         },
       ]);
     }, 2000);

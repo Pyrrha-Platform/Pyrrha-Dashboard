@@ -13,6 +13,7 @@ function FirefighterGaugeSet({
   humidity,
   carbonMonoxide,
   nitrogenDioxide,
+  increment,
 }) {
   return (
     <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
@@ -21,7 +22,7 @@ function FirefighterGaugeSet({
           <div className="bx--col-md-8 label-firefighter">
             {firefighterCode} - {firefighterFirst} {firefighterLast}
             <br />
-            10 min avg
+            {increment}
           </div>
         </div>
         <div className="bx--row dashboard-tile">
