@@ -25,7 +25,7 @@ const DetailsGrid = ({ deviceId }) => {
 
   const loadDetails = useCallback(async () => {
     try {
-      const data = await client(`/api/v1/details-now`);
+      const data = await client(`/api/v1/dashboard-now`);
       console.log(data);
       setRawData(data.firefighters);
       setTransformedData(transformData(data.firefighters));
@@ -58,7 +58,7 @@ const DetailsGrid = ({ deviceId }) => {
     <div className="bx--grid bx--grid--full-width details-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="details-page__heading">Details</h1>
+          <h1 className="details-page__heading">GRAF7 Details</h1>
         </div>
       </div>
 

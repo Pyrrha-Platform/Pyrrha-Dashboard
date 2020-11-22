@@ -1,5 +1,7 @@
 import * as d3 from "d3";
 import React, { useRef, useEffect } from "react";
+import Constants from "../../utils/Constants";
+import Utils from "../../utils/Utils";
 
 function FirefighterGauge({
   firefighterId,
@@ -10,6 +12,25 @@ function FirefighterGauge({
   limit,
 }) {
   const ref = useRef();
+
+  /*
+  const Chart = ({ dateRange }) => {
+    const [data, setData] = useState()
+    useEffect(() => {
+      // when Chart mounts, do this
+      const newData = getDataWithinRange(dateRange)
+      setData(newData)
+      // when data updates, do this
+      // not used right now
+      return () => {
+        // when data updates, do this
+        // not used right now
+        // before Chart unmounts, do this
+        // not used right now
+      }
+    }, [dateRange])
+  }
+  */
 
   // On first load
   useEffect(() => {
@@ -27,88 +48,13 @@ function FirefighterGauge({
     change(firefighterId, type, 33, 0.7);
   }, [number]);
 
-  //
-  var tau = 2 * Math.PI;
-
-  var arc = d3.arc().innerRadius(21).outerRadius(30).startAngle(0);
-
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
     height = 80 - margin.top - margin.bottom;
 
-  const arcTween = (newAngle) => {
-    return function (d) {
-      var interpolate = d3.interpolate(d.endAngle, newAngle);
-      return function (t) {
-        d.endAngle = interpolate(t);
-        return arc(d);
-      };
-    };
-  };
-
-  var red = "#da1e28";
-  var yellow = "#f1c21b";
-  var green = "#24a148";
-  var initialColor = "#ddd";
-
-  const getStatusColor = (type, initialNumber) => {
-    var color = initialColor;
-    if (type == "CO") {
-      if (initialNumber <= 0.81) {
-        color = green;
-      } else if (initialNumber >= 0.99 || initialNumber == -1) {
-        color = red;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
-        color = yellow;
-      }
-    } else if (type == "NO2") {
-      if (initialNumber <= 0.81) {
-        color = green;
-      } else if (initialNumber >= 0.99 || initialNumber == -1) {
-        color = red;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
-        color = yellow;
-      }
-    } else if (type == "Tmp") {
-      if (initialNumber <= 0.25) {
-        color = green;
-      } else if (initialNumber >= 0.35) {
-        color = red;
-      } else if (initialNumber > 0.25 && initialNumber < 0.35) {
-        color = yellow;
-      }
-    } else if (type == "Hum") {
-      if (initialNumber <= 0.6) {
-        color = green;
-      } else if (initialNumber >= 0.8) {
-        color = red;
-      } else if (initialNumber > 0.6 && initialNumber < 0.8) {
-        color = yellow;
-      }
-    }
-    return color;
-  };
-
-  const getWhole = (value, type) => {
-    var number = 0.0;
-    if (type == "Tmp") {
-      var upper = 40;
-      var lower = 0;
-      var range = upper - lower;
-      number = value / range;
-    } else if (type == "Hum") {
-      var upper = 100;
-      var lower = 0;
-      var range = upper - lower;
-      number = value / range;
-    }
-    return number;
-  };
-  //
-
   // For initial load
   const draw = (firefighterId, type, initialNumber, unit) => {
-    const color = getStatusColor(type, initialNumber);
+    const color = Utils.getStatusColor(type, initialNumber);
     console.log("draw()", firefighterId, type, initialNumber, unit);
 
     const svg = d3
@@ -120,13 +66,13 @@ function FirefighterGauge({
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     g.append("path")
-      .datum({ endAngle: tau })
+      .datum({ endAngle: Constants.TAU })
       .style("fill", "#ddd")
-      .attr("d", arc);
+      .attr("d", Constants.ARC);
     g.append("path")
-      .datum({ endAngle: 0 * tau })
+      .datum({ endAngle: 0 * Constants.TAU })
       .style("fill", color)
-      .attr("d", arc)
+      .attr("d", Constants.ARC)
       .attr("id", "angle-" + type + "-" + firefighterId);
 
     const label = g
@@ -154,8 +100,8 @@ function FirefighterGauge({
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)
-      .style("fill", getStatusColor(type, limit))
-      .attrTween("d", arcTween(limit * tau));
+      .style("fill", Utils.getStatusColor(type, limit))
+      .attrTween("d", Utils.arcTween(limit * Constants.TAU));
     d3.select("#number-" + type + "-" + firefighterId).text(number);
   };
 
