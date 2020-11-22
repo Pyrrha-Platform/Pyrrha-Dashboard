@@ -18,7 +18,7 @@ function App() {
           Dashboard
         </Link>
         &nbsp;|&nbsp;
-        <Link className="App-link" to="/details">
+        <Link className="App-link" to="/details/:id">
           Details
         </Link>
         &nbsp;|&nbsp;
@@ -50,7 +50,7 @@ function App() {
         <Route exact path="/">
           <DashboardPage />
         </Route>
-        <Route path="/details">
+        <Route path="/details/:id">
           <DetailsPage />
         </Route>
         <Route path="/events">

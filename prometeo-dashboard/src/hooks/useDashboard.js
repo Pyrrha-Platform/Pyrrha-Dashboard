@@ -6,80 +6,45 @@ const client = async (url, options) => {
   return data;
 };
 
-const fetchDashboard = () => {
-  /*
+const clone = (obj) => Object.assign({}, obj);
+
+const renameKey = (object, key, newKey) => {
+  const clonedObj = clone(object);
+  const targetKey = clonedObj[key];
+  delete clonedObj[key];
+  clonedObj[newKey] = targetKey;
+  return clonedObj;
+};
+
+const transformData = (firefighters) => {
+  let transformedFirefighters = [];
+
+  firefighters.forEach((firefighter) => {
+    firefighter = renameKey(firefighter, "firefighter_id", "firefighterId");
+    firefighter = renameKey(firefighter, "device_id", "deviceId");
+    firefighter = renameKey(firefighter, "timestamp_mins", "timestampMins");
+    firefighter = renameKey(firefighter, "carbon_monoxide", "carbonMonoxide");
+    firefighter = renameKey(firefighter, "nitrogen_dioxide", "nitrogenDioxide");
+    firefighter.firefighterCode = "GRAF7";
+    firefighter.firefighterFirst = "Joan";
+    firefighter.firefighterLast = "Herrera";
+    firefighter.firefighterEmail = "graf7@graf.cat";
+    firefighter.increment = "10 min avg";
+    transformedFirefighters.push(firefighter);
+  });
+
+  return transformedFirefighters;
+};
+
+const fetchDashboard = async () => {
   try {
     const data = await client(`/api/v1/dashboard-now`);
     console.log(data);
-    setRawData(data.firefighters);
-    setTransformedData(transformData(data.firefighters));
+    const transformedData = transformData(data.firefighters);
+    return transformedData;
   } catch (e) {
     console.log(e);
   }
-  */
-
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([
-        {
-          firefighterId: 1,
-          firefighterCode: "GRAF1",
-          firefighterFirst: "Joan",
-          firefighterLast: "Herrera",
-          firefighterEmail: "graf1@graf.cat",
-          deviceId: 1,
-          timestampMins: "2020-01-01T10:41:00.000Z",
-          temperature: 38,
-          humidity: 72,
-          carbonMonoxide: 30,
-          nitrogenDioxide: 20,
-          increment: "10 min avg",
-        },
-        {
-          firefighterId: 2,
-          firefighterCode: "GRAF2",
-          firefighterFirst: "Daniel",
-          firefighterLast: "Krook",
-          firefighterEmail: "graf2@graf.cat",
-          deviceId: 2,
-          timestampMins: "2020-01-01T10:41:00.000Z",
-          temperature: 38,
-          humidity: 72,
-          carbonMonoxide: 30,
-          nitrogenDioxide: 20,
-          increment: "10 min avg",
-        },
-        {
-          firefighterId: 3,
-          firefighterCode: "GRAF3",
-          firefighterFirst: "Upkar",
-          firefighterLast: "Lidder",
-          firefighterEmail: "graf3@graf.cat",
-          deviceId: 3,
-          timestampMins: "2020-01-01T10:41:00.000Z",
-          temperature: 38,
-          humidity: 72,
-          carbonMonoxide: 30,
-          nitrogenDioxide: 20,
-          increment: "10 min avg",
-        },
-        {
-          firefighterId: 4,
-          firefighterCode: "GRAF4",
-          firefighterFirst: "Marco",
-          firefighterLast: "Rodriguez",
-          firefighterEmail: "graf4@graf.cat",
-          deviceId: 4,
-          timestampMins: "2020-01-01T10:41:00.000Z",
-          temperature: 38,
-          humidity: 72,
-          carbonMonoxide: 30,
-          nitrogenDioxide: 20,
-          increment: "10 min avg",
-        },
-      ]);
-    }, 2000);
-  });
 };
 
 const useDashboard = () => {

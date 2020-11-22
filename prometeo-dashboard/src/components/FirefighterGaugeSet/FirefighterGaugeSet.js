@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import FirefighterGauge from "../FirefighterGauge";
 
 function FirefighterGaugeSet({
@@ -20,9 +21,11 @@ function FirefighterGaugeSet({
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
-            {firefighterCode} - {firefighterFirst} {firefighterLast}
-            <br />
-            {increment}
+            <Link to={"/details/" + firefighterId}>
+              {firefighterCode} - {firefighterFirst} {firefighterLast}
+              <br />
+              {increment}
+            </Link>
           </div>
         </div>
         <div className="bx--row dashboard-tile">

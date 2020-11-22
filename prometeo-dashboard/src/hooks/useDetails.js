@@ -106,7 +106,7 @@ const fetchDetails = (firefighter) => {
           increment: "8 hr avg",
         },
       ]);
-    }, 2000);
+    }, 100);
   });
 };
 

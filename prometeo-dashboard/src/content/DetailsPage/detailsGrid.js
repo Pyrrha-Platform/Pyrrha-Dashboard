@@ -6,8 +6,8 @@ import useDetails from "../../hooks/useDetails";
 import FirefighterChartHolder from "../../components/FirefighterChartHolder";
 
 // Table and data
-const DetailsGrid = (firefighter) => {
-  const [loading, details] = useDetails(firefighter);
+const DetailsGrid = (firefighterId) => {
+  const [loading, details] = useDetails(firefighterId);
 
   console.log(details);
 
