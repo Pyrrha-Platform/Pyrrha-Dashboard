@@ -3,7 +3,7 @@ import "@carbon/charts/styles.css";
 import FirefighterGaugeSet from "../../components/FirefighterGaugeSet";
 import useDashboard from "../../hooks/useDashboard";
 
-const DashboardGrid = ({ deviceId }) => {
+const DashboardGrid = () => {
   const [loading, dashboard] = useDashboard();
 
   return (
@@ -37,6 +37,7 @@ const DashboardGrid = ({ deviceId }) => {
             humidity,
             carbonMonoxide,
             nitrogenDioxide,
+            increment,
           }) => (
             <FirefighterGaugeSet
               firefighterId={firefighterId}
@@ -50,6 +51,7 @@ const DashboardGrid = ({ deviceId }) => {
               humidity={humidity}
               carbonMonoxide={carbonMonoxide}
               nitrogenDioxide={nitrogenDioxide}
+              increment={increment}
             />
           )
         )}

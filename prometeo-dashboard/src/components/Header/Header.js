@@ -31,9 +31,6 @@ function PrometeoHeader() {
         <HeaderMenuItem isCurrentPage href="/">
           Dashboard
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/details">
-          Details
-        </HeaderMenuItem>
         <HeaderMenuItem element={Link} to="/events">
           Events
         </HeaderMenuItem>
