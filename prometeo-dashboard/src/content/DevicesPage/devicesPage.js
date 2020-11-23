@@ -1,14 +1,8 @@
 import React from "react";
-import PrometeoHeader from "../../components/PrometeoHeader";
 import DevicesTable from "./devicesTable";
 
 function DevicesPage() {
-  return (
-    <>
-      <PrometeoHeader />
-      <DevicesTable />
-    </>
-  );
+  return <DevicesTable />;
 }
 
 export default DevicesPage;

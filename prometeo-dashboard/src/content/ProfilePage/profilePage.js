@@ -1,14 +1,8 @@
 import React from "react";
-import PrometeoHeader from "../../components/PrometeoHeader";
 import ProfileGrid from "./profileGrid";
 
 function ProfilePage() {
-  return (
-    <>
-      <PrometeoHeader />
-      <ProfileGrid />
-    </>
-  );
+  return <ProfileGrid />;
 }
 
 export default ProfilePage;

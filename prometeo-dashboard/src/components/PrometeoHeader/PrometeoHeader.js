@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   Header,
   HeaderName,
@@ -15,28 +15,66 @@ import {
 import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
 import Translate20 from "@carbon/icons-react/lib/translate/20";
 
-function PrometeoHeader() {
-  const history = useHistory();
-  const [active, setActive] = useState(false);
-  const [language, setLanguage] = useState("EN");
-
+function PrometeoHeader(props) {
+  const history = props.history;
+  const active = props.active;
+  const language = props.language;
+  const page = props.page;
+  const setActive = props.setActive;
+  const setLanguage = props.setLanguage;
+  const setPage = props.setPage;
   return (
     <Header aria-label="Prometeo">
       <SkipToContent />
-      <HeaderName element={Link} to="/" prefix="Prometeo">
+      <HeaderName
+        element={Link}
+        to="/"
+        prefix="Prometeo"
+        onClick={() => {
+          setPage("Dashboard");
+        }}
+      >
         Platform
       </HeaderName>
       <HeaderNavigation aria-label="Prometeo Dashboard">
-        <HeaderMenuItem isCurrentPage href="/">
+        <HeaderMenuItem
+          element={Link}
+          to="/"
+          isCurrentPage={page === "Dashboard"}
+          onClick={() => {
+            setPage("Dashboard");
+          }}
+        >
           Dashboard
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/events">
+        <HeaderMenuItem
+          element={Link}
+          to="/events"
+          isCurrentPage={page === "Events"}
+          onClick={() => {
+            setPage("Events");
+          }}
+        >
           Events
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/devices">
+        <HeaderMenuItem
+          element={Link}
+          to="/devices"
+          isCurrentPage={page === "Devices"}
+          onClick={() => {
+            setPage("Devices");
+          }}
+        >
           Devices
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/firefighters">
+        <HeaderMenuItem
+          element={Link}
+          to="/firefighters"
+          isCurrentPage={page === "Firefighters"}
+          onClick={() => {
+            setPage("Firefighters");
+          }}
+        >
           Firefighters
         </HeaderMenuItem>
       </HeaderNavigation>
@@ -63,7 +101,6 @@ function PrometeoHeader() {
             onClick={() => {
               setLanguage("EN");
               setActive(false);
-              console.log(language, active);
             }}
           >
             English
@@ -73,9 +110,7 @@ function PrometeoHeader() {
             onClick={() => {
               setLanguage("ES");
               setActive(false);
-              console.log(language, active);
             }}
-            isSelected={language === "ES"}
           >
             Spanish
           </SwitcherItem>
@@ -84,7 +119,6 @@ function PrometeoHeader() {
             onClick={() => {
               setLanguage("CA");
               setActive(false);
-              console.log(language, active);
             }}
             isSelected={language === "CA"}
           >
