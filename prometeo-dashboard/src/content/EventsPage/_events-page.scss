@@ -13,6 +13,8 @@
 
 .dashboard-page__heading {
   @include carbon--type-style("productive-heading-05");
+  padding-top: $spacing-09;
+  margin-top: $spacing-05;
 }
 
 .dashboard-page__r1 {

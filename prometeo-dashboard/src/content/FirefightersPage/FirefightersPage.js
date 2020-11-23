@@ -1,15 +1,13 @@
 import React from "react";
-import Header from "../../components/Header";
-import SideMenu from "../../components/SideMenu";
+import PrometeoHeader from "../../components/PrometeoHeader";
 import FirefightersTable from "./firefightersTable";
 
 function FirefightersPage() {
   return (
-    <div>
-      <Header />
-      {/* <SideMenu /> */}
+    <>
+      <PrometeoHeader />
       <FirefightersTable />
-    </div>
+    </>
   );
 }
 

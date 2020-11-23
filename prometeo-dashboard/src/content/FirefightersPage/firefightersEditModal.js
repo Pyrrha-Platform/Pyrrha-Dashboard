@@ -167,7 +167,6 @@ class FirefightersEditModal extends React.Component {
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                placeholder={this.state.code}
                 labelText="Code:"
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
@@ -175,7 +174,6 @@ class FirefightersEditModal extends React.Component {
               <TextInput
                 id={this.state.first}
                 value={this.state.first}
-                placeholder={this.state.first}
                 labelText="First name:"
                 onChange={(e) => (this.state.first = e.target.value.trim())}
               />
@@ -183,7 +181,6 @@ class FirefightersEditModal extends React.Component {
               <TextInput
                 id={this.state.last}
                 value={this.state.last}
-                placeholder={this.state.last}
                 labelText="Last name:"
                 onChange={(e) => (this.state.last = e.target.value.trim())}
               />
@@ -191,7 +188,6 @@ class FirefightersEditModal extends React.Component {
               <TextInput
                 id={this.state.email}
                 value={this.state.email}
-                placeholder={this.state.email}
                 labelText="Email:"
                 onChange={(e) => (this.state.email = e.target.value.trim())}
               />

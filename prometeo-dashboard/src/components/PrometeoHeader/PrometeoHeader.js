@@ -10,7 +10,6 @@ import {
   HeaderPanel,
   Switcher,
   SwitcherItem,
-  SwitcherItemLink,
   SkipToContent,
 } from "carbon-components-react/lib/components/UIShell";
 import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
@@ -60,29 +59,36 @@ function PrometeoHeader() {
         <Switcher aria-label="Switcher Container">
           <SwitcherItem
             aria-label="English"
+            isSelected={language === "EN"}
             onClick={() => {
               setLanguage("EN");
               setActive(false);
               console.log(language, active);
             }}
           >
-            <SwitcherItemLink isSelected={language === "EN"}>
-              English
-            </SwitcherItemLink>
+            English
           </SwitcherItem>
           <SwitcherItem
             aria-label="Spanish"
-            onClick={() => setLanguage("ES")}
+            onClick={() => {
+              setLanguage("ES");
+              setActive(false);
+              console.log(language, active);
+            }}
             isSelected={language === "ES"}
           >
-            <SwitcherItemLink>Spanish</SwitcherItemLink>
+            Spanish
           </SwitcherItem>
           <SwitcherItem
             aria-label="Catalan"
-            onClick={() => setLanguage("CA")}
+            onClick={() => {
+              setLanguage("CA");
+              setActive(false);
+              console.log(language, active);
+            }}
             isSelected={language === "CA"}
           >
-            <SwitcherItemLink>Catalan</SwitcherItemLink>
+            Catalan
           </SwitcherItem>
         </Switcher>
       </HeaderPanel>

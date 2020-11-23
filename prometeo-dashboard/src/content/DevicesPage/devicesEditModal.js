@@ -156,7 +156,6 @@ class DevicesEditModal extends React.Component {
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                placeholder={this.state.code}
                 labelText="Code:"
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
@@ -164,7 +163,6 @@ class DevicesEditModal extends React.Component {
               <TextInput
                 id={this.state.model}
                 value={this.state.model}
-                placeholder={this.state.model}
                 labelText="Model:"
                 onChange={(e) => (this.state.model = e.target.value.trim())}
               />
@@ -172,7 +170,6 @@ class DevicesEditModal extends React.Component {
               <TextInput
                 id={this.state.version}
                 value={this.state.version}
-                placeholder={this.state.version}
                 labelText="Version:"
                 onChange={(e) => (this.state.version = e.target.value.trim())}
               />

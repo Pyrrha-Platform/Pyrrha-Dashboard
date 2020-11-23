@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "../../components/Header";
+import PrometeoHeader from "../../components/PrometeoHeader";
 import DashboardGrid from "./dashboardGrid";
 
 function DashboardPage() {
   return (
-    <div>
-      <Header />
+    <>
+      <PrometeoHeader />
       <DashboardGrid />
-    </div>
+    </>
   );
 }
 

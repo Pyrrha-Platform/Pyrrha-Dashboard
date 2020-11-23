@@ -1,15 +1,13 @@
 import React from "react";
-import Header from "../../components/Header";
-import SideMenu from "../../components/SideMenu";
+import PrometeoHeader from "../../components/PrometeoHeader";
 import EventsTable from "./eventsTable";
 
 function EventsPage() {
   return (
-    <div>
-      <Header />
-      {/* <SideMenu /> */}
+    <>
+      <PrometeoHeader />
       <EventsTable />
-    </div>
+    </>
   );
 }
 

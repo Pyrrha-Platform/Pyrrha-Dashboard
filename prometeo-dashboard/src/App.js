@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import "./App.scss";
 import FirefightersPage from "./content/FirefightersPage";
@@ -11,50 +11,13 @@ import ProfilePage from "./content/ProfilePage";
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        <Link className="App-link" to="/">
-          Dashboard
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/details/:id">
-          Details
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/firefighters">
-          Firefighters
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/events">
-          Events
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/devices">
-          Devices
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/profile">
-          Profile
-        </Link>
-      </div>
       <Switch>
-        <Route exact path="/">
-          <DashboardPage />
-        </Route>
-        <Route path="/details/:id">
-          <DetailsPage />
-        </Route>
-        <Route path="/events">
-          <EventsPage />
-        </Route>
-        <Route path="/devices">
-          <DevicesPage />
-        </Route>
-        <Route path="/firefighters">
-          <FirefightersPage />
-        </Route>
-        <Route path="/profile">
-          <ProfilePage />
-        </Route>
+        <Route exact path="/" component={DashboardPage} />
+        <Route path="/details/:id" component={DetailsPage} />
+        <Route path="/events" component={EventsPage} />
+        <Route path="/devices" component={DevicesPage} />
+        <Route path="/firefighters" component={FirefightersPage} />
+        <Route path="/profile" component={ProfilePage} />
       </Switch>
     </BrowserRouter>
   );

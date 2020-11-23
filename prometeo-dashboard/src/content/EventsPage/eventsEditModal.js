@@ -167,7 +167,6 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                placeholder={this.state.code}
                 labelText="Code:"
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
@@ -175,7 +174,6 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.type}
                 value={this.state.type}
-                placeholder={this.state.type}
                 labelText="Type:"
                 onChange={(e) => (this.state.type = e.target.value.trim())}
               />
@@ -183,7 +181,6 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.firefighters}
                 value={this.state.firefighters}
-                placeholder={this.state.firefighters}
                 labelText="Firefighters:"
                 onChange={(e) =>
                   (this.state.firefighters = e.target.value.trim())
@@ -193,7 +190,6 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.state}
                 value={this.state.state}
-                placeholder={this.state.state}
                 labelText="State:"
                 onChange={(e) => (this.state.state = e.target.value.trim())}
               />
