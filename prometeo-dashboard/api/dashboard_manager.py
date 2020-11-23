@@ -5,6 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 
+
 class dashboard_manager(object):
 
     def __init__(self):
@@ -21,11 +22,11 @@ class dashboard_manager(object):
             print("get_dashboard - trying")
 
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             print("get_dashboard - before cursor")
@@ -33,7 +34,8 @@ class dashboard_manager(object):
             print("get_dashboard - after cursor")
 
             print("get_dashboard - llamada a sql")
-            cursor.execute('SELECT * FROM firefighter_sensor_log WHERE firefighter_id = ? ORDER BY device_timestamp DESC LIMIT 1', (firefighter_id,))
+            cursor.execute(
+                'SELECT * FROM firefighter_sensor_log WHERE firefighter_id = ? ORDER BY device_timestamp DESC LIMIT 1', (firefighter_id,))
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
             print("get_dashboard - sp_select_all_devices")
             data = cursor.fetchall()
@@ -43,9 +45,9 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     firefighters.append({
-                        'timestamp_mins': i[0], 
-                        'firefighter_id': i[1], 
-                        'device_id': i[2], 
+                        'timestamp_mins': i[0],
+                        'firefighter_id': i[1],
+                        'device_id': i[2],
                         'device_battery_level': i[3],
                         'temperature': i[4],
                         'humidity': i[5],
@@ -56,7 +58,7 @@ class dashboard_manager(object):
                         'benzene': i[10],
                         'device_timestamp': i[11],
                         'device_status_LED': i[12]
-                    } )
+                    })
                 # firefighters = data
             else:
                 print("get_dashboard - NO HAY INFORMACION")
@@ -81,11 +83,11 @@ class dashboard_manager(object):
             print("get_dashboard_now - trying")
 
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             print("get_dashboard_now - before cursor")
@@ -142,8 +144,8 @@ class dashboard_manager(object):
                         'humidity': i[6],
                         'carbonMonoxide': i[7],
                         'nitrogenDioxide': i[8],
-                        'timestampMins': i[9], 
-                    } )
+                        'timestampMins': i[9],
+                    })
                 # firefighters = data
             else:
                 print("get_dashboard_now - NO HAY INFORMACION")

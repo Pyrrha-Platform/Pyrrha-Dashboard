@@ -172,14 +172,14 @@ class EventsEditModal extends React.Component {
               />
               <br />
               <TextInput
-                id={this.state.type}
+                id={this.state.code + "-" + this.state.type}
                 value={this.state.type}
                 labelText="Type:"
                 onChange={(e) => (this.state.type = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.firefighters}
+                id={this.state.code + "-" + this.state.firefighters}
                 value={this.state.firefighters}
                 labelText="Firefighters:"
                 onChange={(e) =>
@@ -188,7 +188,7 @@ class EventsEditModal extends React.Component {
               />
               <br />
               <TextInput
-                id={this.state.state}
+                id={this.state.code + "-" + this.state.state}
                 value={this.state.state}
                 labelText="State:"
                 onChange={(e) => (this.state.state = e.target.value.trim())}

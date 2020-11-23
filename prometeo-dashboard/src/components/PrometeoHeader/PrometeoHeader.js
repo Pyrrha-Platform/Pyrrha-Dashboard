@@ -88,7 +88,8 @@ function PrometeoHeader(props) {
         </HeaderGlobalAction>
         <HeaderGlobalAction
           aria-label="User Avatar"
-          onClick={() => history.push({ pathname: "/profile" })}
+          element={Link}
+          to="/profile"
         >
           <UserAvatar20 />
         </HeaderGlobalAction>
@@ -107,6 +108,7 @@ function PrometeoHeader(props) {
           </SwitcherItem>
           <SwitcherItem
             aria-label="Spanish"
+            isSelected={language === "ES"}
             onClick={() => {
               setLanguage("ES");
               setActive(false);
@@ -116,11 +118,11 @@ function PrometeoHeader(props) {
           </SwitcherItem>
           <SwitcherItem
             aria-label="Catalan"
+            isSelected={language === "CA"}
             onClick={() => {
               setLanguage("CA");
               setActive(false);
             }}
-            isSelected={language === "CA"}
           >
             Catalan
           </SwitcherItem>
