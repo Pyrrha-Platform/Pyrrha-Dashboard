@@ -6,8 +6,6 @@ import EventsPage from "./content/EventsPage";
 import DevicesPage from "./content/DevicesPage";
 import DashboardPage from "./content/DashboardPage";
 import DetailsPage from "./content/DetailsPage";
-import ReportsPage from "./content/ReportsPage";
-import LanguagePage from "./content/LanguagePage";
 import ProfilePage from "./content/ProfilePage";
 
 function App() {
@@ -34,16 +32,8 @@ function App() {
           Devices
         </Link>
         &nbsp;|&nbsp;
-        <Link className="App-link" to="/reports">
-          Reports
-        </Link>
-        &nbsp;|&nbsp;
         <Link className="App-link" to="/profile">
           Profile
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/language">
-          Language
         </Link>
       </div>
       <Switch>
@@ -59,14 +49,8 @@ function App() {
         <Route path="/devices">
           <DevicesPage />
         </Route>
-        <Route path="/reports">
-          <ReportsPage />
-        </Route>
         <Route path="/firefighters">
           <FirefightersPage />
-        </Route>
-        <Route path="/language">
-          <LanguagePage />
         </Route>
         <Route path="/profile">
           <ProfilePage />
