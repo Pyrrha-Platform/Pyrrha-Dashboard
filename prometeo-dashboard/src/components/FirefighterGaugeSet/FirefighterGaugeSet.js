@@ -17,7 +17,7 @@ function FirefighterGaugeSet({
   increment,
 }) {
   return (
-    <div class="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+    <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
@@ -34,8 +34,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"CO"}
-                initialNumber={carbonMonoxide}
+                value={carbonMonoxide}
                 unit={"ppm"}
+                limit={0.8}
               />
             </div>
             <div className="label-legend">CO</div>
@@ -45,8 +46,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"NO2"}
-                initialNumber={nitrogenDioxide}
+                value={nitrogenDioxide}
                 unit={"ppm"}
+                limit={0.5}
               />
             </div>
             <div className="label-legend">
@@ -58,7 +60,7 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"Tmp"}
-                initialNumber={temperature}
+                value={temperature}
                 unit={"°C"}
               />
             </div>
@@ -69,7 +71,7 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"Hum"}
-                initialNumber={humidity}
+                value={humidity}
                 unit={"%"}
               />
             </div>

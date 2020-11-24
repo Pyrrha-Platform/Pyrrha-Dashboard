@@ -6,33 +6,6 @@ import useDashboard from "../../hooks/useDashboard";
 const DashboardGrid = () => {
   const [loading, setLoading, dashboard, setDashboard] = useDashboard();
 
-  //
-  const [message, setMessage] = useState([""]);
-
-  const socket = useRef(new WebSocket("ws://localhost:8010"));
-
-  useEffect(() => {
-    socket.current.onmessage = (msg) => {
-      console.log(msg);
-      const incomingMessage = msg.data;
-      // setDashboard(Some transformed version of the data with a slice for specific firefighter)
-      // Can we swap out objects by id in the dashboard array?
-      // Use stub version of what's returned as JSON from useDashboard, with slightly different values
-      // Use the test client to post that to the web socket from elsewhere
-      // setDashboard(msg.data);
-      setMessage(message.concat([incomingMessage]));
-    };
-    socket.current.onclose = (msg) => {
-      console.log(msg);
-      setMessage(message.concat(["Connection Closed"]));
-    };
-    return () => {
-      console.log("Closing connection");
-      socket.current.close();
-    };
-  }, []);
-  //
-
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content">
       <div className="bx--row">
@@ -45,13 +18,14 @@ const DashboardGrid = () => {
         <div className="bx--col-md-16">
           <h1 className="dashboard-page__subheading">
             You are now viewing the real-time data and 10 minute average
-            exposure thresholds.
+            exposure thresholds. The number is the real-time data, and the gauge
+            represents the ten minute average within a threshold.
           </h1>
-          <h1 className="dashboard-page__subheading">{message}</h1>
+          <h1 className="dashboard-page__subheading">{loading}</h1>
         </div>
       </div>
 
-      <div class="bx--row">
+      <div className="bx--row">
         {dashboard.map(
           ({
             firefighterId,

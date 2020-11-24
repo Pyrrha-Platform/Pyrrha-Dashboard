@@ -14,38 +14,40 @@ class Utils {
   };
 
   // TODO: Use thresholds from constants
-  static getStatusColor = (type, initialNumber) => {
+  static getStatusColor = (type, value, limit) => {
     var color = Constants.DEFAULT_COLOR;
     if (type === "CO") {
-      if (initialNumber <= 0.81) {
+      if (limit <= 0.81) {
         color = Constants.GREEN;
-      } else if (initialNumber >= 0.99 || initialNumber == -1) {
+      } else if (limit >= 0.99 || value == -1) {
         color = Constants.RED;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
+      } else if (limit > 0.81 && value < 0.99) {
         color = Constants.YELLOW;
       }
     } else if (type === "NO2") {
-      if (initialNumber <= 0.81) {
+      if (limit <= 0.81) {
         color = Constants.GREEN;
-      } else if (initialNumber >= 0.99 || initialNumber == -1) {
+      } else if (limit >= 0.99 || value == -1) {
         color = Constants.RED;
-      } else if (initialNumber > 0.81 && initialNumber < 0.99) {
+      } else if (limit > 0.81 && value < 0.99) {
         color = Constants.YELLOW;
       }
     } else if (type === "Tmp") {
-      if (initialNumber <= 0.25) {
+      limit = Utils.getWhole(type, value);
+      if (limit <= 0.25) {
         color = Constants.GREEN;
-      } else if (initialNumber >= 0.35) {
+      } else if (limit >= 0.35) {
         color = Constants.RED;
-      } else if (initialNumber > 0.25 && initialNumber < 0.35) {
+      } else if (limit > 0.25 && value < 0.35) {
         color = Constants.YELLOW;
       }
     } else if (type === "Hum") {
-      if (initialNumber <= 0.6) {
+      limit = Utils.getWhole(type, value);
+      if (limit <= 0.6) {
         color = Constants.GREEN;
-      } else if (initialNumber >= 0.8) {
+      } else if (limit >= 0.8) {
         color = Constants.RED;
-      } else if (initialNumber > 0.6 && initialNumber < 0.8) {
+      } else if (limit > 0.6 && value < 0.8) {
         color = Constants.YELLOW;
       }
     }
@@ -53,7 +55,7 @@ class Utils {
   };
 
   // TODO: Use thresholds from constants
-  static getWhole = (value, type) => {
+  static getWhole = (type, value) => {
     var number = 0.0;
     if (type === "Tmp") {
       var upper = 40;

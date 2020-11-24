@@ -5,7 +5,7 @@ import no2Data from "./no2.csv";
 import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
 
-function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
+function FirefighterChart({ w, h, firefighterId, type, value, unit }) {
   const ref = useRef();
 
   /*
@@ -39,16 +39,16 @@ function FirefighterChart({ w, h, firefighterId, type, initialNumber, unit }) {
   }, []);
 
   useEffect(() => {
-    draw(firefighterId, type, initialNumber, unit);
+    draw(firefighterId, type, value, unit);
   }, [Constants.DEFAULT_COLOR]);
 
-  const draw = (firefighterId, type, initialNumber, unit) => {
+  const draw = (firefighterId, type, value, unit) => {
     const svg = d3
       .select(ref.current)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var color = Utils.getStatusColor(type, initialNumber);
+    var color = Utils.getStatusColor(type, value);
 
     var csv = coData;
 
