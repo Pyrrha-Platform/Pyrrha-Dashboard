@@ -25,7 +25,7 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      <div class="bx--row">
+      <div className="bx--row">
         {dashboard.map(
           ({
             firefighterId,

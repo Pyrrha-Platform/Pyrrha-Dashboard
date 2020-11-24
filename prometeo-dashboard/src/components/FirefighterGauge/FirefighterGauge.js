@@ -80,12 +80,24 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
 
   // On each change
   const change = (firefighterId, type, value, unit, limit) => {
-    //console.log("change()", firefighterId, type, value, unit, limit, limit * Constants.TAU);
+    console.log(
+      "change()",
+      firefighterId,
+      type,
+      value,
+      unit,
+      limit,
+      limit * Constants.TAU
+    );
+    let valueToUse = limit;
+    if (type === "Tmp" || type === "Hum") {
+      valueToUse = Utils.getWhole(type, value);
+    }
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)
-      .style("fill", Utils.getStatusColor(type, limit))
-      .attrTween("d", Utils.arcTween(limit * Constants.TAU));
+      .style("fill", Utils.getStatusColor(type, value, limit))
+      .attrTween("d", Utils.arcTween(valueToUse * Constants.TAU));
     d3.select("#number-" + type + "-" + firefighterId).text(value);
   };
 
