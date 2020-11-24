@@ -86,11 +86,7 @@ function PrometeoHeader(props) {
         >
           <Translate20 />
         </HeaderGlobalAction>
-        <HeaderGlobalAction
-          aria-label="User Avatar"
-          element={Link}
-          to="/profile"
-        >
+        <HeaderGlobalAction aria-label="User Avatar">
           <UserAvatar20 />
         </HeaderGlobalAction>
       </HeaderGlobalBar>

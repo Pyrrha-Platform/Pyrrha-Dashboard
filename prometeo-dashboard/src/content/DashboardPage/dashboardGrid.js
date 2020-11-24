@@ -18,7 +18,8 @@ const DashboardGrid = () => {
         <div className="bx--col-md-16">
           <h1 className="dashboard-page__subheading">
             You are now viewing the real-time data and 10 minute average
-            exposure thresholds.
+            exposure thresholds. The number is the real-time data, and the gauge
+            represents the ten minute average within a threshold.
           </h1>
           <h1 className="dashboard-page__subheading">{loading}</h1>
         </div>

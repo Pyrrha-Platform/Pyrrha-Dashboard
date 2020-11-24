@@ -7,7 +7,6 @@ import EventsPage from "./content/EventsPage";
 import DevicesPage from "./content/DevicesPage";
 import DashboardPage from "./content/DashboardPage";
 import DetailsPage from "./content/DetailsPage";
-import ProfilePage from "./content/ProfilePage";
 
 function App() {
   const history = useHistory();
@@ -76,18 +75,6 @@ function App() {
             setPage={setPage}
           />
           <FirefightersPage />
-        </Route>
-        <Route path="/profile">
-          <PrometeoHeader
-            history={history}
-            active={active}
-            language={language}
-            page={page}
-            setActive={setActive}
-            setLanguage={setLanguage}
-            setPage={setPage}
-          />
-          <ProfilePage />
         </Route>
       </Switch>
     </BrowserRouter>

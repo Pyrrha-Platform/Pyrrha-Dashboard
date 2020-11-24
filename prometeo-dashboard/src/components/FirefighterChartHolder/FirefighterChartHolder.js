@@ -22,7 +22,7 @@ function FirefighterChartHolder({
           <FirefighterChart
             firefighterId={firefighterId}
             type={type}
-            initialNumber={value}
+            value={value}
             unit={unit}
           />
         </div>

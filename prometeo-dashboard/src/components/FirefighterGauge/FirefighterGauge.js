@@ -3,14 +3,7 @@ import React, { useRef, useEffect } from "react";
 import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
 
-function FirefighterGauge({
-  firefighterId,
-  type,
-  initialNumber,
-  unit,
-  number,
-  limit,
-}) {
+function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   const ref = useRef();
 
   /*
@@ -26,35 +19,34 @@ function FirefighterGauge({
   }
   */
 
-  // On first load
-  useEffect(() => {
-    const svg = d3
-      .select(ref.current)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom);
-    draw(firefighterId, type, initialNumber, unit);
-  }, []);
-
-  // When data changes
-  useEffect(() => {
-    change(firefighterId, type, 33, 0.7);
-  }, [number]);
-
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
     height = 80 - margin.top - margin.bottom;
 
-  // For initial load
-  const draw = (firefighterId, type, initialNumber, unit) => {
-    const color = Utils.getStatusColor(type, initialNumber);
-    //console.log("draw()", firefighterId, type, initialNumber, unit);
-
-    const svg = d3
+  // On first load
+  useEffect(() => {
+    let svg = d3
       .select(ref.current)
+      .attr("width", width)
+      .attr("height", height);
+    draw(svg, firefighterId, type, value, unit, limit);
+  }, []);
+
+  // When data changes
+  useEffect(() => {
+    change(firefighterId, type, value, unit, limit);
+  }, [value]);
+
+  // For initial load
+  const draw = (svg, firefighterId, type, value, unit, limit) => {
+    const color = Utils.getStatusColor(type, limit);
+    //console.log("draw()", firefighterId, type, value, unit, limit);
+
+    svg
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    const g = svg
+    let g = svg
       .append("g")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     g.append("path")
@@ -75,7 +67,7 @@ function FirefighterGauge({
     label
       .append("tspan")
       .attr("class", "label-num")
-      .text(initialNumber)
+      .text(value)
       .attr("x", "0")
       .attr("id", "number-" + type + "-" + firefighterId);
     label
@@ -87,14 +79,14 @@ function FirefighterGauge({
   };
 
   // On each change
-  const change = (firefighterId, type, number, limit) => {
-    //console.log("change()", firefighterId, type, number, limit);
+  const change = (firefighterId, type, value, unit, limit) => {
+    //console.log("change()", firefighterId, type, value, unit, limit, limit * Constants.TAU);
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)
       .style("fill", Utils.getStatusColor(type, limit))
       .attrTween("d", Utils.arcTween(limit * Constants.TAU));
-    d3.select("#number-" + type + "-" + firefighterId).text(number);
+    d3.select("#number-" + type + "-" + firefighterId).text(value);
   };
 
   return <svg ref={ref}></svg>;

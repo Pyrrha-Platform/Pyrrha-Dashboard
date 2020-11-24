@@ -34,8 +34,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"CO"}
-                initialNumber={carbonMonoxide}
+                value={carbonMonoxide}
                 unit={"ppm"}
+                limit={0.8}
               />
             </div>
             <div className="label-legend">CO</div>
@@ -45,8 +46,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"NO2"}
-                initialNumber={nitrogenDioxide}
+                value={nitrogenDioxide}
                 unit={"ppm"}
+                limit={0.5}
               />
             </div>
             <div className="label-legend">
@@ -58,8 +60,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"Tmp"}
-                initialNumber={temperature}
+                value={temperature}
                 unit={"°C"}
+                limit={0.3}
               />
             </div>
             <div className="label-legend">Temperature</div>
@@ -69,8 +72,9 @@ function FirefighterGaugeSet({
               <FirefighterGauge
                 firefighterId={firefighterId}
                 type={"Hum"}
-                initialNumber={humidity}
+                value={humidity}
                 unit={"%"}
+                limit={0.9}
               />
             </div>
             <div className="label-legend">Humidity</div>

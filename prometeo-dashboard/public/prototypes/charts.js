@@ -10,8 +10,8 @@ var yellow = "yellow";
 var green = "green";
 var initialColor = "#ddd";
 
-function renderChart(parent, firefighterId, type, initialNumber, unit) {
-  var color = getStatusColor(type, initialNumber);
+function renderChart(parent, firefighterId, type, value, unit) {
+  var color = getStatusColor(type, value);
   var svg = d3
     .select(parent)
     .append("svg")
@@ -122,38 +122,38 @@ function renderChart(parent, firefighterId, type, initialNumber, unit) {
   );
 }
 
-function getStatusColor(type, initialNumber) {
+function getStatusColor(type, value) {
   var color = initialColor;
   if (type == "CO") {
-    if (initialNumber <= 0.81) {
+    if (value <= 0.81) {
       color = green;
-    } else if (initialNumber >= 0.99 || initialNumber == -1) {
+    } else if (value >= 0.99 || value == -1) {
       color = red;
-    } else if (initialNumber > 0.81 && initialNumber < 0.99) {
+    } else if (value > 0.81 && value < 0.99) {
       color = yellow;
     }
   } else if (type == "NO2") {
-    if (initialNumber <= 0.81) {
+    if (value <= 0.81) {
       color = green;
-    } else if (initialNumber >= 0.99 || initialNumber == -1) {
+    } else if (value >= 0.99 || value == -1) {
       color = red;
-    } else if (initialNumber > 0.81 && initialNumber < 0.99) {
+    } else if (value > 0.81 && value < 0.99) {
       color = yellow;
     }
   } else if (type == "Tmp") {
-    if (initialNumber <= 0.25) {
+    if (value <= 0.25) {
       color = green;
-    } else if (initialNumber >= 0.35) {
+    } else if (value >= 0.35) {
       color = red;
-    } else if (initialNumber > 0.25 && initialNumber < 0.35) {
+    } else if (value > 0.25 && value < 0.35) {
       color = yellow;
     }
   } else if (type == "Hum") {
-    if (initialNumber <= 0.6) {
+    if (value <= 0.6) {
       color = green;
-    } else if (initialNumber >= 0.8) {
+    } else if (value >= 0.8) {
       color = red;
-    } else if (initialNumber > 0.6 && initialNumber < 0.8) {
+    } else if (value > 0.6 && value < 0.8) {
       color = yellow;
     }
   }

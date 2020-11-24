@@ -31,7 +31,7 @@ const updateDashboard = (dashboard, message) => {
       console.log("array", newMessage);
       // Merge array, replacing existing members with the same id
       // TODO, for now just replacing
-      newDashboard = newMessage;
+      newDashboard.current = newMessage;
     } else {
       console.log("object", newMessage);
       // Replace or add a member with this object
@@ -69,7 +69,7 @@ const useDashboard = () => {
         setLoading("Connection opened.");
       } else {
         console.log("Received update.", msg);
-        setLoading("Received update.");
+        setLoading("Received update at " + new Date() + ".");
         setDashboard(updateDashboard(dashboardRef, msg.data));
       }
       console.log("dashboard", dashboard);
