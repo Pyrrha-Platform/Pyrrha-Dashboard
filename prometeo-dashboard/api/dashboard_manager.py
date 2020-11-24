@@ -81,7 +81,6 @@ class dashboard_manager(object):
 
         try:
             print("get_dashboard_now - trying")
-
             conn = mariadb.connect(
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
@@ -92,7 +91,6 @@ class dashboard_manager(object):
 
             print("get_dashboard_now - before cursor")
             cursor = conn.cursor()
-            print("get_dashboard_now - after cursor")
 
             print("get_dashboard_now - llamada a sql")
             sql = """
@@ -124,11 +122,13 @@ class dashboard_manager(object):
                     ORDER BY reading DESC
                 ) fsl on fsl.firefighter_id = f.firefighter_id
             """
-            # cursor.execute('SELECT * FROM firefighter_sensor_log ORDER BY device_timestamp DESC LIMIT 15')
+
+            print("get_dashboard_now - get latest reading for each firefighters")
             cursor.execute(sql)
-            print("get_dashboard_now - sp_select_all_devices")
-            data = cursor.fetchall()
+
             print("get_dashboard_now - fetchall")
+            data = cursor.fetchall()
+
             if len(data) > 0:
                 print("get_dashboard_now - Hay informacion")
                 for i in data:
@@ -146,10 +146,11 @@ class dashboard_manager(object):
                         'nitrogenDioxide': i[8],
                         'timestampMins': i[9],
                     })
-                # firefighters = data
+
             else:
                 print("get_dashboard_now - NO HAY INFORMACION")
                 return None
+
         except Exception as e:
             print("get_dashboard_now - Estoy en la excepcion")
             print(e)
