@@ -22,19 +22,12 @@ function FirefighterGauge({
       setData(newData)
       // when data updates, do this
       // not used right now
-      return () => {
-        // when data updates, do this
-        // not used right now
-        // before Chart unmounts, do this
-        // not used right now
-      }
     }, [dateRange])
   }
   */
 
   // On first load
   useEffect(() => {
-    console.log("useEffect draw");
     const svg = d3
       .select(ref.current)
       .attr("width", width + margin.left + margin.right)
@@ -44,7 +37,6 @@ function FirefighterGauge({
 
   // When data changes
   useEffect(() => {
-    console.log("useEffect change");
     change(firefighterId, type, 33, 0.7);
   }, [number]);
 
@@ -55,7 +47,7 @@ function FirefighterGauge({
   // For initial load
   const draw = (firefighterId, type, initialNumber, unit) => {
     const color = Utils.getStatusColor(type, initialNumber);
-    console.log("draw()", firefighterId, type, initialNumber, unit);
+    //console.log("draw()", firefighterId, type, initialNumber, unit);
 
     const svg = d3
       .select(ref.current)
@@ -96,7 +88,7 @@ function FirefighterGauge({
 
   // On each change
   const change = (firefighterId, type, number, limit) => {
-    console.log("change()", firefighterId, type, number, limit);
+    //console.log("change()", firefighterId, type, number, limit);
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)
