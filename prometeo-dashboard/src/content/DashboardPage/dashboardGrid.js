@@ -1,10 +1,26 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "@carbon/charts/styles.css";
 import FirefighterGaugeSet from "../../components/FirefighterGaugeSet";
 import useDashboard from "../../hooks/useDashboard";
 
 const DashboardGrid = () => {
   const [loading, dashboard] = useDashboard();
+
+  //
+  const [messages, setMessages] = useState(["Test message"]);
+
+  const socket = useRef(new WebSocket("ws://localhost:8010"));
+
+  useEffect(() => {
+    socket.current.onmessage = (msg) => {
+      console.log(msg);
+      const incomingMessage = `Message from WebSocket: ${msg.data}`;
+      setMessages(messages.concat([incomingMessage]));
+    };
+  });
+
+  useEffect(() => () => socket.current.close(), [socket]);
+  //
 
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content">
@@ -20,6 +36,7 @@ const DashboardGrid = () => {
             You are now viewing the real-time data and 10 minute average
             exposure thresholds.
           </h1>
+          <h1 className="dashboard-page__subheading">{messages}</h1>
         </div>
       </div>
 
