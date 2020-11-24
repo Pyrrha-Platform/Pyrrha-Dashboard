@@ -40,7 +40,6 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   // For initial load
   const draw = (svg, firefighterId, type, value, unit, limit) => {
     const color = Utils.getStatusColor(type, limit);
-    //console.log("draw()", firefighterId, type, value, unit, limit);
 
     svg
       .append("g")
@@ -80,15 +79,6 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
 
   // On each change
   const change = (firefighterId, type, value, unit, limit) => {
-    console.log(
-      "change()",
-      firefighterId,
-      type,
-      value,
-      unit,
-      limit,
-      limit * Constants.TAU
-    );
     let valueToUse = limit;
     if (type === "Tmp" || type === "Hum") {
       valueToUse = Utils.getWhole(type, value);

@@ -70,6 +70,12 @@ class Utils {
     }
     return number;
   };
+
+  static arrayRemove = (arr, value) => {
+    return arr.filter(function (ele) {
+      return ele.firefighterId != value.firefighterId;
+    });
+  };
 }
 
 export default Utils;
