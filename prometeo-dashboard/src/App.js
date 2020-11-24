@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
 import "./App.scss";
+import PrometeoHeader from "./components/PrometeoHeader";
 import FirefightersPage from "./content/FirefightersPage";
 import EventsPage from "./content/EventsPage";
 import DevicesPage from "./content/DevicesPage";
@@ -9,50 +10,83 @@ import DetailsPage from "./content/DetailsPage";
 import ProfilePage from "./content/ProfilePage";
 
 function App() {
+  const history = useHistory();
+  const [active, setActive] = useState(false);
+  const [language, setLanguage] = useState("EN");
+  const [page, setPage] = useState("Dashboard");
   return (
     <BrowserRouter>
-      <div>
-        <Link className="App-link" to="/">
-          Dashboard
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/details/:id">
-          Details
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/firefighters">
-          Firefighters
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/events">
-          Events
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/devices">
-          Devices
-        </Link>
-        &nbsp;|&nbsp;
-        <Link className="App-link" to="/profile">
-          Profile
-        </Link>
-      </div>
       <Switch>
         <Route exact path="/">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <DashboardPage />
         </Route>
         <Route path="/details/:id">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <DetailsPage />
         </Route>
         <Route path="/events">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <EventsPage />
         </Route>
         <Route path="/devices">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <DevicesPage />
         </Route>
         <Route path="/firefighters">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <FirefightersPage />
         </Route>
         <Route path="/profile">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
           <ProfilePage />
         </Route>
       </Switch>

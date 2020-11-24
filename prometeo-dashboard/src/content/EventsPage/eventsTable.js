@@ -10,6 +10,9 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
+  TableExpandRow,
+  TableExpandedRow,
+  TableExpandHeader,
 } from "carbon-components-react";
 import EventsAddModal from "./eventsAddModal";
 import EventsEditModal from "./eventsEditModal";
@@ -21,6 +24,8 @@ const client = async (url, options) => {
   const data = await response.json();
   return data;
 };
+
+// {'id': i[0], 'code': i[1], 'status': i[2], 'type': i[3], 'date': i[4], 'info': i[5]}
 
 // Form header data
 const headerData = [
@@ -37,12 +42,12 @@ const headerData = [
     key: "type",
   },
   {
-    header: "Firefighters",
-    key: "firefighters",
+    header: "Date",
+    key: "date",
   },
   {
-    header: "State",
-    key: "state",
+    header: "Status",
+    key: "status",
   },
 ];
 
@@ -66,8 +71,22 @@ const NewEventsTable = ({ eventId }) => {
   });
 
   return (
-    <div className="bx--grid bx--grid--full-width dashboard-content sensors-page">
-      <div className="bx--row sensors-page__r2">
+    <div className="bx--grid bx--grid--full-width events-content">
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h1 className="events-page__heading">Events</h1>
+        </div>
+      </div>
+
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h1 className="events-page__subheading">
+            These are all the events registered in the system.
+          </h1>
+        </div>
+      </div>
+
+      <div className="bx--row events-page__r2">
         <div className="bx--col-lg-16 fullwidth">
           <DataTable
             isSortable
@@ -83,7 +102,7 @@ const NewEventsTable = ({ eventId }) => {
               onInputChange,
               getTableContainerProps,
             }) => (
-              <TableContainer title="Events">
+              <TableContainer>
                 <TableToolbar aria-label="data table toolbar">
                   <TableToolbarContent>
                     <EventsAddModal rows={rows} loadEvents={loadEvents} />
@@ -92,6 +111,7 @@ const NewEventsTable = ({ eventId }) => {
                 <Table size="normal" {...getTableProps()}>
                   <TableHead>
                     <TableRow>
+                      <TableExpandHeader />
                       {headers.map((header) => (
                         <TableHeader {...getHeaderProps({ header })}>
                           {header.header}
@@ -102,18 +122,26 @@ const NewEventsTable = ({ eventId }) => {
                   </TableHead>
                   <TableBody>
                     {rows.map((row) => (
-                      <TableRow key={row.id}>
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                        <TableCell>
-                          <EventsEditModal row={row} loadEvents={loadEvents} />
-                          <EventsDeleteModal
-                            row={row}
-                            loadEvents={loadEvents}
-                          />
-                        </TableCell>
-                      </TableRow>
+                      <React.Fragment key={row.id}>
+                        <TableExpandRow key={row.id}>
+                          {row.cells.map((cell) => (
+                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                          ))}
+                          <TableCell>
+                            <EventsEditModal
+                              row={row}
+                              loadEvents={loadEvents}
+                            />
+                            <EventsDeleteModal
+                              row={row}
+                              loadEvents={loadEvents}
+                            />
+                          </TableCell>
+                        </TableExpandRow>
+                        <TableExpandedRow colSpan={headers.length + 1}>
+                          <p>{row.id}</p>
+                        </TableExpandedRow>
+                      </React.Fragment>
                     ))}
                   </TableBody>
                 </Table>

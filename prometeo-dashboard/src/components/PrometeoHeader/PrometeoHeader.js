@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   Header,
   HeaderName,
@@ -10,34 +10,71 @@ import {
   HeaderPanel,
   Switcher,
   SwitcherItem,
-  SwitcherItemLink,
   SkipToContent,
 } from "carbon-components-react/lib/components/UIShell";
 import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
 import Translate20 from "@carbon/icons-react/lib/translate/20";
 
-function PrometeoHeader() {
-  const history = useHistory();
-  const [active, setActive] = useState(false);
-  const [language, setLanguage] = useState("EN");
-
+function PrometeoHeader(props) {
+  const history = props.history;
+  const active = props.active;
+  const language = props.language;
+  const page = props.page;
+  const setActive = props.setActive;
+  const setLanguage = props.setLanguage;
+  const setPage = props.setPage;
   return (
     <Header aria-label="Prometeo">
       <SkipToContent />
-      <HeaderName element={Link} to="/" prefix="Prometeo">
+      <HeaderName
+        element={Link}
+        to="/"
+        prefix="Prometeo"
+        onClick={() => {
+          setPage("Dashboard");
+        }}
+      >
         Platform
       </HeaderName>
       <HeaderNavigation aria-label="Prometeo Dashboard">
-        <HeaderMenuItem isCurrentPage href="/">
+        <HeaderMenuItem
+          element={Link}
+          to="/"
+          isCurrentPage={page === "Dashboard"}
+          onClick={() => {
+            setPage("Dashboard");
+          }}
+        >
           Dashboard
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/events">
+        <HeaderMenuItem
+          element={Link}
+          to="/events"
+          isCurrentPage={page === "Events"}
+          onClick={() => {
+            setPage("Events");
+          }}
+        >
           Events
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/devices">
+        <HeaderMenuItem
+          element={Link}
+          to="/devices"
+          isCurrentPage={page === "Devices"}
+          onClick={() => {
+            setPage("Devices");
+          }}
+        >
           Devices
         </HeaderMenuItem>
-        <HeaderMenuItem element={Link} to="/firefighters">
+        <HeaderMenuItem
+          element={Link}
+          to="/firefighters"
+          isCurrentPage={page === "Firefighters"}
+          onClick={() => {
+            setPage("Firefighters");
+          }}
+        >
           Firefighters
         </HeaderMenuItem>
       </HeaderNavigation>
@@ -51,7 +88,8 @@ function PrometeoHeader() {
         </HeaderGlobalAction>
         <HeaderGlobalAction
           aria-label="User Avatar"
-          onClick={() => history.push({ pathname: "/profile" })}
+          element={Link}
+          to="/profile"
         >
           <UserAvatar20 />
         </HeaderGlobalAction>
@@ -60,29 +98,33 @@ function PrometeoHeader() {
         <Switcher aria-label="Switcher Container">
           <SwitcherItem
             aria-label="English"
+            isSelected={language === "EN"}
             onClick={() => {
               setLanguage("EN");
               setActive(false);
-              console.log(language, active);
             }}
           >
-            <SwitcherItemLink isSelected={language === "EN"}>
-              English
-            </SwitcherItemLink>
+            English
           </SwitcherItem>
           <SwitcherItem
             aria-label="Spanish"
-            onClick={() => setLanguage("ES")}
             isSelected={language === "ES"}
+            onClick={() => {
+              setLanguage("ES");
+              setActive(false);
+            }}
           >
-            <SwitcherItemLink>Spanish</SwitcherItemLink>
+            Spanish
           </SwitcherItem>
           <SwitcherItem
             aria-label="Catalan"
-            onClick={() => setLanguage("CA")}
             isSelected={language === "CA"}
+            onClick={() => {
+              setLanguage("CA");
+              setActive(false);
+            }}
           >
-            <SwitcherItemLink>Catalan</SwitcherItemLink>
+            Catalan
           </SwitcherItem>
         </Switcher>
       </HeaderPanel>

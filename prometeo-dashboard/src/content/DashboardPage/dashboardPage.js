@@ -1,14 +1,8 @@
 import React from "react";
-import Header from "../../components/Header";
 import DashboardGrid from "./dashboardGrid";
 
 function DashboardPage() {
-  return (
-    <div>
-      <Header />
-      <DashboardGrid />
-    </div>
-  );
+  return <DashboardGrid />;
 }
 
 export default DashboardPage;

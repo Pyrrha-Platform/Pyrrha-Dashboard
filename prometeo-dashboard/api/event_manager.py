@@ -5,6 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 
+
 class event_manager(object):
 
     def __init__(self):
@@ -15,20 +16,21 @@ class event_manager(object):
     def insert_event(self, code, type, firefighters, state):
 
         event = None
-       
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            cursor.execute(
+                'INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
             # cursor.callproc('sp_create_event', (data))
 
             conn.commit()
@@ -36,7 +38,7 @@ class event_manager(object):
             id = cursor.lastrowid
 
             if id > 0:
-                event = {'id': id} 
+                event = {'id': id}
             else:
                 return False
 
@@ -50,17 +52,17 @@ class event_manager(object):
         return event
 
     def update_event(self, id, code, first, last, email):
-        
+
         event = None
-        
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
@@ -70,7 +72,7 @@ class event_manager(object):
 
             if cursor.rowcount == 1:
                 conn.commit()
-                event = {'id': id} 
+                event = {'id': id}
             else:
                 return False
 
@@ -84,26 +86,27 @@ class event_manager(object):
         return event
 
     def delete_event(self, id):
-        
-        event = None       
-        
+
+        event = None
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE events SET deleted_at = NOW() WHERE event_internal_id =  ?', (id,))
-            
+            cursor.execute(
+                'UPDATE events SET deleted_at = NOW() WHERE event_internal_id =  ?', (id,))
+
             if cursor.rowcount == 1:
                 conn.commit()
-                event = {'id': id} 
+                event = {'id': id}
             else:
                 return False
 
@@ -117,18 +120,18 @@ class event_manager(object):
         return event
 
     def get_event(self, id):
-        
+
         print("get_event - entro en la funcion")
 
         event = {}
 
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             cursor = conn.cursor()
@@ -139,7 +142,8 @@ class event_manager(object):
             data = cursor.fetchone()
 
             if len(data) > 0:
-                event = {'id': data[0], 'code': data[1], 'type': data[5], 'firefighters': data[14], 'state': data[3]} 
+                event = {'id': data[0], 'code': data[1], 'type': data[5],
+                         'firefighters': data[14], 'state': data[3]}
             else:
                 return None
 
@@ -161,29 +165,39 @@ class event_manager(object):
             print("get_all_events - trying")
 
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             print("get_all_events - before cursor")
             cursor = conn.cursor()
+
             print("get_all_events - after cursor")
+            sql = """
+                SELECT event_internal_id, event_code, status, event_type, event_date, extra_info 
+                FROM events 
+                WHERE deleted_at IS NULL
+            """
 
             print("get_all_events - llamada a sql")
-            # cursor.execute('SELECT event_id, event_code, name, surname, email FROM events WHERE deleted_at IS NULL')
-            cursor.callproc('sp_select_all_events')
+            cursor.execute(sql)
+            # cursor.callproc('sp_select_all_events')
+            
             print("get_all_events - sp_select_all_events")
             data = cursor.fetchall()
+            
             print("get_all_events - fetchall")
             print(data)
             if len(data) > 0:
                 print("get_all_events - Hay informacion")
                 for i in data:
                     print(i)
-                    events.append({'id': i[0], 'code': i[1], 'type': i[5], 'firefighters': i[14], 'state': i[3]}) 
+                    events.append(
+                        {'id': i[0], 'code': i[1], 'status': i[2], 'type': i[3], 'date': i[4], 'info': i[5]}
+                    )
             else:
                 print("get_all_events - NO HAY INFORMACION")
                 return None
@@ -201,11 +215,11 @@ class event_manager(object):
     def get_event_firefighters_devices(self, id):
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             cursor = conn.cursor()

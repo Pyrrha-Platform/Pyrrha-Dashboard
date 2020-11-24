@@ -16,7 +16,7 @@ class Utils {
   // TODO: Use thresholds from constants
   static getStatusColor = (type, initialNumber) => {
     var color = Constants.DEFAULT_COLOR;
-    if (type == "CO") {
+    if (type === "CO") {
       if (initialNumber <= 0.81) {
         color = Constants.GREEN;
       } else if (initialNumber >= 0.99 || initialNumber == -1) {
@@ -24,7 +24,7 @@ class Utils {
       } else if (initialNumber > 0.81 && initialNumber < 0.99) {
         color = Constants.YELLOW;
       }
-    } else if (type == "NO2") {
+    } else if (type === "NO2") {
       if (initialNumber <= 0.81) {
         color = Constants.GREEN;
       } else if (initialNumber >= 0.99 || initialNumber == -1) {
@@ -32,7 +32,7 @@ class Utils {
       } else if (initialNumber > 0.81 && initialNumber < 0.99) {
         color = Constants.YELLOW;
       }
-    } else if (type == "Tmp") {
+    } else if (type === "Tmp") {
       if (initialNumber <= 0.25) {
         color = Constants.GREEN;
       } else if (initialNumber >= 0.35) {
@@ -40,7 +40,7 @@ class Utils {
       } else if (initialNumber > 0.25 && initialNumber < 0.35) {
         color = Constants.YELLOW;
       }
-    } else if (type == "Hum") {
+    } else if (type === "Hum") {
       if (initialNumber <= 0.6) {
         color = Constants.GREEN;
       } else if (initialNumber >= 0.8) {
@@ -55,12 +55,12 @@ class Utils {
   // TODO: Use thresholds from constants
   static getWhole = (value, type) => {
     var number = 0.0;
-    if (type == "Tmp") {
+    if (type === "Tmp") {
       var upper = 40;
       var lower = 0;
       var range = upper - lower;
       number = value / range;
-    } else if (type == "Hum") {
+    } else if (type === "Hum") {
       var upper = 100;
       var lower = 0;
       var range = upper - lower;

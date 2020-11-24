@@ -5,6 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 
+
 class firefighter_manager(object):
 
     def __init__(self):
@@ -15,27 +16,28 @@ class firefighter_manager(object):
     def insert_firefighter(self, code, first, last, email):
 
         firefighter = None
-       
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO firefighters (firefighter_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            cursor.execute(
+                'INSERT INTO firefighters (firefighter_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
 
             conn.commit()
 
             id = cursor.lastrowid
 
             if id > 0:
-                firefighter = {'id': id} 
+                firefighter = {'id': id}
             else:
                 return False
 
@@ -49,26 +51,27 @@ class firefighter_manager(object):
         return firefighter
 
     def update_firefighter(self, id, code, first, last, email):
-        
+
         firefighter = None
-        
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_id = ?', (code, first, last, email, id))
+            cursor.execute(
+                'UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_id = ?', (code, first, last, email, id))
 
             if cursor.rowcount == 1:
                 conn.commit()
-                firefighter = {'id': id} 
+                firefighter = {'id': id}
             else:
                 return False
 
@@ -82,26 +85,27 @@ class firefighter_manager(object):
         return firefighter
 
     def delete_firefighter(self, id):
-        
-        firefighter = None       
-        
+
+        firefighter = None
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_id =  ?', (id,))
-            
+            cursor.execute(
+                'UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_id =  ?', (id,))
+
             if cursor.rowcount == 1:
                 conn.commit()
-                firefighter = {'id': id} 
+                firefighter = {'id': id}
             else:
                 return False
 
@@ -115,28 +119,30 @@ class firefighter_manager(object):
         return firefighter
 
     def get_firefighter(self, id):
-        
+
         print("get_firefighter - entro en la funcion")
 
         firefighter = {}
 
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_id = ?', (id,))
+            cursor.execute(
+                'SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_id = ?', (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                firefighter = {'id': data[0], 'code': data[1], 'first': data[2], 'last': data[3], 'email': data[4]} 
+                firefighter = {'id': data[0], 'code': data[1],
+                               'first': data[2], 'last': data[3], 'email': data[4]}
             else:
                 return None
 
@@ -156,23 +162,25 @@ class firefighter_manager(object):
 
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             cursor = conn.cursor()
 
             self.logger.info("get_all_firefighters - llamada a sql")
-            cursor.execute('SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
+            cursor.execute(
+                'SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
             data = cursor.fetchall()
             if len(data) > 0:
                 self.logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
                     self.logger.info(i)
-                    firefighters.append({'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]}) 
+                    firefighters.append(
+                        {'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]})
             else:
                 self.logger.info("get_all_firefighters - NO HAY INFORMACION")
                 return None

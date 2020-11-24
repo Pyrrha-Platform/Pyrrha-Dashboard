@@ -5,6 +5,7 @@ import os
 import logging
 from dotenv import load_dotenv
 
+
 class device_manager(object):
 
     def __init__(self):
@@ -15,27 +16,28 @@ class device_manager(object):
     def insert_device(self, code, first, last, email):
 
         device = None
-       
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('INSERT INTO devices (device_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+            cursor.execute(
+                'INSERT INTO devices (device_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
 
             conn.commit()
 
             id = cursor.lastrowid
 
             if id > 0:
-                device = {'id': id} 
+                device = {'id': id}
             else:
                 return False
 
@@ -49,26 +51,27 @@ class device_manager(object):
         return device
 
     def update_device(self, id, code, first, last, email):
-        
+
         device = None
-        
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE devices SET device_code = ?, name = ?, surname = ?, email = ? WHERE device_id = ?', (code, first, last, email, id))
+            cursor.execute(
+                'UPDATE devices SET device_code = ?, name = ?, surname = ?, email = ? WHERE device_id = ?', (code, first, last, email, id))
 
             if cursor.rowcount == 1:
                 conn.commit()
-                device = {'id': id} 
+                device = {'id': id}
             else:
                 return False
 
@@ -82,26 +85,27 @@ class device_manager(object):
         return device
 
     def delete_device(self, id):
-        
-        device = None       
-        
+
+        device = None
+
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT')),
-                autocommit = False
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT')),
+                autocommit=False
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('UPDATE devices SET deleted_at = NOW() WHERE device_id =  ?', (id,))
-            
+            cursor.execute(
+                'UPDATE devices SET deleted_at = NOW() WHERE device_id =  ?', (id,))
+
             if cursor.rowcount == 1:
                 conn.commit()
-                device = {'id': id} 
+                device = {'id': id}
             else:
                 return False
 
@@ -115,28 +119,30 @@ class device_manager(object):
         return device
 
     def get_device(self, id):
-        
+
         print("get_device - entro en la funcion")
 
         device = {}
 
         try:
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             cursor = conn.cursor()
 
-            cursor.execute('SELECT IntSensorId, SensorID, model, version FROM sensors WHERE deleted_at IS NULL AND IntSensorId = ?', (id,))
+            cursor.execute(
+                'SELECT IntSensorId, SensorID, model, version FROM sensors WHERE deleted_at IS NULL AND IntSensorId = ?', (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                device = {'id': data[0], 'code': data[1], 'model': data[2], 'version': data[3]} 
+                device = {'id': data[0], 'code': data[1],
+                          'model': data[2], 'version': data[3]}
             else:
                 return None
 
@@ -158,11 +164,11 @@ class device_manager(object):
             print("get_all_devices - trying")
 
             conn = mariadb.connect(
-                user = os.getenv('MARIADB_USERNAME'),
-                password = os.getenv('MARIADB_PASSWORD'),
-                host = os.getenv('MARIADB_HOST'),
-                database = 'prometeo',
-                port = int(os.getenv('MARIADB_PORT'))
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
             )
 
             print("get_all_devices - before cursor")
@@ -180,7 +186,8 @@ class device_manager(object):
                 print("get_all_devices - Hay informacion")
                 for i in data:
                     print(i)
-                    devices.append({'id': i[0], 'code': i[1], 'model': i[2], 'version': i[3]} ) 
+                    devices.append(
+                        {'id': i[0], 'code': i[1], 'model': i[2], 'version': i[3]})
             else:
                 print("get_all_devices - NO HAY INFORMACION")
                 return None

@@ -13,9 +13,11 @@ logger.setLevel(logging.DEBUG)
 
 app = Flask(__name__)
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return "{ 'message': 'Error: The resource could not be found.' }", 404
+
 
 @app.errorhandler(500)
 def internal_server_error(e):
@@ -24,7 +26,7 @@ def internal_server_error(e):
 
 @app.route('/api/v1/firefighters', methods=['GET', 'POST'])
 def firefighters():
-    
+
     if request.method == 'GET':
         firefighters = firefighter_manager().get_all_firefighters()
         message = {
@@ -52,9 +54,9 @@ def firefighters():
 
         else:
             firefighter = firefighter_manager().insert_firefighter(
-                created_values['code'], 
-                created_values['first'], 
-                created_values['last'], 
+                created_values['code'],
+                created_values['first'],
+                created_values['last'],
                 created_values['email']
             )
             message = {
@@ -65,6 +67,7 @@ def firefighters():
             body = json.dumps(message)
             resp = Response(body, status=201, mimetype='application/json')
             return resp
+
 
 @app.route('/api/v1/firefighters/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def firefighter_by_id(id):
@@ -82,7 +85,7 @@ def firefighter_by_id(id):
 
     elif request.method == 'PUT':
         updated_values = request.get_json()
-        
+
         # TODO: Better validation
         if updated_values['code'].strip() == '' or updated_values['first'].strip() == '' or updated_values['last'].strip() == '' or updated_values['email'].strip() == '':
             message = {
@@ -95,10 +98,10 @@ def firefighter_by_id(id):
 
         else:
             firefighter = firefighter_manager().update_firefighter(
-                updated_values['id'], 
-                updated_values['code'], 
-                updated_values['first'], 
-                updated_values['last'], 
+                updated_values['id'],
+                updated_values['code'],
+                updated_values['first'],
+                updated_values['last'],
                 updated_values['email']
             )
             message = {
@@ -128,7 +131,7 @@ def firefighter_by_id(id):
 
 @app.route('/api/v1/events', methods=['GET', 'POST'])
 def events():
-    
+
     if request.method == 'GET':
         events = event_manager().get_all_events()
         message = {
@@ -156,9 +159,9 @@ def events():
 
         else:
             event = event_manager().insert_event(
-                created_values['code'], 
-                created_values['type'], 
-                created_values['firefighters'], 
+                created_values['code'],
+                created_values['type'],
+                created_values['firefighters'],
                 created_values['state']
             )
             message = {
@@ -169,6 +172,7 @@ def events():
             body = json.dumps(message)
             resp = Response(body, status=201, mimetype='application/json')
             return resp
+
 
 @app.route('/api/v1/events/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def event_by_id(id):
@@ -186,7 +190,7 @@ def event_by_id(id):
 
     elif request.method == 'PUT':
         updated_values = request.get_json()
-        
+
         # TODO: Better validation
         if updated_values['code'].strip() == '' or updated_values['type'].strip() == '' or updated_values['firefighters'].strip() == '' or updated_values['state'].strip() == '':
             message = {
@@ -199,10 +203,10 @@ def event_by_id(id):
 
         else:
             event = event_manager().update_event(
-                updated_values['id'], 
-                updated_values['code'], 
-                updated_values['type'], 
-                updated_values['firefighters'], 
+                updated_values['id'],
+                updated_values['code'],
+                updated_values['type'],
+                updated_values['firefighters'],
                 updated_values['state']
             )
             message = {
@@ -232,7 +236,7 @@ def event_by_id(id):
 
 @app.route('/api/v1/devices', methods=['GET', 'POST'])
 def devices():
-    
+
     if request.method == 'GET':
         devices = device_manager().get_all_devices()
         message = {
@@ -260,8 +264,8 @@ def devices():
 
         else:
             device = device_manager().insert_device(
-                created_values['code'], 
-                created_values['model'], 
+                created_values['code'],
+                created_values['model'],
                 created_values['version']
             )
             message = {
@@ -272,6 +276,7 @@ def devices():
             body = json.dumps(message)
             resp = Response(body, status=201, mimetype='application/json')
             return resp
+
 
 @app.route('/api/v1/devices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def device_by_id(id):
@@ -289,7 +294,7 @@ def device_by_id(id):
 
     elif request.method == 'PUT':
         updated_values = request.get_json()
-        
+
         # TODO: Better validation
         if updated_values['code'].strip() == '' or updated_values['type'].strip() == '' or updated_values['model'].strip() == '' or updated_values['version'].strip() == '':
             message = {
@@ -302,9 +307,9 @@ def device_by_id(id):
 
         else:
             device = device_manager().update_device(
-                updated_values['id'], 
-                updated_values['code'], 
-                updated_values['model'], 
+                updated_values['id'],
+                updated_values['code'],
+                updated_values['model'],
                 updated_values['version']
             )
             message = {
@@ -331,9 +336,10 @@ def device_by_id(id):
     else:
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
+
 @app.route('/api/v1/dashboard-now', methods=['GET'])
 def dashboard_now():
-    
+
     firefighters = dashboard_manager().get_dashboard_now()
     message = {
         'status': 200,
@@ -344,9 +350,10 @@ def dashboard_now():
     resp = Response(body, status=200, mimetype='application/json')
     return resp
 
+
 @app.route('/api/v1/dashboard/<int:firefighter_id>', methods=['GET'])
 def get_dashboard_for(firefighter_id):
-    
+
     firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
     message = {
         'status': 200,

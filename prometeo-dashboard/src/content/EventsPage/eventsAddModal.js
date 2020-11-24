@@ -145,7 +145,7 @@ class EventsAddModal extends React.Component {
               />
               <br />
               <TextInput
-                id={this.state.type}
+                id={this.state.code + "-" + this.state.type}
                 value={this.state.type}
                 placeholder="Controlled burn"
                 labelText="Type:"
@@ -153,7 +153,7 @@ class EventsAddModal extends React.Component {
               />
               <br />
               <TextInput
-                id={this.state.firefighters}
+                id={this.state.code + "-" + this.state.firefighters}
                 value={this.state.firefighters}
                 placeholder="10"
                 labelText="Firefighters:"
@@ -163,7 +163,7 @@ class EventsAddModal extends React.Component {
               />
               <br />
               <TextInput
-                id={this.state.state}
+                id={this.state.code + "-" + this.state.state}
                 value={this.state.state}
                 placeholder="In progress"
                 labelText="State:"

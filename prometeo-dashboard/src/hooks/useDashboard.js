@@ -28,7 +28,7 @@ const useDashboard = () => {
     });
   }, []);
 
-  return [loading, dashboard];
+  return [loading, setLoading, dashboard, setDashboard];
 };
 
 export default useDashboard;
