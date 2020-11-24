@@ -1,6 +1,6 @@
 [
 	{
-		"carbonMonoxide": 9.0,
+		"carbonMonoxide": 10.0,
 		"deviceId": "0007",
 		"firefighterCode": "Graf 7",
 		"firefighterEmail": "graf0007@graf.cat",
@@ -8,7 +8,7 @@
 		"firefighterId": 7,
 		"firefighterLast": "Graf 7",
 		"humidity": 46,
-		"nitrogenDioxide": 0.45,
+		"nitrogenDioxide": 0.55,
 		"temperature": 41,
 		"timestampMins": "Tue, 11 Feb 2020 10:58:00 GMT"
 	},
