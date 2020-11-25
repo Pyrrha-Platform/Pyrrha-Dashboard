@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import "@carbon/charts/styles.css";
-import FirefighterGaugeSet from "../../components/FirefighterGaugeSet";
+import FirefighterDashboardGaugeSet from "../../components/FirefighterDashboardGaugeSet";
 import useDashboard from "../../hooks/useDashboard";
 
 const DashboardGrid = () => {
@@ -41,7 +41,7 @@ const DashboardGrid = () => {
             nitrogenDioxide,
             increment,
           }) => (
-            <FirefighterGaugeSet
+            <FirefighterDashboardGaugeSet
               firefighterId={firefighterId}
               firefighterCode={firefighterCode}
               firefighterFirst={firefighterFirst}

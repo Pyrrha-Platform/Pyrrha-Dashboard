@@ -28,7 +28,7 @@ function App() {
           />
           <DashboardPage />
         </Route>
-        <Route path="/details/:id">
+        <Route path="/details/:firefighterId">
           <PrometeoHeader
             history={history}
             active={active}

@@ -363,3 +363,17 @@ def get_dashboard_for(firefighter_id):
     body = json.dumps(message)
     resp = Response(body, status=200, mimetype='application/json')
     return resp
+
+
+@app.route('/api/v1/dashboard-details/<int:firefighter_id>', methods=['GET'])
+def get_dashboard_details(firefighter_id):
+
+    details = dashboard_manager().get_dashboard_details(firefighter_id)
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'details': details
+    }
+    body = json.dumps(message)
+    resp = Response(body, status=200, mimetype='application/json')
+    return resp

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import FirefighterGauge from "../FirefighterGauge";
 
-function FirefighterGaugeSet({
+function FirefighterDashboardGaugeSet({
   firefighterId,
   firefighterCode,
   firefighterFirst,
@@ -83,4 +83,4 @@ function FirefighterGaugeSet({
   );
 }
 
-export default FirefighterGaugeSet;
+export default FirefighterDashboardGaugeSet;
