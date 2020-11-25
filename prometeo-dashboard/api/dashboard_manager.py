@@ -161,3 +161,95 @@ class dashboard_manager(object):
             conn.close()
 
         return firefighters
+
+    def get_dashboard_details(self, firefighter_id):
+        print("get_dashboard_details - entro en la funcion")
+
+        details = []
+
+        try:
+            print("get_dashboard_details - trying")
+            conn = mariadb.connect(
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
+            )
+
+            print("get_dashboard_details - before cursor")
+            cursor = conn.cursor()
+
+            print("get_dashboard_details - llamada a sql")
+            sql = """
+                SELECT 
+                    *
+                FROM
+                    firefighter_status_analytics fsa, firefighters f
+                WHERE
+                    fsa.firefighter_id = %s 
+                AND
+                    fsa.firefighter_id = f.firefighter_id
+                ORDER BY device_timestamp DESC
+                LIMIT 1;
+            """
+
+            print("get_dashboard_details - get latest reading for each firefighters")
+            cursor.execute(sql, (firefighter_id, ))
+
+            print("get_dashboard_details - fetchall")
+            data = cursor.fetchall()
+
+            if len(data) > 0:
+                print("get_dashboard_details - Hay informacion")
+                for i in data:
+                    print(i)
+                    details.append({
+                        'firefighterId': i[64],
+                        'firefighterFirst': i[65],
+                        'firefighterLast': i[66],
+                        'firefighterCode': i[67],
+                        'firefighterEmail': i[68],
+                        'deviceId': i[2],
+                        'temperature': i[4],
+                        'humidity': i[5],
+                        'carbonMonoxide': i[6],
+                        'nitrogenDioxide': i[7],
+                        'timestampMins': i[0],
+                        'deviceTimestamp': i[11],
+                        'carbonMonoxideTwa10min': "{:.2f}".format(i[14]),
+                        'carbonMonoxideTwa30min': "{:.2f}".format(i[15]),
+                        'carbonMonoxideTwa60min': "{:.2f}".format(i[16]),
+                        'carbonMonoxideTwa240min': "{:.2f}".format(i[17]),
+                        'carbonMonoxideTwa480min': "{:.2f}".format(i[18]),
+                        'carbonMonoxideGauge10min': "{:.2f}".format(i[19]),
+                        'carbonMonoxideGauge30min': "{:.2f}".format(i[20]),
+                        'carbonMonoxideGauge60min': "{:.2f}".format(i[21]),
+                        'carbonMonoxideGauge240min': "{:.2f}".format(i[22]),
+                        'carbonMonoxideGauge480min': "{:.2f}".format(i[23]),
+                        'nitrogenDioxideTwa10min': "{:.2f}".format(i[24]),
+                        'nitrogenDioxideTwa30min': "{:.2f}".format(i[25]),
+                        'nitrogenDioxideTwa60min': "{:.2f}".format(i[26]),
+                        'nitrogenDioxideTwa240min': "{:.2f}".format(i[27]),
+                        'nitrogenDioxideTwa480min': "{:.2f}".format(i[28]),
+                        'nitrogenDioxideGauge10min': "{:.2f}".format(i[29]),
+                        'nitrogenDioxideGauge30min': "{:.2f}".format(i[30]),
+                        'nitrogenDioxideGauge60min': "{:.2f}".format(i[31]),
+                        'nitrogenDioxideGauge240min': "{:.2f}".format(i[32]),
+                        'nitrogenDioxideGauge480min': "{:.2f}".format(i[33])
+                    })
+
+            else:
+                print("get_dashboard_details - NO HAY INFORMACION")
+                return None
+
+        except Exception as e:
+            print("get_dashboard_details - Estoy en la excepcion")
+            print(e)
+            return None
+
+        finally:
+            cursor.close()
+            conn.close()
+
+        return details

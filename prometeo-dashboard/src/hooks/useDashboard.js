@@ -47,8 +47,6 @@ const updateDashboard = (dashboard, message) => {
           }
         });
       });
-      // Naive replacement
-      // newDashboard.current = newMessage;
     } else {
       // It's a single firefighterupdate, replace the
       // latest reading for the firefighter, or add it

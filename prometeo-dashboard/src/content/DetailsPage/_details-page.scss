@@ -25,7 +25,11 @@
 }
 
 .details-page__switcher {
-  padding-bottom: $spacing-09;
+  margin-bottom: $spacing-05;
+}
+
+.details-page__switcher button {
+  padding: $spacing-04;
 }
 
 .details-page__p {

@@ -6,19 +6,6 @@ import Utils from "../../utils/Utils";
 function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   const ref = useRef();
 
-  /*
-  const Chart = ({ dateRange }) => {
-    const [data, setData] = useState()
-    useEffect(() => {
-      // when Chart mounts, do this
-      const newData = getDataWithinRange(dateRange)
-      setData(newData)
-      // when data updates, do this
-      // not used right now
-    }, [dateRange])
-  }
-  */
-
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
     height = 80 - margin.top - margin.bottom;
