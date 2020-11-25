@@ -11,6 +11,8 @@ const DetailsGrid = (params) => {
     setLoading,
     details,
     setDetails,
+    chart,
+    setChart,
     increment,
     setIncrement,
     type,
@@ -102,6 +104,8 @@ const DetailsGrid = (params) => {
           nitrogenDioxideGauge480min,
         }) => (
           <FirefighterDetailsGaugeSet
+            chart={chart}
+            setChart={setChart}
             type={type}
             setType={setType}
             increment={increment}

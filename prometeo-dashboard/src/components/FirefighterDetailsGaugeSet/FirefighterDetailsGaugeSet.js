@@ -3,6 +3,8 @@ import FirefighterGauge from "../FirefighterGauge";
 import FirefighterChartHolder from "../FirefighterChartHolder";
 
 function FirefighterDetailsGaugeSet({
+  chart,
+  setChart,
   type,
   setType,
   increment,
@@ -567,8 +569,9 @@ function FirefighterDetailsGaugeSet({
           <FirefighterChartHolder
             firefighterId={firefighterId}
             type={!type ? "CO" : type}
-            value={30}
+            data={chart}
             unit={"ppm"}
+            limit={""}
             increment={increment === "all" ? "10 min avg" : increment}
           />
         </div>

@@ -253,3 +253,90 @@ class dashboard_manager(object):
             conn.close()
 
         return details
+
+    def get_dashboard_chart_details(self, firefighter_id, increment, type):
+        print("get_dashboard_chart_details - entro en la funcion")
+
+        chart = []
+
+        print("get_dashboard_chart_details - firefighter_id:", firefighter_id)
+        print("get_dashboard_chart_details - increment:", increment)
+        print("get_dashboard_chart_details - type:", type)
+
+        # Default column names
+        ty = "carbon_monoxide_twa_"
+        inc = "10min"
+
+        if type == 'NO2':
+            ty = "nitrogen_dioxide_twa_"
+
+        # Set these manually rather than on client input
+        if increment == '30min':
+            inc = '30min'
+        elif increment == '1hr':
+            inc = '60min'
+        elif increment == '4hr':
+            inc = '240min'
+        elif increment == '8hr':
+            inc = '480min'
+
+        # The one column name to select
+        column = ty + inc
+        print(column)
+
+        try:
+            print("get_dashboard_chart_details - trying")
+            conn = mariadb.connect(
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
+            )
+
+            print("get_dashboard_chart_details - before cursor")
+            cursor = conn.cursor()
+
+            print("get_dashboard_chart_details - llamada a sql")
+            sql = f"""
+                SELECT 
+                    timestamp_mins, device_timestamp, {column}
+                FROM
+                    firefighter_status_analytics
+                WHERE
+                    firefighter_id = %s 
+                ORDER BY device_timestamp DESC
+                LIMIT 10;
+            """
+            print(sql)
+
+            print("get_dashboard_chart_details - get latest 10 reading for", column)
+            cursor.execute(sql, (firefighter_id, ))
+
+            print("get_dashboard_chart_details - fetchall")
+            data = cursor.fetchall()
+
+            if len(data) > 0:
+                print("get_dashboard_chart_details - Hay informacion")
+                for i in data:
+                    print(i)
+                    chart.append({
+                        'timestampMins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'deviceTimestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'value': "{:.2f}".format(i[2])
+                    })
+
+            else:
+                print("get_dashboard_chart_details - NO HAY INFORMACION")
+                return None
+
+        except Exception as e:
+            print("get_dashboard_chart_details - Estoy en la excepcion")
+            print(e)
+            return None
+
+        finally:
+            cursor.close()
+            conn.close()
+
+        return chart

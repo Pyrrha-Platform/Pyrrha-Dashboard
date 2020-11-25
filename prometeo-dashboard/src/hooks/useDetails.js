@@ -19,6 +19,18 @@ const fetchDetails = async (firefighterId, increment, type) => {
   }
 };
 
+const fetchChartDetails = async (firefighterId, increment, type) => {
+  try {
+    const data = await client(
+      `/api/v1/dashboard-chart-details/${firefighterId}/${increment}/${type}`
+    );
+    console.log(data);
+    return data.chart;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const updateDetails = (details, message) => {
   console.log("details", details);
   let newDetails = JSON.parse(JSON.stringify(details));
@@ -80,6 +92,7 @@ const updateDetails = (details, message) => {
 
 const useDetails = (firefighterId, inc, ty) => {
   const [details, setDetails] = useState([]);
+  const [chart, setChart] = useState([]);
   const [message, setMessage] = useState([]);
   const [increment, setIncrement] = useState(inc !== undefined ? inc : "all");
   const [type, setType] = useState(ty !== undefined ? ty : "CO");
@@ -100,12 +113,21 @@ const useDetails = (firefighterId, inc, ty) => {
   // On filter by gauge
   // Refresh chart by specific reading
 
-  // Initial load of latest for all firefighters or change in increment
+  // Initial load of latest for firefighter or change in increment
   useEffect(() => {
     fetchDetails(firefighterId, increment, type).then((details) => {
       setDetails(details);
-      console.log("Loaded from database.", details);
-      setLoading("Loaded from database.");
+      console.log("Loaded details from database.", details);
+      setLoading("Loaded details from database.");
+    });
+  }, [increment, type]);
+
+  // Initial load of latest for firefighter or change in increment
+  useEffect(() => {
+    fetchChartDetails(firefighterId, increment, type).then((chart) => {
+      setChart(chart);
+      console.log("Loaded chart from database.", chart);
+      setLoading("Loaded chart from database.");
     });
   }, [increment, type]);
 
@@ -138,6 +160,8 @@ const useDetails = (firefighterId, inc, ty) => {
     setLoading,
     details,
     setDetails,
+    chart,
+    setChart,
     increment,
     setIncrement,
     type,
