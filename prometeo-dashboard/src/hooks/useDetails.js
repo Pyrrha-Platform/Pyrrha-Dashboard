@@ -7,9 +7,11 @@ const client = async (url, options) => {
   return data;
 };
 
-const fetchDetails = async (firefighterId, increment) => {
+const fetchDetails = async (firefighterId, increment, type) => {
   try {
-    const data = await client(`/api/v1/dashboard-details/${firefighterId}/${increment}`);
+    const data = await client(
+      `/api/v1/dashboard-details/${firefighterId}/${increment}/${type}`
+    );
     console.log(data);
     return data.details;
   } catch (e) {
@@ -76,10 +78,11 @@ const updateDetails = (details, message) => {
   );
 };
 
-const useDetails = (firefighterId, inc) => {
+const useDetails = (firefighterId, inc, ty) => {
   const [details, setDetails] = useState([]);
   const [message, setMessage] = useState([]);
-  const [increment, setIncrement] = useState((inc !== undefined) ? inc : "all");
+  const [increment, setIncrement] = useState(inc !== undefined ? inc : "all");
+  const [type, setType] = useState(ty !== undefined ? ty : "CO");
   const [loading, setLoading] = useState("Loading from database...");
 
   const socket = useRef(new WebSocket("ws://localhost:8010"));
@@ -95,18 +98,18 @@ const useDetails = (firefighterId, inc) => {
   // chart for that specific gauge (default to CO)
 
   // On filter by gauge
-  // Refresh calendar by specific reading
+  // Refresh chart by specific reading
 
-  // Initial load of latest for all firefighters
+  // Initial load of latest for all firefighters or change in increment
   useEffect(() => {
-    fetchDetails(firefighterId, increment).then((details) => {
+    fetchDetails(firefighterId, increment, type).then((details) => {
       setDetails(details);
       console.log("Loaded from database.", details);
       setLoading("Loaded from database.");
     });
-  }, [increment]);
+  }, [increment, type]);
 
-  // Updates based on new messages
+  // Updates based on new WebSocket messages
   useEffect(() => {
     socket.current.onmessage = (msg) => {
       console.log("detailsRef", detailsRef);
@@ -130,7 +133,16 @@ const useDetails = (firefighterId, inc) => {
     };
   }, [message]);
 
-  return [loading, setLoading, details, setDetails, increment, setIncrement];
+  return [
+    loading,
+    setLoading,
+    details,
+    setDetails,
+    increment,
+    setIncrement,
+    type,
+    setType,
+  ];
 };
 
 export default useDetails;
