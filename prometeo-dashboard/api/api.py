@@ -365,14 +365,28 @@ def get_dashboard_for(firefighter_id):
     return resp
 
 
-@app.route('/api/v1/dashboard-details/<int:firefighter_id>', methods=['GET'])
-def get_dashboard_details(firefighter_id):
+@app.route('/api/v1/dashboard-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+def get_dashboard_details(firefighter_id, increment='all', type='CO'):
 
-    details = dashboard_manager().get_dashboard_details(firefighter_id)
+    details = dashboard_manager().get_dashboard_details(firefighter_id, increment, type)
     message = {
         'status': 200,
         'message': 'OK',
         'details': details
+    }
+    body = json.dumps(message)
+    resp = Response(body, status=200, mimetype='application/json')
+    return resp
+
+
+@app.route('/api/v1/dashboard-chart-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+def get_dashboard_chart_details(firefighter_id, increment='all', type='CO'):
+
+    chart = dashboard_manager().get_dashboard_chart_details(firefighter_id, increment, type)
+    message = {
+        'status': 200,
+        'message': 'OK',
+        'chart': chart
     }
     body = json.dumps(message)
     resp = Response(body, status=200, mimetype='application/json')

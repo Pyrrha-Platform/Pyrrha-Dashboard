@@ -7,13 +7,25 @@ const client = async (url, options) => {
   return data;
 };
 
-const fetchDetails = async (firefighterId) => {
+const fetchDetails = async (firefighterId, increment, type) => {
   try {
     const data = await client(
-      `/api/v1/dashboard-details/${firefighterId.firefighterId}`
+      `/api/v1/dashboard-details/${firefighterId}/${increment}/${type}`
     );
     console.log(data);
     return data.details;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const fetchChartDetails = async (firefighterId, increment, type) => {
+  try {
+    const data = await client(
+      `/api/v1/dashboard-chart-details/${firefighterId}/${increment}/${type}`
+    );
+    console.log(data);
+    return data.chart;
   } catch (e) {
     console.log(e);
   }
@@ -78,9 +90,12 @@ const updateDetails = (details, message) => {
   );
 };
 
-const useDetails = (firefighterId) => {
+const useDetails = (firefighterId, inc, ty) => {
   const [details, setDetails] = useState([]);
+  const [chart, setChart] = useState([]);
   const [message, setMessage] = useState([]);
+  const [increment, setIncrement] = useState(inc !== undefined ? inc : "all");
+  const [type, setType] = useState(ty !== undefined ? ty : "CO");
   const [loading, setLoading] = useState("Loading from database...");
 
   const socket = useRef(new WebSocket("ws://localhost:8010"));
@@ -96,18 +111,27 @@ const useDetails = (firefighterId) => {
   // chart for that specific gauge (default to CO)
 
   // On filter by gauge
-  // Refresh calendar by specific reading
+  // Refresh chart by specific reading
 
-  // Initial load of latest for all firefighters
+  // Initial load of latest for firefighter or change in increment
   useEffect(() => {
-    fetchDetails(firefighterId).then((details) => {
+    fetchDetails(firefighterId, increment, type).then((details) => {
       setDetails(details);
-      console.log("Loaded from database.", details);
-      setLoading("Loaded from database.");
+      console.log("Loaded details from database.", details);
+      setLoading("Loaded details from database.");
     });
-  }, []);
+  }, [increment, type]);
 
-  // Updates based on new messages
+  // Initial load of latest for firefighter or change in increment
+  useEffect(() => {
+    fetchChartDetails(firefighterId, increment, type).then((chart) => {
+      setChart(chart);
+      console.log("Loaded chart from database.", chart);
+      setLoading("Loaded chart from database.");
+    });
+  }, [increment, type]);
+
+  // Updates based on new WebSocket messages
   useEffect(() => {
     socket.current.onmessage = (msg) => {
       console.log("detailsRef", detailsRef);
@@ -131,7 +155,18 @@ const useDetails = (firefighterId) => {
     };
   }, [message]);
 
-  return [loading, setLoading, details, setDetails];
+  return [
+    loading,
+    setLoading,
+    details,
+    setDetails,
+    chart,
+    setChart,
+    increment,
+    setIncrement,
+    type,
+    setType,
+  ];
 };
 
 export default useDetails;

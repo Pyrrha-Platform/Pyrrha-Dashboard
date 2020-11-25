@@ -4,8 +4,9 @@ import FirefighterChart from "../FirefighterChart";
 function FirefighterChartHolder({
   firefighterId,
   type,
-  value,
+  data,
   unit,
+  limit,
   increment,
 }) {
   return (
@@ -22,8 +23,10 @@ function FirefighterChartHolder({
           <FirefighterChart
             firefighterId={firefighterId}
             type={type}
-            value={value}
+            data={data}
             unit={unit}
+            limit={limit}
+            increment={increment}
           />
         </div>
       </div>

@@ -3,8 +3,14 @@ import { useParams } from "react-router-dom";
 import DetailsGrid from "./detailsGrid";
 
 function DetailsPage() {
-  let { firefighterId } = useParams();
-  return <DetailsGrid firefighterId={firefighterId} />;
+  let { firefighterId, increment, type } = useParams();
+  return (
+    <DetailsGrid
+      firefighterId={firefighterId}
+      increment={increment}
+      increment={type}
+    />
+  );
 }
 
 export default DetailsPage;
