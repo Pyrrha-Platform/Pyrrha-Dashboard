@@ -6,6 +6,7 @@ function FirefighterDetailsGaugeSet({
   type,
   setType,
   increment,
+  setIncrement,
   firefighterId,
   firefighterFirst,
   firefighterLast,
@@ -152,8 +153,11 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log(
+                          "Setting type to CO and increment to 10min"
+                        );
                         setType("CO");
+                        setIncrement("10min");
                       }}
                     >
                       CO
@@ -175,8 +179,11 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log(
+                          "Setting type to CO and increment to 10min"
+                        );
                         setType("NO2");
+                        setIncrement("10min");
                       }}
                     >
                       NO<sub>2</sub>
@@ -236,8 +243,11 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log(
+                          "Setting type to CO and increment to 30min"
+                        );
                         setType("CO");
+                        setIncrement("30min");
                       }}
                     >
                       CO
@@ -259,8 +269,11 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log(
+                          "Setting type to CO and increment to 30min"
+                        );
                         setType("NO2");
+                        setIncrement("30min");
                       }}
                     >
                       NO<sub>2</sub>
@@ -319,8 +332,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 1hr");
                         setType("CO");
+                        setIncrement("1hr");
                       }}
                     >
                       CO
@@ -342,8 +356,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 1hr");
                         setType("NO2");
+                        setIncrement("1hr");
                       }}
                     >
                       NO<sub>2</sub>
@@ -402,8 +417,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 4hr");
                         setType("CO");
+                        setIncrement("4hr");
                       }}
                     >
                       CO
@@ -425,8 +441,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 4hr");
                         setType("NO2");
+                        setIncrement("4hr");
                       }}
                     >
                       NO<sub>2</sub>
@@ -485,8 +502,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 8hr");
                         setType("CO");
+                        setIncrement("8hr");
                       }}
                     >
                       CO
@@ -508,8 +526,9 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO");
+                        console.log("Setting type to CO and increment to 8hr");
                         setType("NO2");
+                        setIncrement("8hr");
                       }}
                     >
                       NO<sub>2</sub>

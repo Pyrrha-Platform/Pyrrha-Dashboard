@@ -21,13 +21,20 @@ const DetailsGrid = (params) => {
   console.log("increment", increment);
   console.log("type", type);
 
+  const incrementMapping = {
+    "all": 0,
+    "10min": 1,
+    "30min": 2,
+    "1hr": 3,
+    "4hr": 4,
+    "8hr": 5,
+  }
+
   return (
     <div className="bx--grid bx--grid--full-width details-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="details-page__heading">
-            {details.firefighterCode} Details
-          </h1>
+          <h1 className="details-page__heading">Details</h1>
         </div>
       </div>
 
@@ -41,11 +48,14 @@ const DetailsGrid = (params) => {
         </div>
       </div>
 
+      {console.log(incrementMapping[increment])}
+
       <ContentSwitcher
         onChange={(e) => {
           console.log(e.name);
           setIncrement(e.name);
         }}
+        selectedIndex={incrementMapping[increment]}
         className="details-page__switcher"
       >
         <Switch name="all" text="All" />
@@ -95,6 +105,7 @@ const DetailsGrid = (params) => {
             type={type}
             setType={setType}
             increment={increment}
+            setIncrement={setIncrement}
             firefighterId={firefighterId}
             firefighterCode={firefighterCode}
             firefighterFirst={firefighterFirst}

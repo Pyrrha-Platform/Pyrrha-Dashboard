@@ -6,6 +6,7 @@ function FirefighterChartHolder({
   type,
   value,
   unit,
+  limit,
   increment,
 }) {
   return (
@@ -24,6 +25,8 @@ function FirefighterChartHolder({
             type={type}
             value={value}
             unit={unit}
+            limit={limit}
+            increment={increment}
           />
         </div>
       </div>

@@ -5,32 +5,21 @@ import no2Data from "./no2.csv";
 import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
 
-function FirefighterChart({ w, h, firefighterId, type, value, unit }) {
+function FirefighterChart({
+  firefighterId,
+  type,
+  value,
+  unit,
+  limit,
+  increment,
+}) {
   const ref = useRef();
-
-  /*
-  const Chart = ({ dateRange }) => {
-    const [data, setData] = useState()
-    useEffect(() => {
-      // when Chart mounts, do this
-      const newData = getDataWithinRange(dateRange)
-      setData(newData)
-      // when data updates, do this
-      // not used right now
-      return () => {
-        // when data updates, do this
-        // not used right now
-        // before Chart unmounts, do this
-        // not used right now
-      }
-    }, [dateRange])
-  }
-  */
 
   var margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
+  // On first load
   useEffect(() => {
     const svg = d3
       .select(ref.current)
@@ -38,10 +27,12 @@ function FirefighterChart({ w, h, firefighterId, type, value, unit }) {
       .attr("height", height + margin.top + margin.bottom);
   }, []);
 
+  // When data changes
   useEffect(() => {
     draw(firefighterId, type, value, unit);
   }, [Constants.DEFAULT_COLOR]);
 
+  // On first load
   const draw = (firefighterId, type, value, unit) => {
     const svg = d3
       .select(ref.current)
