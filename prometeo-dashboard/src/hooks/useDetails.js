@@ -7,11 +7,9 @@ const client = async (url, options) => {
   return data;
 };
 
-const fetchDetails = async (firefighterId) => {
+const fetchDetails = async (firefighterId, increment) => {
   try {
-    const data = await client(
-      `/api/v1/dashboard-details/${firefighterId.firefighterId}`
-    );
+    const data = await client(`/api/v1/dashboard-details/${firefighterId}/${increment}`);
     console.log(data);
     return data.details;
   } catch (e) {
@@ -78,9 +76,10 @@ const updateDetails = (details, message) => {
   );
 };
 
-const useDetails = (firefighterId) => {
+const useDetails = (firefighterId, inc) => {
   const [details, setDetails] = useState([]);
   const [message, setMessage] = useState([]);
+  const [increment, setIncrement] = useState((inc !== undefined) ? inc : "all");
   const [loading, setLoading] = useState("Loading from database...");
 
   const socket = useRef(new WebSocket("ws://localhost:8010"));
@@ -100,12 +99,12 @@ const useDetails = (firefighterId) => {
 
   // Initial load of latest for all firefighters
   useEffect(() => {
-    fetchDetails(firefighterId).then((details) => {
+    fetchDetails(firefighterId, increment).then((details) => {
       setDetails(details);
       console.log("Loaded from database.", details);
       setLoading("Loaded from database.");
     });
-  }, []);
+  }, [increment]);
 
   // Updates based on new messages
   useEffect(() => {
@@ -131,7 +130,7 @@ const useDetails = (firefighterId) => {
     };
   }, [message]);
 
-  return [loading, setLoading, details, setDetails];
+  return [loading, setLoading, details, setDetails, increment, setIncrement];
 };
 
 export default useDetails;

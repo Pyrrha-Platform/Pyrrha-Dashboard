@@ -365,10 +365,10 @@ def get_dashboard_for(firefighter_id):
     return resp
 
 
-@app.route('/api/v1/dashboard-details/<int:firefighter_id>', methods=['GET'])
-def get_dashboard_details(firefighter_id):
+@app.route('/api/v1/dashboard-details/<int:firefighter_id>/<string:increment>', methods=['GET'])
+def get_dashboard_details(firefighter_id, increment='all'):
 
-    details = dashboard_manager().get_dashboard_details(firefighter_id)
+    details = dashboard_manager().get_dashboard_details(firefighter_id, increment)
     message = {
         'status': 200,
         'message': 'OK',

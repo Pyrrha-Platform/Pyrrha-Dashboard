@@ -6,8 +6,14 @@ import useDetails from "../../hooks/useDetails";
 import FirefighterChartHolder from "../../components/FirefighterChartHolder";
 
 // Table and data
-const DetailsGrid = (firefighterId) => {
-  const [loading, setLoading, details, setDetails] = useDetails(firefighterId);
+const DetailsGrid = (params) => {
+  const [loading, setLoading, details, setDetails, increment, setIncrement] = useDetails(
+    params.firefighterId,
+    params.increment
+  );
+
+  console.log("firefighterId", params.firefighterId);
+  console.log("increment", increment);
 
   return (
     <div className="bx--grid bx--grid--full-width details-content">
@@ -29,9 +35,15 @@ const DetailsGrid = (firefighterId) => {
         </div>
       </div>
 
-      <ContentSwitcher onChange={() => {}} className="details-page__switcher">
-        <Switch name="All" text="All" />
-        <Switch name="Now" text="Now" />
+      <ContentSwitcher
+        onChange={(e) => {
+          console.log(e.name);
+          setIncrement(e.name);
+        }}
+        className="details-page__switcher"
+      >
+        <Switch name="all" text="All" />
+        <Switch name="now" text="Now" />
         <Switch name="10min" text="10 min avg" />
         <Switch name="30min" text="30 min avg" />
         <Switch name="1hr" text="1 hr avg" />

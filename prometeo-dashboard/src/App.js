@@ -28,6 +28,18 @@ function App() {
           />
           <DashboardPage />
         </Route>
+        <Route path="/details/:firefighterId/:increment">
+          <PrometeoHeader
+            history={history}
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
+          <DetailsPage />
+        </Route>
         <Route path="/details/:firefighterId">
           <PrometeoHeader
             history={history}

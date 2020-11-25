@@ -162,7 +162,7 @@ class dashboard_manager(object):
 
         return firefighters
 
-    def get_dashboard_details(self, firefighter_id):
+    def get_dashboard_details(self, firefighter_id, increment):
         print("get_dashboard_details - entro en la funcion")
 
         details = []
