@@ -46,7 +46,6 @@ const DetailsGrid = (params) => {
             You are now viewing the details for the readings for a specific
             firefighter. Choose a reading to see a detailed chart.
           </h1>
-          <h1 className="details-page__subheading">{loading}</h1>
         </div>
       </div>
 

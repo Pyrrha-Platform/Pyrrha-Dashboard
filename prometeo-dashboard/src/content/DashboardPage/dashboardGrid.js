@@ -21,7 +21,6 @@ const DashboardGrid = () => {
             exposure thresholds. The number is the real-time data, and the gauge
             represents the ten minute average within a threshold.
           </h1>
-          <h1 className="dashboard-page__subheading">{loading}</h1>
         </div>
       </div>
 
