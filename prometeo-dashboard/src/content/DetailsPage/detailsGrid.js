@@ -24,13 +24,13 @@ const DetailsGrid = (params) => {
   console.log("type", type);
 
   const incrementMapping = {
-    "all": 0,
+    all: 0,
     "10min": 1,
     "30min": 2,
     "1hr": 3,
     "4hr": 4,
     "8hr": 5,
-  }
+  };
 
   return (
     <div className="bx--grid bx--grid--full-width details-content">

@@ -9,7 +9,7 @@ function FirefighterChart({
   data,
   unit,
   limit,
-  increment
+  increment,
 }) {
   const ref = useRef();
 
