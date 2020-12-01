@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Header,
@@ -14,6 +14,7 @@ import {
 } from "carbon-components-react/lib/components/UIShell";
 import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
 import Translate20 from "@carbon/icons-react/lib/translate/20";
+import Context from "../../context/app";
 
 function PrometeoHeader(props) {
   const history = props.history;
@@ -23,6 +24,10 @@ function PrometeoHeader(props) {
   const setActive = props.setActive;
   const setLanguage = props.setLanguage;
   const setPage = props.setPage;
+
+  const { t } = useContext(Context);
+  console.log(t);
+
   return (
     <Header aria-label="Prometeo">
       <SkipToContent />
@@ -36,7 +41,7 @@ function PrometeoHeader(props) {
       >
         Platform
       </HeaderName>
-      <HeaderNavigation aria-label="Prometeo Dashboard">
+      <HeaderNavigation aria-label={t("components.header.title")}>
         <HeaderMenuItem
           element={Link}
           to="/"
@@ -45,7 +50,7 @@ function PrometeoHeader(props) {
             setPage("Dashboard");
           }}
         >
-          Dashboard
+          {t("components.header.dashboard")}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
@@ -55,7 +60,7 @@ function PrometeoHeader(props) {
             setPage("Events");
           }}
         >
-          Events
+          {t("components.header.events")}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
@@ -65,7 +70,7 @@ function PrometeoHeader(props) {
             setPage("Devices");
           }}
         >
-          Devices
+          {t("components.header.devices")}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
@@ -75,7 +80,7 @@ function PrometeoHeader(props) {
             setPage("Firefighters");
           }}
         >
-          Firefighters
+          {t("components.header.firefighters")}
         </HeaderMenuItem>
       </HeaderNavigation>
       <HeaderGlobalBar>
@@ -93,34 +98,34 @@ function PrometeoHeader(props) {
       <HeaderPanel aria-label="Header Panel" expanded={active}>
         <Switcher aria-label="Switcher Container">
           <SwitcherItem
-            aria-label="English"
+            aria-label={t("components.header.english")}
             isSelected={language === "EN"}
             onClick={() => {
               setLanguage("EN");
               setActive(false);
             }}
           >
-            English
+            {t("components.header.english")}
           </SwitcherItem>
           <SwitcherItem
-            aria-label="Spanish"
+            aria-label={t("components.header.spanish")}
             isSelected={language === "ES"}
             onClick={() => {
               setLanguage("ES");
               setActive(false);
             }}
           >
-            Spanish
+            {t("components.header.spanish")}
           </SwitcherItem>
           <SwitcherItem
-            aria-label="Catalan"
+            aria-label={t("components.header.catalan")}
             isSelected={language === "CA"}
             onClick={() => {
               setLanguage("CA");
               setActive(false);
             }}
           >
-            Catalan
+            {t("components.header.catalan")}
           </SwitcherItem>
         </Switcher>
       </HeaderPanel>

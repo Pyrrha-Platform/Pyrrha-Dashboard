@@ -1,0 +1,74 @@
+{
+  "components": {
+    "header": {
+      "title": "Prometeo Dashboard",
+      "notifications": "Notifications",
+      "avatar": "User avatar",
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "devices": "Devices",
+      "firefighters": "Firefighters",
+      "profile": "Settings",
+      "translate": "Profile",
+      "english": "English",
+      "spanish": "Spanish",
+      "catalan": "Catalan"
+    },
+    "sidemenu": {
+      "language": "Side navigation",
+      "settings": "Settings"
+    },
+    "gauge": {
+      "language": "Side navigation",
+      "settings": "Settings"
+    },
+    "chart": {
+      "language": "Side navigation",
+      "settings": "Settings"
+    }
+  },
+  "content": {
+    "profile": {
+      "welcome": "Welcome {{name}}!"
+    },
+    "login": {
+      "title": "Welcome to the Prometeo dashboard",
+      "loginTitle": "Please sign in to continue",
+      "loginPrimary": "Log in",
+      "form": {
+        "name": {
+          "label": "Name",
+          "error": "Name must be present"
+        },
+        "email": {
+          "label": "Email",
+          "error": "Email must be present"
+        },
+        "password": {
+          "label": "Password",
+          "error": "Password must be present"
+        }
+      }
+    },
+    "dashboard": {
+      "heading": "Dashboard",
+      "subheading": "Subheading"
+    },
+    "details": {
+      "heading": "Details",
+      "subheading": "Subheading"
+    },
+    "devices": {
+      "heading": "Devices",
+      "subheading": "Subheading"
+    },
+    "events": {
+      "heading": "Events",
+      "subheading": "Subheading"
+    },
+    "firefighters": {
+      "heading": "Firefighters",
+      "subheading": "Subheading"
+    }
+  }
+}
