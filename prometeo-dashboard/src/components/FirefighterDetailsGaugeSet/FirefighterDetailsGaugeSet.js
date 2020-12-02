@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import FirefighterGauge from "../FirefighterGauge";
 import FirefighterChartHolder from "../FirefighterChartHolder";
 import Context from "../../context/app";
+import Utils from "../../utils/Utils";
 
 function FirefighterDetailsGaugeSet({
   chart,
@@ -66,8 +67,9 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"CO"}
                     value={carbonMonoxide}
+                    increment={increment}
                     unit={"ppm"}
-                    limit={0.8}
+                    gauge={Utils.getWhole("CO", carbonMonoxide)}
                   />
                 </div>
                 <div className="label-legend">
@@ -89,8 +91,9 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"NO2"}
                     value={nitrogenDioxide}
+                    increment={increment}
                     unit={"ppm"}
-                    limit={0.5}
+                    gauge={Utils.getWhole("NO2", nitrogenDioxide)}
                   />
                 </div>
                 <div className="label-legend">
@@ -112,7 +115,9 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"Tmp"}
                     value={temperature}
+                    increment={increment}
                     unit={"°C"}
+                    gauge={Utils.getWhole("Tmp", temperature)}
                   />
                 </div>
                 <div className="label-legend">
@@ -125,7 +130,9 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"Hum"}
                     value={humidity}
+                    increment={increment}
                     unit={"%"}
+                    gauge={Utils.getWhole("Hum", humidity)}
                   />
                 </div>
                 <div className="label-legend">
@@ -153,8 +160,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"CO"}
                       value={carbonMonoxideTwa10min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={carbonMonoxideGauge10min}
+                      gauge={carbonMonoxideGauge10min}
                     />
                   </div>
                   <div className="label-legend">
@@ -179,8 +187,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"NO2"}
                       value={nitrogenDioxideTwa10min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={nitrogenDioxideGauge10min}
+                      gauge={nitrogenDioxideGauge10min}
                     />
                   </div>
                   <div className="label-legend">
@@ -205,6 +214,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Tmp"}
                       value={"-"}
+                      increment={increment}
                       unit={"°C"}
                     />
                   </div>
@@ -218,6 +228,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Hum"}
                       value={"-"}
+                      increment={increment}
                       unit={"%"}
                     />
                   </div>
@@ -247,8 +258,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"CO"}
                       value={carbonMonoxideTwa30min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={carbonMonoxideGauge30min}
+                      gauge={carbonMonoxideGauge30min}
                     />
                   </div>
                   <div className="label-legend">
@@ -273,8 +285,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"NO2"}
                       value={nitrogenDioxideTwa30min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={nitrogenDioxideGauge30min}
+                      gauge={nitrogenDioxideGauge30min}
                     />
                   </div>
                   <div className="label-legend">
@@ -299,6 +312,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Tmp"}
                       value={"-"}
+                      increment={increment}
                       unit={"°C"}
                     />
                   </div>
@@ -312,6 +326,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Hum"}
                       value={"-"}
+                      increment={increment}
                       unit={"%"}
                     />
                   </div>
@@ -341,8 +356,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"CO"}
                       value={carbonMonoxideTwa60min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={carbonMonoxideGauge60min}
+                      gauge={carbonMonoxideGauge60min}
                     />
                   </div>
                   <div className="label-legend">
@@ -365,8 +381,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"NO2"}
                       value={nitrogenDioxideTwa60min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={nitrogenDioxideGauge60min}
+                      gauge={nitrogenDioxideGauge60min}
                     />
                   </div>
                   <div className="label-legend">
@@ -389,6 +406,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Tmp"}
                       value={"-"}
+                      increment={increment}
                       unit={"°C"}
                     />
                   </div>
@@ -402,6 +420,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Hum"}
                       value={"-"}
+                      increment={increment}
                       unit={"%"}
                     />
                   </div>
@@ -431,8 +450,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"CO"}
                       value={carbonMonoxideTwa240min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={carbonMonoxideGauge240min}
+                      gauge={carbonMonoxideGauge240min}
                     />
                   </div>
                   <div className="label-legend">
@@ -455,8 +475,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"NO2"}
                       value={nitrogenDioxideTwa240min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={nitrogenDioxideGauge240min}
+                      gauge={nitrogenDioxideGauge240min}
                     />
                   </div>
                   <div className="label-legend">
@@ -479,6 +500,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Tmp"}
                       value={"-"}
+                      increment={increment}
                       unit={"°C"}
                     />
                   </div>
@@ -492,6 +514,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Hum"}
                       value={"-"}
+                      increment={increment}
                       unit={"%"}
                     />
                   </div>
@@ -521,8 +544,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"CO"}
                       value={carbonMonoxideTwa480min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={carbonMonoxideGauge480min}
+                      gauge={carbonMonoxideGauge480min}
                     />
                   </div>
                   <div className="label-legend">
@@ -545,8 +569,9 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"NO2"}
                       value={nitrogenDioxideTwa480min}
+                      increment={increment}
                       unit={"ppm"}
-                      limit={nitrogenDioxideGauge480min}
+                      gauge={nitrogenDioxideGauge480min}
                     />
                   </div>
                   <div className="label-legend">
@@ -569,6 +594,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Tmp"}
                       value={"-"}
+                      increment={increment}
                       unit={"°C"}
                     />
                   </div>
@@ -582,6 +608,7 @@ function FirefighterDetailsGaugeSet({
                       firefighterId={firefighterId}
                       type={"Hum"}
                       value={"-"}
+                      increment={increment}
                       unit={"%"}
                     />
                   </div>
@@ -601,7 +628,7 @@ function FirefighterDetailsGaugeSet({
             type={!type ? "CO" : type}
             data={chart}
             unit={"ppm"}
-            limit={""}
+            gauge={""}
             increment={
               increment === "all" ? t("content.details.10min") : increment
             }

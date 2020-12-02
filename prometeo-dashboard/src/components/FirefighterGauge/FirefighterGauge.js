@@ -4,7 +4,14 @@ import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
 import Context from "../../context/app";
 
-function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
+function FirefighterGauge({
+  firefighterId,
+  type,
+  value,
+  unit,
+  increment,
+  gauge,
+}) {
   const ref = useRef();
   const { t } = useContext(Context);
 
@@ -18,18 +25,16 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
       .select(ref.current)
       .attr("width", width)
       .attr("height", height);
-    draw(svg, firefighterId, type, value, unit, limit);
+    draw(svg, firefighterId, type, value, unit, increment, gauge);
   }, []);
 
   // When data changes
   useEffect(() => {
-    change(firefighterId, type, value, unit, limit);
+    change(firefighterId, type, value, unit, increment, gauge);
   }, [value]);
 
   // On first load
-  const draw = (svg, firefighterId, type, value, unit, limit) => {
-    const color = Utils.getStatusColor(type, limit);
-
+  const draw = (svg, firefighterId, type, value, unit, increment, gauge) => {
     svg
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -43,7 +48,7 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
       .attr("d", Constants.ARC);
     g.append("path")
       .datum({ endAngle: 0 * Constants.TAU })
-      .style("fill", color)
+      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
       .attr("d", Constants.ARC)
       .attr("id", "angle-" + type + "-" + firefighterId);
 
@@ -67,15 +72,23 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   };
 
   // When data changes
-  const change = (firefighterId, type, value, unit, limit) => {
-    let valueToUse = limit;
+  const change = (firefighterId, type, value, unit, increment, gauge) => {
+    console.log("firefighterId", firefighterId);
+    console.log("type", type);
+    console.log("value", value);
+    console.log("unit", unit);
+    console.log("increment", increment);
+    console.log("gauge", gauge);
+    let valueToUse = value;
     if (type === "Tmp" || type === "Hum") {
       valueToUse = Utils.getWhole(type, value);
+    } else {
+      valueToUse = gauge;
     }
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)
-      .style("fill", Utils.getStatusColor(type, value, limit))
+      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
       .attrTween("d", Utils.arcTween(valueToUse * Constants.TAU));
     d3.select("#number-" + type + "-" + firefighterId).text(value);
   };

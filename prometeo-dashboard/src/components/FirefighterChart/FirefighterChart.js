@@ -39,7 +39,12 @@ function FirefighterChart({
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var threshold = 40;
+    var redThreshold = Constants.CO_RED;
+    var yellowThreshold = Constants.CO_YELLOW;
+    if (type === "NO2") {
+      redThreshold = Constants.NO2_RED;
+      yellowThreshold = Constants.NO2_YELLOW;
+    }
 
     // Add X axis --> it is a time format
     var x = d3
@@ -110,16 +115,28 @@ function FirefighterChart({
           })
       );
 
-    // Add the threshold
+    // Add the yellow threshold
     console.log(width);
-    console.log(threshold);
+    console.log(yellowThreshold);
+    svg
+      .append("line")
+      .style("stroke", Constants.YELLOW)
+      .attr("x1", 0)
+      .attr("y1", y(yellowThreshold))
+      .attr("x2", width)
+      .attr("y2", y(yellowThreshold));
+
+    // Add the red threshold
+    console.log(width);
+    console.log(redThreshold);
     svg
       .append("line")
       .style("stroke", Constants.RED)
       .attr("x1", 0)
-      .attr("y1", y(threshold))
+      .attr("y1", y(redThreshold))
       .attr("x2", width)
-      .attr("y2", y(threshold));
+      .attr("y2", y(redThreshold));
+
   };
 
   return <svg ref={ref}></svg>;

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import FirefighterGauge from "../FirefighterGauge";
 import Context from "../../context/app";
+import Utils from "../../utils/Utils";
 
 function FirefighterDashboardGaugeSet({
   firefighterId,
@@ -24,11 +25,11 @@ function FirefighterDashboardGaugeSet({
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
-            <Link to={"/details/" + firefighterId} className="bx--link">
+            <Link to={"/details/" + firefighterId} className="bx--link label-firefighter">
               {firefighterCode} - {firefighterFirst} {firefighterLast}
               <br />
-              {increment}
             </Link>
+            {t("content.details.now")}
           </div>
         </div>
         <div className="bx--row dashboard-tile">
@@ -38,8 +39,9 @@ function FirefighterDashboardGaugeSet({
                 firefighterId={firefighterId}
                 type={"CO"}
                 value={carbonMonoxide}
+                increment={increment}
                 unit={"ppm"}
-                limit={0.8}
+                gauge={Utils.getWhole("CO", carbonMonoxide)}
               />
             </div>
             <div className="label-legend">CO</div>
@@ -50,8 +52,9 @@ function FirefighterDashboardGaugeSet({
                 firefighterId={firefighterId}
                 type={"NO2"}
                 value={nitrogenDioxide}
+                increment={increment}
                 unit={"ppm"}
-                limit={0.5}
+                gauge={Utils.getWhole("NO2", nitrogenDioxide)}
               />
             </div>
             <div className="label-legend">
@@ -64,7 +67,9 @@ function FirefighterDashboardGaugeSet({
                 firefighterId={firefighterId}
                 type={"Tmp"}
                 value={temperature}
+                increment={increment}
                 unit={"°C"}
+                gauge={Utils.getWhole("Tmp", temperature)}
               />
             </div>
             <div className="label-legend">
@@ -77,7 +82,9 @@ function FirefighterDashboardGaugeSet({
                 firefighterId={firefighterId}
                 type={"Hum"}
                 value={humidity}
+                increment={increment}
                 unit={"%"}
+                gauge={Utils.getWhole("Hum", humidity)}
               />
             </div>
             <div className="label-legend">{t("content.common.humidity")}</div>

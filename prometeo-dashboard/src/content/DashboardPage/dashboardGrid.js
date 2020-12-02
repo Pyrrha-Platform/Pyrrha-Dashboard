@@ -54,7 +54,7 @@ const DashboardGrid = () => {
               humidity={humidity}
               carbonMonoxide={carbonMonoxide}
               nitrogenDioxide={nitrogenDioxide}
-              increment={increment}
+              increment={"now"}
             />
           )
         )}
