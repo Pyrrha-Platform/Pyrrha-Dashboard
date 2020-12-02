@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 // import { settings } from 'carbon-components';
@@ -12,6 +12,7 @@ import {
 } from "carbon-components-react";
 import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
 import { Add16 } from "@carbon/icons-react";
+import Context from "../../context/app";
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -19,12 +20,13 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
+  const { t } = useContext(Context);
   return (
     <>
       {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent open={open} setOpen={setOpen} t={t} />,
             document.body
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
@@ -119,10 +121,11 @@ class DevicesAddModal extends React.Component {
           </Button>
         )}
       >
-        {({ open, setOpen }) => (
+        {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
             open={open}
+            t={t}
             loadDevices={this.props.loadDevices}
             size={size || undefined}
             onClose={() => setOpen(false)}
@@ -137,7 +140,7 @@ class DevicesAddModal extends React.Component {
                 id={this.state.code}
                 value={this.state.code}
                 placeholder="0001"
-                labelText="Code:"
+                labelText={t("content.devices.code") + ":"}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
@@ -145,7 +148,7 @@ class DevicesAddModal extends React.Component {
                 id={this.state.model}
                 value={this.state.model}
                 placeholder="model 1"
-                labelText="Model:"
+                labelText={t("content.devices.model") + ":"}
                 onChange={(e) => (this.state.model = e.target.value.trim())}
               />
               <br />
@@ -153,7 +156,7 @@ class DevicesAddModal extends React.Component {
                 id={this.state.version}
                 value={this.state.version}
                 placeholder="1.0"
-                labelText="Version:"
+                labelText={t("content.devices.version") + ":"}
                 onChange={(e) => (this.state.version = e.target.value.trim())}
               />
               <br />

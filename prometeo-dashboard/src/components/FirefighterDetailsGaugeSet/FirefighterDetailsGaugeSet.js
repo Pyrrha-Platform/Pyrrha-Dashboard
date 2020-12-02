@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import FirefighterGauge from "../FirefighterGauge";
 import FirefighterChartHolder from "../FirefighterChartHolder";
+import Context from "../../context/app";
 
 function FirefighterDetailsGaugeSet({
   chart,
@@ -44,6 +45,8 @@ function FirefighterDetailsGaugeSet({
 }) {
   console.log("FirefighterDetailsGaugeSet", increment);
 
+  const { t } = useContext(Context);
+
   return (
     <>
       <div className="bx--row">
@@ -53,7 +56,7 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--col-md-8 label-firefighter">
                 {firefighterCode} - {firefighterFirst} {firefighterLast}
                 <br />
-                Now
+                {t("content.details.now")}
               </div>
             </div>
             <div className="bx--row dashboard-tile">
@@ -112,7 +115,9 @@ function FirefighterDetailsGaugeSet({
                     unit={"°C"}
                   />
                 </div>
-                <div className="label-legend">Temperature</div>
+                <div className="label-legend">
+                  {t("content.common.temperature")}
+                </div>
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
@@ -123,7 +128,9 @@ function FirefighterDetailsGaugeSet({
                     unit={"%"}
                   />
                 </div>
-                <div className="label-legend">Humidity</div>
+                <div className="label-legend">
+                  {t("content.common.humidity")}
+                </div>
               </div>
             </div>
           </div>
@@ -136,7 +143,7 @@ function FirefighterDetailsGaugeSet({
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  10 min avg
+                  {t("content.details.10min")}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -201,7 +208,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"°C"}
                     />
                   </div>
-                  <div className="label-legend">Temperature</div>
+                  <div className="label-legend">
+                    {t("content.common.temperature")}
+                  </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
@@ -212,7 +221,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"%"}
                     />
                   </div>
-                  <div className="label-legend">Humidity</div>
+                  <div className="label-legend">
+                    {t("content.common.humidity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -226,7 +237,7 @@ function FirefighterDetailsGaugeSet({
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  30 min avg
+                  {t("content.details.30min")}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -291,7 +302,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"°C"}
                     />
                   </div>
-                  <div className="label-legend">Temperature</div>
+                  <div className="label-legend">
+                    {t("content.common.temperature")}
+                  </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
@@ -302,7 +315,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"%"}
                     />
                   </div>
-                  <div className="label-legend">Humidity</div>
+                  <div className="label-legend">
+                    {t("content.common.humidity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -315,7 +330,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
-                  <br />1 hr avg
+                  <br />
+                  {t("content.details.1hr")}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -376,7 +392,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"°C"}
                     />
                   </div>
-                  <div className="label-legend">Temperature</div>
+                  <div className="label-legend">
+                    {t("content.common.temperature")}
+                  </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
@@ -387,7 +405,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"%"}
                     />
                   </div>
-                  <div className="label-legend">Humidity</div>
+                  <div className="label-legend">
+                    {t("content.common.humidity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -400,7 +420,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
-                  <br />4 hr avg
+                  <br />
+                  {t("content.details.4hr")}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -461,7 +482,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"°C"}
                     />
                   </div>
-                  <div className="label-legend">Temperature</div>
+                  <div className="label-legend">
+                    {t("content.common.temperature")}
+                  </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
@@ -472,7 +495,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"%"}
                     />
                   </div>
-                  <div className="label-legend">Humidity</div>
+                  <div className="label-legend">
+                    {t("content.common.humidity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -485,7 +510,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
-                  <br />8 hr avg
+                  <br />
+                  {t("content.details.8hr")}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -546,7 +572,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"°C"}
                     />
                   </div>
-                  <div className="label-legend">Temperature</div>
+                  <div className="label-legend">
+                    {t("content.common.temperature")}
+                  </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
@@ -557,7 +585,9 @@ function FirefighterDetailsGaugeSet({
                       unit={"%"}
                     />
                   </div>
-                  <div className="label-legend">Humidity</div>
+                  <div className="label-legend">
+                    {t("content.common.humidity")}
+                  </div>
                 </div>
               </div>
             </div>
@@ -572,7 +602,9 @@ function FirefighterDetailsGaugeSet({
             data={chart}
             unit={"ppm"}
             limit={""}
-            increment={increment === "all" ? "10 min avg" : increment}
+            increment={
+              increment === "all" ? t("content.details.10min") : increment
+            }
           />
         </div>
       </div>

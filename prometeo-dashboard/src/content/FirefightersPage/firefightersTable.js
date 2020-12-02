@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   DataTable,
   TableContainer,
@@ -14,6 +14,7 @@ import {
 import FirefightersAddModal from "./firefightersAddModal";
 import FirefightersEditModal from "./firefightersEditModal";
 import FirefightersDeleteModal from "./firefightersDeleteModal";
+import Context from "../../context/app";
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -22,34 +23,11 @@ const client = async (url, options) => {
   return data;
 };
 
-// Form header data
-const headerData = [
-  {
-    header: "Firefighter ID",
-    key: "id",
-  },
-  {
-    header: "Code",
-    key: "code",
-  },
-  {
-    header: "First name",
-    key: "first",
-  },
-  {
-    header: "Last name",
-    key: "last",
-  },
-  {
-    header: "Email",
-    key: "email",
-  },
-];
-
 // Table and data
 const NewFirefightersTable = ({ firefighterId }) => {
   const [firefighters, setFirefighters] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
+  const { t } = useContext(Context);
 
   React.useEffect(() => {
     loadFirefighters();
@@ -65,19 +43,45 @@ const NewFirefightersTable = ({ firefighterId }) => {
     }
   });
 
+  // Form header data
+  const headerData = [
+    {
+      header: t("content.firefighters.id"),
+      key: "id",
+    },
+    {
+      header: t("content.firefighters.code"),
+      key: "code",
+    },
+    {
+      header: t("content.firefighters.first"),
+      key: "first",
+    },
+    {
+      header: t("content.firefighters.last"),
+      key: "last",
+    },
+    {
+      header: t("content.firefighters.email"),
+      key: "email",
+    },
+  ];
+
   return (
     <div className="bx--grid bx--grid--full-width firefighters-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="firefighters-page__heading">Firefighters</h1>
+          <h1 className="firefighters-page__heading">
+            {t("content.firefighters.heading")}
+          </h1>
         </div>
       </div>
 
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="firefighters-page__subheading">
-            These are all the firefighters registered in the system.
-          </h1>
+          <h2 className="firefighters-page__subheading">
+            {t("content.firefighters.subheading")}
+          </h2>
         </div>
       </div>
 
@@ -114,7 +118,9 @@ const NewFirefightersTable = ({ firefighterId }) => {
                           {header.header}
                         </TableHeader>
                       ))}
-                      <TableHeader>Actions</TableHeader>
+                      <TableHeader>
+                        {t("content.firefighters.actions")}
+                      </TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>

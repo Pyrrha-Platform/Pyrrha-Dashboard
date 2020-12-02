@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 // import { settings } from 'carbon-components';
@@ -12,6 +12,7 @@ import {
   Icon,
 } from "carbon-components-react";
 import { iconDelete, iconDeleteSolid, iconDeleteOutline } from "carbon-icons";
+import Context from "../../context/app";
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -19,12 +20,13 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
+  const { t } = useContext(Context);
   return (
     <>
       {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent open={open} setOpen={setOpen} t={t} />,
             document.body
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
@@ -146,10 +148,11 @@ class EventsDeleteModal extends React.Component {
           />
         )}
       >
-        {({ open, setOpen }) => (
+        {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
             open={open}
+            t={t}
             row={this.props.row}
             loadEvents={this.props.loadEvents}
             size={size || undefined}

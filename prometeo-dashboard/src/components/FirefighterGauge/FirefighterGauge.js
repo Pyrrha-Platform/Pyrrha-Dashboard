@@ -1,10 +1,12 @@
 import * as d3 from "d3";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
+import Context from "../../context/app";
 
 function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   const ref = useRef();
+  const { t } = useContext(Context);
 
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,

@@ -19,7 +19,7 @@ class Utils {
     if (type === "CO") {
       if (limit <= 0.81) {
         color = Constants.GREEN;
-      } else if (limit >= 0.99 || value == -1) {
+      } else if (limit >= 0.99 || value === -1) {
         color = Constants.RED;
       } else if (limit > 0.81 && value < 0.99) {
         color = Constants.YELLOW;
@@ -27,7 +27,7 @@ class Utils {
     } else if (type === "NO2") {
       if (limit <= 0.81) {
         color = Constants.GREEN;
-      } else if (limit >= 0.99 || value == -1) {
+      } else if (limit >= 0.99 || value === -1) {
         color = Constants.RED;
       } else if (limit > 0.81 && value < 0.99) {
         color = Constants.YELLOW;

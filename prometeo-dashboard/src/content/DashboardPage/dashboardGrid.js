@@ -1,26 +1,28 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext } from "react";
 import "@carbon/charts/styles.css";
 import FirefighterDashboardGaugeSet from "../../components/FirefighterDashboardGaugeSet";
 import useDashboard from "../../hooks/useDashboard";
+import Context from "../../context/app";
 
 const DashboardGrid = () => {
   const [loading, setLoading, dashboard, setDashboard] = useDashboard();
+  const { t } = useContext(Context);
 
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="dashboard-page__heading">Dashboard</h1>
+          <h1 className="dashboard-page__heading">
+            {t("content.dashboard.heading")}
+          </h1>
         </div>
       </div>
 
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="dashboard-page__subheading">
-            You are now viewing the real-time data and 10 minute average
-            exposure thresholds. The number is the real-time data, and the gauge
-            represents the ten minute average within a threshold.
-          </h1>
+          <h2 className="dashboard-page__subheading">
+            {t("content.dashboard.subheading")}
+          </h2>
         </div>
       </div>
 

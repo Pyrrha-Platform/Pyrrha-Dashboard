@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 // import { settings } from 'carbon-components';
@@ -12,6 +12,7 @@ import {
   Icon,
 } from "carbon-components-react";
 import { iconEdit, iconEditSolid, iconEditOutline } from "carbon-icons";
+import Context from "../../context/app";
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -19,12 +20,13 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
+  const { t } = useContext(Context);
   return (
     <>
       {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent open={open} setOpen={setOpen} t={t} />,
             document.body
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
@@ -82,6 +84,7 @@ const handleSubmit = (
   id,
   code,
   type,
+  date,
   state,
   firefighters,
   loadEvents,
@@ -91,6 +94,7 @@ const handleSubmit = (
   console.log("id " + id);
   console.log("code " + code);
   console.log("type " + type);
+  console.log("date " + date);
   console.log("firefighters " + firefighters);
   console.log("state " + state);
 
@@ -99,6 +103,7 @@ const handleSubmit = (
       id: id,
       code: code,
       type: type,
+      date: date,
       firefighters: firefighters,
       state: state,
     })
@@ -127,7 +132,8 @@ class EventsEditModal extends React.Component {
       id: this.props.row.cells[0].value,
       code: this.props.row.cells[1].value,
       type: this.props.row.cells[2].value,
-      firefighters: this.props.row.cells[3].value,
+      date: this.props.row.cells[3].value,
+      firefighters: 10,
       state: this.props.row.cells[4].value,
       open: false,
     };
@@ -149,10 +155,11 @@ class EventsEditModal extends React.Component {
           />
         )}
       >
-        {({ open, setOpen }) => (
+        {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
             open={open}
+            t={t}
             row={this.props.row}
             loadEvents={this.props.loadEvents}
             size={size || undefined}
@@ -167,21 +174,28 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                labelText="Code:"
+                labelText={t("content.events.code") + ":"}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.code + "-" + this.state.type}
                 value={this.state.type}
-                labelText="Type:"
+                labelText={t("content.events.type") + ":"}
                 onChange={(e) => (this.state.type = e.target.value.trim())}
+              />
+              <br />
+              <TextInput
+                id={this.state.code + "-" + this.state.date}
+                value={this.state.date}
+                labelText={t("content.events.date") + ":"}
+                onChange={(e) => (this.state.date = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.code + "-" + this.state.firefighters}
                 value={this.state.firefighters}
-                labelText="Firefighters:"
+                labelText={t("content.events.firefighters") + ":"}
                 onChange={(e) =>
                   (this.state.firefighters = e.target.value.trim())
                 }
@@ -190,7 +204,7 @@ class EventsEditModal extends React.Component {
               <TextInput
                 id={this.state.code + "-" + this.state.state}
                 value={this.state.state}
-                labelText="State:"
+                labelText={t("content.events.state") + ":"}
                 onChange={(e) => (this.state.state = e.target.value.trim())}
               />
               <br />
@@ -204,6 +218,7 @@ class EventsEditModal extends React.Component {
                   this.state.id,
                   this.state.code,
                   this.state.type,
+                  this.state.date,
                   this.state.firefighters,
                   this.state.state,
                   this.state.loadEvents,
