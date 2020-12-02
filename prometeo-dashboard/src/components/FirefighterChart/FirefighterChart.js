@@ -1,7 +1,7 @@
 import * as d3 from "d3";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import Constants from "../../utils/Constants";
-import Utils from "../../utils/Utils";
+import Context from "../../context/app";
 
 function FirefighterChart({
   firefighterId,
@@ -12,6 +12,7 @@ function FirefighterChart({
   increment,
 }) {
   const ref = useRef();
+  const { t } = useContext(Context);
 
   var margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
@@ -64,7 +65,7 @@ function FirefighterChart({
         "translate(" + width / 2 + ", " + (height + margin.top + 20) + ")"
       )
       .style("text-anchor", "middle")
-      .text("Time");
+      .text(t("content.details.time"));
 
     // Add Y axis
     var y = d3
@@ -87,7 +88,7 @@ function FirefighterChart({
       .attr("x", 0 - height / 2)
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Measure (PPM)");
+      .text(t("content.details.measure"));
 
     // Add the area
     svg

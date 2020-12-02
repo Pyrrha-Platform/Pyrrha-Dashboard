@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   DataTable,
   TableContainer,
@@ -17,6 +17,7 @@ import {
 import EventsAddModal from "./eventsAddModal";
 import EventsEditModal from "./eventsEditModal";
 import EventsDeleteModal from "./eventsDeleteModal";
+import Context from "../../context/app";
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -27,34 +28,11 @@ const client = async (url, options) => {
 
 // {'id': i[0], 'code': i[1], 'status': i[2], 'type': i[3], 'date': i[4], 'info': i[5]}
 
-// Form header data
-const headerData = [
-  {
-    header: "Event ID",
-    key: "id",
-  },
-  {
-    header: "Code",
-    key: "code",
-  },
-  {
-    header: "Type",
-    key: "type",
-  },
-  {
-    header: "Date",
-    key: "date",
-  },
-  {
-    header: "Status",
-    key: "status",
-  },
-];
-
 // Table and data
 const NewEventsTable = ({ eventId }) => {
   const [events, setEvents] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
+  const { t } = useContext(Context);
 
   React.useEffect(() => {
     loadEvents();
@@ -70,19 +48,45 @@ const NewEventsTable = ({ eventId }) => {
     }
   });
 
+  // Form header data
+  const headerData = [
+    {
+      header: t("content.events.id"),
+      key: "id",
+    },
+    {
+      header: t("content.events.code"),
+      key: "code",
+    },
+    {
+      header: t("content.events.type"),
+      key: "type",
+    },
+    {
+      header: t("content.events.date"),
+      key: "date",
+    },
+    {
+      header: t("content.events.status"),
+      key: "status",
+    },
+  ];
+
   return (
     <div className="bx--grid bx--grid--full-width events-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="events-page__heading">Events</h1>
+          <h1 className="events-page__heading">
+            {t("content.events.heading")}
+          </h1>
         </div>
       </div>
 
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="events-page__subheading">
-            These are all the events registered in the system.
-          </h1>
+          <h2 className="events-page__subheading">
+            {t("content.events.subheading")}
+          </h2>
         </div>
       </div>
 
@@ -117,7 +121,7 @@ const NewEventsTable = ({ eventId }) => {
                           {header.header}
                         </TableHeader>
                       ))}
-                      <TableHeader>Actions</TableHeader>
+                      <TableHeader>{t("content.events.actions")}</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>

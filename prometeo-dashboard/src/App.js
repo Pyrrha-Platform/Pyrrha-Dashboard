@@ -8,6 +8,7 @@ import EventsPage from "./content/EventsPage";
 import DevicesPage from "./content/DevicesPage";
 import DashboardPage from "./content/DashboardPage";
 import DetailsPage from "./content/DetailsPage";
+import SideMenu from "./components/SideMenu";
 
 function App() {
   const history = useHistory();
@@ -28,6 +29,7 @@ function App() {
               setLanguage={setLanguage}
               setPage={setPage}
             />
+            {/* <SideMenu /> */}
             <DashboardPage />
           </Route>
           <Route path="/details/:firefighterId/:increment/:type">

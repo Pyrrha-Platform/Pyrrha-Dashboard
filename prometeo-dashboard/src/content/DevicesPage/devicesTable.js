@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   DataTable,
   TableContainer,
@@ -14,6 +14,7 @@ import {
 import DevicesAddModal from "./devicesAddModal";
 import DevicesEditModal from "./devicesEditModal";
 import DevicesDeleteModal from "./devicesDeleteModal";
+import Context from "../../context/app";
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -22,30 +23,11 @@ const client = async (url, options) => {
   return data;
 };
 
-// Form header data
-const headerData = [
-  {
-    header: "Device ID",
-    key: "id",
-  },
-  {
-    header: "Code",
-    key: "code",
-  },
-  {
-    header: "Model",
-    key: "model",
-  },
-  {
-    header: "Version",
-    key: "version",
-  },
-];
-
 // Table and data
 const NewDevicesTable = ({ deviceId }) => {
   const [devices, setDevices] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
+  const { t } = useContext(Context);
 
   React.useEffect(() => {
     loadDevices();
@@ -61,19 +43,41 @@ const NewDevicesTable = ({ deviceId }) => {
     }
   });
 
+  // Form header data
+  const headerData = [
+    {
+      header: t("content.devices.id"),
+      key: "id",
+    },
+    {
+      header: t("content.devices.code"),
+      key: "code",
+    },
+    {
+      header: t("content.devices.model"),
+      key: "model",
+    },
+    {
+      header: t("content.devices.version"),
+      key: "version",
+    },
+  ];
+
   return (
     <div className="bx--grid bx--grid--full-width devices-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="devices-page__heading">Devices</h1>
+          <h1 className="devices-page__heading">
+            {t("content.devices.heading")}
+          </h1>
         </div>
       </div>
 
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="devices-page__subheading">
-            These are all the devices registered in the system.
-          </h1>
+          <h2 className="devices-page__subheading">
+            {t("content.devices.subheading")}
+          </h2>
         </div>
       </div>
 
@@ -107,7 +111,7 @@ const NewDevicesTable = ({ deviceId }) => {
                           {header.header}
                         </TableHeader>
                       ))}
-                      <TableHeader>Actions</TableHeader>
+                      <TableHeader>{t("content.devices.actions")}</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>

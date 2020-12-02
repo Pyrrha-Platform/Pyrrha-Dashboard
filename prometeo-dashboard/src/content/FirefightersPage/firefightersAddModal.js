@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 // import { settings } from 'carbon-components';
@@ -12,6 +12,7 @@ import {
 } from "carbon-components-react";
 import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
 import { Add16 } from "@carbon/icons-react";
+import Context from "../../context/app";
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -19,12 +20,13 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
+  const { t } = useContext(Context);
   return (
     <>
       {!ModalContent || typeof document === "undefined"
         ? null
         : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} />,
+            <ModalContent open={open} setOpen={setOpen} t={t} />,
             document.body
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
@@ -122,10 +124,11 @@ class FirefightersAddModal extends React.Component {
           </Button>
         )}
       >
-        {({ open, setOpen }) => (
+        {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
             open={open}
+            t={t}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
             onClose={() => setOpen(false)}
@@ -140,7 +143,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.code}
                 value={this.state.code}
                 placeholder="GRAF001"
-                labelText="Code:"
+                labelText={t("content.firefighters.code") + ":"}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
@@ -148,7 +151,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.first}
                 value={this.state.first}
                 placeholder="Joan"
-                labelText="First name:"
+                labelText={t("content.firefighters.first") + ":"}
                 onChange={(e) => (this.state.first = e.target.value.trim())}
               />
               <br />
@@ -156,7 +159,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.last}
                 value={this.state.last}
                 placeholder="Herrera"
-                labelText="Last name:"
+                labelText={t("content.firefighters.last") + ":"}
                 onChange={(e) => (this.state.last = e.target.value.trim())}
               />
               <br />
@@ -164,7 +167,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.email}
                 value={this.state.email}
                 placeholder="graf004@graf.cat"
-                labelText="Email:"
+                labelText={t("content.firefighters.email") + ":"}
                 onChange={(e) => (this.state.email = e.target.value.trim())}
               />
               <br />

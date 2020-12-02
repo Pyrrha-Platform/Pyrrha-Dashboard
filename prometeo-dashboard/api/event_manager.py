@@ -142,8 +142,8 @@ class event_manager(object):
             data = cursor.fetchone()
 
             if len(data) > 0:
-                event = {'id': data[0], 'code': data[1], 'type': data[5],
-                         'firefighters': data[14], 'state': data[3]}
+                event = {'id': data[0], 'code': data[1], 'type': data[3], 'date': data[5],
+                         'firefighters': 10, 'state': data[2]}
             else:
                 return None
 
@@ -185,10 +185,10 @@ class event_manager(object):
             print("get_all_events - llamada a sql")
             cursor.execute(sql)
             # cursor.callproc('sp_select_all_events')
-            
+
             print("get_all_events - sp_select_all_events")
             data = cursor.fetchall()
-            
+
             print("get_all_events - fetchall")
             print(data)
             if len(data) > 0:
@@ -196,7 +196,8 @@ class event_manager(object):
                 for i in data:
                     print(i)
                     events.append(
-                        {'id': i[0], 'code': i[1], 'status': i[2], 'type': i[3], 'date': i[4], 'info': i[5]}
+                        {'id': i[0], 'code': i[1], 'status': i[2],
+                            'firefighters': 10, 'type': i[3], 'date': i[4], 'info': i[5]}
                     )
             else:
                 print("get_all_events - NO HAY INFORMACION")

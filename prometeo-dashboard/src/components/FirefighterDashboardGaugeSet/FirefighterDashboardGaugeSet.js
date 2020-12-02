@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import FirefighterGauge from "../FirefighterGauge";
+import Context from "../../context/app";
 
 function FirefighterDashboardGaugeSet({
   firefighterId,
@@ -16,6 +17,8 @@ function FirefighterDashboardGaugeSet({
   nitrogenDioxide,
   increment,
 }) {
+  const { t } = useContext(Context);
+
   return (
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
@@ -64,7 +67,9 @@ function FirefighterDashboardGaugeSet({
                 unit={"°C"}
               />
             </div>
-            <div className="label-legend">Temperature</div>
+            <div className="label-legend">
+              {t("content.common.temperature")}
+            </div>
           </div>
           <div className="bx--col bx--col-md-2">
             <div>
@@ -75,7 +80,7 @@ function FirefighterDashboardGaugeSet({
                 unit={"%"}
               />
             </div>
-            <div className="label-legend">Humidity</div>
+            <div className="label-legend">{t("content.common.humidity")}</div>
           </div>
         </div>
       </div>

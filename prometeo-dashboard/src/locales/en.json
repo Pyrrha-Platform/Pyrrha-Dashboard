@@ -28,6 +28,18 @@
     }
   },
   "content": {
+    "common": {
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "carbonMonoxide": "Carbon monoxide",
+      "nitrogenDioxide": "Nitrogen dioxide",
+      "formaldehyde": "Formaldehyde",
+      "acrolein": "Acrolein",
+      "benzene": "Benzene",
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close"
+    },
     "profile": {
       "welcome": "Welcome {{name}}!"
     },
@@ -52,23 +64,61 @@
     },
     "dashboard": {
       "heading": "Dashboard",
-      "subheading": "Subheading"
+      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold."
     },
     "details": {
       "heading": "Details",
-      "subheading": "Subheading"
-    },
-    "devices": {
-      "heading": "Devices",
-      "subheading": "Subheading"
+      "subheading": "You are now viewing the details for the readings for a specific firefighter. Choose a reading to see a detailed chart.",
+      "all": "All",
+      "now": "Now",
+      "10min": "10 min avg",
+      "30min": "30 min avg",
+      "1hr": "1 hr avg",
+      "4hr": "4 hr avg",
+      "8hr": "8 hr avg",
+      "measure": "Measure (ppm)",
+      "time": "Time"
     },
     "events": {
       "heading": "Events",
-      "subheading": "Subheading"
+      "subheading": "These are all the events registered in the system.",
+      "add": "Add event",
+      "edit": "Edit event",
+      "delete": "Delete event",
+      "id": "Event ID",
+      "code": "Code",
+      "type": "Type",
+      "date": "Date",
+      "firefighters": "Firefighters",
+      "status": "Status",
+      "state": "Status",
+      "actions": "Actions"
+    },
+    "devices": {
+      "heading": "Devices",
+      "subheading": "These are all the devices registered in the system.",
+      "add": "Add device",
+      "edit": "Edit device",
+      "delete": "Delete device",
+      "id": "Device ID",
+      "code": "Code",
+      "model": "Model",
+      "version": "Version",
+      "actions": "Actions"
     },
     "firefighters": {
       "heading": "Firefighters",
-      "subheading": "Subheading"
+      "subheading": "These are all the firefighters registered in the system.",
+      "add": "Add firefighter",
+      "edit": "Edit firefighter",
+      "delete": "Delete firefighter",
+      "id": "Firefighter ID",
+      "code": "Code",
+      "first": "First name",
+      "last": "Last name",
+      "email": "Email",
+      "status": "Status",
+      "actions": "Actions"
     }
   }
 }

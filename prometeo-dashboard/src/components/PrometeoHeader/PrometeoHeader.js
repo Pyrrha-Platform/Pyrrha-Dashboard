@@ -26,7 +26,6 @@ function PrometeoHeader(props) {
   const setPage = props.setPage;
 
   const { t } = useContext(Context);
-  console.log(t);
 
   return (
     <Header aria-label="Prometeo">

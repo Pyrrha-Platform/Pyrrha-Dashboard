@@ -147,7 +147,7 @@ def events():
         created_values = request.get_json()
 
         # TODO: Better validation
-        if created_values['code'].strip() == '' or created_values['type'].strip() == '' or created_values['firefighters'].strip() == '' or created_values['state'].strip() == '':
+        if created_values['code'].strip() == '' or created_values['type'].strip() == '' or created_values['date'].strip() == '' or created_values['firefighters'].strip() == '' or created_values['state'].strip() == '':
 
             message = {
                 'status': 400,
@@ -161,6 +161,7 @@ def events():
             event = event_manager().insert_event(
                 created_values['code'],
                 created_values['type'],
+                created_values['date'],
                 created_values['firefighters'],
                 created_values['state']
             )
@@ -192,7 +193,7 @@ def event_by_id(id):
         updated_values = request.get_json()
 
         # TODO: Better validation
-        if updated_values['code'].strip() == '' or updated_values['type'].strip() == '' or updated_values['firefighters'].strip() == '' or updated_values['state'].strip() == '':
+        if updated_values['code'].strip() == '' or updated_values['type'].strip() == '' or created_values['date'].strip() == '' or updated_values['firefighters'].strip() == '' or updated_values['state'].strip() == '':
             message = {
                 'status': 400,
                 'message': 'Bad request',
@@ -206,6 +207,7 @@ def event_by_id(id):
                 updated_values['id'],
                 updated_values['code'],
                 updated_values['type'],
+                updated_values['date'],
                 updated_values['firefighters'],
                 updated_values['state']
             )
@@ -368,7 +370,8 @@ def get_dashboard_for(firefighter_id):
 @app.route('/api/v1/dashboard-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_details(firefighter_id, increment='all', type='CO'):
 
-    details = dashboard_manager().get_dashboard_details(firefighter_id, increment, type)
+    details = dashboard_manager().get_dashboard_details(
+        firefighter_id, increment, type)
     message = {
         'status': 200,
         'message': 'OK',
@@ -382,7 +385,8 @@ def get_dashboard_details(firefighter_id, increment='all', type='CO'):
 @app.route('/api/v1/dashboard-chart-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_chart_details(firefighter_id, increment='all', type='CO'):
 
-    chart = dashboard_manager().get_dashboard_chart_details(firefighter_id, increment, type)
+    chart = dashboard_manager().get_dashboard_chart_details(
+        firefighter_id, increment, type)
     message = {
         'status': 200,
         'message': 'OK',
