@@ -89,7 +89,6 @@ function FirefighterGauge({
     console.log("unit", unit);
     console.log("increment", increment);
     console.log("gauge", gauge);
-    console.log("----");
 
     let valueToUse = value;
     if (type === "Tmp" || type === "Hum") {
@@ -97,6 +96,10 @@ function FirefighterGauge({
     } else {
       valueToUse = gauge;
     }
+
+    console.log("arcTween", valueToUse * Constants.TAU);
+    console.log("----");
+
     d3.select("#angle-" + type + "-" + firefighterId)
       .transition()
       .duration(750)

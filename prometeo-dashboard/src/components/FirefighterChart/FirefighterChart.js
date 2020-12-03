@@ -120,8 +120,8 @@ function FirefighterChart({
       );
 
     // Add the yellow threshold
-    console.log(width);
-    console.log(yellowThreshold);
+    console.log("width", width);
+    console.log("yellowThreshold", yellowThreshold);
     svg
       .append("line")
       .style("stroke", Constants.YELLOW)
@@ -131,8 +131,8 @@ function FirefighterChart({
       .attr("y2", y(yellowThreshold));
 
     // Add the red threshold
-    console.log(width);
-    console.log(redThreshold);
+    console.log("redThreshold", redThreshold);
+    console.log("-----");
     svg
       .append("line")
       .style("stroke", Constants.RED)
