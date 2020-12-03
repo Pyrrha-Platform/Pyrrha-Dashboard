@@ -4,9 +4,27 @@ import Constants from "../../utils/Constants";
 import Utils from "../../utils/Utils";
 import Context from "../../context/app";
 
-function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
+function FirefighterGauge({
+  firefighterId,
+  type,
+  value,
+  unit,
+  increment,
+  gauge,
+}) {
   const ref = useRef();
   const { t } = useContext(Context);
+
+  /*
+  console.log("FirefighterGauge");
+  console.log("firefighterId", firefighterId);
+  console.log("type", type);
+  console.log("value", value);
+  console.log("unit", unit);
+  console.log("increment", increment);
+  console.log("gauge", gauge);
+  console.log("----------------");
+  */
 
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
@@ -18,17 +36,26 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
       .select(ref.current)
       .attr("width", width)
       .attr("height", height);
-    draw(svg, firefighterId, type, value, unit, limit);
+    draw(svg, firefighterId, type, value, unit, increment, gauge);
   }, []);
 
   // When data changes
   useEffect(() => {
-    change(firefighterId, type, value, unit, limit);
+    change(firefighterId, type, value, unit, increment, gauge);
   }, [value]);
 
   // On first load
-  const draw = (svg, firefighterId, type, value, unit, limit) => {
-    const color = Utils.getStatusColor(type, limit);
+  const draw = (svg, firefighterId, type, value, unit, increment, gauge) => {
+    /*
+    console.log("draw()");
+    console.log("firefighterId", firefighterId);
+    console.log("type", type);
+    console.log("value", value);
+    console.log("unit", unit);
+    console.log("increment", increment);
+    console.log("gauge", gauge);
+    console.log("----");
+    */
 
     svg
       .append("g")
@@ -43,9 +70,9 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
       .attr("d", Constants.ARC);
     g.append("path")
       .datum({ endAngle: 0 * Constants.TAU })
-      .style("fill", color)
+      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
       .attr("d", Constants.ARC)
-      .attr("id", "angle-" + type + "-" + firefighterId);
+      .attr("id", "angle-" + type + "-" + increment + "-" + firefighterId);
 
     const label = g
       .append("text")
@@ -55,9 +82,9 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
     label
       .append("tspan")
       .attr("class", "label-num")
-      .text(value)
+      .text(Utils.formatFloat(value, 2))
       .attr("x", "0")
-      .attr("id", "number-" + type + "-" + firefighterId);
+      .attr("id", "number-" + type + "-" + increment + "-" + firefighterId);
     label
       .append("tspan")
       .attr("class", "label-unit")
@@ -67,17 +94,37 @@ function FirefighterGauge({ firefighterId, type, value, unit, limit }) {
   };
 
   // When data changes
-  const change = (firefighterId, type, value, unit, limit) => {
-    let valueToUse = limit;
+  const change = (firefighterId, type, value, unit, increment, gauge) => {
+    /*
+    console.log("change()");
+    console.log("firefighterId", firefighterId);
+    console.log("type", type);
+    console.log("value", value);
+    console.log("unit", unit);
+    console.log("increment", increment);
+    console.log("gauge", gauge);
+    */
+
+    let valueToUse = value;
     if (type === "Tmp" || type === "Hum") {
-      valueToUse = Utils.getWhole(type, value);
+      valueToUse = Utils.getPercentage(type, value, increment);
+    } else {
+      valueToUse = gauge;
     }
-    d3.select("#angle-" + type + "-" + firefighterId)
+
+    /*
+    console.log("arcTween", valueToUse * Constants.TAU);
+    console.log("----");
+    */
+
+    d3.select("#angle-" + type + "-" + increment + "-" + firefighterId)
       .transition()
       .duration(750)
-      .style("fill", Utils.getStatusColor(type, value, limit))
+      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
       .attrTween("d", Utils.arcTween(valueToUse * Constants.TAU));
-    d3.select("#number-" + type + "-" + firefighterId).text(value);
+    d3.select("#number-" + type + "-" + increment + "-" + firefighterId).text(
+      Utils.formatFloat(value, 2)
+    );
   };
 
   return <svg ref={ref}></svg>;

@@ -32,6 +32,7 @@ function FirefighterChart({
   }, [data]);
 
   const draw = (firefighterId, type, data, unit) => {
+    // console.log("draw()");
     d3.select(ref.current).selectAll("*").remove();
 
     const svg = d3
@@ -39,15 +40,20 @@ function FirefighterChart({
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var threshold = 40;
+    var redThreshold = Constants.CO_RED;
+    var yellowThreshold = Constants.CO_YELLOW;
+    if (type === "NO2") {
+      redThreshold = Constants.NO2_RED;
+      yellowThreshold = Constants.NO2_YELLOW;
+    }
 
     // Add X axis --> it is a time format
     var x = d3
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
-          console.log(d.deviceTimestamp);
-          console.log(d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp));
+          // console.log("d.deviceTimestamp", d.deviceTimestamp);
+          // console.log("d.deviceTimestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp));
           return d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp);
         })
       )
@@ -73,7 +79,7 @@ function FirefighterChart({
       .domain([
         0,
         d3.max(data, function (d) {
-          console.log(+d.value);
+          // console.log("d.value", +d.value);
           return +d.value;
         }),
       ])
@@ -110,16 +116,31 @@ function FirefighterChart({
           })
       );
 
-    // Add the threshold
-    console.log(width);
-    console.log(threshold);
+    // Add the yellow threshold
+    /*
+    console.log("width", width);
+    console.log("yellowThreshold", yellowThreshold);
+    */
+    svg
+      .append("line")
+      .style("stroke", Constants.YELLOW)
+      .attr("x1", 0)
+      .attr("y1", y(yellowThreshold))
+      .attr("x2", width)
+      .attr("y2", y(yellowThreshold));
+
+    // Add the red threshold
+    /*
+    console.log("redThreshold", redThreshold);
+    console.log("-----");
+    */
     svg
       .append("line")
       .style("stroke", Constants.RED)
       .attr("x1", 0)
-      .attr("y1", y(threshold))
+      .attr("y1", y(redThreshold))
       .attr("x2", width)
-      .attr("y2", y(threshold));
+      .attr("y2", y(redThreshold));
   };
 
   return <svg ref={ref}></svg>;

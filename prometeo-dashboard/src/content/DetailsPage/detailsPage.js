@@ -8,7 +8,7 @@ function DetailsPage() {
     <DetailsGrid
       firefighterId={firefighterId}
       increment={increment}
-      increment={type}
+      type={type}
     />
   );
 }

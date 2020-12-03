@@ -21,9 +21,11 @@ const DetailsGrid = (params) => {
   ] = useDetails(params.firefighterId, params.increment, params.type);
   const { t } = useContext(Context);
 
+  /*
   console.log("firefighterId", params.firefighterId);
   console.log("increment", increment);
   console.log("type", type);
+  */
 
   const incrementMapping = {
     all: 0,
@@ -52,7 +54,7 @@ const DetailsGrid = (params) => {
         </div>
       </div>
 
-      {console.log(incrementMapping[increment])}
+      {console.log("incrementMapping", incrementMapping[increment])}
 
       <ContentSwitcher
         onChange={(e) => {
