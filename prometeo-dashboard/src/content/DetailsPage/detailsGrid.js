@@ -54,8 +54,6 @@ const DetailsGrid = (params) => {
         </div>
       </div>
 
-      {console.log("incrementMapping", incrementMapping[increment])}
-
       <ContentSwitcher
         onChange={(e) => {
           console.log(e.name);
