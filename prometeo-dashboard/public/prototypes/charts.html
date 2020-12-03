@@ -50,8 +50,8 @@
                     tmp7.val = currentRealTimeDataVal7.temperature;
                     hum7.val = currentRealTimeDataVal7.humidity;
 
-                    tmp7.lmt = getWhole(currentRealTimeDataVal7.temperature, 'Tmp');
-                    hum7.lmt = getWhole(currentRealTimeDataVal7.humidity, 'Hum');
+                    tmp7.lmt = getPercentage(currentRealTimeDataVal7.temperature, 'Tmp');
+                    hum7.lmt = getPercentage(currentRealTimeDataVal7.humidity, 'Hum');
 
                     co7.lmt10  = currentOnceMinuteDataVal7.carbon_monoxide_chart_10min;
                     co7.lmt30  = currentOnceMinuteDataVal7.carbon_monoxide_chart_30min;

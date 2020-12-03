@@ -32,7 +32,7 @@ function FirefighterChart({
   }, [data]);
 
   const draw = (firefighterId, type, data, unit) => {
-    console.log("draw()");
+    // console.log("draw()");
     d3.select(ref.current).selectAll("*").remove();
 
     const svg = d3
@@ -52,11 +52,8 @@ function FirefighterChart({
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
-          console.log("d.deviceTimestamp", d.deviceTimestamp);
-          console.log(
-            "d.deviceTimestamp d3.utcParse",
-            d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp)
-          );
+          // console.log("d.deviceTimestamp", d.deviceTimestamp);
+          // console.log("d.deviceTimestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp));
           return d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp);
         })
       )
@@ -82,7 +79,7 @@ function FirefighterChart({
       .domain([
         0,
         d3.max(data, function (d) {
-          console.log("d.value", +d.value);
+          // console.log("d.value", +d.value);
           return +d.value;
         }),
       ])
@@ -120,8 +117,10 @@ function FirefighterChart({
       );
 
     // Add the yellow threshold
+    /*
     console.log("width", width);
     console.log("yellowThreshold", yellowThreshold);
+    */
     svg
       .append("line")
       .style("stroke", Constants.YELLOW)
@@ -131,8 +130,10 @@ function FirefighterChart({
       .attr("y2", y(yellowThreshold));
 
     // Add the red threshold
+    /*
     console.log("redThreshold", redThreshold);
     console.log("-----");
+    */
     svg
       .append("line")
       .style("stroke", Constants.RED)

@@ -15,6 +15,14 @@ class Constants {
   static TAU = 2 * Math.PI;
   static ARC = d3.arc().innerRadius(21).outerRadius(30).startAngle(0);
 
+  /*
+  float tempThreshold = 80; // 80C is max temperature rating for Prometeo device
+  float coThreshold = 420;  // 420ppm is AEGL2 10-minute limit
+  float no2Threshold = 8;   // 20ppm is AEGL2 10-minute limit; 8ppm is the limit Joan suggested
+  float coSensorMax = 1000; // 1000ppm is the max value it's rated for
+  float no2SensorMax = 10;  // 10ppm is the max value it's rated for
+  */
+
   // These don't have time averages nor official thresholds
   static TMP_MIN = 0;
   static TMP_MAX = 40;
@@ -29,14 +37,14 @@ class Constants {
   // Chemical thresholds (from http://159.122.217.91/get_configuration)
   // TODO: Add ACR, FMD, BNZ when those sensors are added
   static CO_YELLOW = 420;
-  static NO2_YELLOW = 8;
+  static NO2_YELLOW = 6;
   static CO_RED = 500; // Not official
-  static NO2_RED = 12; // Not official
+  static NO2_RED = 8;
 
   static CO_10_MN_YELLOW = 420;
-  static NO2_10_MN_YELLOW = 8;
+  static NO2_10_MN_YELLOW = 6;
   static CO_10_MN_RED = 500; // Not official
-  static NO2_10_MN_RED = 12; // Not official
+  static NO2_10_MN_RED = 8;
 
   static CO_30_MN_YELLOW = 150;
   static NO2_30_MN_YELLOW = 6;

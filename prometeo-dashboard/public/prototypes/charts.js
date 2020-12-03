@@ -160,7 +160,7 @@ function getStatusColor(type, value) {
   return color;
 }
 
-function getWhole(value, type) {
+function getPercentage(value, type) {
   var number = 0.0;
   if (type == "Tmp") {
     var upper = 40;

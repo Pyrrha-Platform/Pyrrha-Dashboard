@@ -44,7 +44,7 @@ function FirefighterDashboardGaugeSet({
                 value={carbonMonoxide}
                 increment={increment}
                 unit={"ppm"}
-                gauge={Utils.getWhole("CO", carbonMonoxide)}
+                gauge={Utils.getPercentage("CO", carbonMonoxide, increment)}
               />
             </div>
             <div className="label-legend">CO</div>
@@ -57,7 +57,7 @@ function FirefighterDashboardGaugeSet({
                 value={nitrogenDioxide}
                 increment={increment}
                 unit={"ppm"}
-                gauge={Utils.getWhole("NO2", nitrogenDioxide)}
+                gauge={Utils.getPercentage("NO2", nitrogenDioxide, increment)}
               />
             </div>
             <div className="label-legend">
@@ -72,7 +72,7 @@ function FirefighterDashboardGaugeSet({
                 value={temperature}
                 increment={increment}
                 unit={"°C"}
-                gauge={Utils.getWhole("Tmp", temperature)}
+                gauge={Utils.getPercentage("Tmp", temperature, increment)}
               />
             </div>
             <div className="label-legend">
@@ -87,7 +87,7 @@ function FirefighterDashboardGaugeSet({
                 value={humidity}
                 increment={increment}
                 unit={"%"}
-                gauge={Utils.getWhole("Hum", humidity)}
+                gauge={Utils.getPercentage("Hum", humidity, increment)}
               />
             </div>
             <div className="label-legend">{t("content.common.humidity")}</div>

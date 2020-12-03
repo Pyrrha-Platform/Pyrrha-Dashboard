@@ -20,28 +20,89 @@ class Utils {
     });
   };
 
-  // Get the percentage as a float between 0 and 1 to determine the angle
-  static getWhole = (type, value) => {
-    var number = 0.0;
-    if (type === "Tmp") {
-      number = value / (Constants.TMP_MAX - Constants.TMP_MIN);
-    } else if (type === "Hum") {
-      number = value / (Constants.HUM_MAX - Constants.HUM_MIN);
-    } else if (type === "CO") {
-      number = value / Constants.CO_RED;
-    } else if (type === "NO2") {
-      number = value / Constants.NO2_RED;
+  // Whole number or to a given number of decimal places
+  static formatFloat = (value, places) => {
+    if (!isNaN(value)) {
+      return +parseFloat(value).toFixed(places);
     }
-    console.log("getWhole()", number);
+    return "-";
+  };
+
+  // Get the percentage as a float between 0 and 1 to determine the angle
+  static getPercentage = (type, value, increment) => {
+    var number = 0.0;
+
+    // Carbon monoxide
+    if (type === "CO") {
+      switch (increment) {
+        case "now":
+          number = value / Constants.CO_RED;
+          break;
+        case "10min":
+          number = value / Constants.CO_10_MN_RED;
+          break;
+        case "30min":
+          number = value / Constants.CO_30_MN_RED;
+          break;
+        case "1hr":
+          number = value / Constants.CO_1_HR_RED;
+          break;
+        case "4hr":
+          number = value / Constants.CO_4_HR_RED;
+          break;
+        case "8hr":
+          number = value / Constants.CO_8_HR_RED;
+          break;
+      }
+
+      // Nitrogen dioxide
+    } else if (type === "NO2") {
+      switch (increment) {
+        case "now":
+          number = value / Constants.NO2_RED;
+          break;
+        case "10min":
+          number = value / Constants.NO2_10_MN_RED;
+          break;
+        case "30min":
+          number = value / Constants.NO2_30_MN_RED;
+          break;
+        case "1hr":
+          number = value / Constants.NO2_1_HR_RED;
+          break;
+        case "4hr":
+          number = value / Constants.NO2_4_HR_RED;
+          break;
+        case "8hr":
+          number = value / Constants.NO2_8_HR_RED;
+          break;
+      }
+
+      // Temperature
+    } else if (type === "Tmp") {
+      number = value / Constants.TMP_MAX;
+
+      // Humidity
+    } else if (type === "Hum") {
+      number = value / Constants.HUM_MAX;
+    }
+
+    /*
+    console.log("getPercentage()", number);
     console.log("type", type);
     console.log("value", value);
+    */
     if (number > 1.0) {
+      /*
       console.log("number over limit", number);
       console.log("-----");
+      */
       return 1.0;
     } else {
+      /*
       console.log("number under limit", number);
       console.log("-----");
+      */
       return number;
     }
   };
@@ -51,7 +112,14 @@ class Utils {
   // TODO: Add Formaldehyde, Acrolein, and Benzene when implemented
   static getStatusColor = (type, value, increment, gauge) => {
     var color = Constants.DEFAULT_COLOR;
-    var defaultIncrement = Constants.DEFAULT_INCREMENT;
+
+    /*
+    console.log("getStatusColor()");
+    console.log("type", type);
+    console.log("value", value);
+    console.log("increment", increment);
+    console.log("gauge", gauge);
+    */
 
     // Carbon monoxide
     if (type === "CO") {
@@ -390,11 +458,11 @@ class Utils {
         }
       }
     }
-    console.log("getStatusColor()");
-    console.log("gauge", gauge);
-    console.log("value", value);
+
+    /*
     console.log("color", color);
     console.log("-----");
+    */
 
     return color;
   };
