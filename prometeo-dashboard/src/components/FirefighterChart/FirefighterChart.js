@@ -1,6 +1,7 @@
 import * as d3 from "d3";
 import React, { useRef, useEffect, useContext } from "react";
 import Constants from "../../utils/Constants";
+import Utils from "../../utils/Utils";
 import Context from "../../context/app";
 
 function FirefighterChart({
@@ -40,12 +41,7 @@ function FirefighterChart({
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var redThreshold = Constants.CO_RED;
-    var yellowThreshold = Constants.CO_YELLOW;
-    if (type === "NO2") {
-      redThreshold = Constants.NO2_RED;
-      yellowThreshold = Constants.NO2_YELLOW;
-    }
+    const [yellowThreshold, redThreshold] = Utils.getChartLimit(type, increment);
 
     // Add X axis --> it is a time format
     var x = d3
@@ -124,6 +120,7 @@ function FirefighterChart({
     svg
       .append("line")
       .style("stroke", Constants.YELLOW)
+      .attr("stroke-width", 1.5)
       .attr("x1", 0)
       .attr("y1", y(yellowThreshold))
       .attr("x2", width)
@@ -137,6 +134,7 @@ function FirefighterChart({
     svg
       .append("line")
       .style("stroke", Constants.RED)
+      .attr("stroke-width", 1.5)
       .attr("x1", 0)
       .attr("y1", y(redThreshold))
       .attr("x2", width)

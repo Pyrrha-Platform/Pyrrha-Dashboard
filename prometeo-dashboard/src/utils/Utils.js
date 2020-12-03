@@ -48,7 +48,9 @@ class Utils {
           number = value / Constants.CO_1_HR_RED;
           break;
         case "4hr":
+          console.log("value", value);
           number = value / Constants.CO_4_HR_RED;
+          console.log("number", number);
           break;
         case "8hr":
           number = value / Constants.CO_8_HR_RED;
@@ -71,7 +73,9 @@ class Utils {
           number = value / Constants.NO2_1_HR_RED;
           break;
         case "4hr":
+          console.log("value", value);
           number = value / Constants.NO2_4_HR_RED;
+          console.log("number", number);
           break;
         case "8hr":
           number = value / Constants.NO2_8_HR_RED;
@@ -105,6 +109,60 @@ class Utils {
       */
       return number;
     }
+  };
+
+  // Get the percentage as a float between 0 and 1 to determine the angle
+  static getChartLimit = (type, increment) => {
+    var limits = [0, 0];
+
+    // Carbon monoxide
+    if (type === "CO") {
+      switch (increment) {
+        case "now":
+          limits = [Constants.CO_YELLOW, Constants.CO_RED];
+          break;
+        case "10min":
+          limits = [Constants.CO_10_MN_YELLOW, Constants.CO_10_MN_RED];
+          break;
+        case "30min":
+          limits = [Constants.CO_30_MN_YELLOW, Constants.CO_30_MN_RED];
+          break;
+        case "1hr":
+          limits = [Constants.CO_1_HR_YELLOW, Constants.CO_1_HR_RED];
+          break;
+        case "4hr":
+          limits = [Constants.CO_4_HR_YELLOW, Constants.CO_4_HR_RED];
+          break;
+        case "8hr":
+          limits = [Constants.CO_8_HR_YELLOW, Constants.CO_8_HR_RED];
+          break;
+      }
+
+      // Nitrogen dioxide
+    } else if (type === "NO2") {
+      switch (increment) {
+        case "now":
+          limits = [Constants.NO2_YELLOW, Constants.NO2_RED];
+          break;
+        case "10min":
+          limits = [Constants.NO2_10_MN_YELLOW, Constants.NO2_10_MN_RED];
+          break;
+        case "30min":
+          limits = [Constants.NO2_30_MN_YELLOW, Constants.NO2_30_MN_RED];
+          break;
+        case "1hr":
+          limits = [Constants.NO2_1_HR_YELLOW, Constants.NO2_1_HR_RED];
+          break;
+        case "4hr":
+          limits = [Constants.NO2_4_HR_YELLOW, Constants.NO2_4_HR_RED];
+          break;
+        case "8hr":
+          limits = [Constants.NO2_8_HR_YELLOW, Constants.NO2_8_HR_RED];
+          break;
+      }
+    }
+
+    return limits;
   };
 
   // Return a specific color representing what the gauge should show
