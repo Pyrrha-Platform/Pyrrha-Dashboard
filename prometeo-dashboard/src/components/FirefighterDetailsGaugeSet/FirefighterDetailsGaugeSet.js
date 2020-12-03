@@ -190,7 +190,7 @@ function FirefighterDetailsGaugeSet({
                       value={carbonMonoxideTwa10min}
                       increment={"10min"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxide, "10min")}
+                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa10min, "10min")}
                     />
                     {/* gauge={carbonMonoxideGauge10min} */}
                   </div>
@@ -220,7 +220,7 @@ function FirefighterDetailsGaugeSet({
                       unit={"ppm"}
                       gauge={Utils.getPercentage(
                         "NO2",
-                        nitrogenDioxide,
+                        nitrogenDioxideTwa10min,
                         "10min"
                       )}
                     />
@@ -294,7 +294,7 @@ function FirefighterDetailsGaugeSet({
                       value={carbonMonoxideTwa30min}
                       increment={"30min"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxide, "30min")}
+                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa30min, "30min")}
                     />
                     {/* gauge={carbonMonoxideGauge30min} */}
                   </div>
@@ -324,7 +324,7 @@ function FirefighterDetailsGaugeSet({
                       unit={"ppm"}
                       gauge={Utils.getPercentage(
                         "NO2",
-                        nitrogenDioxide,
+                        nitrogenDioxideTwa30min,
                         "30min"
                       )}
                     />
@@ -398,7 +398,7 @@ function FirefighterDetailsGaugeSet({
                       value={carbonMonoxideTwa60min}
                       increment={"1hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxide, "1hr")}
+                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa60min, "1hr")}
                     />
                     {/* gauge={carbonMonoxideGauge60min} */}
                   </div>
@@ -424,7 +424,7 @@ function FirefighterDetailsGaugeSet({
                       value={nitrogenDioxideTwa60min}
                       increment={"1hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxide, "1hr")}
+                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa60min, "1hr")}
                     />
                     {/* gauge={nitrogenDioxideGauge60min} */}
                   </div>
@@ -494,7 +494,7 @@ function FirefighterDetailsGaugeSet({
                       value={carbonMonoxideTwa240min}
                       increment={"4hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxide, "4hr")}
+                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa240min, "4hr")}
                     />
                     {/* gauge={carbonMonoxideGauge240min} */}
                   </div>
@@ -520,7 +520,7 @@ function FirefighterDetailsGaugeSet({
                       value={nitrogenDioxideTwa240min}
                       increment={"4hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxide, "4hr")}
+                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa240min, "4hr")}
                     />
                     {/* gauge={nitrogenDioxideGauge240min} */}
                   </div>
@@ -590,7 +590,7 @@ function FirefighterDetailsGaugeSet({
                       value={carbonMonoxideTwa480min}
                       increment={"8hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxide, "8hr")}
+                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa480min, "8hr")}
                     />
                     {/* gauge={carbonMonoxideGauge480min} */}
                   </div>
@@ -616,7 +616,7 @@ function FirefighterDetailsGaugeSet({
                       value={nitrogenDioxideTwa480min}
                       increment={"8hr"}
                       unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxide, "8hr")}
+                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa480min, "8hr")}
                     />
                     {/* gauge={nitrogenDioxideGauge480min} */}
                   </div>
