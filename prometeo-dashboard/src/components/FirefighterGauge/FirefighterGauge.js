@@ -35,6 +35,15 @@ function FirefighterGauge({
 
   // On first load
   const draw = (svg, firefighterId, type, value, unit, increment, gauge) => {
+    console.log("draw()");
+    console.log("firefighterId", firefighterId);
+    console.log("type", type);
+    console.log("value", value);
+    console.log("unit", unit);
+    console.log("increment", increment);
+    console.log("gauge", gauge);
+    console.log("----");
+
     svg
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -73,12 +82,15 @@ function FirefighterGauge({
 
   // When data changes
   const change = (firefighterId, type, value, unit, increment, gauge) => {
+    console.log("change()");
     console.log("firefighterId", firefighterId);
     console.log("type", type);
     console.log("value", value);
     console.log("unit", unit);
     console.log("increment", increment);
     console.log("gauge", gauge);
+    console.log("----");
+
     let valueToUse = value;
     if (type === "Tmp" || type === "Hum") {
       valueToUse = Utils.getWhole(type, value);

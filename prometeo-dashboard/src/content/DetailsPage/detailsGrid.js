@@ -52,7 +52,7 @@ const DetailsGrid = (params) => {
         </div>
       </div>
 
-      {console.log(incrementMapping[increment])}
+      {console.log("incrementMapping", incrementMapping[increment])}
 
       <ContentSwitcher
         onChange={(e) => {

@@ -28,11 +28,22 @@ class Utils {
     } else if (type === "Hum") {
       number = value / (Constants.HUM_MAX - Constants.HUM_MIN);
     } else if (type === "CO") {
-      number = value / (Constants.CO_RED);
+      number = value / Constants.CO_RED;
     } else if (type === "NO2") {
-      number = value / (Constants.NO2_RED);
+      number = value / Constants.NO2_RED;
     }
-    return number;
+    console.log("getWhole()", number);
+    console.log("type", type);
+    console.log("value", value);
+    if (number > 1.0) {
+      console.log("number over limit", number);
+      console.log("-----");
+      return 1.0;
+    } else {
+      console.log("number under limit", number);
+      console.log("-----");
+      return number;
+    }
   };
 
   // Return a specific color representing what the gauge should show
@@ -379,6 +390,11 @@ class Utils {
         }
       }
     }
+    console.log("getStatusColor()");
+    console.log("gauge", gauge);
+    console.log("value", value);
+    console.log("color", color);
+    console.log("-----");
 
     return color;
   };

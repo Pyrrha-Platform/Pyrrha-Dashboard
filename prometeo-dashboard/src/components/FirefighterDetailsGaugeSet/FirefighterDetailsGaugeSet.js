@@ -67,8 +67,8 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"CO"}
                     value={carbonMonoxide}
-                    increment={increment}
                     unit={"ppm"}
+                    increment={"now"}
                     gauge={Utils.getWhole("CO", carbonMonoxide)}
                   />
                 </div>
@@ -91,8 +91,8 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"NO2"}
                     value={nitrogenDioxide}
-                    increment={increment}
                     unit={"ppm"}
+                    increment={"now"}
                     gauge={Utils.getWhole("NO2", nitrogenDioxide)}
                   />
                 </div>
@@ -115,8 +115,8 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"Tmp"}
                     value={temperature}
-                    increment={increment}
                     unit={"°C"}
+                    increment={"now"}
                     gauge={Utils.getWhole("Tmp", temperature)}
                   />
                 </div>
@@ -130,8 +130,8 @@ function FirefighterDetailsGaugeSet({
                     firefighterId={firefighterId}
                     type={"Hum"}
                     value={humidity}
-                    increment={increment}
                     unit={"%"}
+                    increment={"now"}
                     gauge={Utils.getWhole("Hum", humidity)}
                   />
                 </div>
