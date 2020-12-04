@@ -48,9 +48,7 @@ class Utils {
           number = value / Constants.CO_1_HR_RED;
           break;
         case "4hr":
-          console.log("value", value);
           number = value / Constants.CO_4_HR_RED;
-          console.log("number", number);
           break;
         case "8hr":
           number = value / Constants.CO_8_HR_RED;
@@ -73,9 +71,7 @@ class Utils {
           number = value / Constants.NO2_1_HR_RED;
           break;
         case "4hr":
-          console.log("value", value);
           number = value / Constants.NO2_4_HR_RED;
-          console.log("number", number);
           break;
         case "8hr":
           number = value / Constants.NO2_8_HR_RED;
