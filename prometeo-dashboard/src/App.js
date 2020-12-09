@@ -8,6 +8,7 @@ import EventsPage from "./content/EventsPage";
 import DevicesPage from "./content/DevicesPage";
 import DashboardPage from "./content/DashboardPage";
 import DetailsPage from "./content/DetailsPage";
+import LoginPage from "./content/LoginPage";
 import SideMenu from "./components/SideMenu";
 
 function App() {
@@ -31,6 +32,18 @@ function App() {
             />
             {/* <SideMenu /> */}
             <DashboardPage />
+          </Route>
+          <Route path="/login">
+            <PrometeoHeader
+              history={history}
+              active={active}
+              language={language}
+              page={page}
+              setActive={setActive}
+              setLanguage={setLanguage}
+              setPage={setPage}
+            />
+            <LoginPage />
           </Route>
           <Route path="/details/:firefighterId/:increment/:type">
             <PrometeoHeader
