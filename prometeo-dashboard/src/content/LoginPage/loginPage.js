@@ -1,26 +1,26 @@
-import React, { useContext, useMemo, useEffect, useState } from 'react'
-import { Modal, TextInput } from 'carbon-components-react'
-import AppContext from '../../context/app'
+import React, { useContext, useMemo, useEffect, useState } from 'react';
+import { Modal, TextInput } from 'carbon-components-react';
+import AppContext from '../../context/app';
 
 const LoginPage = () => {
-  const { t, currentUser, setCurrentUser } = useContext(AppContext)
-  const [model, setModel] = useState(currentUser)
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-  const [isNewUser, setIsNewUser] = useState(true)
+  const { t, currentUser, setCurrentUser } = useContext(AppContext);
+  const [model, setModel] = useState(currentUser);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(true);
   const isValid = useMemo(
     () => !Object.values(errors).some((invalid) => invalid),
     [errors]
-  )
+  );
 
   const handleChange = (field, { value }) => {
-    setErrors({})
-    setModel((model) => ({ ...model, [field]: value }))
-  }
+    setErrors({});
+    setModel((model) => ({ ...model, [field]: value }));
+  };
 
   useEffect(() => {
     if (!submitting) {
-      return
+      return;
     }
 
     if (isValid) {
@@ -30,10 +30,10 @@ const LoginPage = () => {
         password: null,
         confirmPassword: null,
         authenticated: true,
-      })
+      });
     }
-    setSubmitting(false)
-  }, [submitting, isValid, model, setCurrentUser])
+    setSubmitting(false);
+  }, [submitting, isValid, model, setCurrentUser]);
 
   return (
     <div className="login">
@@ -52,8 +52,8 @@ const LoginPage = () => {
         shouldSubmitOnEnter={true}
         size="sm"
         onSecondarySubmit={() => {
-          setErrors({})
-          setIsNewUser(!isNewUser)
+          setErrors({});
+          setIsNewUser(!isNewUser);
         }}
         onRequestSubmit={() => {
           setErrors({
@@ -62,10 +62,9 @@ const LoginPage = () => {
             password: model.password.length === 0,
             confirmPassword:
               isNewUser && model.password !== model.confirmPassword,
-          })
-          setSubmitting(true)
-        }}
-      >
+          });
+          setSubmitting(true);
+        }}>
         {isNewUser && (
           <TextInput
             id="name"
@@ -101,7 +100,7 @@ const LoginPage = () => {
         )}
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

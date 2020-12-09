@@ -1,2 +1,2 @@
-import FirefighterDashboardGaugeSet from "./FirefighterDashboardGaugeSet";
+import FirefighterDashboardGaugeSet from './FirefighterDashboardGaugeSet';
 export default FirefighterDashboardGaugeSet;

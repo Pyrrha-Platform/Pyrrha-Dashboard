@@ -1,2 +1,2 @@
-import FirefighterGauge from "./FirefighterGauge";
+import FirefighterGauge from './FirefighterGauge';
 export default FirefighterGauge;

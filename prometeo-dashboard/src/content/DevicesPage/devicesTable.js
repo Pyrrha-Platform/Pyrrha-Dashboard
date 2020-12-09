@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   DataTable,
   TableContainer,
@@ -10,11 +10,11 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
-} from "carbon-components-react";
-import DevicesAddModal from "./devicesAddModal";
-import DevicesEditModal from "./devicesEditModal";
-import DevicesDeleteModal from "./devicesDeleteModal";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import DevicesAddModal from './devicesAddModal';
+import DevicesEditModal from './devicesEditModal';
+import DevicesDeleteModal from './devicesDeleteModal';
+import Context from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -46,20 +46,20 @@ const NewDevicesTable = ({ deviceId }) => {
   // Form header data
   const headerData = [
     {
-      header: t("content.devices.id"),
-      key: "id",
+      header: t('content.devices.id'),
+      key: 'id',
     },
     {
-      header: t("content.devices.code"),
-      key: "code",
+      header: t('content.devices.code'),
+      key: 'code',
     },
     {
-      header: t("content.devices.model"),
-      key: "model",
+      header: t('content.devices.model'),
+      key: 'model',
     },
     {
-      header: t("content.devices.version"),
-      key: "version",
+      header: t('content.devices.version'),
+      key: 'version',
     },
   ];
 
@@ -68,7 +68,7 @@ const NewDevicesTable = ({ deviceId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h1 className="devices-page__heading">
-            {t("content.devices.heading")}
+            {t('content.devices.heading')}
           </h1>
         </div>
       </div>
@@ -76,7 +76,7 @@ const NewDevicesTable = ({ deviceId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h2 className="devices-page__subheading">
-            {t("content.devices.subheading")}
+            {t('content.devices.subheading')}
           </h2>
         </div>
       </div>
@@ -111,7 +111,7 @@ const NewDevicesTable = ({ deviceId }) => {
                           {header.header}
                         </TableHeader>
                       ))}
-                      <TableHeader>{t("content.devices.actions")}</TableHeader>
+                      <TableHeader>{t('content.devices.actions')}</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>

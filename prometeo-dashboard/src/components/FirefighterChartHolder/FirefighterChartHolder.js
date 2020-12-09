@@ -1,5 +1,5 @@
-import React from "react";
-import FirefighterChart from "../FirefighterChart";
+import React from 'react';
+import FirefighterChart from '../FirefighterChart';
 
 function FirefighterChartHolder({
   firefighterId,

@@ -1,2 +1,2 @@
-import FirefightersPage from "./firefightersPage";
+import FirefightersPage from './firefightersPage';
 export default FirefightersPage;

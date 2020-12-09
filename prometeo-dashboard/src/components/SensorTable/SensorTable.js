@@ -1,5 +1,5 @@
-import React from "react";
-import { DataTable } from "carbon-components-react";
+import React from 'react';
+import { DataTable } from 'carbon-components-react';
 const {
   TableContainer,
   Table,
@@ -15,33 +15,33 @@ const {
 
 const rowData = [
   {
-    id: "a",
-    field1: "Field 1a",
+    id: 'a',
+    field1: 'Field 1a',
   },
   {
-    id: "b",
-    field1: "Field 1b",
+    id: 'b',
+    field1: 'Field 1b',
   },
   {
-    id: "c",
-    field1: "Field 1c",
+    id: 'c',
+    field1: 'Field 1c',
   },
 ];
 
 const headerData = [
   {
     // `key` is the name of the field on the row object itself for the header
-    key: "foo",
+    key: 'foo',
     // `header` will be the name you want rendered in the Table Header
-    header: "Foo",
+    header: 'Foo',
   },
   {
-    key: "bar",
-    header: "Bar",
+    key: 'bar',
+    header: 'Bar',
   },
   {
-    key: "baz",
-    header: "Baz",
+    key: 'baz',
+    header: 'Baz',
   },
 ];
 

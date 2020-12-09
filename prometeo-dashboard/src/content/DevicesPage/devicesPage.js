@@ -1,5 +1,5 @@
-import React from "react";
-import DevicesTable from "./devicesTable";
+import React from 'react';
+import DevicesTable from './devicesTable';
 
 function DevicesPage() {
   return <DevicesTable />;

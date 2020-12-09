@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -10,9 +10,9 @@ import {
   ModalFooter,
   Button,
   Icon,
-} from "carbon-components-react";
-import { iconDelete, iconDeleteSolid, iconDeleteOutline } from "carbon-icons";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconDelete, iconDeleteSolid, iconDeleteOutline } from 'carbon-icons';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -39,21 +39,21 @@ const deleteProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: true,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly, name } = {}) => ({
-    label: "Firefighters",
-    title: "Delete firefighter " + name + "?",
-    iconDescription: "Close",
+    label: 'Firefighters',
+    title: 'Delete firefighter ' + name + '?',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Delete firefighter?",
+    'aria-label': 'Delete firefighter?',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Delete",
+    primaryButtonText: 'Delete',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
     danger: true,
   }),
@@ -64,19 +64,19 @@ const deleteProps = {
   }),
   deleteIcon: () => ({
     style: {
-      margin: "5px",
+      margin: '5px',
     },
     icon: iconDelete,
     name: iconDelete,
-    role: "img",
-    fill: "grey",
-    fillRule: "",
-    width: "",
-    height: "",
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
     description:
-      "This is a description of the icon and what it does in context",
-    iconTitle: "",
-    className: "extra-class",
+      'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
   }),
 };
 
@@ -90,12 +90,12 @@ const handleSubmit = (
   loadFirefighters,
   setOpen
 ) => {
-  console.log("handleSubmit");
-  console.log("id " + id);
-  console.log("code " + code);
-  console.log("first " + first);
-  console.log("last " + last);
-  console.log("email " + email);
+  console.log('handleSubmit');
+  console.log('id ' + id);
+  console.log('code ' + code);
+  console.log('first ' + first);
+  console.log('last ' + last);
+  console.log('email ' + email);
 
   axios
     .delete(`/api/v1/firefighters/` + id, {
@@ -146,8 +146,7 @@ class FirefightersDeleteModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -156,12 +155,11 @@ class FirefightersDeleteModal extends React.Component {
             row={this.props.row}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader
               {...deleteProps.modalHeader({
                 titleOnly: true,
-                name: this.state.first + " " + this.state.last,
+                name: this.state.first + ' ' + this.state.last,
               })}
             />
             <ModalBody />

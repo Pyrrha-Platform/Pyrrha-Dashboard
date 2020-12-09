@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { BrowserRouter, Switch, Route, useHistory } from "react-router-dom";
-import AppContext, { useAppContext } from "./context/app";
-import "./App.scss";
-import PrometeoHeader from "./components/PrometeoHeader";
-import FirefightersPage from "./content/FirefightersPage";
-import EventsPage from "./content/EventsPage";
-import DevicesPage from "./content/DevicesPage";
-import DashboardPage from "./content/DashboardPage";
-import DetailsPage from "./content/DetailsPage";
-import LoginPage from "./content/LoginPage";
-import SideMenu from "./components/SideMenu";
+import React, { useState } from 'react';
+import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
+import AppContext, { useAppContext } from './context/app';
+import './App.scss';
+import PrometeoHeader from './components/PrometeoHeader';
+import FirefightersPage from './content/FirefightersPage';
+import EventsPage from './content/EventsPage';
+import DevicesPage from './content/DevicesPage';
+import DashboardPage from './content/DashboardPage';
+import DetailsPage from './content/DetailsPage';
+import LoginPage from './content/LoginPage';
+import SideMenu from './components/SideMenu';
 
 function App() {
   const history = useHistory();
   const [active, setActive] = useState(false);
-  const [language, setLanguage] = useState("EN");
-  const [page, setPage] = useState("Dashboard");
+  const [language, setLanguage] = useState('EN');
+  const [page, setPage] = useState('Dashboard');
   return (
     <AppContext.Provider value={useAppContext()}>
       <BrowserRouter>

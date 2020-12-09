@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 const fetchLanguages = (id) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res([
         {
-          name: "Device 1",
-          handle: "krook",
+          name: 'Device 1',
+          handle: 'krook',
           stars: 2125,
-          url: "https://github.com/krook/repo1",
+          url: 'https://github.com/krook/repo1',
         },
         {
-          name: "Device 2",
-          handle: "krook",
+          name: 'Device 2',
+          handle: 'krook',
           stars: 2125,
-          url: "https://github.com/krook/repo2",
+          url: 'https://github.com/krook/repo2',
         },
         {
-          name: "Device 3",
-          handle: "krook",
+          name: 'Device 3',
+          handle: 'krook',
           stars: 2125,
-          url: "https://github.com/krook/repo3",
+          url: 'https://github.com/krook/repo3',
         },
       ]);
     }, 2000);

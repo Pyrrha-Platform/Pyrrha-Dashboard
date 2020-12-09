@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   DataTable,
   TableContainer,
@@ -13,11 +13,11 @@ import {
   TableExpandRow,
   TableExpandedRow,
   TableExpandHeader,
-} from "carbon-components-react";
-import EventsAddModal from "./eventsAddModal";
-import EventsEditModal from "./eventsEditModal";
-import EventsDeleteModal from "./eventsDeleteModal";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import EventsAddModal from './eventsAddModal';
+import EventsEditModal from './eventsEditModal';
+import EventsDeleteModal from './eventsDeleteModal';
+import Context from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -51,24 +51,24 @@ const NewEventsTable = ({ eventId }) => {
   // Form header data
   const headerData = [
     {
-      header: t("content.events.id"),
-      key: "id",
+      header: t('content.events.id'),
+      key: 'id',
     },
     {
-      header: t("content.events.code"),
-      key: "code",
+      header: t('content.events.code'),
+      key: 'code',
     },
     {
-      header: t("content.events.type"),
-      key: "type",
+      header: t('content.events.type'),
+      key: 'type',
     },
     {
-      header: t("content.events.date"),
-      key: "date",
+      header: t('content.events.date'),
+      key: 'date',
     },
     {
-      header: t("content.events.status"),
-      key: "status",
+      header: t('content.events.status'),
+      key: 'status',
     },
   ];
 
@@ -77,7 +77,7 @@ const NewEventsTable = ({ eventId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h1 className="events-page__heading">
-            {t("content.events.heading")}
+            {t('content.events.heading')}
           </h1>
         </div>
       </div>
@@ -85,7 +85,7 @@ const NewEventsTable = ({ eventId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h2 className="events-page__subheading">
-            {t("content.events.subheading")}
+            {t('content.events.subheading')}
           </h2>
         </div>
       </div>
@@ -121,7 +121,7 @@ const NewEventsTable = ({ eventId }) => {
                           {header.header}
                         </TableHeader>
                       ))}
-                      <TableHeader>{t("content.events.actions")}</TableHeader>
+                      <TableHeader>{t('content.events.actions')}</TableHeader>
                     </TableRow>
                   </TableHead>
                   <TableBody>

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -9,10 +9,10 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-} from "carbon-components-react";
-import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
-import { Add16 } from "@carbon/icons-react";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconAdd, iconAddSolid, iconAddOutline } from 'carbon-icons';
+import { Add16 } from '@carbon/icons-react';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -40,21 +40,21 @@ const addProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Events",
-    title: "Add event",
-    iconDescription: "Close",
+    label: 'Events',
+    title: 'Add event',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Add event",
+    'aria-label': 'Add event',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
     onRequestSubmit: (event) => {
       handleSubmit(event);
@@ -72,12 +72,12 @@ const handleSubmit = (
   loadEvents,
   setOpen
 ) => {
-  console.log("handleSubmit");
-  console.log("code " + code);
-  console.log("type " + type);
-  console.log("date " + date);
-  console.log("firefighters " + firefighters);
-  console.log("state " + state);
+  console.log('handleSubmit');
+  console.log('code ' + code);
+  console.log('type ' + type);
+  console.log('date ' + date);
+  console.log('firefighters ' + firefighters);
+  console.log('state ' + state);
 
   axios
     .post(`/api/v1/events`, {
@@ -108,11 +108,11 @@ class EventsAddModal extends React.Component {
     this.state = {
       row: props.row,
       loadEvents: props.loadEvents,
-      code: "",
-      type: "",
-      date: "",
-      firefighters: "",
-      state: "",
+      code: '',
+      type: '',
+      date: '',
+      firefighters: '',
+      state: '',
       open: false,
     };
     console.log(this.state.row);
@@ -129,12 +129,10 @@ class EventsAddModal extends React.Component {
           <Button
             onClick={() => setOpen(true)}
             renderIcon={Add16}
-            iconDescription="Add event"
-          >
+            iconDescription="Add event">
             Add event
           </Button>
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -142,53 +140,51 @@ class EventsAddModal extends React.Component {
             t={t}
             loadEvents={this.props.loadEvents}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...addProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
                 placeholder="REMS-10-01-200"
-                labelText={t("content.events.code") + ":"}
+                labelText={t('content.events.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.type}
+                id={this.state.code + '-' + this.state.type}
                 value={this.state.type}
                 placeholder="Controlled burn"
-                labelText={t("content.events.type") + ":"}
+                labelText={t('content.events.type') + ':'}
                 onChange={(e) => (this.state.type = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.date}
+                id={this.state.code + '-' + this.state.date}
                 value={this.state.date}
                 placeholder="2020/12/15"
-                labelText={t("content.events.date") + ":"}
+                labelText={t('content.events.date') + ':'}
                 onChange={(e) => (this.state.date = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.firefighters}
+                id={this.state.code + '-' + this.state.firefighters}
                 value={this.state.firefighters}
                 placeholder="10"
-                labelText={t("content.events.firefighters") + ":"}
+                labelText={t('content.events.firefighters') + ':'}
                 onChange={(e) =>
                   (this.state.firefighters = e.target.value.trim())
                 }
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.state}
+                id={this.state.code + '-' + this.state.state}
                 value={this.state.state}
                 placeholder="In progress"
-                labelText={t("content.events.state") + ":"}
+                labelText={t('content.events.state') + ':'}
                 onChange={(e) => (this.state.state = e.target.value.trim())}
               />
               <br />
