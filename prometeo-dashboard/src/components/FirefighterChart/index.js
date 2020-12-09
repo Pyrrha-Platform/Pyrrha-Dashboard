@@ -1,2 +1,2 @@
-import FirefighterChart from "./FirefighterChart";
+import FirefighterChart from './FirefighterChart';
 export default FirefighterChart;

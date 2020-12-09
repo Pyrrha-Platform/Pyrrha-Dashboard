@@ -1,2 +1,2 @@
-import DevicesPage from "./devicesPage";
+import DevicesPage from './devicesPage';
 export default DevicesPage;

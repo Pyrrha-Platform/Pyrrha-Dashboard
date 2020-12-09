@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
-import { ContentSwitcher, Switch } from "carbon-components-react";
-import "@carbon/charts/styles.css";
-import FirefighterDetailsGaugeSet from "../../components/FirefighterDetailsGaugeSet/FirefighterDetailsGaugeSet";
-import useDetails from "../../hooks/useDetails";
-import Context from "../../context/app";
+import React, { useContext } from 'react';
+import { ContentSwitcher, Switch } from 'carbon-components-react';
+import '@carbon/charts/styles.css';
+import FirefighterDetailsGaugeSet from '../../components/FirefighterDetailsGaugeSet/FirefighterDetailsGaugeSet';
+import useDetails from '../../hooks/useDetails';
+import Context from '../../context/app';
 
 // Table and data
 const DetailsGrid = (params) => {
@@ -29,11 +29,11 @@ const DetailsGrid = (params) => {
 
   const incrementMapping = {
     all: 0,
-    "10min": 1,
-    "30min": 2,
-    "1hr": 3,
-    "4hr": 4,
-    "8hr": 5,
+    '10min': 1,
+    '30min': 2,
+    '1hr': 3,
+    '4hr': 4,
+    '8hr': 5,
   };
 
   return (
@@ -41,7 +41,7 @@ const DetailsGrid = (params) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h1 className="details-page__heading">
-            {t("content.details.heading")}
+            {t('content.details.heading')}
           </h1>
         </div>
       </div>
@@ -49,7 +49,7 @@ const DetailsGrid = (params) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h2 className="details-page__subheading">
-            {t("content.details.subheading")}
+            {t('content.details.subheading')}
           </h2>
         </div>
       </div>
@@ -60,14 +60,13 @@ const DetailsGrid = (params) => {
           setIncrement(e.name);
         }}
         selectedIndex={incrementMapping[increment]}
-        className="details-page__switcher"
-      >
-        <Switch name="all" text={t("content.details.all")} />
-        <Switch name="10min" text={t("content.details.10min")} />
-        <Switch name="30min" text={t("content.details.30min")} />
-        <Switch name="1hr" text={t("content.details.1hr")} />
-        <Switch name="4hr" text={t("content.details.4hr")} />
-        <Switch name="8hr" text={t("content.details.8hr")} />
+        className="details-page__switcher">
+        <Switch name="all" text={t('content.details.all')} />
+        <Switch name="10min" text={t('content.details.10min')} />
+        <Switch name="30min" text={t('content.details.30min')} />
+        <Switch name="1hr" text={t('content.details.1hr')} />
+        <Switch name="4hr" text={t('content.details.4hr')} />
+        <Switch name="8hr" text={t('content.details.8hr')} />
       </ContentSwitcher>
 
       {details.map(

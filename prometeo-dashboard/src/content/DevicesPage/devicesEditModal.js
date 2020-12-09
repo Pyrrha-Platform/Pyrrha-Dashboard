@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -10,9 +10,9 @@ import {
   ModalFooter,
   Button,
   Icon,
-} from "carbon-components-react";
-import { iconEdit, iconEditSolid, iconEditOutline } from "carbon-icons";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconEdit, iconEditSolid, iconEditOutline } from 'carbon-icons';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -39,21 +39,21 @@ const editProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Devices",
-    title: "Edit device",
-    iconDescription: "Close",
+    label: 'Devices',
+    title: 'Edit device',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Edit device",
+    'aria-label': 'Edit device',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
   }),
   menuItem: () => ({
@@ -63,29 +63,29 @@ const editProps = {
   }),
   editIcon: () => ({
     style: {
-      margin: "5px",
+      margin: '5px',
     },
     icon: iconEdit,
     name: iconEdit,
-    role: "img",
-    fill: "grey",
-    fillRule: "",
-    width: "",
-    height: "",
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
     description:
-      "This is a description of the icon and what it does in context",
-    iconTitle: "",
-    className: "extra-class",
+      'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
   }),
 };
 
 // On submit we should be passed the values.
 const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
-  console.log("handleSubmit");
-  console.log("id " + id);
-  console.log("code " + code);
-  console.log("model " + model);
-  console.log("version " + version);
+  console.log('handleSubmit');
+  console.log('id ' + id);
+  console.log('code ' + code);
+  console.log('model ' + model);
+  console.log('version ' + version);
 
   axios
     .put(`/api/v1/devices/` + id, {
@@ -138,8 +138,7 @@ class DevicesEditModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -148,32 +147,30 @@ class DevicesEditModal extends React.Component {
             row={this.props.row}
             loadDevices={this.props.loadDevices}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...editProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                labelText={t("content.devices.code") + ":"}
+                labelText={t('content.devices.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.model}
                 value={this.state.model}
-                labelText={t("content.devices.model") + ":"}
+                labelText={t('content.devices.model') + ':'}
                 onChange={(e) => (this.state.model = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.version}
                 value={this.state.version}
-                labelText={t("content.devices.version") + ":"}
+                labelText={t('content.devices.version') + ':'}
                 onChange={(e) => (this.state.version = e.target.value.trim())}
               />
               <br />

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   DataTable,
   TableContainer,
@@ -10,11 +10,11 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
-} from "carbon-components-react";
-import FirefightersAddModal from "./firefightersAddModal";
-import FirefightersEditModal from "./firefightersEditModal";
-import FirefightersDeleteModal from "./firefightersDeleteModal";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import FirefightersAddModal from './firefightersAddModal';
+import FirefightersEditModal from './firefightersEditModal';
+import FirefightersDeleteModal from './firefightersDeleteModal';
+import Context from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -46,24 +46,24 @@ const NewFirefightersTable = ({ firefighterId }) => {
   // Form header data
   const headerData = [
     {
-      header: t("content.firefighters.id"),
-      key: "id",
+      header: t('content.firefighters.id'),
+      key: 'id',
     },
     {
-      header: t("content.firefighters.code"),
-      key: "code",
+      header: t('content.firefighters.code'),
+      key: 'code',
     },
     {
-      header: t("content.firefighters.first"),
-      key: "first",
+      header: t('content.firefighters.first'),
+      key: 'first',
     },
     {
-      header: t("content.firefighters.last"),
-      key: "last",
+      header: t('content.firefighters.last'),
+      key: 'last',
     },
     {
-      header: t("content.firefighters.email"),
-      key: "email",
+      header: t('content.firefighters.email'),
+      key: 'email',
     },
   ];
 
@@ -72,7 +72,7 @@ const NewFirefightersTable = ({ firefighterId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h1 className="firefighters-page__heading">
-            {t("content.firefighters.heading")}
+            {t('content.firefighters.heading')}
           </h1>
         </div>
       </div>
@@ -80,7 +80,7 @@ const NewFirefightersTable = ({ firefighterId }) => {
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h2 className="firefighters-page__subheading">
-            {t("content.firefighters.subheading")}
+            {t('content.firefighters.subheading')}
           </h2>
         </div>
       </div>
@@ -119,7 +119,7 @@ const NewFirefightersTable = ({ firefighterId }) => {
                         </TableHeader>
                       ))}
                       <TableHeader>
-                        {t("content.firefighters.actions")}
+                        {t('content.firefighters.actions')}
                       </TableHeader>
                     </TableRow>
                   </TableHead>

@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import FirefighterGauge from "../FirefighterGauge";
-import FirefighterChartHolder from "../FirefighterChartHolder";
-import Context from "../../context/app";
-import Utils from "../../utils/Utils";
+import React, { useContext } from 'react';
+import FirefighterGauge from '../FirefighterGauge';
+import FirefighterChartHolder from '../FirefighterChartHolder';
+import Context from '../../context/app';
+import Utils from '../../utils/Utils';
 
 function FirefighterDetailsGaugeSet({
   chart,
@@ -44,7 +44,7 @@ function FirefighterDetailsGaugeSet({
   nitrogenDioxideGauge240min,
   nitrogenDioxideGauge480min,
 }) {
-  console.log("FirefighterDetailsGaugeSet", increment);
+  console.log('FirefighterDetailsGaugeSet', increment);
 
   /*
   console.log("temperature", temperature);
@@ -85,7 +85,7 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--col-md-8 label-firefighter">
                 {firefighterCode} - {firefighterFirst} {firefighterLast}
                 <br />
-                {t("content.details.now")}
+                {t('content.details.now')}
               </div>
             </div>
             <div className="bx--row dashboard-tile">
@@ -93,11 +93,11 @@ function FirefighterDetailsGaugeSet({
                 <div>
                   <FirefighterGauge
                     firefighterId={firefighterId}
-                    type={"CO"}
+                    type={'CO'}
                     value={carbonMonoxide}
-                    unit={"ppm"}
-                    increment={"now"}
-                    gauge={Utils.getPercentage("CO", carbonMonoxide, "now")}
+                    unit={'ppm'}
+                    increment={'now'}
+                    gauge={Utils.getPercentage('CO', carbonMonoxide, 'now')}
                   />
                 </div>
                 <div className="label-legend">
@@ -105,10 +105,9 @@ function FirefighterDetailsGaugeSet({
                     href="javascript:void(0)"
                     className="bx--link label-legend-link"
                     onClick={() => {
-                      console.log("Setting type to CO");
-                      setType("CO");
-                    }}
-                  >
+                      console.log('Setting type to CO');
+                      setType('CO');
+                    }}>
                     CO
                   </a>
                 </div>
@@ -117,11 +116,11 @@ function FirefighterDetailsGaugeSet({
                 <div>
                   <FirefighterGauge
                     firefighterId={firefighterId}
-                    type={"NO2"}
+                    type={'NO2'}
                     value={nitrogenDioxide}
-                    unit={"ppm"}
-                    increment={"now"}
-                    gauge={Utils.getPercentage("NO2", nitrogenDioxide, "now")}
+                    unit={'ppm'}
+                    increment={'now'}
+                    gauge={Utils.getPercentage('NO2', nitrogenDioxide, 'now')}
                   />
                 </div>
                 <div className="label-legend">
@@ -129,10 +128,9 @@ function FirefighterDetailsGaugeSet({
                     href="javascript:void(0)"
                     className="bx--link label-legend-link"
                     onClick={() => {
-                      console.log("Setting type to CO");
-                      setType("NO2");
-                    }}
-                  >
+                      console.log('Setting type to CO');
+                      setType('NO2');
+                    }}>
                     NO<sub>2</sub>
                   </a>
                 </div>
@@ -141,44 +139,44 @@ function FirefighterDetailsGaugeSet({
                 <div>
                   <FirefighterGauge
                     firefighterId={firefighterId}
-                    type={"Tmp"}
+                    type={'Tmp'}
                     value={temperature}
-                    unit={"°C"}
-                    increment={"now"}
-                    gauge={Utils.getPercentage("Tmp", temperature, "now")}
+                    unit={'°C'}
+                    increment={'now'}
+                    gauge={Utils.getPercentage('Tmp', temperature, 'now')}
                   />
                 </div>
                 <div className="label-legend">
-                  {t("content.common.temperature")}
+                  {t('content.common.temperature')}
                 </div>
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
                   <FirefighterGauge
                     firefighterId={firefighterId}
-                    type={"Hum"}
+                    type={'Hum'}
                     value={humidity}
-                    unit={"%"}
-                    increment={"now"}
-                    gauge={Utils.getPercentage("Hum", humidity, "now")}
+                    unit={'%'}
+                    increment={'now'}
+                    gauge={Utils.getPercentage('Hum', humidity, 'now')}
                   />
                 </div>
                 <div className="label-legend">
-                  {t("content.common.humidity")}
+                  {t('content.common.humidity')}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {(increment === "10min" || increment === "all") && (
+        {(increment === '10min' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  {t("content.details.10min")}
+                  {t('content.details.10min')}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -186,11 +184,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"CO"}
+                      type={'CO'}
                       value={carbonMonoxideTwa10min}
-                      increment={"10min"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa10min, "10min")}
+                      increment={'10min'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'CO',
+                        carbonMonoxideTwa10min,
+                        '10min'
+                      )}
                     />
                     {/* gauge={carbonMonoxideGauge10min} */}
                   </div>
@@ -200,12 +202,11 @@ function FirefighterDetailsGaugeSet({
                       className="bx--link label-legend-link"
                       onClick={() => {
                         console.log(
-                          "Setting type to CO and increment to 10min"
+                          'Setting type to CO and increment to 10min'
                         );
-                        setType("CO");
-                        setIncrement("10min");
-                      }}
-                    >
+                        setType('CO');
+                        setIncrement('10min');
+                      }}>
                       CO
                     </a>
                   </div>
@@ -214,14 +215,14 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"NO2"}
+                      type={'NO2'}
                       value={nitrogenDioxideTwa10min}
-                      increment={"10min"}
-                      unit={"ppm"}
+                      increment={'10min'}
+                      unit={'ppm'}
                       gauge={Utils.getPercentage(
-                        "NO2",
+                        'NO2',
                         nitrogenDioxideTwa10min,
-                        "10min"
+                        '10min'
                       )}
                     />
                     {/* gauge={nitrogenDioxideGauge10min} */}
@@ -232,12 +233,11 @@ function FirefighterDetailsGaugeSet({
                       className="bx--link label-legend-link"
                       onClick={() => {
                         console.log(
-                          "Setting type to CO and increment to 10min"
+                          'Setting type to CO and increment to 10min'
                         );
-                        setType("NO2");
-                        setIncrement("10min");
-                      }}
-                    >
+                        setType('NO2');
+                        setIncrement('10min');
+                      }}>
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -246,28 +246,28 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Tmp"}
-                      value={"-"}
-                      increment={"10min"}
-                      unit={"°C"}
+                      type={'Tmp'}
+                      value={'-'}
+                      increment={'10min'}
+                      unit={'°C'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.temperature")}
+                    {t('content.common.temperature')}
                   </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Hum"}
-                      value={"-"}
-                      increment={"10min"}
-                      unit={"%"}
+                      type={'Hum'}
+                      value={'-'}
+                      increment={'10min'}
+                      unit={'%'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.humidity")}
+                    {t('content.common.humidity')}
                   </div>
                 </div>
               </div>
@@ -275,14 +275,14 @@ function FirefighterDetailsGaugeSet({
           </div>
         )}
 
-        {(increment === "30min" || increment === "all") && (
+        {(increment === '30min' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  {t("content.details.30min")}
+                  {t('content.details.30min')}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -290,11 +290,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"CO"}
+                      type={'CO'}
                       value={carbonMonoxideTwa30min}
-                      increment={"30min"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa30min, "30min")}
+                      increment={'30min'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'CO',
+                        carbonMonoxideTwa30min,
+                        '30min'
+                      )}
                     />
                     {/* gauge={carbonMonoxideGauge30min} */}
                   </div>
@@ -304,12 +308,11 @@ function FirefighterDetailsGaugeSet({
                       className="bx--link label-legend-link"
                       onClick={() => {
                         console.log(
-                          "Setting type to CO and increment to 30min"
+                          'Setting type to CO and increment to 30min'
                         );
-                        setType("CO");
-                        setIncrement("30min");
-                      }}
-                    >
+                        setType('CO');
+                        setIncrement('30min');
+                      }}>
                       CO
                     </a>
                   </div>
@@ -318,14 +321,14 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"NO2"}
+                      type={'NO2'}
                       value={nitrogenDioxideTwa30min}
-                      increment={"30min"}
-                      unit={"ppm"}
+                      increment={'30min'}
+                      unit={'ppm'}
                       gauge={Utils.getPercentage(
-                        "NO2",
+                        'NO2',
                         nitrogenDioxideTwa30min,
-                        "30min"
+                        '30min'
                       )}
                     />
                     {/* gauge={nitrogenDioxideGauge30min} */}
@@ -336,12 +339,11 @@ function FirefighterDetailsGaugeSet({
                       className="bx--link label-legend-link"
                       onClick={() => {
                         console.log(
-                          "Setting type to CO and increment to 30min"
+                          'Setting type to CO and increment to 30min'
                         );
-                        setType("NO2");
-                        setIncrement("30min");
-                      }}
-                    >
+                        setType('NO2');
+                        setIncrement('30min');
+                      }}>
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -350,28 +352,28 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Tmp"}
-                      value={"-"}
-                      increment={"30min"}
-                      unit={"°C"}
+                      type={'Tmp'}
+                      value={'-'}
+                      increment={'30min'}
+                      unit={'°C'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.temperature")}
+                    {t('content.common.temperature')}
                   </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Hum"}
-                      value={"-"}
-                      increment={"30min"}
-                      unit={"%"}
+                      type={'Hum'}
+                      value={'-'}
+                      increment={'30min'}
+                      unit={'%'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.humidity")}
+                    {t('content.common.humidity')}
                   </div>
                 </div>
               </div>
@@ -379,14 +381,14 @@ function FirefighterDetailsGaugeSet({
           </div>
         )}
 
-        {(increment === "1hr" || increment === "all") && (
+        {(increment === '1hr' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  {t("content.details.1hr")}
+                  {t('content.details.1hr')}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -394,11 +396,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"CO"}
+                      type={'CO'}
                       value={carbonMonoxideTwa60min}
-                      increment={"1hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa60min, "1hr")}
+                      increment={'1hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'CO',
+                        carbonMonoxideTwa60min,
+                        '1hr'
+                      )}
                     />
                     {/* gauge={carbonMonoxideGauge60min} */}
                   </div>
@@ -407,11 +413,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 1hr");
-                        setType("CO");
-                        setIncrement("1hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 1hr');
+                        setType('CO');
+                        setIncrement('1hr');
+                      }}>
                       CO
                     </a>
                   </div>
@@ -420,11 +425,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"NO2"}
+                      type={'NO2'}
                       value={nitrogenDioxideTwa60min}
-                      increment={"1hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa60min, "1hr")}
+                      increment={'1hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'NO2',
+                        nitrogenDioxideTwa60min,
+                        '1hr'
+                      )}
                     />
                     {/* gauge={nitrogenDioxideGauge60min} */}
                   </div>
@@ -433,11 +442,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 1hr");
-                        setType("NO2");
-                        setIncrement("1hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 1hr');
+                        setType('NO2');
+                        setIncrement('1hr');
+                      }}>
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -446,28 +454,28 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Tmp"}
-                      value={"-"}
-                      increment={"1hr"}
-                      unit={"°C"}
+                      type={'Tmp'}
+                      value={'-'}
+                      increment={'1hr'}
+                      unit={'°C'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.temperature")}
+                    {t('content.common.temperature')}
                   </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Hum"}
-                      value={"-"}
-                      increment={"1hr"}
-                      unit={"%"}
+                      type={'Hum'}
+                      value={'-'}
+                      increment={'1hr'}
+                      unit={'%'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.humidity")}
+                    {t('content.common.humidity')}
                   </div>
                 </div>
               </div>
@@ -475,14 +483,14 @@ function FirefighterDetailsGaugeSet({
           </div>
         )}
 
-        {(increment === "4hr" || increment === "all") && (
+        {(increment === '4hr' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  {t("content.details.4hr")}
+                  {t('content.details.4hr')}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -490,11 +498,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"CO"}
+                      type={'CO'}
                       value={carbonMonoxideTwa240min}
-                      increment={"4hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa240min, "4hr")}
+                      increment={'4hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'CO',
+                        carbonMonoxideTwa240min,
+                        '4hr'
+                      )}
                     />
                     {/* gauge={carbonMonoxideGauge240min} */}
                   </div>
@@ -503,11 +515,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 4hr");
-                        setType("CO");
-                        setIncrement("4hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 4hr');
+                        setType('CO');
+                        setIncrement('4hr');
+                      }}>
                       CO
                     </a>
                   </div>
@@ -516,11 +527,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"NO2"}
+                      type={'NO2'}
                       value={nitrogenDioxideTwa240min}
-                      increment={"4hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa240min, "4hr")}
+                      increment={'4hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'NO2',
+                        nitrogenDioxideTwa240min,
+                        '4hr'
+                      )}
                     />
                     {/* gauge={nitrogenDioxideGauge240min} */}
                   </div>
@@ -529,11 +544,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 4hr");
-                        setType("NO2");
-                        setIncrement("4hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 4hr');
+                        setType('NO2');
+                        setIncrement('4hr');
+                      }}>
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -542,28 +556,28 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Tmp"}
-                      value={"-"}
-                      increment={"4hr"}
-                      unit={"°C"}
+                      type={'Tmp'}
+                      value={'-'}
+                      increment={'4hr'}
+                      unit={'°C'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.temperature")}
+                    {t('content.common.temperature')}
                   </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Hum"}
-                      value={"-"}
-                      increment={"4hr"}
-                      unit={"%"}
+                      type={'Hum'}
+                      value={'-'}
+                      increment={'4hr'}
+                      unit={'%'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.humidity")}
+                    {t('content.common.humidity')}
                   </div>
                 </div>
               </div>
@@ -571,14 +585,14 @@ function FirefighterDetailsGaugeSet({
           </div>
         )}
 
-        {(increment === "8hr" || increment === "all") && (
+        {(increment === '8hr' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
                   {firefighterCode} - {firefighterFirst} {firefighterLast}
                   <br />
-                  {t("content.details.8hr")}
+                  {t('content.details.8hr')}
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -586,11 +600,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"CO"}
+                      type={'CO'}
                       value={carbonMonoxideTwa480min}
-                      increment={"8hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("CO", carbonMonoxideTwa480min, "8hr")}
+                      increment={'8hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'CO',
+                        carbonMonoxideTwa480min,
+                        '8hr'
+                      )}
                     />
                     {/* gauge={carbonMonoxideGauge480min} */}
                   </div>
@@ -599,11 +617,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 8hr");
-                        setType("CO");
-                        setIncrement("8hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 8hr');
+                        setType('CO');
+                        setIncrement('8hr');
+                      }}>
                       CO
                     </a>
                   </div>
@@ -612,11 +629,15 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"NO2"}
+                      type={'NO2'}
                       value={nitrogenDioxideTwa480min}
-                      increment={"8hr"}
-                      unit={"ppm"}
-                      gauge={Utils.getPercentage("NO2", nitrogenDioxideTwa480min, "8hr")}
+                      increment={'8hr'}
+                      unit={'ppm'}
+                      gauge={Utils.getPercentage(
+                        'NO2',
+                        nitrogenDioxideTwa480min,
+                        '8hr'
+                      )}
                     />
                     {/* gauge={nitrogenDioxideGauge480min} */}
                   </div>
@@ -625,11 +646,10 @@ function FirefighterDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log("Setting type to CO and increment to 8hr");
-                        setType("NO2");
-                        setIncrement("8hr");
-                      }}
-                    >
+                        console.log('Setting type to CO and increment to 8hr');
+                        setType('NO2');
+                        setIncrement('8hr');
+                      }}>
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -638,28 +658,28 @@ function FirefighterDetailsGaugeSet({
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Tmp"}
-                      value={"-"}
-                      increment={"8hr"}
-                      unit={"°C"}
+                      type={'Tmp'}
+                      value={'-'}
+                      increment={'8hr'}
+                      unit={'°C'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.temperature")}
+                    {t('content.common.temperature')}
                   </div>
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
                     <FirefighterGauge
                       firefighterId={firefighterId}
-                      type={"Hum"}
-                      value={"-"}
-                      increment={"8hr"}
-                      unit={"%"}
+                      type={'Hum'}
+                      value={'-'}
+                      increment={'8hr'}
+                      unit={'%'}
                     />
                   </div>
                   <div className="label-legend">
-                    {t("content.common.humidity")}
+                    {t('content.common.humidity')}
                   </div>
                 </div>
               </div>
@@ -671,12 +691,12 @@ function FirefighterDetailsGaugeSet({
         <div className="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
           <FirefighterChartHolder
             firefighterId={firefighterId}
-            type={!type ? "CO" : type}
+            type={!type ? 'CO' : type}
             data={chart}
-            unit={"ppm"}
-            gauge={""}
+            unit={'ppm'}
+            gauge={''}
             increment={
-              increment === "all" ? t("content.details.10min") : increment
+              increment === 'all' ? t('content.details.10min') : increment
             }
           />
         </div>

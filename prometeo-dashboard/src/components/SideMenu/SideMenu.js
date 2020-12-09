@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   SideNav,
   SideNavItems,
   SideNavMenu,
   SideNavMenuItem,
-} from "carbon-components-react/lib/components/UIShell";
-import { Settings32 } from "@carbon/icons-react";
+} from 'carbon-components-react/lib/components/UIShell';
+import { Settings32 } from '@carbon/icons-react';
 
 function SideMenu() {
   return (

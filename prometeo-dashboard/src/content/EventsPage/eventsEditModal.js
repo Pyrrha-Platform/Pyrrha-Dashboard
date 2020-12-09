@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -10,9 +10,9 @@ import {
   ModalFooter,
   Button,
   Icon,
-} from "carbon-components-react";
-import { iconEdit, iconEditSolid, iconEditOutline } from "carbon-icons";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconEdit, iconEditSolid, iconEditOutline } from 'carbon-icons';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -39,21 +39,21 @@ const editProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Events",
-    title: "Edit event",
-    iconDescription: "Close",
+    label: 'Events',
+    title: 'Edit event',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Edit event",
+    'aria-label': 'Edit event',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
   }),
   menuItem: () => ({
@@ -63,19 +63,19 @@ const editProps = {
   }),
   editIcon: () => ({
     style: {
-      margin: "5px",
+      margin: '5px',
     },
     icon: iconEdit,
     name: iconEdit,
-    role: "img",
-    fill: "grey",
-    fillRule: "",
-    width: "",
-    height: "",
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
     description:
-      "This is a description of the icon and what it does in context",
-    iconTitle: "",
-    className: "extra-class",
+      'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
   }),
 };
 
@@ -90,13 +90,13 @@ const handleSubmit = (
   loadEvents,
   setOpen
 ) => {
-  console.log("handleSubmit");
-  console.log("id " + id);
-  console.log("code " + code);
-  console.log("type " + type);
-  console.log("date " + date);
-  console.log("firefighters " + firefighters);
-  console.log("state " + state);
+  console.log('handleSubmit');
+  console.log('id ' + id);
+  console.log('code ' + code);
+  console.log('type ' + type);
+  console.log('date ' + date);
+  console.log('firefighters ' + firefighters);
+  console.log('state ' + state);
 
   axios
     .put(`/api/v1/events/` + id, {
@@ -153,8 +153,7 @@ class EventsEditModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -163,48 +162,46 @@ class EventsEditModal extends React.Component {
             row={this.props.row}
             loadEvents={this.props.loadEvents}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...editProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                labelText={t("content.events.code") + ":"}
+                labelText={t('content.events.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.type}
+                id={this.state.code + '-' + this.state.type}
                 value={this.state.type}
-                labelText={t("content.events.type") + ":"}
+                labelText={t('content.events.type') + ':'}
                 onChange={(e) => (this.state.type = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.date}
+                id={this.state.code + '-' + this.state.date}
                 value={this.state.date}
-                labelText={t("content.events.date") + ":"}
+                labelText={t('content.events.date') + ':'}
                 onChange={(e) => (this.state.date = e.target.value.trim())}
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.firefighters}
+                id={this.state.code + '-' + this.state.firefighters}
                 value={this.state.firefighters}
-                labelText={t("content.events.firefighters") + ":"}
+                labelText={t('content.events.firefighters') + ':'}
                 onChange={(e) =>
                   (this.state.firefighters = e.target.value.trim())
                 }
               />
               <br />
               <TextInput
-                id={this.state.code + "-" + this.state.state}
+                id={this.state.code + '-' + this.state.state}
                 value={this.state.state}
-                labelText={t("content.events.state") + ":"}
+                labelText={t('content.events.state') + ':'}
                 onChange={(e) => (this.state.state = e.target.value.trim())}
               />
               <br />

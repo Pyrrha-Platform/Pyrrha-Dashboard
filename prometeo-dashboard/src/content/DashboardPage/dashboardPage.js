@@ -1,5 +1,5 @@
-import React from "react";
-import DashboardGrid from "./dashboardGrid";
+import React from 'react';
+import DashboardGrid from './dashboardGrid';
 
 function DashboardPage() {
   return <DashboardGrid />;

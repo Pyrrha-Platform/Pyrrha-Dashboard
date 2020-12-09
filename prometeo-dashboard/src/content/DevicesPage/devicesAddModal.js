@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -9,10 +9,10 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-} from "carbon-components-react";
-import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
-import { Add16 } from "@carbon/icons-react";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconAdd, iconAddSolid, iconAddOutline } from 'carbon-icons';
+import { Add16 } from '@carbon/icons-react';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -40,21 +40,21 @@ const addProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Devices",
-    title: "Add device",
-    iconDescription: "Close",
+    label: 'Devices',
+    title: 'Add device',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Add device",
+    'aria-label': 'Add device',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
     onRequestSubmit: (event) => {
       handleSubmit(event);
@@ -64,10 +64,10 @@ const addProps = {
 
 // On submit we should be passed the values.
 const handleSubmit = (code, model, version, loadDevices, setOpen) => {
-  console.log("handleSubmit");
-  console.log("code " + code);
-  console.log("model " + model);
-  console.log("version " + version);
+  console.log('handleSubmit');
+  console.log('code ' + code);
+  console.log('model ' + model);
+  console.log('version ' + version);
 
   axios
     .post(`/api/v1/devices`, {
@@ -96,9 +96,9 @@ class DevicesAddModal extends React.Component {
     this.state = {
       row: props.row,
       loadDevices: props.loadDevices,
-      code: "",
-      model: "",
-      version: "",
+      code: '',
+      model: '',
+      version: '',
       open: false,
     };
     console.log(this.state.row);
@@ -115,12 +115,10 @@ class DevicesAddModal extends React.Component {
           <Button
             onClick={() => setOpen(true)}
             renderIcon={Add16}
-            iconDescription="Add device"
-          >
+            iconDescription="Add device">
             Add device
           </Button>
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -128,19 +126,17 @@ class DevicesAddModal extends React.Component {
             t={t}
             loadDevices={this.props.loadDevices}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...addProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
                 placeholder="0001"
-                labelText={t("content.devices.code") + ":"}
+                labelText={t('content.devices.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
@@ -148,7 +144,7 @@ class DevicesAddModal extends React.Component {
                 id={this.state.model}
                 value={this.state.model}
                 placeholder="model 1"
-                labelText={t("content.devices.model") + ":"}
+                labelText={t('content.devices.model') + ':'}
                 onChange={(e) => (this.state.model = e.target.value.trim())}
               />
               <br />
@@ -156,7 +152,7 @@ class DevicesAddModal extends React.Component {
                 id={this.state.version}
                 value={this.state.version}
                 placeholder="1.0"
-                labelText={t("content.devices.version") + ":"}
+                labelText={t('content.devices.version') + ':'}
                 onChange={(e) => (this.state.version = e.target.value.trim())}
               />
               <br />

@@ -1,8 +1,8 @@
-import * as d3 from "d3";
-import React, { useRef, useEffect, useContext } from "react";
-import Constants from "../../utils/Constants";
-import Utils from "../../utils/Utils";
-import Context from "../../context/app";
+import * as d3 from 'd3';
+import React, { useRef, useEffect, useContext } from 'react';
+import Constants from '../../utils/Constants';
+import Utils from '../../utils/Utils';
+import Context from '../../context/app';
 
 function FirefighterGauge({
   firefighterId,
@@ -34,8 +34,8 @@ function FirefighterGauge({
   useEffect(() => {
     let svg = d3
       .select(ref.current)
-      .attr("width", width)
-      .attr("height", height);
+      .attr('width', width)
+      .attr('height', height);
     draw(svg, firefighterId, type, value, unit, increment, gauge);
   }, []);
 
@@ -58,39 +58,39 @@ function FirefighterGauge({
     */
 
     svg
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     let g = svg
-      .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    g.append("path")
+      .append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+    g.append('path')
       .datum({ endAngle: Constants.TAU })
-      .style("fill", "#ddd")
-      .attr("d", Constants.ARC);
-    g.append("path")
+      .style('fill', '#ddd')
+      .attr('d', Constants.ARC);
+    g.append('path')
       .datum({ endAngle: 0 * Constants.TAU })
-      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
-      .attr("d", Constants.ARC)
-      .attr("id", "angle-" + type + "-" + increment + "-" + firefighterId);
+      .style('fill', Utils.getStatusColor(type, value, increment, gauge))
+      .attr('d', Constants.ARC)
+      .attr('id', 'angle-' + type + '-' + increment + '-' + firefighterId);
 
     const label = g
-      .append("text")
-      .attr("dy", "0")
-      .attr("x", "0")
-      .attr("y", "0");
+      .append('text')
+      .attr('dy', '0')
+      .attr('x', '0')
+      .attr('y', '0');
     label
-      .append("tspan")
-      .attr("class", "label-num")
+      .append('tspan')
+      .attr('class', 'label-num')
       .text(Utils.formatFloat(value, 2))
-      .attr("x", "0")
-      .attr("id", "number-" + type + "-" + increment + "-" + firefighterId);
+      .attr('x', '0')
+      .attr('id', 'number-' + type + '-' + increment + '-' + firefighterId);
     label
-      .append("tspan")
-      .attr("class", "label-unit")
+      .append('tspan')
+      .attr('class', 'label-unit')
       .text(unit)
-      .attr("x", "0")
-      .attr("dy", "1.2em");
+      .attr('x', '0')
+      .attr('dy', '1.2em');
   };
 
   // When data changes
@@ -106,7 +106,7 @@ function FirefighterGauge({
     */
 
     let valueToUse = value;
-    if (type === "Tmp" || type === "Hum") {
+    if (type === 'Tmp' || type === 'Hum') {
       valueToUse = Utils.getPercentage(type, value, increment);
     } else {
       valueToUse = gauge;
@@ -117,12 +117,12 @@ function FirefighterGauge({
     console.log("----");
     */
 
-    d3.select("#angle-" + type + "-" + increment + "-" + firefighterId)
+    d3.select('#angle-' + type + '-' + increment + '-' + firefighterId)
       .transition()
       .duration(750)
-      .style("fill", Utils.getStatusColor(type, value, increment, gauge))
-      .attrTween("d", Utils.arcTween(valueToUse * Constants.TAU));
-    d3.select("#number-" + type + "-" + increment + "-" + firefighterId).text(
+      .style('fill', Utils.getStatusColor(type, value, increment, gauge))
+      .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
+    d3.select('#number-' + type + '-' + increment + '-' + firefighterId).text(
       Utils.formatFloat(value, 2)
     );
   };

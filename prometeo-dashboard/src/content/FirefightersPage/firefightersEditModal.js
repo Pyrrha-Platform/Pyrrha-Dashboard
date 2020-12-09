@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -10,9 +10,9 @@ import {
   ModalFooter,
   Button,
   Icon,
-} from "carbon-components-react";
-import { iconEdit, iconEditSolid, iconEditOutline } from "carbon-icons";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconEdit, iconEditSolid, iconEditOutline } from 'carbon-icons';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -39,21 +39,21 @@ const editProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Firefighters",
-    title: "Edit firefighter",
-    iconDescription: "Close",
+    label: 'Firefighters',
+    title: 'Edit firefighter',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Edit firefighter",
+    'aria-label': 'Edit firefighter',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
   }),
   menuItem: () => ({
@@ -63,19 +63,19 @@ const editProps = {
   }),
   editIcon: () => ({
     style: {
-      margin: "5px",
+      margin: '5px',
     },
     icon: iconEdit,
     name: iconEdit,
-    role: "img",
-    fill: "grey",
-    fillRule: "",
-    width: "",
-    height: "",
+    role: 'img',
+    fill: 'grey',
+    fillRule: '',
+    width: '',
+    height: '',
     description:
-      "This is a description of the icon and what it does in context",
-    iconTitle: "",
-    className: "extra-class",
+      'This is a description of the icon and what it does in context',
+    iconTitle: '',
+    className: 'extra-class',
   }),
 };
 
@@ -89,12 +89,12 @@ const handleSubmit = (
   loadFirefighters,
   setOpen
 ) => {
-  console.log("handleSubmit");
-  console.log("id " + id);
-  console.log("code " + code);
-  console.log("first " + first);
-  console.log("last " + last);
-  console.log("email " + email);
+  console.log('handleSubmit');
+  console.log('id ' + id);
+  console.log('code ' + code);
+  console.log('first ' + first);
+  console.log('last ' + last);
+  console.log('email ' + email);
 
   axios
     .put(`/api/v1/firefighters/` + id, {
@@ -149,8 +149,7 @@ class FirefightersEditModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -159,39 +158,37 @@ class FirefightersEditModal extends React.Component {
             row={this.props.row}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...editProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
-                labelText={t("content.firefighters.code") + ":"}
+                labelText={t('content.firefighters.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.first}
                 value={this.state.first}
-                labelText={t("content.firefighters.first") + ":"}
+                labelText={t('content.firefighters.first') + ':'}
                 onChange={(e) => (this.state.first = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.last}
                 value={this.state.last}
-                labelText={t("content.firefighters.last") + ":"}
+                labelText={t('content.firefighters.last') + ':'}
                 onChange={(e) => (this.state.last = e.target.value.trim())}
               />
               <br />
               <TextInput
                 id={this.state.email}
                 value={this.state.email}
-                labelText={t("content.firefighters.email") + ":"}
+                labelText={t('content.firefighters.email') + ':'}
                 onChange={(e) => (this.state.email = e.target.value.trim())}
               />
               <br />

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import ReactDOM from "react-dom";
-import axios from "axios";
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
 // import { settings } from 'carbon-components';
 import {
   TextInput,
@@ -9,10 +9,10 @@ import {
   ModalHeader,
   ModalFooter,
   Button,
-} from "carbon-components-react";
-import { iconAdd, iconAddSolid, iconAddOutline } from "carbon-icons";
-import { Add16 } from "@carbon/icons-react";
-import Context from "../../context/app";
+} from 'carbon-components-react';
+import { iconAdd, iconAddSolid, iconAddOutline } from 'carbon-icons';
+import { Add16 } from '@carbon/icons-react';
+import Context from '../../context/app';
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -23,7 +23,7 @@ const ModalStateManager = ({
   const { t } = useContext(Context);
   return (
     <>
-      {!ModalContent || typeof document === "undefined"
+      {!ModalContent || typeof document === 'undefined'
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
@@ -40,21 +40,21 @@ const addProps = {
   composedModal: ({ titleOnly } = {}) => ({
     open: true,
     danger: false,
-    selectorPrimaryFocus: "[data-modal-primary-focus]",
+    selectorPrimaryFocus: '[data-modal-primary-focus]',
   }),
   modalHeader: ({ titleOnly } = {}) => ({
-    label: "Firefighters",
-    title: "Add firefighter",
-    iconDescription: "Close",
+    label: 'Firefighters',
+    title: 'Add firefighter',
+    iconDescription: 'Close',
   }),
   modalBody: () => ({
     hasScrollingContent: false,
-    "aria-label": "Add firefighter",
+    'aria-label': 'Add firefighter',
   }),
   modalFooter: () => ({
-    primaryButtonText: "Save",
+    primaryButtonText: 'Save',
     primaryButtonDisabled: false,
-    secondaryButtonText: "Cancel",
+    secondaryButtonText: 'Cancel',
     shouldCloseAfterSubmit: true,
     onRequestSubmit: (event) => {
       handleSubmit(event);
@@ -64,11 +64,11 @@ const addProps = {
 
 // On submit we should be passed the values.
 const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
-  console.log("handleSubmit");
-  console.log("code " + code);
-  console.log("first " + first);
-  console.log("last " + last);
-  console.log("email " + email);
+  console.log('handleSubmit');
+  console.log('code ' + code);
+  console.log('first ' + first);
+  console.log('last ' + last);
+  console.log('email ' + email);
 
   axios
     .post(`/api/v1/firefighters`, {
@@ -98,10 +98,10 @@ class FirefightersAddModal extends React.Component {
     this.state = {
       row: props.row,
       loadFirefighters: props.loadFirefighters,
-      code: "",
-      first: "",
-      last: "",
-      email: "",
+      code: '',
+      first: '',
+      last: '',
+      email: '',
       open: false,
     };
     console.log(this.state.row);
@@ -118,12 +118,10 @@ class FirefightersAddModal extends React.Component {
           <Button
             onClick={() => setOpen(true)}
             renderIcon={Add16}
-            iconDescription="Add firefighter"
-          >
+            iconDescription="Add firefighter">
             Add firefighter
           </Button>
-        )}
-      >
+        )}>
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -131,19 +129,17 @@ class FirefightersAddModal extends React.Component {
             t={t}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
+            onClose={() => setOpen(false)}>
             <ModalHeader {...addProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? "Modal content" : undefined}
-            >
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
               <br />
               <TextInput
                 id={this.state.code}
                 value={this.state.code}
                 placeholder="GRAF001"
-                labelText={t("content.firefighters.code") + ":"}
+                labelText={t('content.firefighters.code') + ':'}
                 onChange={(e) => (this.state.code = e.target.value.trim())}
               />
               <br />
@@ -151,7 +147,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.first}
                 value={this.state.first}
                 placeholder="Joan"
-                labelText={t("content.firefighters.first") + ":"}
+                labelText={t('content.firefighters.first') + ':'}
                 onChange={(e) => (this.state.first = e.target.value.trim())}
               />
               <br />
@@ -159,7 +155,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.last}
                 value={this.state.last}
                 placeholder="Herrera"
-                labelText={t("content.firefighters.last") + ":"}
+                labelText={t('content.firefighters.last') + ':'}
                 onChange={(e) => (this.state.last = e.target.value.trim())}
               />
               <br />
@@ -167,7 +163,7 @@ class FirefightersAddModal extends React.Component {
                 id={this.state.email}
                 value={this.state.email}
                 placeholder="graf004@graf.cat"
-                labelText={t("content.firefighters.email") + ":"}
+                labelText={t('content.firefighters.email') + ':'}
                 onChange={(e) => (this.state.email = e.target.value.trim())}
               />
               <br />

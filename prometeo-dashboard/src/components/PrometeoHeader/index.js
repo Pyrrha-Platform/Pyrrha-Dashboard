@@ -1,2 +1,2 @@
-import PrometeoHeader from "./PrometeoHeader";
+import PrometeoHeader from './PrometeoHeader';
 export default PrometeoHeader;

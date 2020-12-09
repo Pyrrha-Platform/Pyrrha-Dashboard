@@ -17,49 +17,49 @@ function arcTween(newAngle) {
   };
 }
 
-var red = "red";
-var yellow = "yellow";
-var green = "green";
-var initialColor = "#ddd";
+var red = 'red';
+var yellow = 'yellow';
+var green = 'green';
+var initialColor = '#ddd';
 
 function renderGauge(parent, firefighterId, type, value, unit) {
   var color = getStatusColor(type, value);
   var svg = d3
     .select(parent)
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
   g = svg
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .append('g')
+    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
   var bg = g
-    .append("path")
+    .append('path')
     .datum({ endAngle: tau })
-    .style("fill", "#ddd")
-    .attr("d", arc);
+    .style('fill', '#ddd')
+    .attr('d', arc);
   var fg = g
-    .append("path")
+    .append('path')
     .datum({ endAngle: 0 * tau })
-    .style("fill", color)
-    .attr("d", arc);
-  var label = g.append("text").attr("dy", "0").attr("x", "0").attr("y", "0");
+    .style('fill', color)
+    .attr('d', arc);
+  var label = g.append('text').attr('dy', '0').attr('x', '0').attr('y', '0');
   var num = label
-    .append("tspan")
-    .attr("class", "label-num")
+    .append('tspan')
+    .attr('class', 'label-num')
     .text(value)
-    .attr("x", "0");
+    .attr('x', '0');
   var unit = label
-    .append("tspan")
-    .attr("class", "label-unit")
+    .append('tspan')
+    .attr('class', 'label-unit')
     .text(unit)
-    .attr("x", "0")
-    .attr("dy", "1.2em");
+    .attr('x', '0')
+    .attr('dy', '1.2em');
   return { fg: fg, num: num };
 }
 
 function getStatusColor(type, value) {
   var color = initialColor;
-  if (type == "CO") {
+  if (type == 'CO') {
     if (value <= 0.81) {
       color = green;
     } else if (value >= 0.99 || value == -1) {
@@ -67,7 +67,7 @@ function getStatusColor(type, value) {
     } else if (value > 0.81 && value < 0.99) {
       color = yellow;
     }
-  } else if (type == "NO2") {
+  } else if (type == 'NO2') {
     if (value <= 0.81) {
       color = green;
     } else if (value >= 0.99 || value == -1) {
@@ -75,7 +75,7 @@ function getStatusColor(type, value) {
     } else if (value > 0.81 && value < 0.99) {
       color = yellow;
     }
-  } else if (type == "Tmp") {
+  } else if (type == 'Tmp') {
     if (value <= 0.25) {
       color = green;
     } else if (value >= 0.35) {
@@ -83,7 +83,7 @@ function getStatusColor(type, value) {
     } else if (value > 0.25 && value < 0.35) {
       color = yellow;
     }
-  } else if (type == "Hum") {
+  } else if (type == 'Hum') {
     if (value <= 0.6) {
       color = green;
     } else if (value >= 0.8) {
@@ -97,12 +97,12 @@ function getStatusColor(type, value) {
 
 function getPercentage(value, type) {
   var number = 0.0;
-  if (type == "Tmp") {
+  if (type == 'Tmp') {
     var upper = 40;
     var lower = 0;
     var range = upper - lower;
     number = value / range;
-  } else if (type == "Hum") {
+  } else if (type == 'Hum') {
     var upper = 100;
     var lower = 0;
     var range = upper - lower;

@@ -1,5 +1,5 @@
-import React from "react";
-import FirefightersTable from "./firefightersTable";
+import React from 'react';
+import FirefightersTable from './firefightersTable';
 
 function FirefightersPage() {
   return <FirefightersTable />;

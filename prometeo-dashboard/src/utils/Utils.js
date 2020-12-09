@@ -1,5 +1,5 @@
-import * as d3 from "d3";
-import Constants from "./Constants";
+import * as d3 from 'd3';
+import Constants from './Constants';
 
 class Utils {
   // Manages transitions of gauge angles
@@ -25,7 +25,7 @@ class Utils {
     if (!isNaN(value)) {
       return +parseFloat(value).toFixed(places);
     }
-    return "-";
+    return '-';
   };
 
   // Get the percentage as a float between 0 and 1 to determine the angle
@@ -33,57 +33,57 @@ class Utils {
     var number = 0.0;
 
     // Carbon monoxide
-    if (type === "CO") {
+    if (type === 'CO') {
       switch (increment) {
-        case "now":
+        case 'now':
           number = value / Constants.CO_RED;
           break;
-        case "10min":
+        case '10min':
           number = value / Constants.CO_10_MN_RED;
           break;
-        case "30min":
+        case '30min':
           number = value / Constants.CO_30_MN_RED;
           break;
-        case "1hr":
+        case '1hr':
           number = value / Constants.CO_1_HR_RED;
           break;
-        case "4hr":
+        case '4hr':
           number = value / Constants.CO_4_HR_RED;
           break;
-        case "8hr":
+        case '8hr':
           number = value / Constants.CO_8_HR_RED;
           break;
       }
 
       // Nitrogen dioxide
-    } else if (type === "NO2") {
+    } else if (type === 'NO2') {
       switch (increment) {
-        case "now":
+        case 'now':
           number = value / Constants.NO2_RED;
           break;
-        case "10min":
+        case '10min':
           number = value / Constants.NO2_10_MN_RED;
           break;
-        case "30min":
+        case '30min':
           number = value / Constants.NO2_30_MN_RED;
           break;
-        case "1hr":
+        case '1hr':
           number = value / Constants.NO2_1_HR_RED;
           break;
-        case "4hr":
+        case '4hr':
           number = value / Constants.NO2_4_HR_RED;
           break;
-        case "8hr":
+        case '8hr':
           number = value / Constants.NO2_8_HR_RED;
           break;
       }
 
       // Temperature
-    } else if (type === "Tmp") {
+    } else if (type === 'Tmp') {
       number = value / Constants.TMP_MAX;
 
       // Humidity
-    } else if (type === "Hum") {
+    } else if (type === 'Hum') {
       number = value / Constants.HUM_MAX;
     }
 
@@ -112,47 +112,47 @@ class Utils {
     var limits = [0, 0];
 
     // Carbon monoxide
-    if (type === "CO") {
+    if (type === 'CO') {
       switch (increment) {
-        case "now":
+        case 'now':
           limits = [Constants.CO_YELLOW, Constants.CO_RED];
           break;
-        case "10min":
+        case '10min':
           limits = [Constants.CO_10_MN_YELLOW, Constants.CO_10_MN_RED];
           break;
-        case "30min":
+        case '30min':
           limits = [Constants.CO_30_MN_YELLOW, Constants.CO_30_MN_RED];
           break;
-        case "1hr":
+        case '1hr':
           limits = [Constants.CO_1_HR_YELLOW, Constants.CO_1_HR_RED];
           break;
-        case "4hr":
+        case '4hr':
           limits = [Constants.CO_4_HR_YELLOW, Constants.CO_4_HR_RED];
           break;
-        case "8hr":
+        case '8hr':
           limits = [Constants.CO_8_HR_YELLOW, Constants.CO_8_HR_RED];
           break;
       }
 
       // Nitrogen dioxide
-    } else if (type === "NO2") {
+    } else if (type === 'NO2') {
       switch (increment) {
-        case "now":
+        case 'now':
           limits = [Constants.NO2_YELLOW, Constants.NO2_RED];
           break;
-        case "10min":
+        case '10min':
           limits = [Constants.NO2_10_MN_YELLOW, Constants.NO2_10_MN_RED];
           break;
-        case "30min":
+        case '30min':
           limits = [Constants.NO2_30_MN_YELLOW, Constants.NO2_30_MN_RED];
           break;
-        case "1hr":
+        case '1hr':
           limits = [Constants.NO2_1_HR_YELLOW, Constants.NO2_1_HR_RED];
           break;
-        case "4hr":
+        case '4hr':
           limits = [Constants.NO2_4_HR_YELLOW, Constants.NO2_4_HR_RED];
           break;
-        case "8hr":
+        case '8hr':
           limits = [Constants.NO2_8_HR_YELLOW, Constants.NO2_8_HR_RED];
           break;
       }
@@ -176,8 +176,8 @@ class Utils {
     */
 
     // Carbon monoxide
-    if (type === "CO") {
-      if (increment === "now") {
+    if (type === 'CO') {
+      if (increment === 'now') {
         if (value <= Constants.CO_YELLOW) {
           color = Constants.GREEN;
         } else if (value >= Constants.CO_RED || value === Constants.CHERNOBYL) {
@@ -185,7 +185,7 @@ class Utils {
         } else if (value > Constants.CO_YELLOW && value < Constants.CO_RED) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "10min") {
+      } else if (increment === '10min') {
         if (value <= Constants.CO_10_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -199,7 +199,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "30min") {
+      } else if (increment === '30min') {
         if (value <= Constants.CO_30_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -213,7 +213,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "1hr") {
+      } else if (increment === '1hr') {
         if (value <= Constants.CO_1_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -227,7 +227,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "4hr") {
+      } else if (increment === '4hr') {
         if (value <= Constants.CO_4_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -241,7 +241,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "8hr") {
+      } else if (increment === '8hr') {
         if (value <= Constants.CO_8_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -258,8 +258,8 @@ class Utils {
       }
 
       // Nitrogen dioxide
-    } else if (type === "NO2") {
-      if (increment === "now") {
+    } else if (type === 'NO2') {
+      if (increment === 'now') {
         if (value <= Constants.NO2_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -270,7 +270,7 @@ class Utils {
         } else if (value > Constants.NO2_YELLOW && value < Constants.NO2_RED) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "10min") {
+      } else if (increment === '10min') {
         if (value <= Constants.NO2_10_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -284,7 +284,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "30min") {
+      } else if (increment === '30min') {
         if (value <= Constants.NO2_30_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -298,7 +298,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "1hr") {
+      } else if (increment === '1hr') {
         if (value <= Constants.NO2_1_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -312,7 +312,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "4hr") {
+      } else if (increment === '4hr') {
         if (value <= Constants.NO2_4_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -326,7 +326,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "8hr") {
+      } else if (increment === '8hr') {
         if (value <= Constants.NO2_8_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -343,8 +343,8 @@ class Utils {
       }
 
       // Temperature
-    } else if (type === "Tmp") {
-      if (increment === "now") {
+    } else if (type === 'Tmp') {
+      if (increment === 'now') {
         if (value <= Constants.TMP_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -355,7 +355,7 @@ class Utils {
         } else if (value > Constants.TMP_YELLOW && value < Constants.TMP_RED) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "10min") {
+      } else if (increment === '10min') {
         if (value <= Constants.TMP_10_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -369,7 +369,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "30min") {
+      } else if (increment === '30min') {
         if (value <= Constants.TMP_30_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -383,7 +383,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "1hr") {
+      } else if (increment === '1hr') {
         if (value <= Constants.TMP_1_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -397,7 +397,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "4hr") {
+      } else if (increment === '4hr') {
         if (value <= Constants.TMP_4_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -411,7 +411,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "8hr") {
+      } else if (increment === '8hr') {
         if (value <= Constants.TMP_8_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -428,8 +428,8 @@ class Utils {
       }
 
       // Humidity
-    } else if (type === "Hum") {
-      if (increment === "now") {
+    } else if (type === 'Hum') {
+      if (increment === 'now') {
         if (value <= Constants.HUM_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -440,7 +440,7 @@ class Utils {
         } else if (value > Constants.HUM_YELLOW && value < Constants.HUM_RED) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "10min") {
+      } else if (increment === '10min') {
         if (value <= Constants.HUM_10_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -454,7 +454,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "30min") {
+      } else if (increment === '30min') {
         if (value <= Constants.HUM_30_MN_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -468,7 +468,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "1hr") {
+      } else if (increment === '1hr') {
         if (value <= Constants.HUM_1_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -482,7 +482,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "4hr") {
+      } else if (increment === '4hr') {
         if (value <= Constants.HUM_4_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (
@@ -496,7 +496,7 @@ class Utils {
         ) {
           color = Constants.YELLOW;
         }
-      } else if (increment === "8hr") {
+      } else if (increment === '8hr') {
         if (value <= Constants.HUM_8_HR_YELLOW) {
           color = Constants.GREEN;
         } else if (

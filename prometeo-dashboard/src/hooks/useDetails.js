@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import Utils from "../utils/Utils";
+import React, { useState, useEffect, useRef } from 'react';
+import Utils from '../utils/Utils';
 
 const client = async (url, options) => {
   const response = await fetch(url, options);
@@ -32,23 +32,23 @@ const fetchChartDetails = async (firefighterId, increment, type) => {
 };
 
 const updateDetails = (details, message) => {
-  console.log("details", details);
+  console.log('details', details);
   let newDetails = JSON.parse(JSON.stringify(details));
-  console.log("newDetails", newDetails);
+  console.log('newDetails', newDetails);
 
   let newMessage = JSON.parse(message);
 
   console.log(typeof newMessage, newMessage);
-  if (typeof newMessage === "object") {
+  if (typeof newMessage === 'object') {
     if (newMessage instanceof Array) {
       // For each item in the newDetails.current array, check to see if
       // there's a replacement in the newMessage array, then replace
-      console.log("array", newMessage);
+      console.log('array', newMessage);
       newDetails.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
           if (oldReading.firefighterId == newReading.firefighterId) {
             console.log(
-              "Replacing an old reading with a new one in the array",
+              'Replacing an old reading with a new one in the array',
               newMessage
             );
             newDetails.current = Utils.arrayRemove(
@@ -62,12 +62,12 @@ const updateDetails = (details, message) => {
     } else {
       // It's a single firefighterupdate, replace the
       // latest reading for the firefighter, or add it
-      console.log("object", newMessage);
+      console.log('object', newMessage);
       let matchedOldReading = false;
       newDetails.current.forEach((oldReading) => {
         if (oldReading.firefighterId == newMessage.firefighterId) {
           console.log(
-            "Replacing a single old reading with a new one",
+            'Replacing a single old reading with a new one',
             newMessage
           );
           newDetails.current = Utils.arrayRemove(
@@ -79,7 +79,7 @@ const updateDetails = (details, message) => {
         }
       });
       if (!matchedOldReading) {
-        console.log("Adding a new reading", newMessage);
+        console.log('Adding a new reading', newMessage);
         newDetails.current.push(newMessage);
       }
       console.log(newDetails);
@@ -94,11 +94,11 @@ const useDetails = (firefighterId, inc, ty) => {
   const [details, setDetails] = useState([]);
   const [chart, setChart] = useState([]);
   const [message, setMessage] = useState([]);
-  const [increment, setIncrement] = useState(inc !== undefined ? inc : "all");
-  const [type, setType] = useState(ty !== undefined ? ty : "CO");
-  const [loading, setLoading] = useState("Loading from database...");
+  const [increment, setIncrement] = useState(inc !== undefined ? inc : 'all');
+  const [type, setType] = useState(ty !== undefined ? ty : 'CO');
+  const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket("ws://localhost:8010"));
+  const socket = useRef(new WebSocket('ws://localhost:8010'));
   const detailsRef = useRef([]);
   detailsRef.current = details;
 
@@ -117,8 +117,8 @@ const useDetails = (firefighterId, inc, ty) => {
   useEffect(() => {
     fetchDetails(firefighterId, increment, type).then((details) => {
       setDetails(details);
-      console.log("Loaded details from database.", details);
-      setLoading("Loaded details from database.");
+      console.log('Loaded details from database.', details);
+      setLoading('Loaded details from database.');
     });
   }, [increment, type]);
 
@@ -126,31 +126,31 @@ const useDetails = (firefighterId, inc, ty) => {
   useEffect(() => {
     fetchChartDetails(firefighterId, increment, type).then((chart) => {
       setChart(chart);
-      console.log("Loaded chart from database.", chart);
-      setLoading("Loaded chart from database.");
+      console.log('Loaded chart from database.', chart);
+      setLoading('Loaded chart from database.');
     });
   }, [increment, type]);
 
   // Updates based on new WebSocket messages
   useEffect(() => {
     socket.current.onmessage = (msg) => {
-      console.log("detailsRef", detailsRef);
-      if (msg.data === "Connection Opened") {
-        setLoading("Connection opened.");
+      console.log('detailsRef', detailsRef);
+      if (msg.data === 'Connection Opened') {
+        setLoading('Connection opened.');
       } else {
-        console.log("Received update.", msg);
-        setLoading("Received update at " + new Date() + ".");
+        console.log('Received update.', msg);
+        setLoading('Received update at ' + new Date() + '.');
         setDetails(updateDetails(detailsRef, msg.data));
       }
-      console.log("details", details);
+      console.log('details', details);
     };
     socket.current.onclose = (msg) => {
-      console.log("Connection closing.", msg);
-      setLoading("Connection closing.");
+      console.log('Connection closing.', msg);
+      setLoading('Connection closing.');
     };
     return () => {
-      console.log("Connection closed.");
-      setLoading("Connection closed.");
+      console.log('Connection closed.');
+      setLoading('Connection closed.');
       socket.current.close();
     };
   }, [message]);

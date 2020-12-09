@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Header,
   HeaderName,
@@ -11,10 +11,10 @@ import {
   Switcher,
   SwitcherItem,
   SkipToContent,
-} from "carbon-components-react/lib/components/UIShell";
-import UserAvatar20 from "@carbon/icons-react/lib/user--avatar/20";
-import Translate20 from "@carbon/icons-react/lib/translate/20";
-import Context from "../../context/app";
+} from 'carbon-components-react/lib/components/UIShell';
+import UserAvatar20 from '@carbon/icons-react/lib/user--avatar/20';
+import Translate20 from '@carbon/icons-react/lib/translate/20';
+import Context from '../../context/app';
 
 function PrometeoHeader(props) {
   const history = props.history;
@@ -35,59 +35,53 @@ function PrometeoHeader(props) {
         to="/"
         prefix="Prometeo"
         onClick={() => {
-          setPage("Dashboard");
-        }}
-      >
+          setPage('Dashboard');
+        }}>
         Platform
       </HeaderName>
-      <HeaderNavigation aria-label={t("components.header.title")}>
+      <HeaderNavigation aria-label={t('components.header.title')}>
         <HeaderMenuItem
           element={Link}
           to="/"
-          isCurrentPage={page === "Dashboard"}
+          isCurrentPage={page === 'Dashboard'}
           onClick={() => {
-            setPage("Dashboard");
-          }}
-        >
-          {t("components.header.dashboard")}
+            setPage('Dashboard');
+          }}>
+          {t('components.header.dashboard')}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
           to="/events"
-          isCurrentPage={page === "Events"}
+          isCurrentPage={page === 'Events'}
           onClick={() => {
-            setPage("Events");
-          }}
-        >
-          {t("components.header.events")}
+            setPage('Events');
+          }}>
+          {t('components.header.events')}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
           to="/devices"
-          isCurrentPage={page === "Devices"}
+          isCurrentPage={page === 'Devices'}
           onClick={() => {
-            setPage("Devices");
-          }}
-        >
-          {t("components.header.devices")}
+            setPage('Devices');
+          }}>
+          {t('components.header.devices')}
         </HeaderMenuItem>
         <HeaderMenuItem
           element={Link}
           to="/firefighters"
-          isCurrentPage={page === "Firefighters"}
+          isCurrentPage={page === 'Firefighters'}
           onClick={() => {
-            setPage("Firefighters");
-          }}
-        >
-          {t("components.header.firefighters")}
+            setPage('Firefighters');
+          }}>
+          {t('components.header.firefighters')}
         </HeaderMenuItem>
       </HeaderNavigation>
       <HeaderGlobalBar>
         <HeaderGlobalAction
           aria-label="Translate"
           onClick={() => setActive(!active)}
-          isActive={active}
-        >
+          isActive={active}>
           <Translate20 />
         </HeaderGlobalAction>
         <HeaderGlobalAction aria-label="User Avatar">
@@ -97,34 +91,31 @@ function PrometeoHeader(props) {
       <HeaderPanel aria-label="Header Panel" expanded={active}>
         <Switcher aria-label="Switcher Container">
           <SwitcherItem
-            aria-label={t("components.header.english")}
-            isSelected={language === "EN"}
+            aria-label={t('components.header.english')}
+            isSelected={language === 'EN'}
             onClick={() => {
-              setLanguage("EN");
+              setLanguage('EN');
               setActive(false);
-            }}
-          >
-            {t("components.header.english")}
+            }}>
+            {t('components.header.english')}
           </SwitcherItem>
           <SwitcherItem
-            aria-label={t("components.header.spanish")}
-            isSelected={language === "ES"}
+            aria-label={t('components.header.spanish')}
+            isSelected={language === 'ES'}
             onClick={() => {
-              setLanguage("ES");
+              setLanguage('ES');
               setActive(false);
-            }}
-          >
-            {t("components.header.spanish")}
+            }}>
+            {t('components.header.spanish')}
           </SwitcherItem>
           <SwitcherItem
-            aria-label={t("components.header.catalan")}
-            isSelected={language === "CA"}
+            aria-label={t('components.header.catalan')}
+            isSelected={language === 'CA'}
             onClick={() => {
-              setLanguage("CA");
+              setLanguage('CA');
               setActive(false);
-            }}
-          >
-            {t("components.header.catalan")}
+            }}>
+            {t('components.header.catalan')}
           </SwitcherItem>
         </Switcher>
       </HeaderPanel>
