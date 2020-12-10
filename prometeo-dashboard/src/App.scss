@@ -5,7 +5,7 @@ $feature-flags: (
 
 @import "@carbon/themes/scss/themes";
 
-$carbon--theme: $carbon--theme--g100;
+$carbon--theme: $carbon--theme--g10;
 @include carbon--theme();
 
 @import "carbon-components/scss/globals/scss/styles.scss";
@@ -28,7 +28,7 @@ $small: 672px;
 @import "./components/Tile/Tile.scss";
 
 body {
-  background-color: #161616;
+  background-color: $ui-background;
 }
 
 .marb-2 {

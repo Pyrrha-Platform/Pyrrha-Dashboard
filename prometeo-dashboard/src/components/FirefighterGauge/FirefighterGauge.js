@@ -66,7 +66,7 @@ function FirefighterGauge({
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
     g.append('path')
       .datum({ endAngle: Constants.TAU })
-      .style('fill', '#ddd')
+      .style('fill', '#e0e0e0')
       .attr('d', Constants.ARC);
     g.append('path')
       .datum({ endAngle: 0 * Constants.TAU })
