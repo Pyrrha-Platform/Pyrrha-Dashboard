@@ -19,9 +19,19 @@
 }
 
 .events-page__subheading {
-  @include carbon--type-style('productive-heading-03');
-  @include carbon--font-weight('semibold');
+  @include carbon--type-style('body-short-02');
+  /*@include carbon--font-weight('semibold');*/
   padding: $spacing-05;
+  padding-top: $spacing-03;
+}
+
+.events-page__p {
+  @include carbon--type-style('body-long-01');
+  margin-top: $spacing-06;
+  margin-bottom: $spacing-08;
+  @include carbon--breakpoint-between((320px + 1), md) {
+    max-width: 75%;
+  }
 }
 
 .events-page__r1 {
@@ -93,7 +103,7 @@
 }
 
 .events-tile {
-  background-color: #f4f4f4;
+  background-color: $ui-01;
   margin-top: 0;
   padding-bottom: 15px;
 }
@@ -107,7 +117,7 @@
 }
 
 .events-gray {
-  background-color: #ddd;
+  /*background-color: #ddd;*/
 }
 
 .label-firefighter {
@@ -132,7 +142,6 @@
 }
 
 .bx--grid {
-  background-color: #fff;
   padding: 15px 15px 15px 15px;
 }
 
