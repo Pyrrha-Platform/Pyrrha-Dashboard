@@ -26,15 +26,15 @@ def internal_server_error(e):
 """
 Handled through a JavaScript API for App ID
 
-@app.route('/api-main/v1/login', methods=['POST'])
+@app.route('/api-auth/v1/login', methods=['POST'])
 def login_user():
     return
 
-@app.route('/api-main/v1/user', methods=['GET'])
+@app.route('/api-auth/v1/user', methods=['GET'])
 def get_user():
     return
 
-@app.route('/api-main/v1/logout', methods=['POST'])
+@app.route('/api-auth/v1/logout', methods=['POST'])
 def logout_user():
     return
 
