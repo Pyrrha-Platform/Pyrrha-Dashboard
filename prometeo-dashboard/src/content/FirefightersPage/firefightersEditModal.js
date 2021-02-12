@@ -97,7 +97,7 @@ const handleSubmit = (
   console.log('email ' + email);
 
   axios
-    .put(`/api/v1/firefighters/` + id, {
+    .put(`/api-main/v1/firefighters/` + id, {
       id: id,
       code: code,
       first: first,

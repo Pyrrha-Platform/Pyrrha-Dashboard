@@ -44,21 +44,26 @@
       "welcome": "Welcome {{name}}!"
     },
     "login": {
-      "title": "Welcome to the Prometeo dashboard",
-      "loginTitle": "Please sign in to continue",
-      "loginPrimary": "Log in",
+      "title": "Log in to",
+      "forgotPassword": "Forgot password?",
+      "continue": "Continue",
+      "rememberMe": "Remember me",
+      "loggingIn": "Logging in",
+      "enterId": "Enter your Prometeo ID",
+      "errors": {
+        "errorHeading": "Error logging in.",
+        "generic": "There was a problem processing that request",
+        "incorrectCreds": "The email or password that you entered is incorrect."
+      },
       "form": {
-        "name": {
-          "label": "Name",
-          "error": "Name must be present"
+        "labels": {
+          "openeewId": "Prometeo ID",
+          "password": "Password"
         },
-        "email": {
-          "label": "Email",
-          "error": "Email must be present"
-        },
-        "password": {
-          "label": "Password",
-          "error": "Password must be present"
+        "errors": {
+          "idRequired": "Please enter your Prometeo ID",
+          "idInvalid": "Prometeo ID must be a valid email",
+          "passwordRequired": "Please enter your password"
         }
       }
     },

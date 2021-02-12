@@ -35,7 +35,7 @@ const NewDevicesTable = ({ deviceId }) => {
 
   const loadDevices = React.useCallback(async () => {
     try {
-      const data = await client(`/api/v1/devices`);
+      const data = await client(`/api-main/v1/devices`);
       console.log(data);
       setDevices(data.devices);
     } catch (e) {

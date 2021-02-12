@@ -1,0 +1,24 @@
+{
+  "user_vars": {
+    "session_secret": "",
+    "openeew_api_key": "",
+    "jwt_secret": ""
+  },
+  "ibm_cloud": {
+    "api_key": ""
+  },
+  "services": {
+    "AppID": {
+      "credentials": {
+        "clientId": "",
+        "tenantId": "",
+        "secret": "",
+        "name": "",
+        "oAuthServerUrl": "",
+        "profilesUrl": "",
+        "discoveryEndpoint": "",
+        "scopes": []
+      }
+    }
+  }
+}

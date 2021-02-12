@@ -1,0 +1,20 @@
+.field {
+  &:not([data-no-margin='true']) {
+    &:not(:first-child) {
+      margin-top: $layout-02;
+    }
+    &:not(:last-child) {
+      margin-bottom: $layout-02;
+    }
+  }
+  &:last-child {
+    margin-bottom: $layout-02;
+  }
+  p {
+    font-size: 0.75rem;
+    color: #b3b3b3;
+  }
+  .field_title {
+    font-weight: 100;
+  }
+}

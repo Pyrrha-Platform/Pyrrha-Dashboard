@@ -70,7 +70,7 @@ const handleSubmit = (code, model, version, loadDevices, setOpen) => {
   console.log('version ' + version);
 
   axios
-    .post(`/api/v1/devices`, {
+    .post(`/api-main/v1/devices`, {
       code: code,
       model: model,
       version: version,

@@ -99,7 +99,7 @@ const handleSubmit = (
   console.log('state ' + state);
 
   axios
-    .put(`/api/v1/events/` + id, {
+    .put(`/api-main/v1/events/` + id, {
       id: id,
       code: code,
       type: type,

@@ -89,7 +89,7 @@ const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
   console.log('version ' + version);
 
   axios
-    .delete(`/api/v1/devices/` + id, {
+    .delete(`/api-main/v1/devices/` + id, {
       id: id,
     })
     .then((res) => {

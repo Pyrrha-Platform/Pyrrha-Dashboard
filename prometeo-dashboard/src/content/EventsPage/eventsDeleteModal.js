@@ -98,7 +98,7 @@ const handleSubmit = (
   console.log('state ' + state);
 
   axios
-    .delete(`/api/v1/events/` + id, {
+    .delete(`/api-main/v1/events/` + id, {
       id: id,
     })
     .then((res) => {

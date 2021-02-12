@@ -4,21 +4,21 @@ class API {
   getFirefighter(id) {
     axios({
       method: 'get',
-      url: '/api/v1/firefighters/' + id,
+      url: '/api-main/v1/firefighters/' + id,
     });
   }
 
   getAllFirefighters() {
     axios({
       method: 'get',
-      url: '/api/v1/firefighters',
+      url: '/api-main/v1/firefighters',
     });
   }
 
   addFirefighter(id, firstName, lastName, email) {
     axios({
       method: 'post',
-      url: '/api/v1/firefighters',
+      url: '/api-main/v1/firefighters',
       data: {
         id: 5,
         first: 'Shedrack',

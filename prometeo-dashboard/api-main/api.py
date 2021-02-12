@@ -23,8 +23,24 @@ def page_not_found(e):
 def internal_server_error(e):
     return "{ 'message': 'Error: Internal server error.' }", 500
 
+"""
+Handled through a JavaScript API for App ID
 
-@app.route('/api/v1/firefighters', methods=['GET', 'POST'])
+@app.route('/api-auth/v1/login', methods=['POST'])
+def login_user():
+    return
+
+@app.route('/api-auth/v1/user', methods=['GET'])
+def get_user():
+    return
+
+@app.route('/api-auth/v1/logout', methods=['POST'])
+def logout_user():
+    return
+
+"""
+
+@app.route('/api-main/v1/firefighters', methods=['GET', 'POST'])
 def firefighters():
 
     if request.method == 'GET':
@@ -69,7 +85,7 @@ def firefighters():
             return resp
 
 
-@app.route('/api/v1/firefighters/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api-main/v1/firefighters/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def firefighter_by_id(id):
 
     if request.method == 'GET':
@@ -129,7 +145,7 @@ def firefighter_by_id(id):
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
 
-@app.route('/api/v1/events', methods=['GET', 'POST'])
+@app.route('/api-main/v1/events', methods=['GET', 'POST'])
 def events():
 
     if request.method == 'GET':
@@ -175,7 +191,7 @@ def events():
             return resp
 
 
-@app.route('/api/v1/events/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api-main/v1/events/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def event_by_id(id):
 
     if request.method == 'GET':
@@ -236,7 +252,7 @@ def event_by_id(id):
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
 
-@app.route('/api/v1/devices', methods=['GET', 'POST'])
+@app.route('/api-main/v1/devices', methods=['GET', 'POST'])
 def devices():
 
     if request.method == 'GET':
@@ -280,7 +296,7 @@ def devices():
             return resp
 
 
-@app.route('/api/v1/devices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api-main/v1/devices/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def device_by_id(id):
 
     if request.method == 'GET':
@@ -339,7 +355,7 @@ def device_by_id(id):
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
 
-@app.route('/api/v1/dashboard-now', methods=['GET'])
+@app.route('/api-main/v1/dashboard-now', methods=['GET'])
 def dashboard_now():
 
     firefighters = dashboard_manager().get_dashboard_now()
@@ -353,7 +369,7 @@ def dashboard_now():
     return resp
 
 
-@app.route('/api/v1/dashboard/<int:firefighter_id>', methods=['GET'])
+@app.route('/api-main/v1/dashboard/<int:firefighter_id>', methods=['GET'])
 def get_dashboard_for(firefighter_id):
 
     firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
@@ -367,7 +383,7 @@ def get_dashboard_for(firefighter_id):
     return resp
 
 
-@app.route('/api/v1/dashboard-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+@app.route('/api-main/v1/dashboard-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_details(firefighter_id, increment='all', type='CO'):
 
     details = dashboard_manager().get_dashboard_details(
@@ -382,7 +398,7 @@ def get_dashboard_details(firefighter_id, increment='all', type='CO'):
     return resp
 
 
-@app.route('/api/v1/dashboard-chart-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+@app.route('/api-main/v1/dashboard-chart-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_chart_details(firefighter_id, increment='all', type='CO'):
 
     chart = dashboard_manager().get_dashboard_chart_details(

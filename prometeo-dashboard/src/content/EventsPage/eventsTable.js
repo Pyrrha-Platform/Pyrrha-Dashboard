@@ -40,7 +40,7 @@ const NewEventsTable = ({ eventId }) => {
 
   const loadEvents = React.useCallback(async () => {
     try {
-      const data = await client(`/api/v1/events`);
+      const data = await client(`/api-main/v1/events`);
       console.log(data);
       setEvents(data.events);
     } catch (e) {

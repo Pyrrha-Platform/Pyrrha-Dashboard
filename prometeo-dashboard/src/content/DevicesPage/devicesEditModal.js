@@ -88,7 +88,7 @@ const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
   console.log('version ' + version);
 
   axios
-    .put(`/api/v1/devices/` + id, {
+    .put(`/api-main/v1/devices/` + id, {
       id: id,
       code: code,
       model: model,
