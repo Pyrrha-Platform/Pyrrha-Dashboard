@@ -98,7 +98,7 @@ const handleSubmit = (
   console.log('email ' + email);
 
   axios
-    .delete(`/api/v1/firefighters/` + id, {
+    .delete(`/api-main/v1/firefighters/` + id, {
       id: id,
     })
     .then((res) => {

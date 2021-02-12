@@ -9,7 +9,7 @@ const client = async (url, options) => {
 
 const fetchDashboard = async () => {
   try {
-    const data = await client(`/api/v1/dashboard-now`);
+    const data = await client(`/api-main/v1/dashboard-now`);
     console.log(data);
     return data.firefighters.sort((a, b) =>
       a.firefighterId > b.firefighterId ? 1 : -1

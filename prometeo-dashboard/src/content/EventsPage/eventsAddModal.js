@@ -80,7 +80,7 @@ const handleSubmit = (
   console.log('state ' + state);
 
   axios
-    .post(`/api/v1/events`, {
+    .post(`/api-main/v1/events`, {
       code: code,
       type: type,
       date: date,

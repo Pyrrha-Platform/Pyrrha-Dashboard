@@ -36,7 +36,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-api": "cd api && ./venv/bin/flask run --no-debugger",
+    "start-content-api": "cd api-main && ./venv/bin/flask run --no-debugger",
+    "start-auth-api": "cd api-auth && node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "ci-check": "yarn format:diff",

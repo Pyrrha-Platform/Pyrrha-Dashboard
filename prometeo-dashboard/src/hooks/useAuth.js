@@ -30,7 +30,7 @@ class Auth {
    */
   login(loginId, password) {
     return new Promise((resolve, reject) => {
-      fetch(`/api/v1/login`, {
+      fetch(`/api-auth/v1/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -63,7 +63,7 @@ class Auth {
    */
   getCurrentUser() {
     return new Promise((resolve, reject) => {
-      fetch(`/api/v1/user`, {
+      fetch(`/api-auth/v1/user`, {
         credentials: 'include',
       })
         .then((response) => response.json())
@@ -81,7 +81,7 @@ class Auth {
    */
   logout() {
     return new Promise((resolve, reject) => {
-      fetch(`/api/v1/logout`, {
+      fetch(`/api-auth/v1/logout`, {
         method: 'POST',
         credentials: 'include',
       })

@@ -71,7 +71,7 @@ const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
   console.log('email ' + email);
 
   axios
-    .post(`/api/v1/firefighters`, {
+    .post(`/api-main/v1/firefighters`, {
       code: code,
       first: first,
       last: last,

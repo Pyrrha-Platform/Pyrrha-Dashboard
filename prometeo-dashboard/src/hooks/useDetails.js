@@ -10,7 +10,7 @@ const client = async (url, options) => {
 const fetchDetails = async (firefighterId, increment, type) => {
   try {
     const data = await client(
-      `/api/v1/dashboard-details/${firefighterId}/${increment}/${type}`
+      `/api-main/v1/dashboard-details/${firefighterId}/${increment}/${type}`
     );
     console.log(data);
     return data.details;
@@ -22,7 +22,7 @@ const fetchDetails = async (firefighterId, increment, type) => {
 const fetchChartDetails = async (firefighterId, increment, type) => {
   try {
     const data = await client(
-      `/api/v1/dashboard-chart-details/${firefighterId}/${increment}/${type}`
+      `/api-main/v1/dashboard-chart-details/${firefighterId}/${increment}/${type}`
     );
     console.log(data);
     return data.chart;
