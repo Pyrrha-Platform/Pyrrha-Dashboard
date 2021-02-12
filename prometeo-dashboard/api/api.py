@@ -7,6 +7,7 @@ from .firefighter_manager import firefighter_manager
 from .event_manager import event_manager
 from .device_manager import device_manager
 from .dashboard_manager import dashboard_manager
+from .user_manager import user_manager
 
 logger = logging.getLogger('prometeo')
 logger.setLevel(logging.DEBUG)
@@ -23,6 +24,22 @@ def page_not_found(e):
 def internal_server_error(e):
     return "{ 'message': 'Error: Internal server error.' }", 500
 
+"""
+Handled through a JavaScript API for App ID
+
+@app.route('/api/v1/login', methods=['POST'])
+def login_user():
+    return
+
+@app.route('/api/v1/user', methods=['GET'])
+def get_user():
+    return
+
+@app.route('/api/v1/logout', methods=['POST'])
+def logout_user():
+    return
+    
+"""
 
 @app.route('/api/v1/firefighters', methods=['GET', 'POST'])
 def firefighters():
