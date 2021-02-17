@@ -88,7 +88,7 @@ class AppIdManagement {
         headers: {
           Authorization: `Bearer ${iam.token}`,
         },
-      },
+      }
     );
 
     if (!response.ok) {
@@ -131,7 +131,7 @@ class AppIdManagement {
           // eslint-disable-next-line quote-props
           Authorization: `Bearer ${iam.token}`,
         },
-      },
+      }
     );
 
     if (!response.ok) {

@@ -24,6 +24,7 @@
     "formik": "^2.2.6",
     "framer-motion": "^3.2.2-rc.1",
     "graphql": "14.3.1",
+    "http-proxy-middleware": "^1.0.6",
     "i18next": "^19.8.4",
     "node-sass": "4.13.1",
     "prettier": "^2.2.0",
@@ -36,7 +37,7 @@
   },
   "scripts": {
     "start-ui": "react-scripts start",
-    "start-content-api": "cd api-main && ./venv/bin/flask run --no-debugger",
+    "start-main-api": "cd api-main && ./venv/bin/flask run --no-debugger",
     "start-auth-api": "cd api-auth && node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -53,7 +54,6 @@
       "plugin:react-hooks/recommended"
     ]
   },
-  "proxy": "http://localhost:5000",
   "browserslist": {
     "production": [
       ">0.2%",

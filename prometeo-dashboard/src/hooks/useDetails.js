@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Utils from '../utils/Utils';
+import Constants from '../utils/Constants';
 
 const client = async (url, options) => {
   const response = await fetch(url, options);
@@ -98,7 +99,7 @@ const useDetails = (firefighterId, inc, ty) => {
   const [type, setType] = useState(ty !== undefined ? ty : 'CO');
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket('ws://localhost:8010'));
+  const socket = useRef(new WebSocket(Constants.WEBSOCKET_URL));
   const detailsRef = useRef([]);
   detailsRef.current = details;
 

@@ -10,7 +10,7 @@ if (process.env.VCAP_APPLICATION) {
 
 if (!secret) {
   throw new Error(
-    'No JWT secret found. If this is a dev environment, add required secrets to a copy of vcap-local.template.json named vcap-local.json.',
+    'No JWT secret found. If this is a dev environment, add required secrets to a copy of vcap-local.template.json named vcap-local.json.'
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Utils from '../utils/Utils';
+import Constants from '../utils/Constants';
 
 const client = async (url, options) => {
   const response = await fetch(url, options);
@@ -83,7 +84,7 @@ const useDashboard = () => {
   const [message, setMessage] = useState([]);
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket('ws://localhost:8010'));
+  const socket = useRef(new WebSocket(Constants.WEBSOCKET_URL));
   const dashboardRef = useRef([]);
   dashboardRef.current = dashboard;
 

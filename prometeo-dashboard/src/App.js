@@ -1,6 +1,6 @@
 import React from 'react';
 import AppContext, { useAppContext } from './context/app';
-import Router from './Router'
+import Router from './Router';
 import './App.scss';
 
 function App() {

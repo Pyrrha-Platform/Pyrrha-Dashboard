@@ -34,7 +34,7 @@ server.express.use(bearerToken());
 server.express.use(
   bodyParser.urlencoded({
     extended: true,
-  }),
+  })
 );
 server.express.use(bodyParser.json());
 
@@ -52,7 +52,7 @@ server.express.use(
     secret,
     resave: false,
     saveUninitialized: false,
-  }),
+  })
 );
 
 server.express.use(passportClient.initPassport());
@@ -61,7 +61,7 @@ passportClient.connectStrategy();
 
 let allowedOrigin = null;
 if (process.env.VCAP_APPLICATION) {
-  allowedOrigin = 'https://openeew-dashboard.mybluemix.net';
+  allowedOrigin = 'https://prometeo-dashboard.mybluemix.net';
 } else {
   allowedOrigin = 'http://localhost:3000';
 }
@@ -72,7 +72,7 @@ server.express.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
+    'Origin, X-Requested-With, Content-Type, Accept'
   );
   next();
 });
