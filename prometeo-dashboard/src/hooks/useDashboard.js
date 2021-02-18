@@ -84,7 +84,6 @@ const useDashboard = () => {
   const [message, setMessage] = useState([]);
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket(Constants.WEBSOCKET_URL));
   const dashboardRef = useRef([]);
   dashboardRef.current = dashboard;
 
@@ -99,7 +98,8 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
-    socket.current.onmessage = (msg) => {
+    const socket = new WebSocket(Constants.WEBSOCKET_URL);
+    socket.onmessage = (msg) => {
       console.log('dashboardRef', dashboardRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
@@ -110,14 +110,14 @@ const useDashboard = () => {
       }
       console.log('dashboard', dashboard);
     };
-    socket.current.onclose = (msg) => {
+    socket.onclose = (msg) => {
       console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.current.close();
+      socket.close();
     };
   }, [message]);
 

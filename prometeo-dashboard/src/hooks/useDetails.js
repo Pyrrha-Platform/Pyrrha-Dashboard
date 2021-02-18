@@ -99,7 +99,6 @@ const useDetails = (firefighterId, inc, ty) => {
   const [type, setType] = useState(ty !== undefined ? ty : 'CO');
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket(Constants.WEBSOCKET_URL));
   const detailsRef = useRef([]);
   detailsRef.current = details;
 
@@ -134,7 +133,8 @@ const useDetails = (firefighterId, inc, ty) => {
 
   // Updates based on new WebSocket messages
   useEffect(() => {
-    socket.current.onmessage = (msg) => {
+    const socket = new WebSocket(Constants.WEBSOCKET_URL);
+    socket.onmessage = (msg) => {
       console.log('detailsRef', detailsRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
@@ -145,14 +145,14 @@ const useDetails = (firefighterId, inc, ty) => {
       }
       console.log('details', details);
     };
-    socket.current.onclose = (msg) => {
+    socket.onclose = (msg) => {
       console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.current.close();
+      socket.close();
     };
   }, [message]);
 
