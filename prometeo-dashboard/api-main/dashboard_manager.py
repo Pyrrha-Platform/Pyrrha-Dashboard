@@ -34,9 +34,12 @@ class dashboard_manager(object):
             print("get_dashboard - after cursor")
 
             print("get_dashboard - llamada a sql")
+
+            # firefighter_id is actually what the firefighter_code in the firefighters table
             cursor.execute(
                 'SELECT * FROM firefighter_sensor_log WHERE firefighter_id = ? ORDER BY device_timestamp DESC LIMIT 1', (firefighter_id,))
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
+            
             print("get_dashboard - sp_select_all_devices")
             data = cursor.fetchall()
             print("get_dashboard - fetchall")
@@ -92,10 +95,11 @@ class dashboard_manager(object):
             print("get_dashboard_now - before cursor")
             cursor = conn.cursor()
 
+            # firefighter_id is actually what the firefighter_code in the firefighters table
             print("get_dashboard_now - llamada a sql")
             sql = """
                 SELECT 
-                    f.firefighter_id,
+                    f.firefighter_code,
                     name,
                     surname,
                     email,
@@ -120,7 +124,8 @@ class dashboard_manager(object):
                         GROUP BY firefighter_id) fsl2 ON fsl2.firefighter_id = fsl1.firefighter_id
                             AND fsl1.timestamp_mins = fsl2.reading
                     ORDER BY reading DESC
-                ) fsl on fsl.firefighter_id = f.firefighter_id
+                ) fsl ON fsl.firefighter_id = f.firefighter_code
+                WHERE deleted_at IS NULL 
             """
 
             print("get_dashboard_now - get latest reading for each firefighters")
@@ -134,17 +139,17 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     firefighters.append({
-                        'firefighterId': i[0],
-                        'firefighterFirst': i[1],
-                        'firefighterLast': i[2],
-                        'firefighterCode': i[2],
-                        'firefighterEmail': i[3],
-                        'deviceId': i[4],
+                        'firefighter_id': i[0],
+                        'firefighter_first': i[1],
+                        'firefighter_last': i[2],
+                        'firefighter_code': i[2],
+                        'firefighter_email': i[3],
+                        'device_id': i[4],
                         'temperature': i[5],
                         'humidity': i[6],
-                        'carbonMonoxide': i[7],
-                        'nitrogenDioxide': i[8],
-                        'timestampMins': i[9],
+                        'carbon_monoxide': i[7],
+                        'nitrogen_dioxide': i[8],
+                        'timestamp_mins': i[9],
                     })
 
             else:
@@ -189,7 +194,7 @@ class dashboard_manager(object):
                 WHERE
                     fsa.firefighter_id = %s 
                 AND
-                    fsa.firefighter_id = f.firefighter_id
+                    fsa.firefighter_id = f.firefighter_code
                 ORDER BY device_timestamp DESC
                 LIMIT 1;
             """
@@ -205,38 +210,38 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     details.append({
-                        'firefighterId': i[64],
-                        'firefighterFirst': i[65],
-                        'firefighterLast': i[66],
-                        'firefighterCode': i[67],
-                        'firefighterEmail': i[68],
-                        'deviceId': i[2],
+                        'firefighter_id': i[65],
+                        'firefighter_first': i[66],
+                        'firefighter_last': i[67],
+                        'firefighter_code': i[65],
+                        'firefighter_email': i[68],
+                        'device_id': i[2],
                         'temperature': i[4],
                         'humidity': i[5],
-                        'carbonMonoxide': i[6],
-                        'nitrogenDioxide': i[7],
-                        'timestampMins': i[0],
+                        'carbon_monoxide': i[6],
+                        'nitrogen_dioxide': i[7],
+                        'timestamp_mins': i[0],
                         'deviceTimestamp': i[11],
-                        'carbonMonoxideTwa10min': "{:.2f}".format(i[14]),
-                        'carbonMonoxideTwa30min': "{:.2f}".format(i[15]),
-                        'carbonMonoxideTwa60min': "{:.2f}".format(i[16]),
-                        'carbonMonoxideTwa240min': "{:.2f}".format(i[17]),
-                        'carbonMonoxideTwa480min': "{:.2f}".format(i[18]),
-                        'carbonMonoxideGauge10min': "{:.2f}".format(i[19]),
-                        'carbonMonoxideGauge30min': "{:.2f}".format(i[20]),
-                        'carbonMonoxideGauge60min': "{:.2f}".format(i[21]),
-                        'carbonMonoxideGauge240min': "{:.2f}".format(i[22]),
-                        'carbonMonoxideGauge480min': "{:.2f}".format(i[23]),
-                        'nitrogenDioxideTwa10min': "{:.2f}".format(i[24]),
-                        'nitrogenDioxideTwa30min': "{:.2f}".format(i[25]),
-                        'nitrogenDioxideTwa60min': "{:.2f}".format(i[26]),
-                        'nitrogenDioxideTwa240min': "{:.2f}".format(i[27]),
-                        'nitrogenDioxideTwa480min': "{:.2f}".format(i[28]),
-                        'nitrogenDioxideGauge10min': "{:.2f}".format(i[29]),
-                        'nitrogenDioxideGauge30min': "{:.2f}".format(i[30]),
-                        'nitrogenDioxideGauge60min': "{:.2f}".format(i[31]),
-                        'nitrogenDioxideGauge240min': "{:.2f}".format(i[32]),
-                        'nitrogenDioxideGauge480min': "{:.2f}".format(i[33])
+                        'carbon_monoxide_twa_10min': "{:.2f}".format(i[14]),
+                        'carbon_monoxide_twa_30min': "{:.2f}".format(i[15]),
+                        'carbon_monoxide_twa_60min': "{:.2f}".format(i[16]),
+                        'carbon_monoxide_twa_240min': "{:.2f}".format(i[17]),
+                        'carbon_monoxide_twa_480min': "{:.2f}".format(i[18]),
+                        'carbon_monoxideGauge10min': "{:.2f}".format(i[19]),
+                        'carbon_monoxideGauge30min': "{:.2f}".format(i[20]),
+                        'carbon_monoxideGauge60min': "{:.2f}".format(i[21]),
+                        'carbon_monoxideGauge240min': "{:.2f}".format(i[22]),
+                        'carbon_monoxideGauge480min': "{:.2f}".format(i[23]),
+                        'nitrogen_dioxide_twa_10min': "{:.2f}".format(i[24]),
+                        'nitrogen_dioxide_twa_30min': "{:.2f}".format(i[25]),
+                        'nitrogen_dioxide_twa_60min': "{:.2f}".format(i[26]),
+                        'nitrogen_dioxide_twa_240min': "{:.2f}".format(i[27]),
+                        'nitrogen_dioxide_twa_480min': "{:.2f}".format(i[28]),
+                        'nitrogen_dioxideGauge10min': "{:.2f}".format(i[29]),
+                        'nitrogen_dioxideGauge30min': "{:.2f}".format(i[30]),
+                        'nitrogen_dioxideGauge60min': "{:.2f}".format(i[31]),
+                        'nitrogen_dioxideGauge240min': "{:.2f}".format(i[32]),
+                        'nitrogen_dioxideGauge480min': "{:.2f}".format(i[33])
                     })
 
             else:
@@ -321,7 +326,7 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     chart.append({
-                        'timestampMins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
                         'deviceTimestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S"),
                         'value': "{:.2f}".format(i[2])
                     })

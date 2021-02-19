@@ -1,6 +1,11 @@
 import * as d3 from 'd3';
 
 class Constants {
+
+  // Should be in an .env file
+  static WEBSOCKET_URL = 'ws://localhost:8010';
+  // static WEBSOCKET_URL = 'ws://:32586';
+
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = '#da1e28';
   static YELLOW = '#f1c21b';

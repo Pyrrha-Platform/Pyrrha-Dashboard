@@ -22,7 +22,7 @@ var yellow = 'yellow';
 var green = 'green';
 var initialColor = '#ddd';
 
-function renderGauge(parent, firefighterId, type, value, unit) {
+function renderGauge(parent, firefighter_id, type, value, unit) {
   var color = getStatusColor(type, value);
   var svg = d3
     .select(parent)

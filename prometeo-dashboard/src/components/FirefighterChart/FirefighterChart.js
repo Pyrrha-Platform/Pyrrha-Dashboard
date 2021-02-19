@@ -5,7 +5,7 @@ import Utils from '../../utils/Utils';
 import Context from '../../context/app';
 
 function FirefighterChart({
-  firefighterId,
+  firefighter_id,
   type,
   data,
   unit,
@@ -29,10 +29,10 @@ function FirefighterChart({
 
   // On first load
   useEffect(() => {
-    draw(firefighterId, type, data, unit);
+    draw(firefighter_id, type, data, unit);
   }, [data]);
 
-  const draw = (firefighterId, type, data, unit) => {
+  const draw = (firefighter_id, type, data, unit) => {
     // console.log("draw()");
     d3.select(ref.current).selectAll('*').remove();
 

@@ -369,7 +369,7 @@ def dashboard_now():
     return resp
 
 
-@app.route('/api-main/v1/dashboard/<int:firefighter_id>', methods=['GET'])
+@app.route('/api-main/v1/dashboard/<string:firefighter_id>', methods=['GET'])
 def get_dashboard_for(firefighter_id):
 
     firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
@@ -383,7 +383,7 @@ def get_dashboard_for(firefighter_id):
     return resp
 
 
-@app.route('/api-main/v1/dashboard-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+@app.route('/api-main/v1/dashboard-details/<string:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_details(firefighter_id, increment='all', type='CO'):
 
     details = dashboard_manager().get_dashboard_details(
@@ -398,7 +398,7 @@ def get_dashboard_details(firefighter_id, increment='all', type='CO'):
     return resp
 
 
-@app.route('/api-main/v1/dashboard-chart-details/<int:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
+@app.route('/api-main/v1/dashboard-chart-details/<string:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_chart_details(firefighter_id, increment='all', type='CO'):
 
     chart = dashboard_manager().get_dashboard_chart_details(

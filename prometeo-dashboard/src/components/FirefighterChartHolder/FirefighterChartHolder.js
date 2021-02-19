@@ -2,7 +2,7 @@ import React from 'react';
 import FirefighterChart from '../FirefighterChart';
 
 function FirefighterChartHolder({
-  firefighterId,
+  firefighter_id,
   type,
   data,
   unit,
@@ -21,7 +21,7 @@ function FirefighterChartHolder({
       <div className="bx--row details-tile">
         <div className="bx--col bx--col-md-16">
           <FirefighterChart
-            firefighterId={firefighterId}
+            firefighter_id={firefighter_id}
             type={type}
             data={data}
             unit={unit}

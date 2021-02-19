@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Utils from '../utils/Utils';
+import Constants from '../utils/Constants';
 
 const client = async (url, options) => {
   const response = await fetch(url, options);
@@ -7,10 +8,10 @@ const client = async (url, options) => {
   return data;
 };
 
-const fetchDetails = async (firefighterId, increment, type) => {
+const fetchDetails = async (firefighter_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-details/${firefighterId}/${increment}/${type}`
+      `/api-main/v1/dashboard-details/${firefighter_id}/${increment}/${type}`
     );
     console.log(data);
     return data.details;
@@ -19,10 +20,10 @@ const fetchDetails = async (firefighterId, increment, type) => {
   }
 };
 
-const fetchChartDetails = async (firefighterId, increment, type) => {
+const fetchChartDetails = async (firefighter_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-chart-details/${firefighterId}/${increment}/${type}`
+      `/api-main/v1/dashboard-chart-details/${firefighter_id}/${increment}/${type}`
     );
     console.log(data);
     return data.chart;
@@ -46,7 +47,7 @@ const updateDetails = (details, message) => {
       console.log('array', newMessage);
       newDetails.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
-          if (oldReading.firefighterId == newReading.firefighterId) {
+          if (oldReading.firefighter_id == newReading.firefighter_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
               newMessage
@@ -65,7 +66,7 @@ const updateDetails = (details, message) => {
       console.log('object', newMessage);
       let matchedOldReading = false;
       newDetails.current.forEach((oldReading) => {
-        if (oldReading.firefighterId == newMessage.firefighterId) {
+        if (oldReading.firefighter_id == newMessage.firefighter_id) {
           console.log(
             'Replacing a single old reading with a new one',
             newMessage
@@ -86,11 +87,11 @@ const updateDetails = (details, message) => {
     }
   }
   return newDetails.current.sort((a, b) =>
-    a.firefighterId > b.firefighterId ? 1 : -1
+    a.firefighter_id > b.firefighter_id ? 1 : -1
   );
 };
 
-const useDetails = (firefighterId, inc, ty) => {
+const useDetails = (firefighter_id, inc, ty) => {
   const [details, setDetails] = useState([]);
   const [chart, setChart] = useState([]);
   const [message, setMessage] = useState([]);
@@ -98,7 +99,6 @@ const useDetails = (firefighterId, inc, ty) => {
   const [type, setType] = useState(ty !== undefined ? ty : 'CO');
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket('ws://localhost:8010'));
   const detailsRef = useRef([]);
   detailsRef.current = details;
 
@@ -115,7 +115,7 @@ const useDetails = (firefighterId, inc, ty) => {
 
   // Initial load of latest for firefighter or change in increment
   useEffect(() => {
-    fetchDetails(firefighterId, increment, type).then((details) => {
+    fetchDetails(firefighter_id, increment, type).then((details) => {
       setDetails(details);
       console.log('Loaded details from database.', details);
       setLoading('Loaded details from database.');
@@ -124,7 +124,7 @@ const useDetails = (firefighterId, inc, ty) => {
 
   // Initial load of latest for firefighter or change in increment
   useEffect(() => {
-    fetchChartDetails(firefighterId, increment, type).then((chart) => {
+    fetchChartDetails(firefighter_id, increment, type).then((chart) => {
       setChart(chart);
       console.log('Loaded chart from database.', chart);
       setLoading('Loaded chart from database.');
@@ -133,7 +133,8 @@ const useDetails = (firefighterId, inc, ty) => {
 
   // Updates based on new WebSocket messages
   useEffect(() => {
-    socket.current.onmessage = (msg) => {
+    const socket = new WebSocket(Constants.WEBSOCKET_URL);
+    socket.onmessage = (msg) => {
       console.log('detailsRef', detailsRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
@@ -144,14 +145,14 @@ const useDetails = (firefighterId, inc, ty) => {
       }
       console.log('details', details);
     };
-    socket.current.onclose = (msg) => {
+    socket.onclose = (msg) => {
       console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.current.close();
+      socket.close();
     };
   }, [message]);
 

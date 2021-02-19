@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Utils from '../utils/Utils';
+import Constants from '../utils/Constants';
 
 const client = async (url, options) => {
   const response = await fetch(url, options);
@@ -12,7 +13,7 @@ const fetchDashboard = async () => {
     const data = await client(`/api-main/v1/dashboard-now`);
     console.log(data);
     return data.firefighters.sort((a, b) =>
-      a.firefighterId > b.firefighterId ? 1 : -1
+      a.firefighter_id > b.firefighter_id ? 1 : -1
     );
   } catch (e) {
     console.log(e);
@@ -34,7 +35,7 @@ const updateDashboard = (dashboard, message) => {
       console.log('array', newMessage);
       newDashboard.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
-          if (oldReading.firefighterId == newReading.firefighterId) {
+          if (oldReading.firefighter_id == newReading.firefighter_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
               newMessage
@@ -53,7 +54,7 @@ const updateDashboard = (dashboard, message) => {
       console.log('object', newMessage);
       let matchedOldReading = false;
       newDashboard.current.forEach((oldReading) => {
-        if (oldReading.firefighterId == newMessage.firefighterId) {
+        if (oldReading.firefighter_id == newMessage.firefighter_id) {
           console.log(
             'Replacing a single old reading with a new one',
             newMessage
@@ -74,7 +75,7 @@ const updateDashboard = (dashboard, message) => {
     }
   }
   return newDashboard.current.sort((a, b) =>
-    a.firefighterId > b.firefighterId ? 1 : -1
+    a.firefighter_id > b.firefighter_id ? 1 : -1
   );
 };
 
@@ -83,7 +84,6 @@ const useDashboard = () => {
   const [message, setMessage] = useState([]);
   const [loading, setLoading] = useState('Loading from database...');
 
-  const socket = useRef(new WebSocket('ws://localhost:8010'));
   const dashboardRef = useRef([]);
   dashboardRef.current = dashboard;
 
@@ -98,7 +98,8 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
-    socket.current.onmessage = (msg) => {
+    const socket = new WebSocket(Constants.WEBSOCKET_URL);
+    socket.onmessage = (msg) => {
       console.log('dashboardRef', dashboardRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
@@ -109,14 +110,14 @@ const useDashboard = () => {
       }
       console.log('dashboard', dashboard);
     };
-    socket.current.onclose = (msg) => {
+    socket.onclose = (msg) => {
       console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.current.close();
+      socket.close();
     };
   }, [message]);
 
