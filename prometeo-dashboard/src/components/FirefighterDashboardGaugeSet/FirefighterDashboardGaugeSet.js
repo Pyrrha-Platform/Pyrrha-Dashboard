@@ -28,7 +28,7 @@ function FirefighterDashboardGaugeSet({
             <Link
               to={'/details/' + firefighterId}
               className="bx--link label-firefighter">
-              {firefighterCode} - {firefighterFirst} {firefighterLast}
+              <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
               <br />
             </Link>
             {t('content.details.now')}

@@ -83,7 +83,7 @@ function FirefighterDetailsGaugeSet({
           <div className="bx--grid bx--grid--full-width dashboard-content">
             <div className="bx--row dashboard-tile">
               <div className="bx--col-md-8 label-firefighter">
-                {firefighterCode} - {firefighterFirst} {firefighterLast}
+                <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                 <br />
                 {t('content.details.now')}
               </div>
@@ -174,7 +174,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {firefighterCode} - {firefighterFirst} {firefighterLast}
+                  <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                   <br />
                   {t('content.details.10min')}
                 </div>
@@ -280,7 +280,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {firefighterCode} - {firefighterFirst} {firefighterLast}
+                  <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                   <br />
                   {t('content.details.30min')}
                 </div>
@@ -386,7 +386,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {firefighterCode} - {firefighterFirst} {firefighterLast}
+                  <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                   <br />
                   {t('content.details.1hr')}
                 </div>
@@ -488,7 +488,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {firefighterCode} - {firefighterFirst} {firefighterLast}
+                  <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                   <br />
                   {t('content.details.4hr')}
                 </div>
@@ -590,7 +590,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {firefighterCode} - {firefighterFirst} {firefighterLast}
+                  <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
                   <br />
                   {t('content.details.8hr')}
                 </div>

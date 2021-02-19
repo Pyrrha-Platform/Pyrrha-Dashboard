@@ -66,8 +66,9 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
+            # firefighter_code is actually what we're using as the id from this table
             cursor.execute(
-                'UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_id = ?', (code, first, last, email, id))
+                'UPDATE firefighters SET name = ?, surname = ?, email = ? WHERE firefighter_code = ?', (code, first, last, email, id))
 
             if cursor.rowcount == 1:
                 conn.commit()
@@ -100,8 +101,9 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
+            # firefighter_code is actually what we're using as the id from this table
             cursor.execute(
-                'UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_id =  ?', (id,))
+                'UPDATE firefighters SET deleted_at = NOW() WHERE firefighter_code =  ?', (id,))
 
             if cursor.rowcount == 1:
                 conn.commit()
@@ -140,8 +142,9 @@ class firefighter_manager(object):
 
             data = cursor.fetchone()
 
+            # firefighter_code is actually what we're using as the id from this table
             if len(data) > 0:
-                firefighter = {'id': data[0], 'code': data[1],
+                firefighter = {'id': data[1], 'code': data[1],
                                'first': data[2], 'last': data[3], 'email': data[4]}
             else:
                 return None
@@ -179,8 +182,9 @@ class firefighter_manager(object):
                 self.logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
                     self.logger.info(i)
+                    # firefighter_code is actually what we're using as the id from this table
                     firefighters.append(
-                        {'id': i[0], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]})
+                        {'id': i[1], 'code': i[1], 'first': i[2], 'last': i[3], 'email': i[4]})
             else:
                 self.logger.info("get_all_firefighters - NO HAY INFORMACION")
                 return None

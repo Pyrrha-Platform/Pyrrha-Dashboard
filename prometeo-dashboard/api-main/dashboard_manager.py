@@ -34,9 +34,12 @@ class dashboard_manager(object):
             print("get_dashboard - after cursor")
 
             print("get_dashboard - llamada a sql")
+
+            # firefighter_id is actually what the firefighter_code in the firefighters table
             cursor.execute(
                 'SELECT * FROM firefighter_sensor_log WHERE firefighter_id = ? ORDER BY device_timestamp DESC LIMIT 1', (firefighter_id,))
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
+            
             print("get_dashboard - sp_select_all_devices")
             data = cursor.fetchall()
             print("get_dashboard - fetchall")
@@ -92,10 +95,11 @@ class dashboard_manager(object):
             print("get_dashboard_now - before cursor")
             cursor = conn.cursor()
 
+            # firefighter_id is actually what the firefighter_code in the firefighters table
             print("get_dashboard_now - llamada a sql")
             sql = """
                 SELECT 
-                    f.firefighter_id,
+                    f.firefighter_code,
                     name,
                     surname,
                     email,
@@ -120,7 +124,8 @@ class dashboard_manager(object):
                         GROUP BY firefighter_id) fsl2 ON fsl2.firefighter_id = fsl1.firefighter_id
                             AND fsl1.timestamp_mins = fsl2.reading
                     ORDER BY reading DESC
-                ) fsl on fsl.firefighter_id = f.firefighter_id
+                ) fsl ON fsl.firefighter_id = f.firefighter_code
+                WHERE deleted_at IS NULL 
             """
 
             print("get_dashboard_now - get latest reading for each firefighters")
@@ -189,7 +194,7 @@ class dashboard_manager(object):
                 WHERE
                     fsa.firefighter_id = %s 
                 AND
-                    fsa.firefighter_id = f.firefighter_id
+                    fsa.firefighter_id = f.firefighter_code
                 ORDER BY device_timestamp DESC
                 LIMIT 1;
             """
@@ -205,10 +210,10 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     details.append({
-                        'firefighterId': i[64],
-                        'firefighterFirst': i[65],
-                        'firefighterLast': i[66],
-                        'firefighterCode': i[67],
+                        'firefighterId': i[65],
+                        'firefighterFirst': i[66],
+                        'firefighterLast': i[67],
+                        'firefighterCode': i[65],
                         'firefighterEmail': i[68],
                         'deviceId': i[2],
                         'temperature': i[4],
