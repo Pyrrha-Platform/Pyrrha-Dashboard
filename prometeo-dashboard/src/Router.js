@@ -43,7 +43,7 @@ const Router = () => {
           />
           <LoginPage />
         </Route>
-        <Route path="/details/:firefighterId/:increment/:type">
+        <Route path="/details/:firefighter_id/:increment/:type">
           <PrometeoHeader
             history={history}
             active={active}
@@ -55,7 +55,7 @@ const Router = () => {
           />
           <DetailsPage />
         </Route>
-        <Route path="/details/:firefighterId/:increment">
+        <Route path="/details/:firefighter_id/:increment">
           <PrometeoHeader
             history={history}
             active={active}
@@ -67,7 +67,7 @@ const Router = () => {
           />
           <DetailsPage />
         </Route>
-        <Route path="/details/:firefighterId">
+        <Route path="/details/:firefighter_id">
           <PrometeoHeader
             history={history}
             active={active}

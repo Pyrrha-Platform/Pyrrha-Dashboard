@@ -5,7 +5,7 @@ import Utils from '../../utils/Utils';
 import Context from '../../context/app';
 
 function FirefighterGauge({
-  firefighterId,
+  firefighter_id,
   type,
   value,
   unit,
@@ -17,7 +17,7 @@ function FirefighterGauge({
 
   /*
   console.log("FirefighterGauge");
-  console.log("firefighterId", firefighterId);
+  console.log("firefighter_id", firefighter_id);
   console.log("type", type);
   console.log("value", value);
   console.log("unit", unit);
@@ -36,19 +36,19 @@ function FirefighterGauge({
       .select(ref.current)
       .attr('width', width)
       .attr('height', height);
-    draw(svg, firefighterId, type, value, unit, increment, gauge);
+    draw(svg, firefighter_id, type, value, unit, increment, gauge);
   }, []);
 
   // When data changes
   useEffect(() => {
-    change(firefighterId, type, value, unit, increment, gauge);
+    change(firefighter_id, type, value, unit, increment, gauge);
   }, [value]);
 
   // On first load
-  const draw = (svg, firefighterId, type, value, unit, increment, gauge) => {
+  const draw = (svg, firefighter_id, type, value, unit, increment, gauge) => {
     /*
     console.log("draw()");
-    console.log("firefighterId", firefighterId);
+    console.log("firefighter_id", firefighter_id);
     console.log("type", type);
     console.log("value", value);
     console.log("unit", unit);
@@ -72,7 +72,7 @@ function FirefighterGauge({
       .datum({ endAngle: 0 * Constants.TAU })
       .style('fill', Utils.getStatusColor(type, value, increment, gauge))
       .attr('d', Constants.ARC)
-      .attr('id', 'angle-' + type + '-' + increment + '-' + firefighterId);
+      .attr('id', 'angle-' + type + '-' + increment + '-' + firefighter_id);
 
     const label = g
       .append('text')
@@ -84,7 +84,7 @@ function FirefighterGauge({
       .attr('class', 'label-num')
       .text(Utils.formatFloat(value, 2))
       .attr('x', '0')
-      .attr('id', 'number-' + type + '-' + increment + '-' + firefighterId);
+      .attr('id', 'number-' + type + '-' + increment + '-' + firefighter_id);
     label
       .append('tspan')
       .attr('class', 'label-unit')
@@ -94,10 +94,10 @@ function FirefighterGauge({
   };
 
   // When data changes
-  const change = (firefighterId, type, value, unit, increment, gauge) => {
+  const change = (firefighter_id, type, value, unit, increment, gauge) => {
     /*
     console.log("change()");
-    console.log("firefighterId", firefighterId);
+    console.log("firefighter_id", firefighter_id);
     console.log("type", type);
     console.log("value", value);
     console.log("unit", unit);
@@ -117,12 +117,12 @@ function FirefighterGauge({
     console.log("----");
     */
 
-    d3.select('#angle-' + type + '-' + increment + '-' + firefighterId)
+    d3.select('#angle-' + type + '-' + increment + '-' + firefighter_id)
       .transition()
       .duration(750)
       .style('fill', Utils.getStatusColor(type, value, increment, gauge))
       .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
-    d3.select('#number-' + type + '-' + increment + '-' + firefighterId).text(
+    d3.select('#number-' + type + '-' + increment + '-' + firefighter_id).text(
       Utils.formatFloat(value, 2)
     );
   };

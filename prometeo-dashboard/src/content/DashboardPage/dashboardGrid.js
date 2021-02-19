@@ -29,31 +29,31 @@ const DashboardGrid = () => {
       <div className="bx--row">
         {dashboard.map(
           ({
-            firefighterId,
-            firefighterCode,
-            firefighterFirst,
-            firefighterLast,
-            firefighterEmail,
-            deviceId,
-            timestampMins,
+            firefighter_id,
+            firefighter_code,
+            firefighter_first,
+            firefighter_last,
+            firefighter_email,
+            device_id,
+            timestamp_mins,
             temperature,
             humidity,
-            carbonMonoxide,
-            nitrogenDioxide,
+            carbon_monoxide,
+            nitrogen_dioxide,
             increment,
           }) => (
             <FirefighterDashboardGaugeSet
-              firefighterId={firefighterId}
-              firefighterCode={firefighterCode}
-              firefighterFirst={firefighterFirst}
-              firefighterLast={firefighterLast}
-              firefighterEmail={firefighterEmail}
-              deviceId={deviceId}
-              timestampMins={timestampMins}
+              firefighter_id={firefighter_id}
+              firefighter_code={firefighter_code}
+              firefighter_first={firefighter_first}
+              firefighter_last={firefighter_last}
+              firefighter_email={firefighter_email}
+              device_id={device_id}
+              timestamp_mins={timestamp_mins}
               temperature={temperature}
               humidity={humidity}
-              carbonMonoxide={carbonMonoxide}
-              nitrogenDioxide={nitrogenDioxide}
+              carbon_monoxide={carbon_monoxide}
+              nitrogen_dioxide={nitrogen_dioxide}
               increment={'now'}
             />
           )

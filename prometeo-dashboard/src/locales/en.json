@@ -31,8 +31,8 @@
     "common": {
       "temperature": "Temperature",
       "humidity": "Humidity",
-      "carbonMonoxide": "Carbon monoxide",
-      "nitrogenDioxide": "Nitrogen dioxide",
+      "carbon_monoxide": "Carbon monoxide",
+      "nitrogen_dioxide": "Nitrogen dioxide",
       "formaldehyde": "Formaldehyde",
       "acrolein": "Acrolein",
       "benzene": "Benzene",

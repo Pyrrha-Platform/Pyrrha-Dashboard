@@ -5,17 +5,17 @@ import Context from '../../context/app';
 import Utils from '../../utils/Utils';
 
 function FirefighterDashboardGaugeSet({
-  firefighterId,
-  firefighterCode,
-  firefighterFirst,
-  firefighterLast,
-  firefighterEmail,
-  deviceId,
-  timestampMins,
+  firefighter_id,
+  firefighter_code,
+  firefighter_first,
+  firefighter_last,
+  firefighter_email,
+  device_id,
+  timestamp_mins,
   temperature,
   humidity,
-  carbonMonoxide,
-  nitrogenDioxide,
+  carbon_monoxide,
+  nitrogen_dioxide,
   increment,
 }) {
   const { t } = useContext(Context);
@@ -26,9 +26,9 @@ function FirefighterDashboardGaugeSet({
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
             <Link
-              to={'/details/' + firefighterId}
+              to={'/details/' + firefighter_id}
               className="bx--link label-firefighter">
-              <a title={firefighterCode}>{firefighterFirst} {firefighterLast}</a>
+              <a title={firefighter_code}>{firefighter_first} {firefighter_last}</a>
               <br />
             </Link>
             {t('content.details.now')}
@@ -38,12 +38,12 @@ function FirefighterDashboardGaugeSet({
           <div className="bx--col bx--col-md-2">
             <div>
               <FirefighterGauge
-                firefighterId={firefighterId}
+                firefighter_id={firefighter_id}
                 type={'CO'}
-                value={carbonMonoxide}
+                value={carbon_monoxide}
                 increment={increment}
                 unit={'ppm'}
-                gauge={Utils.getPercentage('CO', carbonMonoxide, increment)}
+                gauge={Utils.getPercentage('CO', carbon_monoxide, increment)}
               />
             </div>
             <div className="label-legend">CO</div>
@@ -51,12 +51,12 @@ function FirefighterDashboardGaugeSet({
           <div className="bx--col bx--col-md-2">
             <div>
               <FirefighterGauge
-                firefighterId={firefighterId}
+                firefighter_id={firefighter_id}
                 type={'NO2'}
-                value={nitrogenDioxide}
+                value={nitrogen_dioxide}
                 increment={increment}
                 unit={'ppm'}
-                gauge={Utils.getPercentage('NO2', nitrogenDioxide, increment)}
+                gauge={Utils.getPercentage('NO2', nitrogen_dioxide, increment)}
               />
             </div>
             <div className="label-legend">
@@ -66,7 +66,7 @@ function FirefighterDashboardGaugeSet({
           <div className="bx--col bx--col-md-2">
             <div>
               <FirefighterGauge
-                firefighterId={firefighterId}
+                firefighter_id={firefighter_id}
                 type={'Tmp'}
                 value={temperature}
                 increment={increment}
@@ -81,7 +81,7 @@ function FirefighterDashboardGaugeSet({
           <div className="bx--col bx--col-md-2">
             <div>
               <FirefighterGauge
-                firefighterId={firefighterId}
+                firefighter_id={firefighter_id}
                 type={'Hum'}
                 value={humidity}
                 increment={increment}

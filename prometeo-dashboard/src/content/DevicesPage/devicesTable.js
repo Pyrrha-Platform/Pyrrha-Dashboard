@@ -24,7 +24,7 @@ const client = async (url, options) => {
 };
 
 // Table and data
-const NewDevicesTable = ({ deviceId }) => {
+const NewDevicesTable = ({ device_id }) => {
   const [devices, setDevices] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
   const { t } = useContext(Context);

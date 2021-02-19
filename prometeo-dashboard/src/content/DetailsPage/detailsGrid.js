@@ -18,11 +18,11 @@ const DetailsGrid = (params) => {
     setIncrement,
     type,
     setType,
-  ] = useDetails(params.firefighterId, params.increment, params.type);
+  ] = useDetails(params.firefighter_id, params.increment, params.type);
   const { t } = useContext(Context);
 
   /*
-  console.log("firefighterId", params.firefighterId);
+  console.log("firefighter_id", params.firefighter_id);
   console.log("increment", increment);
   console.log("type", type);
   */
@@ -71,38 +71,38 @@ const DetailsGrid = (params) => {
 
       {details.map(
         ({
-          firefighterId,
-          firefighterFirst,
-          firefighterLast,
-          firefighterCode,
-          firefighterEmail,
-          deviceId,
+          firefighter_id,
+          firefighter_first,
+          firefighter_last,
+          firefighter_code,
+          firefighter_email,
+          device_id,
           temperature,
           humidity,
-          carbonMonoxide,
-          nitrogenDioxide,
-          timestampMins,
+          carbon_monoxide,
+          nitrogen_dioxide,
+          timestamp_mins,
           deviceTimestamp,
-          carbonMonoxideTwa10min,
-          carbonMonoxideTwa30min,
-          carbonMonoxideTwa60min,
-          carbonMonoxideTwa240min,
-          carbonMonoxideTwa480min,
-          carbonMonoxideGauge10min,
-          carbonMonoxideGauge30min,
-          carbonMonoxideGauge60min,
-          carbonMonoxideGauge240min,
-          carbonMonoxideGauge480min,
-          nitrogenDioxideTwa10min,
-          nitrogenDioxideTwa30min,
-          nitrogenDioxideTwa60min,
-          nitrogenDioxideTwa240min,
-          nitrogenDioxideTwa480min,
-          nitrogenDioxideGauge10min,
-          nitrogenDioxideGauge30min,
-          nitrogenDioxideGauge60min,
-          nitrogenDioxideGauge240min,
-          nitrogenDioxideGauge480min,
+          carbon_monoxide_twa_10min,
+          carbon_monoxide_twa_30min,
+          carbon_monoxide_twa_60min,
+          carbon_monoxide_twa_240min,
+          carbon_monoxide_twa_480min,
+          carbon_monoxideGauge10min,
+          carbon_monoxideGauge30min,
+          carbon_monoxideGauge60min,
+          carbon_monoxideGauge240min,
+          carbon_monoxideGauge480min,
+          nitrogen_dioxide_twa_10min,
+          nitrogen_dioxide_twa_30min,
+          nitrogen_dioxide_twa_60min,
+          nitrogen_dioxide_twa_240min,
+          nitrogen_dioxide_twa_480min,
+          nitrogen_dioxideGauge10min,
+          nitrogen_dioxideGauge30min,
+          nitrogen_dioxideGauge60min,
+          nitrogen_dioxideGauge240min,
+          nitrogen_dioxideGauge480min,
         }) => (
           <FirefighterDetailsGaugeSet
             chart={chart}
@@ -111,38 +111,38 @@ const DetailsGrid = (params) => {
             setType={setType}
             increment={increment}
             setIncrement={setIncrement}
-            firefighterId={firefighterId}
-            firefighterCode={firefighterCode}
-            firefighterFirst={firefighterFirst}
-            firefighterLast={firefighterLast}
-            firefighterEmail={firefighterEmail}
-            deviceId={deviceId}
-            timestampMins={timestampMins}
+            firefighter_id={firefighter_id}
+            firefighter_code={firefighter_code}
+            firefighter_first={firefighter_first}
+            firefighter_last={firefighter_last}
+            firefighter_email={firefighter_email}
+            device_id={device_id}
+            timestamp_mins={timestamp_mins}
             temperature={temperature}
             humidity={humidity}
-            carbonMonoxide={carbonMonoxide}
-            nitrogenDioxide={nitrogenDioxide}
+            carbon_monoxide={carbon_monoxide}
+            nitrogen_dioxide={nitrogen_dioxide}
             deviceTimestamp={deviceTimestamp}
-            carbonMonoxideTwa10min={carbonMonoxideTwa10min}
-            carbonMonoxideTwa30min={carbonMonoxideTwa30min}
-            carbonMonoxideTwa60min={carbonMonoxideTwa60min}
-            carbonMonoxideTwa240min={carbonMonoxideTwa240min}
-            carbonMonoxideTwa480min={carbonMonoxideTwa480min}
-            carbonMonoxideGauge10min={carbonMonoxideGauge10min}
-            carbonMonoxideGauge30min={carbonMonoxideGauge30min}
-            carbonMonoxideGauge60min={carbonMonoxideGauge60min}
-            carbonMonoxideGauge240min={carbonMonoxideGauge240min}
-            carbonMonoxideGauge480min={carbonMonoxideGauge480min}
-            nitrogenDioxideTwa10min={nitrogenDioxideTwa10min}
-            nitrogenDioxideTwa30min={nitrogenDioxideTwa30min}
-            nitrogenDioxideTwa60min={nitrogenDioxideTwa60min}
-            nitrogenDioxideTwa240min={nitrogenDioxideTwa240min}
-            nitrogenDioxideTwa480min={nitrogenDioxideTwa480min}
-            nitrogenDioxideGauge10min={nitrogenDioxideGauge10min}
-            nitrogenDioxideGauge30min={nitrogenDioxideGauge30min}
-            nitrogenDioxideGauge60min={nitrogenDioxideGauge60min}
-            nitrogenDioxideGauge240min={nitrogenDioxideGauge240min}
-            nitrogenDioxideGauge480min={nitrogenDioxideGauge480min}
+            carbon_monoxide_twa_10min={carbon_monoxide_twa_10min}
+            carbon_monoxide_twa_30min={carbon_monoxide_twa_30min}
+            carbon_monoxide_twa_60min={carbon_monoxide_twa_60min}
+            carbon_monoxide_twa_240min={carbon_monoxide_twa_240min}
+            carbon_monoxide_twa_480min={carbon_monoxide_twa_480min}
+            carbon_monoxideGauge10min={carbon_monoxideGauge10min}
+            carbon_monoxideGauge30min={carbon_monoxideGauge30min}
+            carbon_monoxideGauge60min={carbon_monoxideGauge60min}
+            carbon_monoxideGauge240min={carbon_monoxideGauge240min}
+            carbon_monoxideGauge480min={carbon_monoxideGauge480min}
+            nitrogen_dioxide_twa_10min={nitrogen_dioxide_twa_10min}
+            nitrogen_dioxide_twa_30min={nitrogen_dioxide_twa_30min}
+            nitrogen_dioxide_twa_60min={nitrogen_dioxide_twa_60min}
+            nitrogen_dioxide_twa_240min={nitrogen_dioxide_twa_240min}
+            nitrogen_dioxide_twa_480min={nitrogen_dioxide_twa_480min}
+            nitrogen_dioxideGauge10min={nitrogen_dioxideGauge10min}
+            nitrogen_dioxideGauge30min={nitrogen_dioxideGauge30min}
+            nitrogen_dioxideGauge60min={nitrogen_dioxideGauge60min}
+            nitrogen_dioxideGauge240min={nitrogen_dioxideGauge240min}
+            nitrogen_dioxideGauge480min={nitrogen_dioxideGauge480min}
           />
         )
       )}

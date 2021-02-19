@@ -10,7 +10,7 @@ var yellow = 'yellow';
 var green = 'green';
 var initialColor = '#ddd';
 
-function renderChart(parent, firefighterId, type, value, unit) {
+function renderChart(parent, firefighter_id, type, value, unit) {
   var color = getStatusColor(type, value);
   var svg = d3
     .select(parent)
