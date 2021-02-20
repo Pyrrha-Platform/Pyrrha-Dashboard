@@ -227,21 +227,21 @@ class dashboard_manager(object):
                         'carbon_monoxide_twa_60min': "{:.2f}".format(i[16]),
                         'carbon_monoxide_twa_240min': "{:.2f}".format(i[17]),
                         'carbon_monoxide_twa_480min': "{:.2f}".format(i[18]),
-                        'carbon_monoxideGauge10min': "{:.2f}".format(i[19]),
-                        'carbon_monoxideGauge30min': "{:.2f}".format(i[20]),
-                        'carbon_monoxideGauge60min': "{:.2f}".format(i[21]),
-                        'carbon_monoxideGauge240min': "{:.2f}".format(i[22]),
-                        'carbon_monoxideGauge480min': "{:.2f}".format(i[23]),
+                        'carbon_monoxide_gauge_10min': "{:.2f}".format(i[19]),
+                        'carbon_monoxide_gauge_30min': "{:.2f}".format(i[20]),
+                        'carbon_monoxide_gauge_60min': "{:.2f}".format(i[21]),
+                        'carbon_monoxide_gauge_240min': "{:.2f}".format(i[22]),
+                        'carbon_monoxide_gauge_480min': "{:.2f}".format(i[23]),
                         'nitrogen_dioxide_twa_10min': "{:.2f}".format(i[24]),
                         'nitrogen_dioxide_twa_30min': "{:.2f}".format(i[25]),
                         'nitrogen_dioxide_twa_60min': "{:.2f}".format(i[26]),
                         'nitrogen_dioxide_twa_240min': "{:.2f}".format(i[27]),
                         'nitrogen_dioxide_twa_480min': "{:.2f}".format(i[28]),
-                        'nitrogen_dioxideGauge10min': "{:.2f}".format(i[29]),
-                        'nitrogen_dioxideGauge30min': "{:.2f}".format(i[30]),
-                        'nitrogen_dioxideGauge60min': "{:.2f}".format(i[31]),
-                        'nitrogen_dioxideGauge240min': "{:.2f}".format(i[32]),
-                        'nitrogen_dioxideGauge480min': "{:.2f}".format(i[33])
+                        'nitrogen_dioxide_gauge_10min': "{:.2f}".format(i[29]),
+                        'nitrogen_dioxide_gauge_30min': "{:.2f}".format(i[30]),
+                        'nitrogen_dioxide_gauge_60min': "{:.2f}".format(i[31]),
+                        'nitrogen_dioxide_gauge_240min': "{:.2f}".format(i[32]),
+                        'nitrogen_dioxide_gauge_480min': "{:.2f}".format(i[33])
                     })
 
             else:

@@ -28,21 +28,21 @@ function FirefighterDetailsGaugeSet({
   carbon_monoxide_twa_60min,
   carbon_monoxide_twa_240min,
   carbon_monoxide_twa_480min,
-  carbon_monoxideGauge10min,
-  carbon_monoxideGauge30min,
-  carbon_monoxideGauge60min,
-  carbon_monoxideGauge240min,
-  carbon_monoxideGauge480min,
+  carbon_monoxide_gauge_10min,
+  carbon_monoxide_gauge_30min,
+  carbon_monoxide_gauge_60min,
+  carbon_monoxide_gauge_240min,
+  carbon_monoxide_gauge_480min,
   nitrogen_dioxide_twa_10min,
   nitrogen_dioxide_twa_30min,
   nitrogen_dioxide_twa_60min,
   nitrogen_dioxide_twa_240min,
   nitrogen_dioxide_twa_480min,
-  nitrogen_dioxideGauge10min,
-  nitrogen_dioxideGauge30min,
-  nitrogen_dioxideGauge60min,
-  nitrogen_dioxideGauge240min,
-  nitrogen_dioxideGauge480min,
+  nitrogen_dioxide_gauge_10min,
+  nitrogen_dioxide_gauge_30min,
+  nitrogen_dioxide_gauge_60min,
+  nitrogen_dioxide_gauge_240min,
+  nitrogen_dioxide_gauge_480min,
 }) {
   console.log('FirefighterDetailsGaugeSet', increment);
 
@@ -56,21 +56,21 @@ function FirefighterDetailsGaugeSet({
   console.log("carbon_monoxide_twa_60min", carbon_monoxide_twa_60min);
   console.log("carbon_monoxide_twa_240min", carbon_monoxide_twa_240min);
   console.log("carbon_monoxide_twa_480min", carbon_monoxide_twa_480min);
-  console.log("carbon_monoxideGauge10min", carbon_monoxideGauge10min);
-  console.log("carbon_monoxideGauge30min", carbon_monoxideGauge30min);
-  console.log("carbon_monoxideGauge60min", carbon_monoxideGauge60min);
-  console.log("carbon_monoxideGauge240min", carbon_monoxideGauge240min);
-  console.log("carbon_monoxideGauge480min", carbon_monoxideGauge480min);
+  console.log("carbon_monoxide_gauge_10min", carbon_monoxide_gauge_10min);
+  console.log("carbon_monoxide_gauge_30min", carbon_monoxide_gauge_30min);
+  console.log("carbon_monoxide_gauge_60min", carbon_monoxide_gauge_60min);
+  console.log("carbon_monoxide_gauge_240min", carbon_monoxide_gauge_240min);
+  console.log("carbon_monoxide_gauge_480min", carbon_monoxide_gauge_480min);
   console.log("nitrogen_dioxide_twa_10min", nitrogen_dioxide_twa_10min);
   console.log("nitrogen_dioxide_twa_30min", nitrogen_dioxide_twa_30min);
   console.log("nitrogen_dioxide_twa_60min", nitrogen_dioxide_twa_60min);
   console.log("nitrogen_dioxide_twa_240min", nitrogen_dioxide_twa_240min);
   console.log("nitrogen_dioxide_twa_480min", nitrogen_dioxide_twa_480min);
-  console.log("nitrogen_dioxideGauge10min", nitrogen_dioxideGauge10min);
-  console.log("nitrogen_dioxideGauge30min", nitrogen_dioxideGauge30min);
-  console.log("nitrogen_dioxideGauge60min", nitrogen_dioxideGauge60min);
-  console.log("nitrogen_dioxideGauge240min", nitrogen_dioxideGauge240min);
-  console.log("nitrogen_dioxideGauge480min", nitrogen_dioxideGauge480min);
+  console.log("nitrogen_dioxide_gauge_10min", nitrogen_dioxide_gauge_10min);
+  console.log("nitrogen_dioxide_gauge_30min", nitrogen_dioxide_gauge_30min);
+  console.log("nitrogen_dioxide_gauge_60min", nitrogen_dioxide_gauge_60min);
+  console.log("nitrogen_dioxide_gauge_240min", nitrogen_dioxide_gauge_240min);
+  console.log("nitrogen_dioxide_gauge_480min", nitrogen_dioxide_gauge_480min);
   console.log("--------------------------");
   */
 
@@ -198,7 +198,7 @@ function FirefighterDetailsGaugeSet({
                         '10min'
                       )}
                     />
-                    {/* gauge={carbon_monoxideGauge10min} */}
+                    {/* gauge={carbon_monoxide_gauge_10min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -229,7 +229,7 @@ function FirefighterDetailsGaugeSet({
                         '10min'
                       )}
                     />
-                    {/* gauge={nitrogen_dioxideGauge10min} */}
+                    {/* gauge={nitrogen_dioxide_gauge_10min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -306,7 +306,7 @@ function FirefighterDetailsGaugeSet({
                         '30min'
                       )}
                     />
-                    {/* gauge={carbon_monoxideGauge30min} */}
+                    {/* gauge={carbon_monoxide_gauge_30min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -337,7 +337,7 @@ function FirefighterDetailsGaugeSet({
                         '30min'
                       )}
                     />
-                    {/* gauge={nitrogen_dioxideGauge30min} */}
+                    {/* gauge={nitrogen_dioxide_gauge_30min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -414,7 +414,7 @@ function FirefighterDetailsGaugeSet({
                         '1hr'
                       )}
                     />
-                    {/* gauge={carbon_monoxideGauge60min} */}
+                    {/* gauge={carbon_monoxide_gauge_60min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -443,7 +443,7 @@ function FirefighterDetailsGaugeSet({
                         '1hr'
                       )}
                     />
-                    {/* gauge={nitrogen_dioxideGauge60min} */}
+                    {/* gauge={nitrogen_dioxide_gauge_60min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -518,7 +518,7 @@ function FirefighterDetailsGaugeSet({
                         '4hr'
                       )}
                     />
-                    {/* gauge={carbon_monoxideGauge240min} */}
+                    {/* gauge={carbon_monoxide_gauge_240min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -547,7 +547,7 @@ function FirefighterDetailsGaugeSet({
                         '4hr'
                       )}
                     />
-                    {/* gauge={nitrogen_dioxideGauge240min} */}
+                    {/* gauge={nitrogen_dioxide_gauge_240min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -622,7 +622,7 @@ function FirefighterDetailsGaugeSet({
                         '8hr'
                       )}
                     />
-                    {/* gauge={carbon_monoxideGauge480min} */}
+                    {/* gauge={carbon_monoxide_gauge_480min} */}
                   </div>
                   <div className="label-legend">
                     <a
@@ -651,7 +651,7 @@ function FirefighterDetailsGaugeSet({
                         '8hr'
                       )}
                     />
-                    {/* gauge={nitrogen_dioxideGauge480min} */}
+                    {/* gauge={nitrogen_dioxide_gauge_480min} */}
                   </div>
                   <div className="label-legend">
                     <a
