@@ -142,7 +142,7 @@ class dashboard_manager(object):
                         'firefighter_id': i[0],
                         'firefighter_first': i[1],
                         'firefighter_last': i[2],
-                        'firefighter_code': i[2],
+                        'firefighter_code': i[0],
                         'firefighter_email': i[3],
                         'device_id': i[4],
                         'temperature': i[5],
