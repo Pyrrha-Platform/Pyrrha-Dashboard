@@ -88,21 +88,21 @@ const DetailsGrid = (params) => {
           carbon_monoxide_twa_60min,
           carbon_monoxide_twa_240min,
           carbon_monoxide_twa_480min,
-          carbon_monoxideGauge10min,
-          carbon_monoxideGauge30min,
-          carbon_monoxideGauge60min,
-          carbon_monoxideGauge240min,
-          carbon_monoxideGauge480min,
+          carbon_monoxide_gauge_10min,
+          carbon_monoxide_gauge_30min,
+          carbon_monoxide_gauge_60min,
+          carbon_monoxide_gauge_240min,
+          carbon_monoxide_gauge_480min,
           nitrogen_dioxide_twa_10min,
           nitrogen_dioxide_twa_30min,
           nitrogen_dioxide_twa_60min,
           nitrogen_dioxide_twa_240min,
           nitrogen_dioxide_twa_480min,
-          nitrogen_dioxideGauge10min,
-          nitrogen_dioxideGauge30min,
-          nitrogen_dioxideGauge60min,
-          nitrogen_dioxideGauge240min,
-          nitrogen_dioxideGauge480min,
+          nitrogen_dioxide_gauge_10min,
+          nitrogen_dioxide_gauge_30min,
+          nitrogen_dioxide_gauge_60min,
+          nitrogen_dioxide_gauge_240min,
+          nitrogen_dioxide_gauge_480min,
         }) => (
           <FirefighterDetailsGaugeSet
             chart={chart}
@@ -128,21 +128,21 @@ const DetailsGrid = (params) => {
             carbon_monoxide_twa_60min={carbon_monoxide_twa_60min}
             carbon_monoxide_twa_240min={carbon_monoxide_twa_240min}
             carbon_monoxide_twa_480min={carbon_monoxide_twa_480min}
-            carbon_monoxideGauge10min={carbon_monoxideGauge10min}
-            carbon_monoxideGauge30min={carbon_monoxideGauge30min}
-            carbon_monoxideGauge60min={carbon_monoxideGauge60min}
-            carbon_monoxideGauge240min={carbon_monoxideGauge240min}
-            carbon_monoxideGauge480min={carbon_monoxideGauge480min}
+            carbon_monoxide_gauge_10min={carbon_monoxide_gauge_10min}
+            carbon_monoxide_gauge_30min={carbon_monoxide_gauge_30min}
+            carbon_monoxide_gauge_60min={carbon_monoxide_gauge_60min}
+            carbon_monoxide_gauge_240min={carbon_monoxide_gauge_240min}
+            carbon_monoxide_gauge_480min={carbon_monoxide_gauge_480min}
             nitrogen_dioxide_twa_10min={nitrogen_dioxide_twa_10min}
             nitrogen_dioxide_twa_30min={nitrogen_dioxide_twa_30min}
             nitrogen_dioxide_twa_60min={nitrogen_dioxide_twa_60min}
             nitrogen_dioxide_twa_240min={nitrogen_dioxide_twa_240min}
             nitrogen_dioxide_twa_480min={nitrogen_dioxide_twa_480min}
-            nitrogen_dioxideGauge10min={nitrogen_dioxideGauge10min}
-            nitrogen_dioxideGauge30min={nitrogen_dioxideGauge30min}
-            nitrogen_dioxideGauge60min={nitrogen_dioxideGauge60min}
-            nitrogen_dioxideGauge240min={nitrogen_dioxideGauge240min}
-            nitrogen_dioxideGauge480min={nitrogen_dioxideGauge480min}
+            nitrogen_dioxide_gauge_10min={nitrogen_dioxide_gauge_10min}
+            nitrogen_dioxide_gauge_30min={nitrogen_dioxide_gauge_30min}
+            nitrogen_dioxide_gauge_60min={nitrogen_dioxide_gauge_60min}
+            nitrogen_dioxide_gauge_240min={nitrogen_dioxide_gauge_240min}
+            nitrogen_dioxide_gauge_480min={nitrogen_dioxide_gauge_480min}
           />
         )
       )}

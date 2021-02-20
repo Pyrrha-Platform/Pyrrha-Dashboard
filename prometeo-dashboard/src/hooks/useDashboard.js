@@ -40,6 +40,10 @@ const updateDashboard = (dashboard, message) => {
               'Replacing an old reading with a new one in the array',
               newMessage
             );
+            newMessage.firefighter_first = oldReading.firefighter_first;
+            newMessage.firefighter_last = oldReading.firefighter_last;
+            newMessage.firefighter_email = oldReading.firefighter_email;
+            newMessage.firefighter_code = oldReading.firefighter_id;
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
               oldReading
@@ -49,7 +53,7 @@ const updateDashboard = (dashboard, message) => {
         });
       });
     } else {
-      // It's a single firefighterupdate, replace the
+      // It's a single firefighter update, replace the
       // latest reading for the firefighter, or add it
       console.log('object', newMessage);
       let matchedOldReading = false;
@@ -57,6 +61,14 @@ const updateDashboard = (dashboard, message) => {
         if (oldReading.firefighter_id == newMessage.firefighter_id) {
           console.log(
             'Replacing a single old reading with a new one',
+            newMessage
+          );
+          newMessage.firefighter_first = oldReading.firefighter_first;
+          newMessage.firefighter_last = oldReading.firefighter_last;
+          newMessage.firefighter_email = oldReading.firefighter_email;
+          newMessage.firefighter_code = oldReading.firefighter_id;
+          console.log(
+            'Merged new and old readings',
             newMessage
           );
           newDashboard.current = Utils.arrayRemove(
