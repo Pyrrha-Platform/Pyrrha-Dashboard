@@ -25,7 +25,11 @@ function PrometeoHeader(props) {
   const setLanguage = props.setLanguage;
   const setPage = props.setPage;
 
-  const { t } = useContext(Context);
+  const { t, i18n } = useContext(Context);
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  }
 
   return (
     <Header aria-label="Prometeo">
@@ -92,28 +96,31 @@ function PrometeoHeader(props) {
         <Switcher aria-label="Switcher Container">
           <SwitcherItem
             aria-label={t('components.header.english')}
-            isSelected={language === 'EN'}
+            isSelected={language === 'en'}
             onClick={() => {
-              setLanguage('EN');
+              setLanguage('en');
               setActive(false);
+              changeLanguage('en');
             }}>
             {t('components.header.english')}
           </SwitcherItem>
           <SwitcherItem
             aria-label={t('components.header.spanish')}
-            isSelected={language === 'ES'}
+            isSelected={language === 'es'}
             onClick={() => {
-              setLanguage('ES');
+              setLanguage('es');
               setActive(false);
+              changeLanguage('es');
             }}>
             {t('components.header.spanish')}
           </SwitcherItem>
           <SwitcherItem
             aria-label={t('components.header.catalan')}
-            isSelected={language === 'CA'}
+            isSelected={language === 'ca'}
             onClick={() => {
-              setLanguage('CA');
+              setLanguage('ca');
               setActive(false);
+              changeLanguage('ca');
             }}>
             {t('components.header.catalan')}
           </SwitcherItem>

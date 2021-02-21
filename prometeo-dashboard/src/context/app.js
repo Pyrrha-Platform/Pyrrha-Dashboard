@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 export default createContext({});
 
 export const useAppContext = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [currentUser, setCurrentUser] = useState({
     name: '',
     email: '',
@@ -16,5 +16,6 @@ export const useAppContext = () => {
     currentUser,
     setCurrentUser,
     t,
+    i18n
   };
 };
