@@ -13,7 +13,7 @@ import SideMenu from './components/SideMenu';
 const Router = () => {
   const history = useHistory();
   const [active, setActive] = useState(false);
-  const [language, setLanguage] = useState('EN');
+  const [language, setLanguage] = useState('en');
   const [page, setPage] = useState('Dashboard');
   return (
     <BrowserRouter>

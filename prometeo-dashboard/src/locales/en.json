@@ -9,7 +9,7 @@
       "devices": "Devices",
       "firefighters": "Firefighters",
       "profile": "Settings",
-      "translate": "Profile",
+      "translate": "Translate",
       "english": "English",
       "spanish": "Spanish",
       "catalan": "Catalan"
@@ -41,7 +41,7 @@
       "close": "Close"
     },
     "profile": {
-      "welcome": "Welcome {{name}}!"
+      "welcome": "Welcome {{name}}"
     },
     "login": {
       "title": "Log in to",
@@ -52,7 +52,7 @@
       "enterId": "Enter your Prometeo ID",
       "errors": {
         "errorHeading": "Error logging in.",
-        "generic": "There was a problem processing that request",
+        "generic": "There was a problem processing that request.",
         "incorrectCreds": "The email or password that you entered is incorrect."
       },
       "form": {

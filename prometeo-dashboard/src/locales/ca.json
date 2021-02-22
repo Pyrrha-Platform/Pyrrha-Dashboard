@@ -1,15 +1,15 @@
 {
   "components": {
     "header": {
-      "title": "Prometeo Dashboard",
-      "notifications": "Notifications",
-      "avatar": "User avatar",
-      "dashboard": "Dashboard",
-      "events": "Events",
-      "devices": "Devices",
-      "firefighters": "Firefighters",
-      "profile": "Settings",
-      "translate": "Profile",
+      "title": "Prometeo Panell",
+      "notifications": "Notificacions",
+      "avatar": "Avatar de l'usuari",
+      "dashboard": "Panell",
+      "events": "Esdeveniments",
+      "devices": "Dispositius",
+      "firefighters": "Bombers",
+      "profile": "Configuració",
+      "translate": "Tradueix",
       "english": "Anglès",
       "spanish": "Espanyol",
       "catalan": "Catalán"
@@ -29,101 +29,101 @@
   },
   "content": {
     "common": {
-      "temperature": "Temperature",
-      "humidity": "Humidity",
-      "carbon_monoxide": "Carbon monoxide",
-      "nitrogen_dioxide": "Nitrogen dioxide",
-      "formaldehyde": "Formaldehyde",
-      "acrolein": "Acrolein",
-      "benzene": "Benzene",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "temperature": "Temperatura",
+      "humidity": "Humitat",
+      "carbon_monoxide": "Monoxid de carboni",
+      "nitrogen_dioxide": "Diòxid de nitrogen",
+      "formaldehyde": "Formaldehid",
+      "acrolein": "Acroleïna",
+      "benzene": "Benzè",
+      "save": "Desa",
+      "cancel": "Cancellar",
+      "close": "Tanca"
     },
     "profile": {
-      "welcome": "Welcome {{name}}!"
+      "welcome": "Benvingut {{name}}"
     },
     "login": {
-      "title": "Log in to",
-      "forgotPassword": "Forgot password?",
-      "continue": "Continue",
-      "rememberMe": "Remember me",
-      "loggingIn": "Logging in",
-      "enterId": "Enter your Prometeo ID",
+      "title": "Iniciar sessió en",
+      "forgotPassword": "Has oblidat la contrasenya?",
+      "continue": "Continua",
+      "rememberMe": "Recorda'm",
+      "loggingIn": "Inicia sesió",
+      "enterId": "Introdueix el teu Prometeo ID",
       "errors": {
-        "errorHeading": "Error logging in.",
-        "generic": "There was a problem processing that request",
-        "incorrectCreds": "The email or password that you entered is incorrect."
+        "errorHeading": "S'ha produït un error en iniciar la sessió.",
+        "generic": "Hi ha hagut un problema en processar aquesta sollicitud.",
+        "incorrectCreds": "El correu electrònic o la contrasenya que heu introduït són incorrectes."
       },
       "form": {
         "labels": {
           "openeewId": "Prometeo ID",
-          "password": "Password"
+          "password": "Contrasenya"
         },
         "errors": {
-          "idRequired": "Please enter your Prometeo ID",
-          "idInvalid": "Prometeo ID must be a valid email",
-          "passwordRequired": "Please enter your password"
+          "idRequired": "Introduïu el vostre ID de Prometeo",
+          "idInvalid": "L'identificador de Prometeo ha de ser un correu electrònic vàlid",
+          "passwordRequired": "Introduïu la vostra contrasenya"
         }
       }
     },
     "dashboard": {
-      "heading": "Dashboard",
-      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold."
+      "heading": "Panell",
+      "subheading": "Ara esteu visualitzant les dades en temps real i els llindars d'exposició mitjana de 10 minuts. El nombre són les dades en temps real i l’indicador representa la mitjana de deu minuts dins d’un llindar."
     },
     "details": {
-      "heading": "Details",
-      "subheading": "You are now viewing the details for the readings for a specific firefighter. Choose a reading to see a detailed chart.",
-      "all": "All",
-      "now": "Now",
-      "10min": "10 min avg",
-      "30min": "30 min avg",
-      "1hr": "1 hr avg",
-      "4hr": "4 hr avg",
-      "8hr": "8 hr avg",
-      "measure": "Measure (ppm)",
-      "time": "Time"
+      "heading": "Detalls",
+      "subheading": "Ara esteu veient els detalls de les lectures d’un bomber específic. Trieu una lectura per veure un gràfic detallat.",
+      "all": "Tots",
+      "now": "Ara",
+      "10min": "10 min mit",
+      "30min": "30 min mit",
+      "1hr": "1 hr mit",
+      "4hr": "4 hr mit",
+      "8hr": "8 hr mit",
+      "measure": "Mesura (ppm)",
+      "time": "Temps"
     },
     "events": {
-      "heading": "Events",
-      "subheading": "These are all the events registered in the system.",
-      "add": "Add event",
-      "edit": "Edit event",
-      "delete": "Delete event",
-      "id": "Event ID",
-      "code": "Code",
-      "type": "Type",
-      "date": "Date",
-      "firefighters": "Firefighters",
-      "status": "Status",
-      "state": "Status",
-      "actions": "Actions"
+      "heading": "Esdeveniments",
+      "subheading": "Aquests són tots els esdeveniments registrats al sistema.",
+      "add": "Afegeix un esdeveniment",
+      "edit": "Edita l'esdeveniment",
+      "delete": "Suprimeix l'esdeveniment",
+      "id": "Identificador d'esdeveniment",
+      "code": "Codi",
+      "type": "Tipus",
+      "date": "Data",
+      "firefighters": "Bombers",
+      "status": "Estat",
+      "state": "Estat",
+      "actions": "Comportamiento"
     },
     "devices": {
-      "heading": "Devices",
-      "subheading": "These are all the devices registered in the system.",
-      "add": "Add device",
-      "edit": "Edit device",
-      "delete": "Delete device",
-      "id": "Device ID",
-      "code": "Code",
+      "heading": "Dispositius",
+      "subheading": "Aquests són tots els dispositius registrats al sistema.",
+      "add": "Afegeix un dispositiu",
+      "edit": "Edita el dispositiu",
+      "delete": "Suprimeix el dispositiu",
+      "id": "Identificador de dispositiu",
+      "code": "Codi",
       "model": "Model",
-      "version": "Version",
-      "actions": "Actions"
+      "version": "Versió",
+      "actions": "Comportamiento"
     },
     "firefighters": {
-      "heading": "Firefighters",
-      "subheading": "These are all the firefighters registered in the system.",
-      "add": "Add firefighter",
-      "edit": "Edit firefighter",
-      "delete": "Delete firefighter",
-      "id": "Firefighter ID",
-      "code": "Code",
-      "first": "First name",
-      "last": "Last name",
+      "heading": "Bombers",
+      "subheading": "Aquests són tots els bombers registrats al sistema.",
+      "add": "Afegeix bomber",
+      "edit": "Edita bomber",
+      "delete": "Suprimeix el bomber",
+      "id": "DNI de bomber",
+      "code": "Codi",
+      "first": "Nom",
+      "last": "Cognom",
       "email": "Email",
-      "status": "Status",
-      "actions": "Actions"
+      "status": "Estat",
+      "actions": "Comportamiento"
     }
   }
 }
