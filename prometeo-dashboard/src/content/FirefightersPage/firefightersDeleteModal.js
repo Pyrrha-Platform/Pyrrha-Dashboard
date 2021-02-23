@@ -12,7 +12,7 @@ import {
   Icon,
 } from 'carbon-components-react';
 import { iconDelete, iconDeleteSolid, iconDeleteOutline } from 'carbon-icons';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.
 const ModalStateManager = ({
@@ -20,7 +20,7 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
   return (
     <>
       {!ModalContent || typeof document === 'undefined'

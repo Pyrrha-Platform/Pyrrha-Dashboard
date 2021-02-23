@@ -12,7 +12,7 @@ import {
 } from 'carbon-components-react';
 import { iconAdd, iconAddSolid, iconAddOutline } from 'carbon-icons';
 import { Add16 } from '@carbon/icons-react';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // This defines a modal controlled by a launcher button.
 const ModalStateManager = ({
@@ -20,7 +20,7 @@ const ModalStateManager = ({
   children: ModalContent,
 }) => {
   const [open, setOpen] = useState(false);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
   return (
     <>
       {!ModalContent || typeof document === 'undefined'

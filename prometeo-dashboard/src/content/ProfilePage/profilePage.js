@@ -1,103 +1,51 @@
-import React, { useContext, useCallback, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { InlineNotification } from 'carbon-components-react';
-
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import Field from '../../components/Field';
 import AppContext from '../../context/app';
-import ProfileInput from '../../components/ProfileInput';
-import PrometeoHeader from '../../components/PrometeoHeader';
-
 import AuthClient from '../../hooks/useAuth';
+import Utils from '../../utils/Utils';
 
-const ProfilePage = ({ history }) => {
-  const { t, setCurrentUser } = useContext(AppContext);
-  const [error, setError] = useState('');
-  const [step, setStep] = useState(1);
-  const [profileId, setProfileId] = useState('');
+const ProfilePage = () => {
+  const { t, currentUser, setCurrentUser } = useContext(AppContext);
 
-  const initProfile = useCallback(
-    /**
-     * Init profile and set user on success. Catch errors
-     * handled by Auth client and sets error state.
-     * @param {string} password
-     * @param {function} setSubmitting
-     */
-    async (password, setSubmitting) => {
-      setSubmitting(true);
-      setError('');
+  let history = useHistory();
 
-      try {
-        const user = await AuthClient.profile(profileId, password);
+  let onLogoutRequested = async () => {
+    try {
+      await AuthClient.logout();
 
-        setSubmitting(false);
+      setCurrentUser({
+        isAuth: false,
+        firstName: '',
+        lastName: '',
+        email: '',
+      });
 
-        setCurrentUser({
-          isAuth: true,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName,
-        });
-
-        console.log('Profile successful ', user.email);
-        return history.push('/');
-      } catch (err) {
-        setSubmitting(false);
-
-        return setError(t(err));
-      }
-    },
-    [profileId, setCurrentUser, t, history]
-  );
+      history.push('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
-      <PrometeoHeader removeProfile />
-      <div className="profile__container">
-        <div className="profile__spacer" />
-        <div>
-          <h1 className="profile__title">
-            {t('content.profile.title')}
-            <span className="profile__prometeo">{` Prometeo`}</span>
-          </h1>
-        </div>
-
-        <AnimatePresence exitBeforeEnter initial={false}>
-          <motion.div
-            // By changing the key, React treats each step as a unique component
-            key={`profile-${step}`}
-            transition={{
-              type: 'spring',
-              bounce: 0.4,
-              duration: 0.35,
-            }}
-            initial={{ x: 200, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -200, opacity: 0 }}>
-            <div className="profile__supportingContainer">
-              {step === 2 ? (
-                <p className="profile__forgotPassword">
-                  <span>{t('content.profile.forgotPassword')}</span>
-                </p>
-              ) : null}
-            </div>
-
-            <ProfileInput
-              step={step}
-              setStep={setStep}
-              setProfileId={setProfileId}
-              initProfile={initProfile}
-              profileId={profileId}
-              setError={setError}
-            />
-            {error ? (
-              <InlineNotification
-                kind="error"
-                subtitle={<span>{error}</span>}
-                title={t('content.profile.errors.errorHeading')}
-              />
-            ) : null}
-          </motion.div>
-        </AnimatePresence>
+      <div className="userinfo_header">
+        <span className="userinfo_title" tabIndex={0}>
+          User information
+        </span>
       </div>
+      <Field
+        title="Name"
+        value={`${currentUser.firstName} ${currentUser.lastName}`}
+      />
+      <Field title="User ID" value={currentUser.email} />
+      <p
+        className={'accountSettings__logout'}
+        tabIndex={0}
+        onKeyDown={(e) => Utils.keyboardOnlySubmit(e, onLogoutRequested)}
+        onClick={onLogoutRequested}>
+        <span>Logout</span>
+      </p>
     </>
   );
 };

@@ -7,6 +7,7 @@ import DevicesPage from './content/DevicesPage';
 import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import LoginPage from './content/LoginPage';
+import ProfilePage from './content/ProfilePage';
 import SideMenu from './components/SideMenu';
 
 const Router = () => {
@@ -104,6 +105,17 @@ const Router = () => {
             setPage={setPage}
           />
           <FirefightersPage />
+        </Route>
+        <Route path="/profile">
+          <PrometeoHeader
+            active={active}
+            language={language}
+            page={page}
+            setActive={setActive}
+            setLanguage={setLanguage}
+            setPage={setPage}
+          />
+          <ProfilePage />
         </Route>
       </Switch>
     </BrowserRouter>

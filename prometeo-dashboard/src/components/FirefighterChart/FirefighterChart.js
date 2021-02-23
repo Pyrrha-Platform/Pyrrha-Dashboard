@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import React, { useRef, useEffect, useContext } from 'react';
 import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 function FirefighterChart({
   firefighter_id,
@@ -13,7 +13,7 @@ function FirefighterChart({
   increment,
 }) {
   const ref = useRef();
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   var margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,

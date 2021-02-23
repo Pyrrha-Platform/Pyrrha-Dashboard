@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import FirefighterGauge from '../FirefighterGauge';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 
 function FirefighterDashboardGaugeSet({
@@ -18,7 +18,7 @@ function FirefighterDashboardGaugeSet({
   nitrogen_dioxide,
   increment,
 }) {
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   return (
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">

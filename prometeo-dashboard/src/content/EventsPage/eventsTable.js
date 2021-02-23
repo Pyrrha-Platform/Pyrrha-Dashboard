@@ -17,7 +17,7 @@ import {
 import EventsAddModal from './eventsAddModal';
 import EventsEditModal from './eventsEditModal';
 import EventsDeleteModal from './eventsDeleteModal';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -32,7 +32,7 @@ const client = async (url, options) => {
 const NewEventsTable = ({ eventId }) => {
   const [events, setEvents] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   React.useEffect(() => {
     loadEvents();

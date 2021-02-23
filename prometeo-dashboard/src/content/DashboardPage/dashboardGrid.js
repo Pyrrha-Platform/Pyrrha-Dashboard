@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
 import FirefighterDashboardGaugeSet from '../../components/FirefighterDashboardGaugeSet';
 import useDashboard from '../../hooks/useDashboard';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 const DashboardGrid = () => {
   const [loading, setLoading, dashboard, setDashboard] = useDashboard();
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   return (
     <div className="bx--grid bx--grid--full-width dashboard-content">
