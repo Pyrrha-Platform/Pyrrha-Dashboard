@@ -31,8 +31,8 @@
     "common": {
       "temperature": "Temperatura",
       "humidity": "Humitat",
-      "carbon_monoxide": "Monoxid de carboni",
-      "nitrogen_dioxide": "Diòxid de nitrogen",
+      "carbonMonoxide": "Monoxid de carboni",
+      "nitrogenDioxide": "Diòxid de nitrogen",
       "formaldehyde": "Formaldehid",
       "acrolein": "Acroleïna",
       "benzene": "Benzè",
@@ -41,7 +41,11 @@
       "close": "Tanca"
     },
     "profile": {
-      "welcome": "Benvingut {{name}}"
+      "heading": "Perfil",
+      "subheading": "Heu iniciat la sessió com a usuari següent.",
+      "name": "Nom",
+      "userId": "ID d'usuari",
+      "logout": "Tancar sessió"
     },
     "login": {
       "title": "Iniciar sessió en",

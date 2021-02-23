@@ -31,8 +31,8 @@
     "common": {
       "temperature": "La temperatura",
       "humidity": "Humedad",
-      "carbon_monoxide": "Monóxido de carbono",
-      "nitrogen_dioxide": "Dioxido de nitrogeno",
+      "carbonMonoxide": "Monóxido de carbono",
+      "nitrogenDioxide": "Dioxido de nitrogeno",
       "formaldehyde": "Formaldehído",
       "acrolein": "Acroleína",
       "benzene": "Benceno",
@@ -41,7 +41,11 @@
       "close": "Cerrar"
     },
     "profile": {
-      "welcome": "Bienvenido {{name}}"
+      "heading": "Perfil",
+      "subheading": "Ha iniciado sesión como el siguiente usuario.",
+      "name": "Nombre",
+      "userId": "ID de usuario",
+      "logout": "Cerrar sesión"
     },
     "login": {
       "title": "Iniciar sesión en",

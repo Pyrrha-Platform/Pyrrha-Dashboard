@@ -1,9 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Field from '../../components/Field';
 import AppContext from '../../context/app';
 import AuthClient from '../../hooks/useAuth';
 import Utils from '../../utils/Utils';
+import { Button } from 'carbon-components-react';
+import { ArrowRight32 } from '@carbon/icons-react';
 
 const ProfilePage = () => {
   const { t, currentUser, setCurrentUser } = useContext(AppContext);
@@ -28,25 +30,37 @@ const ProfilePage = () => {
   };
 
   return (
-    <>
-      <div className="userinfo_header">
-        <span className="userinfo_title" tabIndex={0}>
-          User information
-        </span>
+    <div className="bx--grid bx--grid--full-width events-content">
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h1 className="profile-page__heading">
+            {t('content.profile.heading')}
+          </h1>
+        </div>
       </div>
+
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h2 className="profile-page__subheading">
+            {t('content.profile.subheading')}
+          </h2>
+        </div>
+      </div>
+
       <Field
-        title="Name"
+        title={t('content.profile.name')}
         value={`${currentUser.firstName} ${currentUser.lastName}`}
       />
-      <Field title="User ID" value={currentUser.email} />
-      <p
-        className={'accountSettings__logout'}
-        tabIndex={0}
+      <Field title={t('content.profile.userId')} value={currentUser.email} />
+      <br />
+      <Button
+        renderIcon={ArrowRight32}
+        iconDescription={t('content.profile.logout')}
         onKeyDown={(e) => Utils.keyboardOnlySubmit(e, onLogoutRequested)}
         onClick={onLogoutRequested}>
-        <span>Logout</span>
-      </p>
-    </>
+        {t('content.profile.logout')}
+      </Button>
+    </div>
   );
 };
 

@@ -26,7 +26,7 @@ function PrometeoHeader(props) {
 
   const history = useHistory();
 
-  const { t, i18n } = useContext(AppContext);
+  const { t, i18n, currentUser } = useContext(AppContext);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -44,44 +44,47 @@ function PrometeoHeader(props) {
         }}>
         Platform
       </HeaderName>
-      <HeaderNavigation aria-label={t('components.header.title')}>
-        <HeaderMenuItem
-          element={Link}
-          to="/"
-          isCurrentPage={page === 'Dashboard'}
-          onClick={() => {
-            setPage('Dashboard');
-          }}>
-          {t('components.header.dashboard')}
-        </HeaderMenuItem>
-        <HeaderMenuItem
-          element={Link}
-          to="/events"
-          isCurrentPage={page === 'Events'}
-          onClick={() => {
-            setPage('Events');
-          }}>
-          {t('components.header.events')}
-        </HeaderMenuItem>
-        <HeaderMenuItem
-          element={Link}
-          to="/devices"
-          isCurrentPage={page === 'Devices'}
-          onClick={() => {
-            setPage('Devices');
-          }}>
-          {t('components.header.devices')}
-        </HeaderMenuItem>
-        <HeaderMenuItem
-          element={Link}
-          to="/firefighters"
-          isCurrentPage={page === 'Firefighters'}
-          onClick={() => {
-            setPage('Firefighters');
-          }}>
-          {t('components.header.firefighters')}
-        </HeaderMenuItem>
-      </HeaderNavigation>
+      {currentUser.isAuth && (
+        <HeaderNavigation aria-label={t('components.header.title')}>
+          <HeaderMenuItem
+            element={Link}
+            to="/"
+            isCurrentPage={page === 'Dashboard'}
+            onClick={() => {
+              setPage('Dashboard');
+            }}>
+            {t('components.header.dashboard')}
+          </HeaderMenuItem>
+          <HeaderMenuItem
+            element={Link}
+            to="/events"
+            isCurrentPage={page === 'Events'}
+            onClick={() => {
+              setPage('Events');
+            }}>
+            {t('components.header.events')}
+          </HeaderMenuItem>
+          <HeaderMenuItem
+            element={Link}
+            to="/devices"
+            isCurrentPage={page === 'Devices'}
+            onClick={() => {
+              setPage('Devices');
+            }}>
+            {t('components.header.devices')}
+          </HeaderMenuItem>
+          <HeaderMenuItem
+            element={Link}
+            to="/firefighters"
+            isCurrentPage={page === 'Firefighters'}
+            onClick={() => {
+              setPage('Firefighters');
+            }}>
+            {t('components.header.firefighters')}
+          </HeaderMenuItem>
+
+        </HeaderNavigation>
+      )}
       <HeaderGlobalBar>
         <HeaderGlobalAction
           aria-label="Translate"
@@ -89,11 +92,16 @@ function PrometeoHeader(props) {
           isActive={active}>
           <Translate20 />
         </HeaderGlobalAction>
+        {currentUser.isAuth && (
         <HeaderGlobalAction
           aria-label="Profile"
-          onClick={() => history.push('/profile')}>
+          onClick={() => {
+            history.push('/profile');
+            setPage('Profile');
+          }}>
           <UserAvatar20 />
         </HeaderGlobalAction>
+        )}
       </HeaderGlobalBar>
       <HeaderPanel aria-label="Header Panel" expanded={active}>
         <Switcher aria-label="Switcher Container">

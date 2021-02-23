@@ -7,7 +7,7 @@ const Field = ({ title, value, hasMargin }) => {
       tabIndex={0}
       aria-label={`field with title "${title}" and value "${value}"`}
       data-no-margin={hasMargin === false}>
-      <p className="field_title">{title}</p>
+      <p className="field-title">{title}</p>
       <span>{value}</span>
     </div>
   );

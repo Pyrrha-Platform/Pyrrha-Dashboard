@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import DashboardGrid from './dashboardGrid';
+import AppContext from '../../context/app';
 
 function DashboardPage() {
-  return <DashboardGrid />;
+  const history = useHistory();
+  const { currentUser } = useContext(AppContext);
+  if (currentUser.isAuth) {
+    return <DashboardGrid />;
+  } else {
+    history.push('/login');
+    return null;
+  }
 }
 
 export default DashboardPage;
