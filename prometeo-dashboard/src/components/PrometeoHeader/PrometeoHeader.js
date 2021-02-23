@@ -91,7 +91,10 @@ function PrometeoHeader(props) {
         </HeaderGlobalAction>
         <HeaderGlobalAction
           aria-label="Profile"
-          onClick={() => history.push('/profile')}>
+          onClick={() => {
+            history.push('/profile');
+            setPage('Profile');
+          }}>
           <UserAvatar20 />
         </HeaderGlobalAction>
       </HeaderGlobalBar>
