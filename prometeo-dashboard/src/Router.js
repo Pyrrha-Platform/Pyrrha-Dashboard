@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route, useHistory } from 'react-router-dom';
-import AppContext, { useAppContext } from './context/app';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrometeoHeader from './components/PrometeoHeader';
 import FirefightersPage from './content/FirefightersPage';
 import EventsPage from './content/EventsPage';
@@ -11,7 +10,6 @@ import LoginPage from './content/LoginPage';
 import SideMenu from './components/SideMenu';
 
 const Router = () => {
-  const history = useHistory();
   const [active, setActive] = useState(false);
   const [language, setLanguage] = useState('en');
   const [page, setPage] = useState('Dashboard');
@@ -20,7 +18,6 @@ const Router = () => {
       <Switch>
         <Route exact path="/">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -33,7 +30,6 @@ const Router = () => {
         </Route>
         <Route path="/login">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -45,7 +41,6 @@ const Router = () => {
         </Route>
         <Route path="/details/:firefighter_id/:increment/:type">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -57,7 +52,6 @@ const Router = () => {
         </Route>
         <Route path="/details/:firefighter_id/:increment">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -69,7 +63,6 @@ const Router = () => {
         </Route>
         <Route path="/details/:firefighter_id">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -81,7 +74,6 @@ const Router = () => {
         </Route>
         <Route path="/events">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -93,7 +85,6 @@ const Router = () => {
         </Route>
         <Route path="/devices">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}
@@ -105,7 +96,6 @@ const Router = () => {
         </Route>
         <Route path="/firefighters">
           <PrometeoHeader
-            history={history}
             active={active}
             language={language}
             page={page}

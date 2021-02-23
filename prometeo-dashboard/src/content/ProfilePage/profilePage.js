@@ -1,24 +1,22 @@
 import React, { useContext, useCallback, useState } from 'react';
-import { useHistory } from "react-router-dom";
 import { motion, AnimatePresence } from 'framer-motion';
 import { InlineNotification } from 'carbon-components-react';
 
 import AppContext from '../../context/app';
-import LoginInput from '../../components/LoginInput';
+import ProfileInput from '../../components/ProfileInput';
 import PrometeoHeader from '../../components/PrometeoHeader';
 
 import AuthClient from '../../hooks/useAuth';
 
-const LoginPage = () => {
+const ProfilePage = ({ history }) => {
   const { t, setCurrentUser } = useContext(AppContext);
   const [error, setError] = useState('');
   const [step, setStep] = useState(1);
-  const [loginId, setLoginId] = useState('');
-  let history = useHistory();
+  const [profileId, setProfileId] = useState('');
 
-  const initLogin = useCallback(
+  const initProfile = useCallback(
     /**
-     * Init login and set user on success. Catch errors
+     * Init profile and set user on success. Catch errors
      * handled by Auth client and sets error state.
      * @param {string} password
      * @param {function} setSubmitting
@@ -28,7 +26,7 @@ const LoginPage = () => {
       setError('');
 
       try {
-        const user = await AuthClient.login(loginId, password);
+        const user = await AuthClient.profile(profileId, password);
 
         setSubmitting(false);
 
@@ -39,7 +37,7 @@ const LoginPage = () => {
           lastName: user.lastName,
         });
 
-        console.log('Login successful ', user.email);
+        console.log('Profile successful ', user.email);
         return history.push('/');
       } catch (err) {
         setSubmitting(false);
@@ -47,25 +45,25 @@ const LoginPage = () => {
         return setError(t(err));
       }
     },
-    [loginId, setCurrentUser, t, history]
+    [profileId, setCurrentUser, t, history]
   );
 
   return (
     <>
-      <PrometeoHeader removeLogin />
-      <div className="login__container">
-        <div className="login__spacer" />
+      <PrometeoHeader removeProfile />
+      <div className="profile__container">
+        <div className="profile__spacer" />
         <div>
-          <h1 className="login__title">
-            {t('content.login.title')}
-            <span className="login__prometeo">{` Prometeo`}</span>
+          <h1 className="profile__title">
+            {t('content.profile.title')}
+            <span className="profile__prometeo">{` Prometeo`}</span>
           </h1>
         </div>
 
         <AnimatePresence exitBeforeEnter initial={false}>
           <motion.div
             // By changing the key, React treats each step as a unique component
-            key={`login-${step}`}
+            key={`profile-${step}`}
             transition={{
               type: 'spring',
               bounce: 0.4,
@@ -74,27 +72,27 @@ const LoginPage = () => {
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -200, opacity: 0 }}>
-            <div className="login__supportingContainer">
+            <div className="profile__supportingContainer">
               {step === 2 ? (
-                <p className="login__forgotPassword">
-                  <span>{t('content.login.forgotPassword')}</span>
+                <p className="profile__forgotPassword">
+                  <span>{t('content.profile.forgotPassword')}</span>
                 </p>
               ) : null}
             </div>
 
-            <LoginInput
+            <ProfileInput
               step={step}
               setStep={setStep}
-              setLoginId={setLoginId}
-              initLogin={initLogin}
-              loginId={loginId}
+              setProfileId={setProfileId}
+              initProfile={initProfile}
+              profileId={profileId}
               setError={setError}
             />
             {error ? (
               <InlineNotification
                 kind="error"
                 subtitle={<span>{error}</span>}
-                title={t('content.login.errors.errorHeading')}
+                title={t('content.profile.errors.errorHeading')}
               />
             ) : null}
           </motion.div>
@@ -104,4 +102,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ProfilePage;

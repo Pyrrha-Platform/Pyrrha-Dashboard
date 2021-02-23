@@ -17,7 +17,6 @@ import Translate20 from '@carbon/icons-react/lib/translate/20';
 import Context from '../../context/app';
 
 function PrometeoHeader(props) {
-  const history = props.history;
   const active = props.active;
   const language = props.language;
   const page = props.page;
@@ -29,7 +28,7 @@ function PrometeoHeader(props) {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-  }
+  };
 
   return (
     <Header aria-label="Prometeo">

@@ -43,7 +43,7 @@ module.exports = (server) => {
    * @returns {Object} User information and new account link (if new user)
    */
   server.express.post(
-    '/api-auth/verification',
+    '/api-auth/v1/verification',
     apiKeyAuth,
     async (req, res) => {
       const { email } = req.body;
@@ -104,7 +104,7 @@ module.exports = (server) => {
    * @param {string} password
    * @returns {Object} User information
    */
-  server.express.post('/api-auth/login', (req, res, next) => {
+  server.express.post('/api-auth/v1/login', (req, res, next) => {
     passportService.authenticate((err, user, info) => {
       if (err || info) {
         return res.status(info.statusCode).json({
@@ -129,7 +129,7 @@ module.exports = (server) => {
     })(req, res, next);
   });
 
-  server.express.post('/api-auth/logout', (req, res) => {
+  server.express.post('/api-auth/v1/logout', (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         res.status(500).json({
@@ -142,11 +142,11 @@ module.exports = (server) => {
     });
   });
 
-  server.express.post('/api-auth/user', (req, res) => {
+  server.express.post('/api-auth/v1/user', (req, res) => {
     res.send('Success');
   });
 
-  server.express.get('/api-auth/user', isAuth, (req, res) => {
+  server.express.get('/api-auth/v1/user', isAuth, (req, res) => {
     const user = {};
 
     if (req.user) {
