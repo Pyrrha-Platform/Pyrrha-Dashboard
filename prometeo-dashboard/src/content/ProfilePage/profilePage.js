@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Field from '../../components/Field';
 import AppContext from '../../context/app';
 import AuthClient from '../../hooks/useAuth';
 import Utils from '../../utils/Utils';
 import { Button } from 'carbon-components-react';
-import { ArrowRight32, ArrowLeft16 } from '@carbon/icons-react';
+import { ArrowRight32 } from '@carbon/icons-react';
 
 const ProfilePage = () => {
   const { t, currentUser, setCurrentUser } = useContext(AppContext);
@@ -52,6 +52,7 @@ const ProfilePage = () => {
         value={`${currentUser.firstName} ${currentUser.lastName}`}
       />
       <Field title={t('content.profile.userId')} value={currentUser.email} />
+      <br />
       <Button
         renderIcon={ArrowRight32}
         iconDescription={t('content.profile.logout')}
