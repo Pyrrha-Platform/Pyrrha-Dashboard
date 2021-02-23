@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import React, { useRef, useEffect, useContext } from 'react';
 import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 function FirefighterGauge({
   firefighter_id,
@@ -13,7 +13,7 @@ function FirefighterGauge({
   gauge,
 }) {
   const ref = useRef();
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   /*
   console.log("FirefighterGauge");

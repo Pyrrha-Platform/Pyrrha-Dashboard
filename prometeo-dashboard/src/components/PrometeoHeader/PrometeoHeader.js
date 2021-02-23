@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Header,
   HeaderName,
@@ -14,10 +14,9 @@ import {
 } from 'carbon-components-react/lib/components/UIShell';
 import UserAvatar20 from '@carbon/icons-react/lib/user--avatar/20';
 import Translate20 from '@carbon/icons-react/lib/translate/20';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 function PrometeoHeader(props) {
-  const history = props.history;
   const active = props.active;
   const language = props.language;
   const page = props.page;
@@ -25,11 +24,13 @@ function PrometeoHeader(props) {
   const setLanguage = props.setLanguage;
   const setPage = props.setPage;
 
-  const { t, i18n } = useContext(Context);
+  const history = useHistory();
+
+  const { t, i18n } = useContext(AppContext);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-  }
+  };
 
   return (
     <Header aria-label="Prometeo">
@@ -88,7 +89,9 @@ function PrometeoHeader(props) {
           isActive={active}>
           <Translate20 />
         </HeaderGlobalAction>
-        <HeaderGlobalAction aria-label="User Avatar">
+        <HeaderGlobalAction
+          aria-label="Profile"
+          onClick={() => history.push('/profile')}>
           <UserAvatar20 />
         </HeaderGlobalAction>
       </HeaderGlobalBar>

@@ -53,36 +53,56 @@ const updateDetails = (details, message) => {
               newMessage
             );
 
-          // TODO: Should just be smarter about replacing just changed fields, not add/deleting
-          newMessage.firefighter_first = oldReading.firefighter_first;
-          newMessage.firefighter_last = oldReading.firefighter_last;
-          newMessage.firefighter_email = oldReading.firefighter_email;
-          newMessage.firefighter_code = oldReading.firefighter_id;
+            // TODO: Should just be smarter about replacing just changed fields, not add/deleting
+            newMessage.firefighter_first = oldReading.firefighter_first;
+            newMessage.firefighter_last = oldReading.firefighter_last;
+            newMessage.firefighter_email = oldReading.firefighter_email;
+            newMessage.firefighter_code = oldReading.firefighter_id;
 
-          newMessage.carbon_monoxide_gauge_10min = oldReading.carbon_monoxide_gauge_10min;
-          newMessage.carbon_monoxide_gauge_30min = oldReading.carbon_monoxide_gauge_30min;
-          newMessage.carbon_monoxide_gauge_60min = oldReading.carbon_monoxide_gauge_60min;
-          newMessage.carbon_monoxide_gauge_240min = oldReading.carbon_monoxide_gauge_240min;
-          newMessage.carbon_monoxide_gauge_480min = oldReading.carbon_monoxide_gauge_480min;
+            newMessage.carbon_monoxide_gauge_10min =
+              oldReading.carbon_monoxide_gauge_10min;
+            newMessage.carbon_monoxide_gauge_30min =
+              oldReading.carbon_monoxide_gauge_30min;
+            newMessage.carbon_monoxide_gauge_60min =
+              oldReading.carbon_monoxide_gauge_60min;
+            newMessage.carbon_monoxide_gauge_240min =
+              oldReading.carbon_monoxide_gauge_240min;
+            newMessage.carbon_monoxide_gauge_480min =
+              oldReading.carbon_monoxide_gauge_480min;
 
-          newMessage.carbon_monoxide_twa_10min = oldReading.carbon_monoxide_twa_10min;
-          newMessage.carbon_monoxide_twa_30min = oldReading.carbon_monoxide_twa_30min;
-          newMessage.carbon_monoxide_twa_60min = oldReading.carbon_monoxide_twa_60min;
-          newMessage.carbon_monoxide_twa_240min = oldReading.carbon_monoxide_twa_240min;
-          newMessage.carbon_monoxide_twa_480min = oldReading.carbon_monoxide_twa_480min;
+            newMessage.carbon_monoxide_twa_10min =
+              oldReading.carbon_monoxide_twa_10min;
+            newMessage.carbon_monoxide_twa_30min =
+              oldReading.carbon_monoxide_twa_30min;
+            newMessage.carbon_monoxide_twa_60min =
+              oldReading.carbon_monoxide_twa_60min;
+            newMessage.carbon_monoxide_twa_240min =
+              oldReading.carbon_monoxide_twa_240min;
+            newMessage.carbon_monoxide_twa_480min =
+              oldReading.carbon_monoxide_twa_480min;
 
-          newMessage.nitrogen_dioxide_gauge_10min = oldReading.nitrogen_dioxide_gauge_10min;
-          newMessage.nitrogen_dioxide_gauge_30min = oldReading.nitrogen_dioxide_gauge_30min;
-          newMessage.nitrogen_dioxide_gauge_60min = oldReading.nitrogen_dioxide_gauge_60min;
-          newMessage.nitrogen_dioxide_gauge_240min = oldReading.nitrogen_dioxide_gauge_240min;
-          newMessage.nitrogen_dioxide_gauge_480min = oldReading.nitrogen_dioxide_gauge_480min;
+            newMessage.nitrogen_dioxide_gauge_10min =
+              oldReading.nitrogen_dioxide_gauge_10min;
+            newMessage.nitrogen_dioxide_gauge_30min =
+              oldReading.nitrogen_dioxide_gauge_30min;
+            newMessage.nitrogen_dioxide_gauge_60min =
+              oldReading.nitrogen_dioxide_gauge_60min;
+            newMessage.nitrogen_dioxide_gauge_240min =
+              oldReading.nitrogen_dioxide_gauge_240min;
+            newMessage.nitrogen_dioxide_gauge_480min =
+              oldReading.nitrogen_dioxide_gauge_480min;
 
-          newMessage.nitrogen_dioxide_twa_10min = oldReading.nitrogen_dioxide_twa_10min;
-          newMessage.nitrogen_dioxide_twa_30min = oldReading.nitrogen_dioxide_twa_30min;
-          newMessage.nitrogen_dioxide_twa_60min = oldReading.nitrogen_dioxide_twa_60min;
-          newMessage.nitrogen_dioxide_twa_240min = oldReading.nitrogen_dioxide_twa_240min;
-          newMessage.nitrogen_dioxide_twa_480min = oldReading.nitrogen_dioxide_twa_480min;
-            
+            newMessage.nitrogen_dioxide_twa_10min =
+              oldReading.nitrogen_dioxide_twa_10min;
+            newMessage.nitrogen_dioxide_twa_30min =
+              oldReading.nitrogen_dioxide_twa_30min;
+            newMessage.nitrogen_dioxide_twa_60min =
+              oldReading.nitrogen_dioxide_twa_60min;
+            newMessage.nitrogen_dioxide_twa_240min =
+              oldReading.nitrogen_dioxide_twa_240min;
+            newMessage.nitrogen_dioxide_twa_480min =
+              oldReading.nitrogen_dioxide_twa_480min;
+
             newDetails.current = Utils.arrayRemove(
               newDetails.current,
               oldReading
@@ -94,7 +114,7 @@ const updateDetails = (details, message) => {
     } else {
       // It's a single firefighterupdate, replace the
       // latest reading for the firefighter, or add it
-      
+
       console.log('object', newMessage);
       let matchedOldReading = false;
       newDetails.current.forEach((oldReading) => {
@@ -110,29 +130,49 @@ const updateDetails = (details, message) => {
           newMessage.firefighter_email = oldReading.firefighter_email;
           newMessage.firefighter_code = oldReading.firefighter_id;
 
-          newMessage.carbon_monoxide_gauge_10min = oldReading.carbon_monoxide_gauge_10min;
-          newMessage.carbon_monoxide_gauge_30min = oldReading.carbon_monoxide_gauge_30min;
-          newMessage.carbon_monoxide_gauge_60min = oldReading.carbon_monoxide_gauge_60min;
-          newMessage.carbon_monoxide_gauge_240min = oldReading.carbon_monoxide_gauge_240min;
-          newMessage.carbon_monoxide_gauge_480min = oldReading.carbon_monoxide_gauge_480min;
+          newMessage.carbon_monoxide_gauge_10min =
+            oldReading.carbon_monoxide_gauge_10min;
+          newMessage.carbon_monoxide_gauge_30min =
+            oldReading.carbon_monoxide_gauge_30min;
+          newMessage.carbon_monoxide_gauge_60min =
+            oldReading.carbon_monoxide_gauge_60min;
+          newMessage.carbon_monoxide_gauge_240min =
+            oldReading.carbon_monoxide_gauge_240min;
+          newMessage.carbon_monoxide_gauge_480min =
+            oldReading.carbon_monoxide_gauge_480min;
 
-          newMessage.carbon_monoxide_twa_10min = oldReading.carbon_monoxide_twa_10min;
-          newMessage.carbon_monoxide_twa_30min = oldReading.carbon_monoxide_twa_30min;
-          newMessage.carbon_monoxide_twa_60min = oldReading.carbon_monoxide_twa_60min;
-          newMessage.carbon_monoxide_twa_240min = oldReading.carbon_monoxide_twa_240min;
-          newMessage.carbon_monoxide_twa_480min = oldReading.carbon_monoxide_twa_480min;
+          newMessage.carbon_monoxide_twa_10min =
+            oldReading.carbon_monoxide_twa_10min;
+          newMessage.carbon_monoxide_twa_30min =
+            oldReading.carbon_monoxide_twa_30min;
+          newMessage.carbon_monoxide_twa_60min =
+            oldReading.carbon_monoxide_twa_60min;
+          newMessage.carbon_monoxide_twa_240min =
+            oldReading.carbon_monoxide_twa_240min;
+          newMessage.carbon_monoxide_twa_480min =
+            oldReading.carbon_monoxide_twa_480min;
 
-          newMessage.nitrogen_dioxide_gauge_10min = oldReading.nitrogen_dioxide_gauge_10min;
-          newMessage.nitrogen_dioxide_gauge_30min = oldReading.nitrogen_dioxide_gauge_30min;
-          newMessage.nitrogen_dioxide_gauge_60min = oldReading.nitrogen_dioxide_gauge_60min;
-          newMessage.nitrogen_dioxide_gauge_240min = oldReading.nitrogen_dioxide_gauge_240min;
-          newMessage.nitrogen_dioxide_gauge_480min = oldReading.nitrogen_dioxide_gauge_480min;
+          newMessage.nitrogen_dioxide_gauge_10min =
+            oldReading.nitrogen_dioxide_gauge_10min;
+          newMessage.nitrogen_dioxide_gauge_30min =
+            oldReading.nitrogen_dioxide_gauge_30min;
+          newMessage.nitrogen_dioxide_gauge_60min =
+            oldReading.nitrogen_dioxide_gauge_60min;
+          newMessage.nitrogen_dioxide_gauge_240min =
+            oldReading.nitrogen_dioxide_gauge_240min;
+          newMessage.nitrogen_dioxide_gauge_480min =
+            oldReading.nitrogen_dioxide_gauge_480min;
 
-          newMessage.nitrogen_dioxide_twa_10min = oldReading.nitrogen_dioxide_twa_10min;
-          newMessage.nitrogen_dioxide_twa_30min = oldReading.nitrogen_dioxide_twa_30min;
-          newMessage.nitrogen_dioxide_twa_60min = oldReading.nitrogen_dioxide_twa_60min;
-          newMessage.nitrogen_dioxide_twa_240min = oldReading.nitrogen_dioxide_twa_240min;
-          newMessage.nitrogen_dioxide_twa_480min = oldReading.nitrogen_dioxide_twa_480min;
+          newMessage.nitrogen_dioxide_twa_10min =
+            oldReading.nitrogen_dioxide_twa_10min;
+          newMessage.nitrogen_dioxide_twa_30min =
+            oldReading.nitrogen_dioxide_twa_30min;
+          newMessage.nitrogen_dioxide_twa_60min =
+            oldReading.nitrogen_dioxide_twa_60min;
+          newMessage.nitrogen_dioxide_twa_240min =
+            oldReading.nitrogen_dioxide_twa_240min;
+          newMessage.nitrogen_dioxide_twa_480min =
+            oldReading.nitrogen_dioxide_twa_480min;
 
           newDetails.current = Utils.arrayRemove(
             newDetails.current,

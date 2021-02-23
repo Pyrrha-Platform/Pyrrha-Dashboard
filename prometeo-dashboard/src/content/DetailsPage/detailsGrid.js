@@ -3,7 +3,7 @@ import { ContentSwitcher, Switch } from 'carbon-components-react';
 import '@carbon/charts/styles.css';
 import FirefighterDetailsGaugeSet from '../../components/FirefighterDetailsGaugeSet/FirefighterDetailsGaugeSet';
 import useDetails from '../../hooks/useDetails';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // Table and data
 const DetailsGrid = (params) => {
@@ -19,7 +19,7 @@ const DetailsGrid = (params) => {
     type,
     setType,
   ] = useDetails(params.firefighter_id, params.increment, params.type);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   /*
   console.log("firefighter_id", params.firefighter_id);

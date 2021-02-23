@@ -67,10 +67,7 @@ const updateDashboard = (dashboard, message) => {
           newMessage.firefighter_last = oldReading.firefighter_last;
           newMessage.firefighter_email = oldReading.firefighter_email;
           newMessage.firefighter_code = oldReading.firefighter_id;
-          console.log(
-            'Merged new and old readings',
-            newMessage
-          );
+          console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
             oldReading

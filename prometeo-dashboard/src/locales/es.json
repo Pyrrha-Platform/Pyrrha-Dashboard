@@ -1,15 +1,15 @@
 {
   "components": {
     "header": {
-      "title": "Prometeo Dashboard",
-      "notifications": "Notifications",
-      "avatar": "User avatar",
-      "dashboard": "Dashboard",
-      "events": "Events",
-      "devices": "Devices",
-      "firefighters": "Firefighters",
-      "profile": "Settings",
-      "translate": "Profile",
+      "title": "Prometeo Tablero",
+      "notifications": "Notificaciones",
+      "avatar": "Avatar de usuario",
+      "dashboard": "Tablero",
+      "events": "Eventos",
+      "devices": "Dispositivos",
+      "firefighters": "Bomberos",
+      "profile": "Ajustes",
+      "translate": "Traducir",
       "english": "Inglés",
       "spanish": "Español",
       "catalan": "Catalán"
@@ -29,101 +29,101 @@
   },
   "content": {
     "common": {
-      "temperature": "Temperature",
-      "humidity": "Humidity",
-      "carbon_monoxide": "Carbon monoxide",
-      "nitrogen_dioxide": "Nitrogen dioxide",
-      "formaldehyde": "Formaldehyde",
-      "acrolein": "Acrolein",
-      "benzene": "Benzene",
-      "save": "Save",
-      "cancel": "Cancel",
-      "close": "Close"
+      "temperature": "La temperatura",
+      "humidity": "Humedad",
+      "carbon_monoxide": "Monóxido de carbono",
+      "nitrogen_dioxide": "Dioxido de nitrogeno",
+      "formaldehyde": "Formaldehído",
+      "acrolein": "Acroleína",
+      "benzene": "Benceno",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "close": "Cerrar"
     },
     "profile": {
-      "welcome": "Welcome {{name}}!"
+      "welcome": "Bienvenido {{name}}"
     },
     "login": {
-      "title": "Log in to",
-      "forgotPassword": "Forgot password?",
-      "continue": "Continue",
-      "rememberMe": "Remember me",
-      "loggingIn": "Logging in",
-      "enterId": "Enter your Prometeo ID",
+      "title": "Iniciar sesión en",
+      "forgotPassword": "¿Se te olvidó tu contraseña?",
+      "continue": "Continuar",
+      "rememberMe": "Recuérdame",
+      "loggingIn": "Iniciando sesión",
+      "enterId": "Entra tu Prometeo ID",
       "errors": {
-        "errorHeading": "Error logging in.",
-        "generic": "There was a problem processing that request",
-        "incorrectCreds": "The email or password that you entered is incorrect."
+        "errorHeading": "Error al iniciar sesión.",
+        "generic": "Hubo un problema al procesar esa solicitud.",
+        "incorrectCreds": "El correo electrónico o la contraseña que ingresaste son incorrectos."
       },
       "form": {
         "labels": {
           "openeewId": "Prometeo ID",
-          "password": "Password"
+          "password": "Contraseña"
         },
         "errors": {
-          "idRequired": "Please enter your Prometeo ID",
-          "idInvalid": "Prometeo ID must be a valid email",
-          "passwordRequired": "Please enter your password"
+          "idRequired": "Introduzca su ID de Prometeo",
+          "idInvalid": "El ID de Prometeo debe ser un correo electrónico válido",
+          "passwordRequired": "Por favor, introduzca su contraseña"
         }
       }
     },
     "dashboard": {
-      "heading": "Dashboard",
-      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold."
+      "heading": "Tablero",
+      "subheading": "Ahora está viendo los datos en tiempo real y los umbrales de exposición promedio de 10 minutos. El número son los datos en tiempo real y el indicador representa el promedio de diez minutos dentro de un umbral."
     },
     "details": {
-      "heading": "Details",
-      "subheading": "You are now viewing the details for the readings for a specific firefighter. Choose a reading to see a detailed chart.",
-      "all": "All",
-      "now": "Now",
-      "10min": "10 min avg",
-      "30min": "30 min avg",
-      "1hr": "1 hr avg",
-      "4hr": "4 hr avg",
-      "8hr": "8 hr avg",
-      "measure": "Measure (ppm)",
-      "time": "Time"
+      "heading": "Detalles",
+      "subheading": "Ahora está viendo los detalles de las lecturas de un bombero específico. Elija una lectura para ver un cuadro detallado.",
+      "all": "Todos",
+      "now": "Ahora",
+      "10min": "10 min pro",
+      "30min": "30 min pro",
+      "1hr": "1 hr pro",
+      "4hr": "4 hr pro",
+      "8hr": "8 hr pro",
+      "measure": "Medida (ppm)",
+      "time": "Hora"
     },
     "events": {
-      "heading": "Events",
-      "subheading": "These are all the events registered in the system.",
-      "add": "Add event",
-      "edit": "Edit event",
-      "delete": "Delete event",
-      "id": "Event ID",
-      "code": "Code",
-      "type": "Type",
-      "date": "Date",
-      "firefighters": "Firefighters",
-      "status": "Status",
-      "state": "Status",
-      "actions": "Actions"
+      "heading": "Eventos",
+      "subheading": "Estos son todos los eventos registrados en el sistema.",
+      "add": "Añadir evento",
+      "edit": "Editar evento",
+      "delete": "Eliminar evento",
+      "id": "ID de evento",
+      "code": "Código",
+      "type": "Tipo",
+      "date": "Fecha",
+      "firefighters": "Bomberos",
+      "status": "Estado",
+      "state": "Estado",
+      "actions": "Accions"
     },
     "devices": {
-      "heading": "Devices",
-      "subheading": "These are all the devices registered in the system.",
-      "add": "Add device",
-      "edit": "Edit device",
-      "delete": "Delete device",
-      "id": "Device ID",
-      "code": "Code",
-      "model": "Model",
-      "version": "Version",
-      "actions": "Actions"
+      "heading": "Dispositivos",
+      "subheading": "Estos son todos los dispositivos registrados en el sistema.",
+      "add": "Añadir dispositivo",
+      "edit": "Editar dispositivo",
+      "delete": "Eliminar dispositivo",
+      "id": "ID del dispositivo",
+      "code": "Código",
+      "model": "Modelo",
+      "version": "Versión",
+      "actions": "Accions"
     },
     "firefighters": {
-      "heading": "Firefighters",
-      "subheading": "These are all the firefighters registered in the system.",
-      "add": "Add firefighter",
-      "edit": "Edit firefighter",
-      "delete": "Delete firefighter",
-      "id": "Firefighter ID",
-      "code": "Code",
-      "first": "First name",
-      "last": "Last name",
+      "heading": "Bomberos",
+      "subheading": "Estos son todos los bomberos registrados en el sistema.",
+      "add": "Agregar bombero",
+      "edit": "Editar bombero",
+      "delete": "Eliminar bombero",
+      "id": "Identificación del bombero",
+      "code": "Código",
+      "first": "Nombre de pila",
+      "last": "Apellido",
       "email": "Email",
-      "status": "Status",
-      "actions": "Actions"
+      "status": "Estado",
+      "actions": "Accions"
     }
   }
 }

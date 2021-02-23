@@ -1,4 +1,5 @@
 import React, { useContext, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InlineNotification } from 'carbon-components-react';
 
@@ -8,11 +9,12 @@ import PrometeoHeader from '../../components/PrometeoHeader';
 
 import AuthClient from '../../hooks/useAuth';
 
-const LoginPage = ({ history }) => {
+const LoginPage = () => {
   const { t, setCurrentUser } = useContext(AppContext);
   const [error, setError] = useState('');
   const [step, setStep] = useState(1);
   const [loginId, setLoginId] = useState('');
+  let history = useHistory();
 
   const initLogin = useCallback(
     /**

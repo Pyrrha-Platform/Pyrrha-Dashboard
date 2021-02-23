@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import FirefighterGauge from '../FirefighterGauge';
 import FirefighterChartHolder from '../FirefighterChartHolder';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 
 function FirefighterDetailsGaugeSet({
@@ -74,7 +74,7 @@ function FirefighterDetailsGaugeSet({
   console.log("--------------------------");
   */
 
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   return (
     <>

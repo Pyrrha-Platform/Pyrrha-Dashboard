@@ -14,7 +14,7 @@ import {
 import DevicesAddModal from './devicesAddModal';
 import DevicesEditModal from './devicesEditModal';
 import DevicesDeleteModal from './devicesDeleteModal';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -27,7 +27,7 @@ const client = async (url, options) => {
 const NewDevicesTable = ({ device_id }) => {
   const [devices, setDevices] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   React.useEffect(() => {
     loadDevices();

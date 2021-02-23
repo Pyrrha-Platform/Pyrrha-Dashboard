@@ -14,7 +14,7 @@ import {
 import FirefightersAddModal from './firefightersAddModal';
 import FirefightersEditModal from './firefightersEditModal';
 import FirefightersDeleteModal from './firefightersDeleteModal';
-import Context from '../../context/app';
+import AppContext from '../../context/app';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -27,7 +27,7 @@ const client = async (url, options) => {
 const NewFirefightersTable = ({ firefighter_id }) => {
   const [firefighters, setFirefighters] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
-  const { t } = useContext(Context);
+  const { t } = useContext(AppContext);
 
   React.useEffect(() => {
     loadFirefighters();

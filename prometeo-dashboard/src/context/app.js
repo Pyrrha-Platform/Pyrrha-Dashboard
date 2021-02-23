@@ -6,16 +6,16 @@ export default createContext({});
 export const useAppContext = () => {
   const { t, i18n } = useTranslation();
   const [currentUser, setCurrentUser] = useState({
-    name: '',
+    isAuth: false,
+    firstName: '',
+    lastName: '',
     email: '',
-    password: '',
-    confirmPassword: '',
   });
 
   return {
     currentUser,
     setCurrentUser,
     t,
-    i18n
+    i18n,
   };
 };

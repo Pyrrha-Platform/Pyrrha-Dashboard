@@ -1,0 +1,43 @@
+.userinfo-parent {
+  width: fit-content;
+}
+
+.userinfo {
+  background: #262626;
+  padding: $layout-01;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 339px;
+  position: relative;
+  .bx--text-input {
+    background: #393939;
+  }
+}
+
+.userinfo-edit {
+  .field:not(:first-child),
+  .bx--form-item:not(:first-child) {
+    margin-top: $layout-02;
+  }
+  .bx--text-input {
+    border-bottom: 1px solid #8d8d8d;
+  }
+}
+
+.userinfo_header {
+  user-select: none;
+  .userinfo_title {
+    font-weight: 600;
+  }
+  .userinfo_edit {
+    float: right;
+    padding: 0;
+    min-height: fit-content;
+  }
+}
+
+.accountSettings__logout span {
+  @include carbon--type-style('body-short-01');
+  color: #78a9ff;
+  cursor: pointer;
+}
