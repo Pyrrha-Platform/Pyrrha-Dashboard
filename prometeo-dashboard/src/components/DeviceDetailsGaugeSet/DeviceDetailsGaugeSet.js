@@ -78,7 +78,7 @@ function DeviceDetailsGaugeSet({
           <div className="bx--grid bx--grid--full-width dashboard-content">
             <div className="bx--row dashboard-tile">
               <div className="bx--col-md-8 label-firefighter">
-                <a title={device_id}>{device_id}</a>
+                {device_id}
                 <br />
                 {t('content.details.now')}
               </div>
@@ -169,7 +169,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={device_id}>{device_id}</a>
+                  {device_id}
                   <br />
                   {t('content.details.10min')}
                 </div>
@@ -275,7 +275,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={device_id}>{device_id}</a>
+                  {device_id}
                   <br />
                   {t('content.details.30min')}
                 </div>
@@ -381,7 +381,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={device_id}>{device_id}</a>
+                  {device_id}
                   <br />
                   {t('content.details.1hr')}
                 </div>
@@ -483,7 +483,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={device_id}>{device_id}</a>
+                  {device_id}
                   <br />
                   {t('content.details.4hr')}
                 </div>
@@ -585,7 +585,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={device_id}>{device_id}</a>
+                  {device_id}
                   <br />
                   {t('content.details.8hr')}
                 </div>
