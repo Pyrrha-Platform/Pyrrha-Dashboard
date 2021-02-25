@@ -12,7 +12,7 @@ const fetchDashboard = async () => {
   try {
     const data = await client(`/api-main/v1/dashboard-now`);
     console.log(data);
-    return data.devices.sort((a, b) => (a.device_id > b.device_id ? 1 : -1));
+    return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
   } catch (e) {
     console.log(e);
   }
@@ -74,7 +74,7 @@ const updateDashboard = (dashboard, message) => {
     }
   }
   return newDashboard.current.sort((a, b) =>
-    a.device_id > b.device_id ? 1 : -1
+    a.device_id < b.device_id ? 1 : -1
   );
 };
 

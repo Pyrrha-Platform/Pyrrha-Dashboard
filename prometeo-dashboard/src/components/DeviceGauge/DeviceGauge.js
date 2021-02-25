@@ -40,7 +40,15 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   }, [value]);
 
   // On first load
-  const draw = (svg, url_safe_device_id, type, value, unit, increment, gauge) => {
+  const draw = (
+    svg,
+    url_safe_device_id,
+    type,
+    value,
+    unit,
+    increment,
+    gauge
+  ) => {
     /*
     console.log("draw()");
     console.log("url_safe_device_id", url_safe_device_id);
@@ -79,7 +87,10 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .attr('class', 'label-num')
       .text(Utils.formatFloat(value, 2))
       .attr('x', '0')
-      .attr('id', 'number-' + type + '-' + increment + '-' + url_safe_device_id);
+      .attr(
+        'id',
+        'number-' + type + '-' + increment + '-' + url_safe_device_id
+      );
     label
       .append('tspan')
       .attr('class', 'label-unit')
@@ -117,9 +128,9 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .duration(750)
       .style('fill', Utils.getStatusColor(type, value, increment, gauge))
       .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
-    d3.select('#number-' + type + '-' + increment + '-' + url_safe_device_id).text(
-      Utils.formatFloat(value, 2)
-    );
+    d3.select(
+      '#number-' + type + '-' + increment + '-' + url_safe_device_id
+    ).text(Utils.formatFloat(value, 2));
   };
 
   return <svg ref={ref}></svg>;
