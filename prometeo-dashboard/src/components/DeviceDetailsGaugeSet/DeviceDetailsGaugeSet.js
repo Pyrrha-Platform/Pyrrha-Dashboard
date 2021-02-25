@@ -1,21 +1,16 @@
 import React, { useContext } from 'react';
-import FirefighterGauge from '../FirefighterGauge';
-import FirefighterChartHolder from '../FirefighterChartHolder';
+import DeviceGauge from '../DeviceGauge';
+import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 
-function FirefighterDetailsGaugeSet({
+function DeviceDetailsGaugeSet({
   chart,
   setChart,
   type,
   setType,
   increment,
   setIncrement,
-  firefighter_id,
-  firefighter_first,
-  firefighter_last,
-  firefighter_code,
-  firefighter_email,
   device_id,
   temperature,
   humidity,
@@ -44,7 +39,7 @@ function FirefighterDetailsGaugeSet({
   nitrogen_dioxide_gauge_240min,
   nitrogen_dioxide_gauge_480min,
 }) {
-  console.log('FirefighterDetailsGaugeSet', increment);
+  console.log('DeviceDetailsGaugeSet', increment);
 
   /*
   console.log("temperature", temperature);
@@ -83,9 +78,7 @@ function FirefighterDetailsGaugeSet({
           <div className="bx--grid bx--grid--full-width dashboard-content">
             <div className="bx--row dashboard-tile">
               <div className="bx--col-md-8 label-firefighter">
-                <a title={firefighter_code}>
-                  {firefighter_first} {firefighter_last}
-                </a>
+                <a title={device_id}>{device_id}</a>
                 <br />
                 {t('content.details.now')}
               </div>
@@ -93,8 +86,8 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--row dashboard-tile">
               <div className="bx--col bx--col-md-2">
                 <div>
-                  <FirefighterGauge
-                    firefighter_id={firefighter_id}
+                  <DeviceGauge
+                    device_id={device_id}
                     type={'CO'}
                     value={carbon_monoxide}
                     unit={'ppm'}
@@ -116,8 +109,8 @@ function FirefighterDetailsGaugeSet({
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
-                  <FirefighterGauge
-                    firefighter_id={firefighter_id}
+                  <DeviceGauge
+                    device_id={device_id}
                     type={'NO2'}
                     value={nitrogen_dioxide}
                     unit={'ppm'}
@@ -139,8 +132,8 @@ function FirefighterDetailsGaugeSet({
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
-                  <FirefighterGauge
-                    firefighter_id={firefighter_id}
+                  <DeviceGauge
+                    device_id={device_id}
                     type={'Tmp'}
                     value={temperature}
                     unit={'°C'}
@@ -154,8 +147,8 @@ function FirefighterDetailsGaugeSet({
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
-                  <FirefighterGauge
-                    firefighter_id={firefighter_id}
+                  <DeviceGauge
+                    device_id={device_id}
                     type={'Hum'}
                     value={humidity}
                     unit={'%'}
@@ -176,9 +169,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={firefighter_code}>
-                    {firefighter_first} {firefighter_last}
-                  </a>
+                  <a title={device_id}>{device_id}</a>
                   <br />
                   {t('content.details.10min')}
                 </div>
@@ -186,8 +177,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'CO'}
                       value={carbon_monoxide_twa_10min}
                       increment={'10min'}
@@ -217,8 +208,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'NO2'}
                       value={nitrogen_dioxide_twa_10min}
                       increment={'10min'}
@@ -248,8 +239,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Tmp'}
                       value={'-'}
                       increment={'10min'}
@@ -262,8 +253,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Hum'}
                       value={'-'}
                       increment={'10min'}
@@ -284,9 +275,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={firefighter_code}>
-                    {firefighter_first} {firefighter_last}
-                  </a>
+                  <a title={device_id}>{device_id}</a>
                   <br />
                   {t('content.details.30min')}
                 </div>
@@ -294,8 +283,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'CO'}
                       value={carbon_monoxide_twa_30min}
                       increment={'30min'}
@@ -325,8 +314,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'NO2'}
                       value={nitrogen_dioxide_twa_30min}
                       increment={'30min'}
@@ -356,8 +345,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Tmp'}
                       value={'-'}
                       increment={'30min'}
@@ -370,8 +359,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Hum'}
                       value={'-'}
                       increment={'30min'}
@@ -392,9 +381,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={firefighter_code}>
-                    {firefighter_first} {firefighter_last}
-                  </a>
+                  <a title={device_id}>{device_id}</a>
                   <br />
                   {t('content.details.1hr')}
                 </div>
@@ -402,8 +389,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'CO'}
                       value={carbon_monoxide_twa_60min}
                       increment={'1hr'}
@@ -431,8 +418,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'NO2'}
                       value={nitrogen_dioxide_twa_60min}
                       increment={'1hr'}
@@ -460,8 +447,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Tmp'}
                       value={'-'}
                       increment={'1hr'}
@@ -474,8 +461,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Hum'}
                       value={'-'}
                       increment={'1hr'}
@@ -496,9 +483,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={firefighter_code}>
-                    {firefighter_first} {firefighter_last}
-                  </a>
+                  <a title={device_id}>{device_id}</a>
                   <br />
                   {t('content.details.4hr')}
                 </div>
@@ -506,8 +491,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'CO'}
                       value={carbon_monoxide_twa_240min}
                       increment={'4hr'}
@@ -535,8 +520,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'NO2'}
                       value={nitrogen_dioxide_twa_240min}
                       increment={'4hr'}
@@ -564,8 +549,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Tmp'}
                       value={'-'}
                       increment={'4hr'}
@@ -578,8 +563,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Hum'}
                       value={'-'}
                       increment={'4hr'}
@@ -600,9 +585,7 @@ function FirefighterDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  <a title={firefighter_code}>
-                    {firefighter_first} {firefighter_last}
-                  </a>
+                  <a title={device_id}>{device_id}</a>
                   <br />
                   {t('content.details.8hr')}
                 </div>
@@ -610,8 +593,8 @@ function FirefighterDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'CO'}
                       value={carbon_monoxide_twa_480min}
                       increment={'8hr'}
@@ -639,8 +622,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'NO2'}
                       value={nitrogen_dioxide_twa_480min}
                       increment={'8hr'}
@@ -668,8 +651,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Tmp'}
                       value={'-'}
                       increment={'8hr'}
@@ -682,8 +665,8 @@ function FirefighterDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <FirefighterGauge
-                      firefighter_id={firefighter_id}
+                    <DeviceGauge
+                      device_id={device_id}
                       type={'Hum'}
                       value={'-'}
                       increment={'8hr'}
@@ -701,8 +684,8 @@ function FirefighterDetailsGaugeSet({
       </div>
       <div className="bx--row">
         <div className="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
-          <FirefighterChartHolder
-            firefighter_id={firefighter_id}
+          <DeviceChartHolder
+            device_id={device_id}
             type={!type ? 'CO' : type}
             data={chart}
             unit={'ppm'}
@@ -717,4 +700,4 @@ function FirefighterDetailsGaugeSet({
   );
 }
 
-export default FirefighterDetailsGaugeSet;
+export default DeviceDetailsGaugeSet;

@@ -82,7 +82,6 @@ function PrometeoHeader(props) {
             }}>
             {t('components.header.firefighters')}
           </HeaderMenuItem>
-
         </HeaderNavigation>
       )}
       <HeaderGlobalBar>
@@ -93,14 +92,14 @@ function PrometeoHeader(props) {
           <Translate20 />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
-        <HeaderGlobalAction
-          aria-label="Profile"
-          onClick={() => {
-            history.push('/profile');
-            setPage('Profile');
-          }}>
-          <UserAvatar20 />
-        </HeaderGlobalAction>
+          <HeaderGlobalAction
+            aria-label="Profile"
+            onClick={() => {
+              history.push('/profile');
+              setPage('Profile');
+            }}>
+            <UserAvatar20 />
+          </HeaderGlobalAction>
         )}
       </HeaderGlobalBar>
       <HeaderPanel aria-label="Header Panel" expanded={active}>

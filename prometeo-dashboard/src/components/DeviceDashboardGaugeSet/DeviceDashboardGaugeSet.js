@@ -1,15 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import FirefighterGauge from '../FirefighterGauge';
+import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 
-function FirefighterDashboardGaugeSet({
-  firefighter_id,
-  firefighter_code,
-  firefighter_first,
-  firefighter_last,
-  firefighter_email,
+function DeviceDashboardGaugeSet({
   device_id,
   timestamp_mins,
   temperature,
@@ -26,10 +21,10 @@ function FirefighterDashboardGaugeSet({
         <div className="bx--row dashboard-tile">
           <div className="bx--col-md-8 label-firefighter">
             <Link
-              to={'/details/' + firefighter_id}
+              to={'/details/' + device_id}
               className="bx--link label-firefighter"
-              title={firefighter_code}>
-              {firefighter_first} {firefighter_last}
+              title={device_id}>
+              {device_id}
               <br />
             </Link>
             {t('content.details.now')}
@@ -38,8 +33,8 @@ function FirefighterDashboardGaugeSet({
         <div className="bx--row dashboard-tile">
           <div className="bx--col bx--col-md-2">
             <div>
-              <FirefighterGauge
-                firefighter_id={firefighter_id}
+              <DeviceGauge
+                device_id={device_id}
                 type={'CO'}
                 value={carbon_monoxide}
                 increment={increment}
@@ -51,8 +46,8 @@ function FirefighterDashboardGaugeSet({
           </div>
           <div className="bx--col bx--col-md-2">
             <div>
-              <FirefighterGauge
-                firefighter_id={firefighter_id}
+              <DeviceGauge
+                device_id={device_id}
                 type={'NO2'}
                 value={nitrogen_dioxide}
                 increment={increment}
@@ -66,8 +61,8 @@ function FirefighterDashboardGaugeSet({
           </div>
           <div className="bx--col bx--col-md-2">
             <div>
-              <FirefighterGauge
-                firefighter_id={firefighter_id}
+              <DeviceGauge
+                device_id={device_id}
                 type={'Tmp'}
                 value={temperature}
                 increment={increment}
@@ -81,8 +76,8 @@ function FirefighterDashboardGaugeSet({
           </div>
           <div className="bx--col bx--col-md-2">
             <div>
-              <FirefighterGauge
-                firefighter_id={firefighter_id}
+              <DeviceGauge
+                device_id={device_id}
                 type={'Hum'}
                 value={humidity}
                 increment={increment}
@@ -98,4 +93,4 @@ function FirefighterDashboardGaugeSet({
   );
 }
 
-export default FirefighterDashboardGaugeSet;
+export default DeviceDashboardGaugeSet;

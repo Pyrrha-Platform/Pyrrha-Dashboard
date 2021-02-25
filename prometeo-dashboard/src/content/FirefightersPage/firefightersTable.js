@@ -24,7 +24,7 @@ const client = async (url, options) => {
 };
 
 // Table and data
-const NewFirefightersTable = ({ firefighter_id }) => {
+const NewFirefightersTable = ({ device_id }) => {
   const [firefighters, setFirefighters] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
   const { t } = useContext(AppContext);

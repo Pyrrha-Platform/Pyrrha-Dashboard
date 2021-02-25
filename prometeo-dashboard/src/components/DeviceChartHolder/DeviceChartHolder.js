@@ -1,14 +1,7 @@
 import React from 'react';
-import FirefighterChart from '../FirefighterChart';
+import DeviceChart from '../DeviceChart';
 
-function FirefighterChartHolder({
-  firefighter_id,
-  type,
-  data,
-  unit,
-  limit,
-  increment,
-}) {
+function DeviceChartHolder({ device_id, type, data, unit, limit, increment }) {
   return (
     <div className="bx--grid bx--grid--full-width details-content">
       <div className="bx--row details-tile">
@@ -20,8 +13,8 @@ function FirefighterChartHolder({
       </div>
       <div className="bx--row details-tile">
         <div className="bx--col bx--col-md-16">
-          <FirefighterChart
-            firefighter_id={firefighter_id}
+          <DeviceChart
+            device_id={device_id}
             type={type}
             data={data}
             unit={unit}
@@ -34,4 +27,4 @@ function FirefighterChartHolder({
   );
 }
 
-export default FirefighterChartHolder;
+export default DeviceChartHolder;

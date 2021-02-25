@@ -16,7 +16,7 @@ class Utils {
   // Used to dedepuplicate arrays of firefighters
   static arrayRemove = (arr, value) => {
     return arr.filter(function (ele) {
-      return ele.firefighter_id != value.firefighter_id;
+      return ele.device_id != value.device_id;
     });
   };
 
