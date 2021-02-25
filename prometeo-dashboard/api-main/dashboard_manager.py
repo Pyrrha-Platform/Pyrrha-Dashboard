@@ -103,9 +103,11 @@ class dashboard_manager(object):
                         carbon_monoxide,
                         nitrogen_dioxide,
                         timestamp_mins,
+                        device_timestamp,
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
                         firefighter_sensor_log
+                    WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
                 WHERE device_readings.latest_reading_for_device = 1
@@ -128,6 +130,7 @@ class dashboard_manager(object):
                         'carbon_monoxide': i[3],
                         'nitrogen_dioxide': i[4],
                         'timestamp_mins': i[5],
+                        'device_timestamp': i[6],
                     })
 
             else:
@@ -175,7 +178,7 @@ class dashboard_manager(object):
                 LIMIT 1;
             """
 
-            print("get_dashboard_details - get latest reading for each firefighters")
+            print("get_dashboard_details - get latest reading for the device")
             cursor.execute(sql, (device_id, ))
 
             print("get_dashboard_details - fetchall")
@@ -192,7 +195,7 @@ class dashboard_manager(object):
                         'carbon_monoxide': i[6],
                         'nitrogen_dioxide': i[7],
                         'timestamp_mins': i[0],
-                        'deviceTimestamp': i[11],
+                        'device_timestamp': i[11],
                         'carbon_monoxide_twa_10min': "{:.2f}".format(i[14]),
                         'carbon_monoxide_twa_30min': "{:.2f}".format(i[15]),
                         'carbon_monoxide_twa_60min': "{:.2f}".format(i[16]),
@@ -298,7 +301,7 @@ class dashboard_manager(object):
                     print(i)
                     chart.append({
                         'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
-                        'deviceTimestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'device_timestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S"),
                         'value': "{:.2f}".format(i[2])
                     })
 

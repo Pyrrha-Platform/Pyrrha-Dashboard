@@ -52,6 +52,51 @@ const updateDetails = (details, message) => {
               'Replacing an old reading with a new one in the array',
               newMessage
             );
+
+            newMessage.carbon_monoxide_gauge_10min =
+              oldReading.carbon_monoxide_gauge_10min;
+            newMessage.carbon_monoxide_gauge_30min =
+              oldReading.carbon_monoxide_gauge_30min;
+            newMessage.carbon_monoxide_gauge_60min =
+              oldReading.carbon_monoxide_gauge_60min;
+            newMessage.carbon_monoxide_gauge_240min =
+              oldReading.carbon_monoxide_gauge_240min;
+            newMessage.carbon_monoxide_gauge_480min =
+              oldReading.carbon_monoxide_gauge_480min;
+
+            newMessage.carbon_monoxide_twa_10min =
+              oldReading.carbon_monoxide_twa_10min;
+            newMessage.carbon_monoxide_twa_30min =
+              oldReading.carbon_monoxide_twa_30min;
+            newMessage.carbon_monoxide_twa_60min =
+              oldReading.carbon_monoxide_twa_60min;
+            newMessage.carbon_monoxide_twa_240min =
+              oldReading.carbon_monoxide_twa_240min;
+            newMessage.carbon_monoxide_twa_480min =
+              oldReading.carbon_monoxide_twa_480min;
+
+            newMessage.nitrogen_dioxide_gauge_10min =
+              oldReading.nitrogen_dioxide_gauge_10min;
+            newMessage.nitrogen_dioxide_gauge_30min =
+              oldReading.nitrogen_dioxide_gauge_30min;
+            newMessage.nitrogen_dioxide_gauge_60min =
+              oldReading.nitrogen_dioxide_gauge_60min;
+            newMessage.nitrogen_dioxide_gauge_240min =
+              oldReading.nitrogen_dioxide_gauge_240min;
+            newMessage.nitrogen_dioxide_gauge_480min =
+              oldReading.nitrogen_dioxide_gauge_480min;
+
+            newMessage.nitrogen_dioxide_twa_10min =
+              oldReading.nitrogen_dioxide_twa_10min;
+            newMessage.nitrogen_dioxide_twa_30min =
+              oldReading.nitrogen_dioxide_twa_30min;
+            newMessage.nitrogen_dioxide_twa_60min =
+              oldReading.nitrogen_dioxide_twa_60min;
+            newMessage.nitrogen_dioxide_twa_240min =
+              oldReading.nitrogen_dioxide_twa_240min;
+            newMessage.nitrogen_dioxide_twa_480min =
+              oldReading.nitrogen_dioxide_twa_480min;
+
             newDetails.current = Utils.arrayRemove(
               newDetails.current,
               oldReading
@@ -61,35 +106,73 @@ const updateDetails = (details, message) => {
         });
       });
     } else {
-      // It's a single firefighterupdate, replace the
-      // latest reading for the firefighter, or add it
-
+      // It's a single device update, replace the
+      // latest reading for the device, or add it
       console.log('object', newMessage);
-      let matchedOldReading = false;
       newDetails.current.forEach((oldReading) => {
         if (oldReading.device_id == newMessage.device_id) {
           console.log(
             'Replacing a single old reading with a new one',
             newMessage
           );
+
+          newMessage.carbon_monoxide_gauge_10min =
+            oldReading.carbon_monoxide_gauge_10min;
+          newMessage.carbon_monoxide_gauge_30min =
+            oldReading.carbon_monoxide_gauge_30min;
+          newMessage.carbon_monoxide_gauge_60min =
+            oldReading.carbon_monoxide_gauge_60min;
+          newMessage.carbon_monoxide_gauge_240min =
+            oldReading.carbon_monoxide_gauge_240min;
+          newMessage.carbon_monoxide_gauge_480min =
+            oldReading.carbon_monoxide_gauge_480min;
+
+          newMessage.carbon_monoxide_twa_10min =
+            oldReading.carbon_monoxide_twa_10min;
+          newMessage.carbon_monoxide_twa_30min =
+            oldReading.carbon_monoxide_twa_30min;
+          newMessage.carbon_monoxide_twa_60min =
+            oldReading.carbon_monoxide_twa_60min;
+          newMessage.carbon_monoxide_twa_240min =
+            oldReading.carbon_monoxide_twa_240min;
+          newMessage.carbon_monoxide_twa_480min =
+            oldReading.carbon_monoxide_twa_480min;
+
+          newMessage.nitrogen_dioxide_gauge_10min =
+            oldReading.nitrogen_dioxide_gauge_10min;
+          newMessage.nitrogen_dioxide_gauge_30min =
+            oldReading.nitrogen_dioxide_gauge_30min;
+          newMessage.nitrogen_dioxide_gauge_60min =
+            oldReading.nitrogen_dioxide_gauge_60min;
+          newMessage.nitrogen_dioxide_gauge_240min =
+            oldReading.nitrogen_dioxide_gauge_240min;
+          newMessage.nitrogen_dioxide_gauge_480min =
+            oldReading.nitrogen_dioxide_gauge_480min;
+
+          newMessage.nitrogen_dioxide_twa_10min =
+            oldReading.nitrogen_dioxide_twa_10min;
+          newMessage.nitrogen_dioxide_twa_30min =
+            oldReading.nitrogen_dioxide_twa_30min;
+          newMessage.nitrogen_dioxide_twa_60min =
+            oldReading.nitrogen_dioxide_twa_60min;
+          newMessage.nitrogen_dioxide_twa_240min =
+            oldReading.nitrogen_dioxide_twa_240min;
+          newMessage.nitrogen_dioxide_twa_480min =
+            oldReading.nitrogen_dioxide_twa_480min;
           newDetails.current = Utils.arrayRemove(
             newDetails.current,
             oldReading
           );
+
           newDetails.current.push(newMessage);
-          matchedOldReading = true;
         }
+
       });
-      if (!matchedOldReading) {
-        console.log('Adding a new reading', newMessage);
-        newDetails.current.push(newMessage);
-      }
+
       console.log(newDetails);
     }
   }
-  return newDetails.current.sort((a, b) =>
-    a.device_id > b.device_id ? 1 : -1
-  );
+  return newDetails.current;
 };
 
 const useDetails = (device_id, inc, ty) => {
@@ -114,7 +197,7 @@ const useDetails = (device_id, inc, ty) => {
   // On filter by gauge
   // Refresh chart by specific reading
 
-  // Initial load of latest for firefighter or change in increment
+  // Initial load of latest for device or change in increment
   useEffect(() => {
     fetchDetails(device_id, increment, type).then((details) => {
       setDetails(details);
@@ -123,7 +206,7 @@ const useDetails = (device_id, inc, ty) => {
     });
   }, [increment, type]);
 
-  // Initial load of latest for firefighter or change in increment
+  // Initial load of latest for device or change in increment
   useEffect(() => {
     fetchChartDetails(device_id, increment, type).then((chart) => {
       setChart(chart);

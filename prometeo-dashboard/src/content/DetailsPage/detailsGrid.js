@@ -77,7 +77,7 @@ const DetailsGrid = (params) => {
           carbon_monoxide,
           nitrogen_dioxide,
           timestamp_mins,
-          deviceTimestamp,
+          device_timestamp,
           carbon_monoxide_twa_10min,
           carbon_monoxide_twa_30min,
           carbon_monoxide_twa_60min,
@@ -108,11 +108,12 @@ const DetailsGrid = (params) => {
             setIncrement={setIncrement}
             device_id={device_id}
             timestamp_mins={timestamp_mins}
+            device_timestamp={device_timestamp}
             temperature={temperature}
             humidity={humidity}
             carbon_monoxide={carbon_monoxide}
             nitrogen_dioxide={nitrogen_dioxide}
-            deviceTimestamp={deviceTimestamp}
+            device_timestamp={device_timestamp}
             carbon_monoxide_twa_10min={carbon_monoxide_twa_10min}
             carbon_monoxide_twa_30min={carbon_monoxide_twa_30min}
             carbon_monoxide_twa_60min={carbon_monoxide_twa_60min}
