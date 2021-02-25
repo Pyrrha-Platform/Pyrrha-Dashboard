@@ -3,6 +3,7 @@ import DeviceGauge from '../DeviceGauge';
 import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
+import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
 
 function DeviceDetailsGaugeSet({
   chart,
@@ -17,7 +18,7 @@ function DeviceDetailsGaugeSet({
   carbon_monoxide,
   nitrogen_dioxide,
   timestamp_mins,
-  deviceTimestamp,
+  device_timestamp,
   carbon_monoxide_twa_10min,
   carbon_monoxide_twa_30min,
   carbon_monoxide_twa_60min,
@@ -77,10 +78,16 @@ function DeviceDetailsGaugeSet({
         <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
           <div className="bx--grid bx--grid--full-width dashboard-content">
             <div className="bx--row dashboard-tile">
-              <div className="bx--col-md-8 label-firefighter">
+              <div className="bx--col-md-6 label-firefighter">
                 {device_id}
                 <br />
-                {t('content.details.now')}
+                {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
+                { /* t('content.details.now') */ }
+              </div>
+              <div className="bx--col-md-2 icon-firefighter">
+                {new Date() - Date.parse(device_timestamp) < 10000 && (
+                  <NotificationFilled20 />
+                )}
               </div>
             </div>
             <div className="bx--row dashboard-tile">

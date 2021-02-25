@@ -44,9 +44,9 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
-          // console.log("d.deviceTimestamp", d.deviceTimestamp);
-          // console.log("d.deviceTimestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.deviceTimestamp));
-          return d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.deviceTimestamp);
+          // console.log("d.device_timestamp", d.device_timestamp);
+          // console.log("d.device_timestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.device_timestamp));
+          return d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp);
         })
       )
       .range([0, width]);
@@ -100,7 +100,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         d3
           .area()
           .x(function (d) {
-            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.deviceTimestamp));
+            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
           })
           .y0(y(0))
           .y1(function (d) {
