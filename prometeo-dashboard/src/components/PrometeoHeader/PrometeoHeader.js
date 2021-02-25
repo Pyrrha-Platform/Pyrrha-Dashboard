@@ -32,6 +32,8 @@ function PrometeoHeader(props) {
     i18n.changeLanguage(lng);
   };
 
+  console.log(currentUser);
+
   return (
     <Header aria-label="Prometeo">
       <SkipToContent />

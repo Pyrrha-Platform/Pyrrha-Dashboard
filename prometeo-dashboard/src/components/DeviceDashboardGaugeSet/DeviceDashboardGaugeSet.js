@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
+import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
 
 function DeviceDashboardGaugeSet({
   device_id,
   timestamp_mins,
+  device_timestamp,
   temperature,
   humidity,
   carbon_monoxide,
@@ -19,7 +21,7 @@ function DeviceDashboardGaugeSet({
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className="bx--row dashboard-tile">
-          <div className="bx--col-md-8 label-firefighter">
+          <div className="bx--col-md-6 label-firefighter">
             <Link
               to={'/details/' + device_id}
               className="bx--link label-firefighter"
@@ -27,7 +29,13 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            {t('content.details.now')}
+            {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
+            {/* t('content.details.now') */}
+          </div>
+          <div className="bx--col-md-2 icon-firefighter">
+            {new Date() - Date.parse(device_timestamp) < 10000 && (
+              <NotificationFilled20 />
+            )}
           </div>
         </div>
         <div className="bx--row dashboard-tile">

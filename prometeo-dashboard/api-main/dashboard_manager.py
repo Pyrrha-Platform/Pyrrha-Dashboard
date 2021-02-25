@@ -103,9 +103,11 @@ class dashboard_manager(object):
                         carbon_monoxide,
                         nitrogen_dioxide,
                         timestamp_mins,
+                        device_timestamp,
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
                         firefighter_sensor_log
+                    WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
                 WHERE device_readings.latest_reading_for_device = 1
@@ -128,6 +130,7 @@ class dashboard_manager(object):
                         'carbon_monoxide': i[3],
                         'nitrogen_dioxide': i[4],
                         'timestamp_mins': i[5],
+                        'device_timestamp': i[6],
                     })
 
             else:

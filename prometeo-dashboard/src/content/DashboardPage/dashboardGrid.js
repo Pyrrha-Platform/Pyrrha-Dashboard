@@ -31,6 +31,7 @@ const DashboardGrid = () => {
           ({
             device_id,
             timestamp_mins,
+            device_timestamp,
             temperature,
             humidity,
             carbon_monoxide,
@@ -40,6 +41,7 @@ const DashboardGrid = () => {
             <DeviceDashboardGaugeSet
               device_id={device_id}
               timestamp_mins={timestamp_mins}
+              device_timestamp={device_timestamp}
               temperature={temperature}
               humidity={humidity}
               carbon_monoxide={carbon_monoxide}
