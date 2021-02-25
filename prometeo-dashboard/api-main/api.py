@@ -358,36 +358,36 @@ def device_by_id(id):
 @app.route('/api-main/v1/dashboard-now', methods=['GET'])
 def dashboard_now():
 
-    firefighters = dashboard_manager().get_dashboard_now()
+    devices = dashboard_manager().get_dashboard_now()
     message = {
         'status': 200,
         'message': 'OK',
-        'firefighters': firefighters
+        'devices': devices
     }
     body = json.dumps(message)
     resp = Response(body, status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api-main/v1/dashboard/<string:firefighter_id>', methods=['GET'])
-def get_dashboard_for(firefighter_id):
+@app.route('/api-main/v1/dashboard/<string:device_id>', methods=['GET'])
+def get_dashboard_for(device_id):
 
-    firefighter = dashboard_manager().get_dashboard_for(firefighter_id)
+    firefighter = dashboard_manager().get_dashboard_for(device_id)
     message = {
         'status': 200,
         'message': 'OK',
-        'firefighter': firefighter
+        'device': device
     }
     body = json.dumps(message)
     resp = Response(body, status=200, mimetype='application/json')
     return resp
 
 
-@app.route('/api-main/v1/dashboard-details/<string:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
-def get_dashboard_details(firefighter_id, increment='all', type='CO'):
+@app.route('/api-main/v1/dashboard-details/<string:device_id>/<string:increment>/<string:type>', methods=['GET'])
+def get_dashboard_details(device_id, increment='all', type='CO'):
 
     details = dashboard_manager().get_dashboard_details(
-        firefighter_id, increment, type)
+        device_id, increment, type)
     message = {
         'status': 200,
         'message': 'OK',
@@ -398,11 +398,11 @@ def get_dashboard_details(firefighter_id, increment='all', type='CO'):
     return resp
 
 
-@app.route('/api-main/v1/dashboard-chart-details/<string:firefighter_id>/<string:increment>/<string:type>', methods=['GET'])
-def get_dashboard_chart_details(firefighter_id, increment='all', type='CO'):
+@app.route('/api-main/v1/dashboard-chart-details/<string:device_id>/<string:increment>/<string:type>', methods=['GET'])
+def get_dashboard_chart_details(device_id, increment='all', type='CO'):
 
     chart = dashboard_manager().get_dashboard_chart_details(
-        firefighter_id, increment, type)
+        device_id, increment, type)
     message = {
         'status': 200,
         'message': 'OK',

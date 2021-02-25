@@ -12,9 +12,7 @@ const fetchDashboard = async () => {
   try {
     const data = await client(`/api-main/v1/dashboard-now`);
     console.log(data);
-    return data.firefighters.sort((a, b) =>
-      a.firefighter_id > b.firefighter_id ? 1 : -1
-    );
+    return data.devices.sort((a, b) => (a.device_id > b.device_id ? 1 : -1));
   } catch (e) {
     console.log(e);
   }
@@ -35,15 +33,11 @@ const updateDashboard = (dashboard, message) => {
       console.log('array', newMessage);
       newDashboard.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
-          if (oldReading.firefighter_id == newReading.firefighter_id) {
+          if (oldReading.device_id == newReading.device_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
               newMessage
             );
-            newMessage.firefighter_first = oldReading.firefighter_first;
-            newMessage.firefighter_last = oldReading.firefighter_last;
-            newMessage.firefighter_email = oldReading.firefighter_email;
-            newMessage.firefighter_code = oldReading.firefighter_id;
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
               oldReading
@@ -53,20 +47,16 @@ const updateDashboard = (dashboard, message) => {
         });
       });
     } else {
-      // It's a single firefighter update, replace the
-      // latest reading for the firefighter, or add it
+      // It's a single device update, replace the
+      // latest reading for the device, or add it
       console.log('object', newMessage);
       let matchedOldReading = false;
       newDashboard.current.forEach((oldReading) => {
-        if (oldReading.firefighter_id == newMessage.firefighter_id) {
+        if (oldReading.device_id == newMessage.device_id) {
           console.log(
             'Replacing a single old reading with a new one',
             newMessage
           );
-          newMessage.firefighter_first = oldReading.firefighter_first;
-          newMessage.firefighter_last = oldReading.firefighter_last;
-          newMessage.firefighter_email = oldReading.firefighter_email;
-          newMessage.firefighter_code = oldReading.firefighter_id;
           console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
@@ -84,7 +74,7 @@ const updateDashboard = (dashboard, message) => {
     }
   }
   return newDashboard.current.sort((a, b) =>
-    a.firefighter_id > b.firefighter_id ? 1 : -1
+    a.device_id > b.device_id ? 1 : -1
   );
 };
 
@@ -96,7 +86,7 @@ const useDashboard = () => {
   const dashboardRef = useRef([]);
   dashboardRef.current = dashboard;
 
-  // Initial load of latest for all firefighters
+  // Initial load of latest for all devices
   useEffect(() => {
     fetchDashboard().then((dashboard) => {
       setDashboard(dashboard);

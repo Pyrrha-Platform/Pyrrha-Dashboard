@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ContentSwitcher, Switch } from 'carbon-components-react';
 import '@carbon/charts/styles.css';
-import FirefighterDetailsGaugeSet from '../../components/FirefighterDetailsGaugeSet/FirefighterDetailsGaugeSet';
+import DeviceDetailsGaugeSet from '../../components/DeviceDetailsGaugeSet/DeviceDetailsGaugeSet';
 import useDetails from '../../hooks/useDetails';
 import AppContext from '../../context/app';
 
@@ -18,11 +18,11 @@ const DetailsGrid = (params) => {
     setIncrement,
     type,
     setType,
-  ] = useDetails(params.firefighter_id, params.increment, params.type);
+  ] = useDetails(params.device_id, params.increment, params.type);
   const { t } = useContext(AppContext);
 
   /*
-  console.log("firefighter_id", params.firefighter_id);
+  console.log("device_id", params.device_id);
   console.log("increment", increment);
   console.log("type", type);
   */
@@ -71,11 +71,6 @@ const DetailsGrid = (params) => {
 
       {details.map(
         ({
-          firefighter_id,
-          firefighter_first,
-          firefighter_last,
-          firefighter_code,
-          firefighter_email,
           device_id,
           temperature,
           humidity,
@@ -104,18 +99,13 @@ const DetailsGrid = (params) => {
           nitrogen_dioxide_gauge_240min,
           nitrogen_dioxide_gauge_480min,
         }) => (
-          <FirefighterDetailsGaugeSet
+          <DeviceDetailsGaugeSet
             chart={chart}
             setChart={setChart}
             type={type}
             setType={setType}
             increment={increment}
             setIncrement={setIncrement}
-            firefighter_id={firefighter_id}
-            firefighter_code={firefighter_code}
-            firefighter_first={firefighter_first}
-            firefighter_last={firefighter_last}
-            firefighter_email={firefighter_email}
             device_id={device_id}
             timestamp_mins={timestamp_mins}
             temperature={temperature}

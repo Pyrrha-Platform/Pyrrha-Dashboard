@@ -4,14 +4,7 @@ import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
 import AppContext from '../../context/app';
 
-function FirefighterChart({
-  firefighter_id,
-  type,
-  data,
-  unit,
-  limit,
-  increment,
-}) {
+function DeviceChart({ device_id, type, data, unit, limit, increment }) {
   const ref = useRef();
   const { t } = useContext(AppContext);
 
@@ -29,10 +22,10 @@ function FirefighterChart({
 
   // On first load
   useEffect(() => {
-    draw(firefighter_id, type, data, unit);
+    draw(device_id, type, data, unit);
   }, [data]);
 
-  const draw = (firefighter_id, type, data, unit) => {
+  const draw = (device_id, type, data, unit) => {
     // console.log("draw()");
     d3.select(ref.current).selectAll('*').remove();
 
@@ -147,4 +140,4 @@ function FirefighterChart({
   return <svg ref={ref}></svg>;
 }
 
-export default FirefighterChart;
+export default DeviceChart;

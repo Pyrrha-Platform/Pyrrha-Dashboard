@@ -13,10 +13,10 @@ class dashboard_manager(object):
         self.logger = logging.getLogger('prometeo.dashboards.fire_fighters')
         self.logger.debug('creating an instance of dashboards')
 
-    def get_dashboard_for(self, firefighter_id):
+    def get_dashboard_for(self, device_id):
         print("get_dashboard - entro en la funcion")
 
-        firefighters = []
+        devices = []
 
         try:
             print("get_dashboard - trying")
@@ -35,9 +35,8 @@ class dashboard_manager(object):
 
             print("get_dashboard - llamada a sql")
 
-            # firefighter_id is actually what the firefighter_code in the firefighters table
             cursor.execute(
-                'SELECT * FROM firefighter_sensor_log WHERE firefighter_id = ? ORDER BY device_timestamp DESC LIMIT 1', (firefighter_id,))
+                'SELECT * FROM firefighter_sensor_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1', (device_id,))
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
             
             print("get_dashboard - sp_select_all_devices")
@@ -47,9 +46,8 @@ class dashboard_manager(object):
                 print("get_dashboard - Hay informacion")
                 for i in data:
                     print(i)
-                    firefighters.append({
+                    devices.append({
                         'timestamp_mins': i[0],
-                        'firefighter_id': i[1],
                         'device_id': i[2],
                         'device_battery_level': i[3],
                         'temperature': i[4],
@@ -75,12 +73,12 @@ class dashboard_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighters
+        return devices
 
     def get_dashboard_now(self):
         print("get_dashboard_now - entro en la funcion")
 
-        firefighters = []
+        devices = []
 
         try:
             print("get_dashboard_now - trying")
@@ -95,40 +93,25 @@ class dashboard_manager(object):
             print("get_dashboard_now - before cursor")
             cursor = conn.cursor()
 
-            # firefighter_id is actually what the firefighter_code in the firefighters table
             print("get_dashboard_now - llamada a sql")
             sql = """
-                SELECT 
-                    f.firefighter_code,
-                    name,
-                    surname,
-                    email,
-                    device_id,
-                    temperature,
-                    humidity,
-                    carbon_monoxide,
-                    nitrogen_dioxide,
-                    timestamp_mins
-                FROM
-                    firefighters f
-                INNER JOIN (
+                SELECT * FROM (
                     SELECT 
-                        fsl1.*
+                        device_id,
+                        temperature,
+                        humidity,
+                        carbon_monoxide,
+                        nitrogen_dioxide,
+                        timestamp_mins,
+                        row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
-                        firefighter_sensor_log fsl1
-                            INNER JOIN
-                        (SELECT 
-                            firefighter_id, MAX(timestamp_mins) AS reading
-                        FROM
-                            firefighter_sensor_log
-                        GROUP BY firefighter_id) fsl2 ON fsl2.firefighter_id = fsl1.firefighter_id
-                            AND fsl1.timestamp_mins = fsl2.reading
-                    ORDER BY reading DESC
-                ) fsl ON fsl.firefighter_id = f.firefighter_code
-                WHERE deleted_at IS NULL 
+                        firefighter_sensor_log
+                    ORDER BY timestamp_mins DESC
+                ) device_readings
+                WHERE device_readings.latest_reading_for_device = 1
             """
 
-            print("get_dashboard_now - get latest reading for each firefighters")
+            print("get_dashboard_now - get latest reading for each device")
             cursor.execute(sql)
 
             print("get_dashboard_now - fetchall")
@@ -138,18 +121,13 @@ class dashboard_manager(object):
                 print("get_dashboard_now - Hay informacion")
                 for i in data:
                     print(i)
-                    firefighters.append({
-                        'firefighter_id': i[0],
-                        'firefighter_first': i[1],
-                        'firefighter_last': i[2],
-                        'firefighter_code': i[0],
-                        'firefighter_email': i[3],
-                        'device_id': i[4],
-                        'temperature': i[5],
-                        'humidity': i[6],
-                        'carbon_monoxide': i[7],
-                        'nitrogen_dioxide': i[8],
-                        'timestamp_mins': i[9],
+                    devices.append({
+                        'device_id': i[0],
+                        'temperature': i[1],
+                        'humidity': i[2],
+                        'carbon_monoxide': i[3],
+                        'nitrogen_dioxide': i[4],
+                        'timestamp_mins': i[5],
                     })
 
             else:
@@ -165,9 +143,9 @@ class dashboard_manager(object):
             cursor.close()
             conn.close()
 
-        return firefighters
+        return devices
 
-    def get_dashboard_details(self, firefighter_id, increment, type):
+    def get_dashboard_details(self, device_id, increment, type):
         print("get_dashboard_details - entro en la funcion")
 
         details = []
@@ -190,17 +168,15 @@ class dashboard_manager(object):
                 SELECT 
                     *
                 FROM
-                    firefighter_status_analytics fsa, firefighters f
+                    firefighter_status_analytics fsa
                 WHERE
-                    fsa.firefighter_id = %s 
-                AND
-                    fsa.firefighter_id = f.firefighter_code
+                    fsa.device_id = %s 
                 ORDER BY device_timestamp DESC
                 LIMIT 1;
             """
 
             print("get_dashboard_details - get latest reading for each firefighters")
-            cursor.execute(sql, (firefighter_id, ))
+            cursor.execute(sql, (device_id, ))
 
             print("get_dashboard_details - fetchall")
             data = cursor.fetchall()
@@ -210,11 +186,6 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     details.append({
-                        'firefighter_id': i[65],
-                        'firefighter_first': i[66],
-                        'firefighter_last': i[67],
-                        'firefighter_code': i[65],
-                        'firefighter_email': i[68],
                         'device_id': i[2],
                         'temperature': i[4],
                         'humidity': i[5],
@@ -259,12 +230,12 @@ class dashboard_manager(object):
 
         return details
 
-    def get_dashboard_chart_details(self, firefighter_id, increment, type):
+    def get_dashboard_chart_details(self, device_id, increment, type):
         print("get_dashboard_chart_details - entro en la funcion")
 
         chart = []
 
-        print("get_dashboard_chart_details - firefighter_id:", firefighter_id)
+        print("get_dashboard_chart_details - device_id:", device_id)
         print("get_dashboard_chart_details - increment:", increment)
         print("get_dashboard_chart_details - type:", type)
 
@@ -309,14 +280,14 @@ class dashboard_manager(object):
                 FROM
                     firefighter_status_analytics
                 WHERE
-                    firefighter_id = %s 
+                    device_id = %s 
                 ORDER BY device_timestamp DESC
                 LIMIT 10;
             """
             print(sql)
 
             print("get_dashboard_chart_details - get latest 10 reading for", column)
-            cursor.execute(sql, (firefighter_id, ))
+            cursor.execute(sql, (device_id, ))
 
             print("get_dashboard_chart_details - fetchall")
             data = cursor.fetchall()

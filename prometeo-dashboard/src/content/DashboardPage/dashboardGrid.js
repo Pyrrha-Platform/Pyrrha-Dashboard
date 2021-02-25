@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
-import FirefighterDashboardGaugeSet from '../../components/FirefighterDashboardGaugeSet';
+import DeviceDashboardGaugeSet from '../../components/DeviceDashboardGaugeSet';
 import useDashboard from '../../hooks/useDashboard';
 import AppContext from '../../context/app';
 
@@ -29,11 +29,6 @@ const DashboardGrid = () => {
       <div className="bx--row">
         {dashboard.map(
           ({
-            firefighter_id,
-            firefighter_code,
-            firefighter_first,
-            firefighter_last,
-            firefighter_email,
             device_id,
             timestamp_mins,
             temperature,
@@ -42,12 +37,7 @@ const DashboardGrid = () => {
             nitrogen_dioxide,
             increment,
           }) => (
-            <FirefighterDashboardGaugeSet
-              firefighter_id={firefighter_id}
-              firefighter_code={firefighter_code}
-              firefighter_first={firefighter_first}
-              firefighter_last={firefighter_last}
-              firefighter_email={firefighter_email}
+            <DeviceDashboardGaugeSet
               device_id={device_id}
               timestamp_mins={timestamp_mins}
               temperature={temperature}

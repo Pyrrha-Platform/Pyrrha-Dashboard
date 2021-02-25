@@ -138,7 +138,7 @@ class firefighter_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                'SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_id = ?', (id,))
+                'SELECT device_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND device_id = ?', (id,))
 
             data = cursor.fetchone()
 
@@ -176,7 +176,7 @@ class firefighter_manager(object):
 
             self.logger.info("get_all_firefighters - llamada a sql")
             cursor.execute(
-                'SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
+                'SELECT device_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL')
             data = cursor.fetchall()
             if len(data) > 0:
                 self.logger.info("get_all_firefighters - Hay informacion")
