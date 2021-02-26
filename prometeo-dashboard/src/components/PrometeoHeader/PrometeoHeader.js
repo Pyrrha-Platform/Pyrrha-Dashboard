@@ -75,6 +75,7 @@ function PrometeoHeader(props) {
             }}>
             {t('components.header.devices')}
           </HeaderMenuItem>
+          {/*
           <HeaderMenuItem
             element={Link}
             to="/firefighters"
@@ -84,6 +85,7 @@ function PrometeoHeader(props) {
             }}>
             {t('components.header.firefighters')}
           </HeaderMenuItem>
+          */}
         </HeaderNavigation>
       )}
       <HeaderGlobalBar>
