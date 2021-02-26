@@ -39,36 +39,37 @@ class Constants {
   static HUM_RED = 80;
 
   // Chemical thresholds (from http://159.122.217.91/get_configuration)
+  // See limits.json for a downloaded copy
   // TODO: Add ACR, FMD, BNZ when those sensors are added
-  static CO_YELLOW = 420;
-  static NO2_YELLOW = 6;
-  static CO_RED = 500; // Not official
+  static CO_YELLOW = 336;
+  static NO2_YELLOW = 6.4;
+  static CO_RED = 420;
   static NO2_RED = 8;
 
-  static CO_10_MN_YELLOW = 420;
-  static NO2_10_MN_YELLOW = 6;
-  static CO_10_MN_RED = 500; // Not official
+  static CO_10_MN_YELLOW = 336;
+  static NO2_10_MN_YELLOW = 6.4;
+  static CO_10_MN_RED = 420;
   static NO2_10_MN_RED = 8;
 
-  static CO_30_MN_YELLOW = 150;
-  static NO2_30_MN_YELLOW = 6;
-  static CO_30_MN_RED = 200; // Not official
-  static NO2_30_MN_RED = 8; // Not official
+  static CO_30_MN_YELLOW = 120;
+  static NO2_30_MN_YELLOW = 4.8;
+  static CO_30_MN_RED = 150;
+  static NO2_30_MN_RED = 6;
 
-  static CO_1_HR_YELLOW = 83;
-  static NO2_1_HR_YELLOW = 4;
-  static CO_1_HR_RED = 90; // Not official
-  static NO2_1_HR_RED = 6; // Not official
+  static CO_1_HR_YELLOW = 66.4;
+  static NO2_1_HR_YELLOW = 3.2;
+  static CO_1_HR_RED = 83;
+  static NO2_1_HR_RED = 4;
 
-  static CO_4_HR_YELLOW = 33;
-  static NO2_4_HR_YELLOW = 2;
-  static CO_4_HR_RED = 36; // Not official
-  static NO2_4_HR_RED = 3; // Not official
+  static CO_4_HR_YELLOW = 26.4;
+  static NO2_4_HR_YELLOW = 1.6;
+  static CO_4_HR_RED = 33;
+  static NO2_4_HR_RED = 2;
 
-  static CO_8_HR_YELLOW = 27;
-  static NO2_8_HR_YELLOW = 1;
-  static CO_8_HR_RED = 30; // Not official
-  static NO2_8_HR_RED = 2; // Not official
+  static CO_8_HR_YELLOW = 21.6;
+  static NO2_8_HR_YELLOW = 0.8;
+  static CO_8_HR_RED = 27;
+  static NO2_8_HR_RED = 1;
 }
 
 export default Constants;

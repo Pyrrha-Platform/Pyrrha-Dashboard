@@ -166,7 +166,6 @@ const updateDetails = (details, message) => {
 
           newDetails.current.push(newMessage);
         }
-
       });
 
       console.log(newDetails);

@@ -82,7 +82,7 @@ function DeviceDetailsGaugeSet({
                 {device_id}
                 <br />
                 {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
-                { /* t('content.details.now') */ }
+                {/* t('content.details.now') */}
               </div>
               <div className="bx--col-md-2 icon-firefighter">
                 {new Date() - Date.parse(device_timestamp) < 10000 && (
