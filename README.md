@@ -10,7 +10,7 @@ It also provides a way to create, read, update and delete devices and events, th
 
 ### Code overview
 
-The code is in a `prometeo-dashboard` subdirectory as React does not support mixed case directories such as this top-level repo. 
+The code is in a `prometeo-dashboard` subdirectory as React does not support mixed case directories such as this top-level repo. All the instructions below assume you're in that directory.
 
 The database backend for the React project is based on Python using Flask and was originally created based on this [great post and series from Miguel Grinberg](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project). 
 
@@ -33,7 +33,7 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 * NOTE: This assumes everything is running in a local development environment, if you are deploying the services separately, update the proxy and CORS settings in `src/setupProxy.js`
 * Start the back-end Flask API services with the command in the `package.json` file set of NPM scripts, in this case `start-main-api`. This will launch a server on port 5000, proxied through the front end port 3000 for the `/api-main/v1/` path.
 * Start the back-end Node.js API services with the command in the `package.json` file set of NPM scripts, in this case `start-auth-api`. This will launch a server on port 4000, proxied through the front end port 3000 for the `/api-auth/v1/` path.
-* Start the front-end user React user interface with the build and run commands in the [package.json](https://github.com/Call-for-Code/Prometeo-Dashboard/blob/master/prometeo-dashboard/package.json#L35) file set of NPM scripts, in this case `start-ui`. This will automatically open a web brower at [http://localhost:3000](http://localhost:3000)
+* Build (`npm run setup`) and start the front-end user React user interface with the command in the [package.json](https://github.com/Call-for-Code/Prometeo-Dashboard/blob/master/prometeo-dashboard/package.json#L35) file set of NPM scripts, in this case `start-ui`. This will automatically open a web brower at [http://localhost:3000](http://localhost:3000)
 * Log into the UI using your App ID user. You will want to save your credentials in your browser as changes during development will destroy the session and cause you to reauthenticate often.
 
 ### Deploy to the IBM Cloud
