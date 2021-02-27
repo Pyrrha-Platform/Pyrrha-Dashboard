@@ -42,6 +42,25 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 TBD. This will either be deployed as three microservices, or a containerized monolith for the 3 apps.
 
+### Screenshots
+
+#### Nitrogen dioxide full view in Spanish
+
+![dashboard-events.png](/img/es-now-no2.png)
+
+#### Nitrogen dioxide 4 hour view in English
+
+![dashboard-events.png](/img/en-4hr-no2.png)
+
+#### Nitrogen dioxide 8 hour view in Catalan
+
+![dashboard-events.png](/img/ca-8hr-no2.png)
+
+#### Nitrogen dioxide 8 hour view in English
+
+![dashboard-events.png](/img/en-8hr-no2.png)
+
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting Prometeo pull requests.
