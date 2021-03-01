@@ -2,11 +2,9 @@ import * as d3 from 'd3';
 import React, { useRef, useEffect, useContext } from 'react';
 import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
-import AppContext from '../../context/app';
 
 function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   const ref = useRef();
-  const { t } = useContext(AppContext);
 
   const url_safe_device_id = device_id.replaceAll(':', '_');
 
