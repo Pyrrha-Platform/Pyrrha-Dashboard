@@ -30,12 +30,12 @@ class Constants {
   // These don't have time averages nor official thresholds
   static TMP_MIN = 0;
   static TMP_MAX = 40;
-  static TMP_YELLOW = 24;
+  static TMP_YELLOW = 25.6;
   static TMP_RED = 32;
 
   static HUM_MIN = 0;
   static HUM_MAX = 100;
-  static HUM_YELLOW = 60;
+  static HUM_YELLOW = 64;
   static HUM_RED = 80;
 
   // Chemical thresholds (from http://159.122.217.91/get_configuration)
