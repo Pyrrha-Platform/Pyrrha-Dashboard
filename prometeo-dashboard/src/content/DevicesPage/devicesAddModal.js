@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-// import { settings } from 'carbon-components';
 import {
   TextInput,
   ComposedModal,
@@ -10,7 +9,6 @@ import {
   ModalFooter,
   Button,
 } from 'carbon-components-react';
-import { iconAdd, iconAddSolid, iconAddOutline } from 'carbon-icons';
 import { Add16 } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 

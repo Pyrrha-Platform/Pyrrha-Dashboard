@@ -16,7 +16,7 @@ class Utils {
   // Used to dedepuplicate arrays of firefighters
   static arrayRemove = (arr, value) => {
     return arr.filter(function (ele) {
-      return ele.device_id != value.device_id;
+      return ele.device_id !== value.device_id;
     });
   };
 
@@ -53,6 +53,8 @@ class Utils {
         case '8hr':
           number = value / Constants.CO_8_HR_RED;
           break;
+        default:
+          number = value / Constants.CO_RED;
       }
 
       // Nitrogen dioxide
@@ -76,6 +78,8 @@ class Utils {
         case '8hr':
           number = value / Constants.NO2_8_HR_RED;
           break;
+        default:
+          number = value / Constants.NO2_RED;
       }
 
       // Temperature
@@ -132,6 +136,8 @@ class Utils {
         case '8hr':
           limits = [Constants.CO_8_HR_YELLOW, Constants.CO_8_HR_RED];
           break;
+        default:
+          limits = [Constants.CO_YELLOW, Constants.CO_RED];
       }
 
       // Nitrogen dioxide
@@ -155,6 +161,8 @@ class Utils {
         case '8hr':
           limits = [Constants.NO2_8_HR_YELLOW, Constants.NO2_8_HR_RED];
           break;
+        default:
+          limits = [Constants.NO2_YELLOW, Constants.NO2_RED];
       }
     }
 

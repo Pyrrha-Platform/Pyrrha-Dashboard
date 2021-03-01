@@ -33,7 +33,7 @@ const updateDashboard = (dashboard, message) => {
       console.log('array', newMessage);
       newDashboard.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
-          if (oldReading.device_id == newReading.device_id) {
+          if (oldReading.device_id === newReading.device_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
               newMessage
@@ -52,7 +52,7 @@ const updateDashboard = (dashboard, message) => {
       console.log('object', newMessage);
       let matchedOldReading = false;
       newDashboard.current.forEach((oldReading) => {
-        if (oldReading.device_id == newMessage.device_id) {
+        if (oldReading.device_id === newMessage.device_id) {
           console.log(
             'Replacing a single old reading with a new one',
             newMessage
