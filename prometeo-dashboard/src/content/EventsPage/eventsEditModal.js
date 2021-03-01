@@ -1,17 +1,15 @@
 import React, { useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-// import { settings } from 'carbon-components';
 import {
   TextInput,
   ComposedModal,
   ModalBody,
   ModalHeader,
   ModalFooter,
-  Button,
   Icon,
 } from 'carbon-components-react';
-import { iconEdit, iconEditSolid, iconEditOutline } from 'carbon-icons';
+import { iconEdit } from 'carbon-icons';
 import AppContext from '../../context/app';
 
 // This defines a modal controlled by a launcher button. We have one per DataTable row.

@@ -8,7 +8,6 @@ import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import LoginPage from './content/LoginPage';
 import ProfilePage from './content/ProfilePage';
-import SideMenu from './components/SideMenu';
 
 const Router = () => {
   const [active, setActive] = useState(false);
@@ -26,7 +25,6 @@ const Router = () => {
             setLanguage={setLanguage}
             setPage={setPage}
           />
-          {/* <SideMenu /> */}
           <DashboardPage />
         </Route>
         <Route path="/login">
