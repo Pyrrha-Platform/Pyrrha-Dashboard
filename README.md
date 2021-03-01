@@ -46,6 +46,8 @@ TBD. This will either be deployed as three microservices, or a containerized mon
 
 #### Nitrogen dioxide full view in Spanish
 
+The bell indicator shows an updated reading has been received from the websocket recently that replaces the latest pulled from the database.
+
 ![dashboard-events.png](/img/es-now-no2.png)
 
 #### Nitrogen dioxide 4 hour view in English
