@@ -1,0 +1,50 @@
+---
+# Source: api-auth/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-auth
+  labels:
+    app: api-auth
+    chart: api-auth-1.0.0
+    release: api-auth
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+  - port: 4000
+    name: api-auth-service
+  selector:
+    app: api-auth
+    release: api-auth
+---
+# Source: api-auth/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-auth-api-auth
+  labels:
+    app: api-auth
+    chart: api-auth-1.0.0
+    release: api-auth
+    heritage: Helm
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: api-auth
+      release: api-auth
+  template:
+    metadata:
+      labels:
+        app: api-auth
+        release: api-auth
+    spec:
+      imagePullSecrets:
+        - name: all-icr-io
+      containers:
+        - name: api-auth
+          image: "us.icr.io/upkar_ns/api-auth:latest"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
