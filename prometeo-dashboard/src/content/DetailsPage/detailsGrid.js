@@ -40,9 +40,7 @@ const DetailsGrid = (params) => {
     <div className="bx--grid bx--grid--full-width details-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
-          <h1 className="details-page__heading">
-            {t('content.details.heading')}
-          </h1>
+          <h1 className="details-page__heading">{params.device_id}</h1>
         </div>
       </div>
 

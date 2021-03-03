@@ -235,7 +235,7 @@ const useDetails = (device_id, inc, ty) => {
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.close();
+      socket.close(1000, 'Details disconnecting.');
     };
   }, [message]);
 

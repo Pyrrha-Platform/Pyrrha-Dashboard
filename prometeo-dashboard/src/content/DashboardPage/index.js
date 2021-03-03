@@ -5,6 +5,8 @@ import AppContext from '../../context/app';
 
 function DashboardPage() {
   const history = useHistory();
+
+  /*
   const { currentUser } = useContext(AppContext);
   if (currentUser.isAuth) {
     return <DashboardGrid />;
@@ -12,6 +14,8 @@ function DashboardPage() {
     history.push('/login');
     return null;
   }
+  */
+  return <DashboardGrid />;
 }
 
 export default DashboardPage;

@@ -16,11 +16,15 @@ function DeviceDashboardGaugeSet({
   increment,
 }) {
   const { t } = useContext(AppContext);
+  let background = 'database'; // "websocket"
+  if (new Date() - Date.parse(device_timestamp) < 10000) {
+    background = 'websocket'
+  }
 
   return (
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
-        <div className="bx--row dashboard-tile">
+        <div className={'bx--row dashboard-tile background-' + background}>
           <div className="bx--col-md-6 label-firefighter">
             <Link
               to={'/details/' + device_id}
@@ -29,16 +33,16 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
+            {new Date(Date.parse(device_timestamp)).toString()}
             {/* t('content.details.now') */}
           </div>
           <div className="bx--col-md-2 icon-firefighter">
-            {new Date() - Date.parse(device_timestamp) < 10000 && (
+            {new Date() - Date.parse(device_timestamp) < 45 && (
               <NotificationFilled20 />
             )}
           </div>
         </div>
-        <div className="bx--row dashboard-tile">
+        <div className={'bx--row dashboard-tile background-' + background}>
           <div className="bx--col bx--col-md-2">
             <div>
               <DeviceGauge
