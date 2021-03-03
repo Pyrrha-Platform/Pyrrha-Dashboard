@@ -112,6 +112,8 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
     let valueToUse = value;
     if (type === 'Tmp' || type === 'Hum') {
       valueToUse = Utils.getPercentage(type, value, increment);
+    } else if (parseInt(value) === Constants.CHERNOBYL) {
+      valueToUse = 100;
     } else {
       valueToUse = gauge;
     }

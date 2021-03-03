@@ -79,8 +79,8 @@ function DeviceDetailsGaugeSet({
           <div className="bx--grid bx--grid--full-width dashboard-content">
             <div className="bx--row dashboard-tile">
               <div className="bx--col-md-6 label-firefighter">
-                {device_id}
-                <br />
+                {/* device_id */}
+                {/* <br /> */}
                 {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
                 {/* t('content.details.now') */}
               </div>
@@ -102,17 +102,7 @@ function DeviceDetailsGaugeSet({
                     gauge={Utils.getPercentage('CO', carbon_monoxide, 'now')}
                   />
                 </div>
-                <div className="label-legend">
-                  <a
-                    href="javascript:void(0)"
-                    className="bx--link label-legend-link"
-                    onClick={() => {
-                      console.log('Setting type to CO');
-                      setType('CO');
-                    }}>
-                    CO
-                  </a>
-                </div>
+                <div className="label-legend">CO</div>
               </div>
               <div className="bx--col bx--col-md-2">
                 <div>
@@ -126,15 +116,7 @@ function DeviceDetailsGaugeSet({
                   />
                 </div>
                 <div className="label-legend">
-                  <a
-                    href="javascript:void(0)"
-                    className="bx--link label-legend-link"
-                    onClick={() => {
-                      console.log('Setting type to CO');
-                      setType('NO2');
-                    }}>
-                    NO<sub>2</sub>
-                  </a>
+                  NO<sub>2</sub>
                 </div>
               </div>
               <div className="bx--col bx--col-md-2">
@@ -176,8 +158,8 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {device_id}
-                  <br />
+                  {/* device_id */}
+                  {/* <br /> */}
                   {t('content.details.10min')}
                 </div>
               </div>
@@ -282,8 +264,8 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {device_id}
-                  <br />
+                  {/* device_id */}
+                  {/* <br /> */}
                   {t('content.details.30min')}
                 </div>
               </div>
@@ -388,8 +370,8 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {device_id}
-                  <br />
+                  {/* device_id */}
+                  {/* <br /> */}
                   {t('content.details.1hr')}
                 </div>
               </div>
@@ -490,8 +472,8 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {device_id}
-                  <br />
+                  {/* device_id */}
+                  {/* <br /> */}
                   {t('content.details.4hr')}
                 </div>
               </div>
@@ -592,8 +574,8 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-8 label-firefighter">
-                  {device_id}
-                  <br />
+                  {/* device_id */}
+                  {/* <br /> */}
                   {t('content.details.8hr')}
                 </div>
               </div>

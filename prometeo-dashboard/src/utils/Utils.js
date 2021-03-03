@@ -175,20 +175,23 @@ class Utils {
   static getStatusColor = (type, value, increment, gauge) => {
     var color = Constants.DEFAULT_COLOR;
 
-    /*
-    console.log("getStatusColor()");
-    console.log("type", type);
-    console.log("value", value);
-    console.log("increment", increment);
-    console.log("gauge", gauge);
-    */
+    console.log('getStatusColor()');
+    console.log('type', type);
+    console.log('value', value, parseInt(value));
+    console.log('increment', increment);
+    console.log('gauge', gauge);
+
+    // Bail out quickly
+    if (parseInt(value) === Constants.CHERNOBYL) {
+      return Constants.RED;
+    }
 
     // Carbon monoxide
     if (type === 'CO') {
       if (increment === 'now') {
         if (value <= Constants.CO_YELLOW) {
           color = Constants.GREEN;
-        } else if (value >= Constants.CO_RED || value === Constants.CHERNOBYL) {
+        } else if (value >= Constants.CO_RED) {
           color = Constants.RED;
         } else if (value > Constants.CO_YELLOW && value < Constants.CO_RED) {
           color = Constants.YELLOW;
@@ -196,10 +199,7 @@ class Utils {
       } else if (increment === '10min') {
         if (value <= Constants.CO_10_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.CO_10_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.CO_10_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.CO_10_MN_YELLOW &&
@@ -210,10 +210,7 @@ class Utils {
       } else if (increment === '30min') {
         if (value <= Constants.CO_30_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.CO_30_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.CO_30_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.CO_30_MN_YELLOW &&
@@ -224,10 +221,7 @@ class Utils {
       } else if (increment === '1hr') {
         if (value <= Constants.CO_1_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.CO_1_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.CO_1_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.CO_1_HR_YELLOW &&
@@ -238,10 +232,7 @@ class Utils {
       } else if (increment === '4hr') {
         if (value <= Constants.CO_4_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.CO_4_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.CO_4_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.CO_4_HR_YELLOW &&
@@ -252,10 +243,7 @@ class Utils {
       } else if (increment === '8hr') {
         if (value <= Constants.CO_8_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.CO_8_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.CO_8_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.CO_8_HR_YELLOW &&
@@ -270,10 +258,7 @@ class Utils {
       if (increment === 'now') {
         if (value <= Constants.NO2_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_RED) {
           color = Constants.RED;
         } else if (value > Constants.NO2_YELLOW && value < Constants.NO2_RED) {
           color = Constants.YELLOW;
@@ -281,10 +266,7 @@ class Utils {
       } else if (increment === '10min') {
         if (value <= Constants.NO2_10_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_10_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_10_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.NO2_10_MN_YELLOW &&
@@ -295,10 +277,7 @@ class Utils {
       } else if (increment === '30min') {
         if (value <= Constants.NO2_30_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_30_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_30_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.NO2_30_MN_YELLOW &&
@@ -309,10 +288,7 @@ class Utils {
       } else if (increment === '1hr') {
         if (value <= Constants.NO2_1_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_1_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_1_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.NO2_1_HR_YELLOW &&
@@ -323,10 +299,7 @@ class Utils {
       } else if (increment === '4hr') {
         if (value <= Constants.NO2_4_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_4_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_4_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.NO2_4_HR_YELLOW &&
@@ -337,10 +310,7 @@ class Utils {
       } else if (increment === '8hr') {
         if (value <= Constants.NO2_8_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.NO2_8_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.NO2_8_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.NO2_8_HR_YELLOW &&
@@ -355,10 +325,7 @@ class Utils {
       if (increment === 'now') {
         if (value <= Constants.TMP_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_RED) {
           color = Constants.RED;
         } else if (value > Constants.TMP_YELLOW && value < Constants.TMP_RED) {
           color = Constants.YELLOW;
@@ -366,10 +333,7 @@ class Utils {
       } else if (increment === '10min') {
         if (value <= Constants.TMP_10_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_10_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_10_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.TMP_10_MN_YELLOW &&
@@ -380,10 +344,7 @@ class Utils {
       } else if (increment === '30min') {
         if (value <= Constants.TMP_30_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_30_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_30_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.TMP_30_MN_YELLOW &&
@@ -394,10 +355,7 @@ class Utils {
       } else if (increment === '1hr') {
         if (value <= Constants.TMP_1_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_1_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_1_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.TMP_1_HR_YELLOW &&
@@ -408,10 +366,7 @@ class Utils {
       } else if (increment === '4hr') {
         if (value <= Constants.TMP_4_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_4_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_4_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.TMP_4_HR_YELLOW &&
@@ -422,10 +377,7 @@ class Utils {
       } else if (increment === '8hr') {
         if (value <= Constants.TMP_8_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.TMP_8_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.TMP_8_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.TMP_8_HR_YELLOW &&
@@ -440,10 +392,7 @@ class Utils {
       if (increment === 'now') {
         if (value <= Constants.HUM_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_RED) {
           color = Constants.RED;
         } else if (value > Constants.HUM_YELLOW && value < Constants.HUM_RED) {
           color = Constants.YELLOW;
@@ -451,10 +400,7 @@ class Utils {
       } else if (increment === '10min') {
         if (value <= Constants.HUM_10_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_10_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_10_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.HUM_10_MN_YELLOW &&
@@ -465,10 +411,7 @@ class Utils {
       } else if (increment === '30min') {
         if (value <= Constants.HUM_30_MN_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_30_MN_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_30_MN_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.HUM_30_MN_YELLOW &&
@@ -479,10 +422,7 @@ class Utils {
       } else if (increment === '1hr') {
         if (value <= Constants.HUM_1_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_1_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_1_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.HUM_1_HR_YELLOW &&
@@ -493,10 +433,7 @@ class Utils {
       } else if (increment === '4hr') {
         if (value <= Constants.HUM_4_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_4_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_4_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.HUM_4_HR_YELLOW &&
@@ -507,10 +444,7 @@ class Utils {
       } else if (increment === '8hr') {
         if (value <= Constants.HUM_8_HR_YELLOW) {
           color = Constants.GREEN;
-        } else if (
-          value >= Constants.HUM_8_HR_RED ||
-          value === Constants.CHERNOBYL
-        ) {
+        } else if (value >= Constants.HUM_8_HR_RED) {
           color = Constants.RED;
         } else if (
           value > Constants.HUM_8_HR_YELLOW &&
