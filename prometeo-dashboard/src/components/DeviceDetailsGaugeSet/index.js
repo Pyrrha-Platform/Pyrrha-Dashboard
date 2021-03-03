@@ -81,11 +81,11 @@ function DeviceDetailsGaugeSet({
               <div className="bx--col-md-6 label-firefighter">
                 {/* device_id */}
                 {/* <br /> */}
-                {new Date(Date.parse(device_timestamp)).toLocaleString('es')}
+                {new Date(Date.parse(device_timestamp)).toString()}
                 {/* t('content.details.now') */}
               </div>
               <div className="bx--col-md-2 icon-firefighter">
-                {new Date() - Date.parse(device_timestamp) < 10000 && (
+                {new Date() - Date.parse(device_timestamp) < 45 && (
                   <NotificationFilled20 />
                 )}
               </div>

@@ -116,7 +116,7 @@ const useDashboard = () => {
     return () => {
       console.log('Connection closed.');
       setLoading('Connection closed.');
-      socket.close();
+      socket.close(1000, 'Dashboard disconnecting.');
     };
   }, [message]);
 

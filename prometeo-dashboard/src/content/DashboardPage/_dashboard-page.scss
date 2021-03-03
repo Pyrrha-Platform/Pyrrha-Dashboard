@@ -65,6 +65,22 @@
   max-width: 1600px;
 }
 
+.background-database {
+  background-color: #fff !important;
+}
+
+.background-websocket {
+  background-color: #fff !important;
+  animation-name: onmessage;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+}
+
+@keyframes onmessage {
+  0% {background-color:#ddd !important;}
+  100% {background-color: #fff !important;}
+}
+
 .bx--row {
   /* margin-top: $layout-03; */
   margin-top: 0;

@@ -175,11 +175,13 @@ class Utils {
   static getStatusColor = (type, value, increment, gauge) => {
     var color = Constants.DEFAULT_COLOR;
 
+    /*
     console.log('getStatusColor()');
     console.log('type', type);
     console.log('value', value, parseInt(value));
     console.log('increment', increment);
     console.log('gauge', gauge);
+    */
 
     // Bail out quickly
     if (parseInt(value) === Constants.CHERNOBYL) {
