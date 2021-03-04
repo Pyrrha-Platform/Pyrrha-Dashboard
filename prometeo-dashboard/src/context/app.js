@@ -11,11 +11,14 @@ export const useAppContext = () => {
     lastName: '',
     email: '',
   });
+  const [locale, setLocale] = useState('en-us');
 
   return {
     currentUser,
     setCurrentUser,
     t,
     i18n,
+    locale,
+    setLocale
   };
 };

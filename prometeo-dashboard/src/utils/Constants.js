@@ -5,6 +5,9 @@ class Constants {
   // static WEBSOCKET_URL = 'ws://localhost:8010';
   static WEBSOCKET_URL = 'ws://159.122.237.4:32035';
 
+  // Recent reading notification threshold
+  static RECENT_NOTIFICATION_THRESHOLD = 4500000;
+
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = '#da1e28';
   static YELLOW = '#f1c21b';

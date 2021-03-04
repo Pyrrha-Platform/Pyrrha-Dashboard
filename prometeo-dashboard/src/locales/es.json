@@ -77,7 +77,7 @@
     },
     "details": {
       "heading": "Detalles",
-      "subheading": "Ahora está viendo los detalles de las lecturas de un bombero específico. Elija una lectura para ver un cuadro detallado.",
+      "subheading": "Ahora está viendo los detalles de las lecturas de un dispositivo específico. Elija una lectura para ver un cuadro detallado.",
       "all": "Todos",
       "now": "Ahora",
       "10min": "10 min pro",
@@ -86,7 +86,7 @@
       "4hr": "4 hr pro",
       "8hr": "8 hr pro",
       "measure": "Medida (ppm)",
-      "time": "Hora"
+      "time": "Hora (hora local)"
     },
     "events": {
       "heading": "Eventos",
