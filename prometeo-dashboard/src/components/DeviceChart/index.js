@@ -72,7 +72,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         0,
         d3.max(data, function (d) {
           // console.log("d.value", +d.value);
-          return +d.value;
+          return +d.value > redThreshold ? +d.value : redThreshold;
         }),
       ])
       .range([height, 0]);
@@ -87,26 +87,6 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .attr('dy', '1em')
       .style('text-anchor', 'middle')
       .text(t('content.details.measure'));
-
-    // Add the area
-    svg
-      .append('path')
-      .datum(data)
-      .attr('fill', Constants.BLUE_LT)
-      .attr('stroke', Constants.BLUE_DK)
-      .attr('stroke-width', 1.5)
-      .attr(
-        'd',
-        d3
-          .area()
-          .x(function (d) {
-            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
-          })
-          .y0(y(0))
-          .y1(function (d) {
-            return y(d.value);
-          })
-      );
 
     // Add the yellow threshold
     /*
@@ -124,9 +104,9 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
 
     // Add the red threshold
     /*
-    console.log("redThreshold", redThreshold);
-    console.log("-----");
-    */
+ console.log("redThreshold", redThreshold);
+ console.log("-----");
+ */
     svg
       .append('line')
       .style('stroke', Constants.RED)
@@ -135,6 +115,43 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .attr('y1', y(redThreshold))
       .attr('x2', width)
       .attr('y2', y(redThreshold));
+
+    // Add the line
+    svg
+      .append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', Constants.BLUE_DK)
+      .attr('stroke-width', 3)
+      .attr(
+        'd',
+        d3
+          .line()
+          .x(function (d) {
+            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
+          })
+          .y(function (d) {
+            return y(d.value);
+          })
+          .curve(d3.curveLinear)
+      );
+
+    // Highlight the data points
+    svg
+      .selectAll('data-points')
+      .data(data)
+      .enter()
+      .append('circle')
+      .attr('fill', Constants.WHITE)
+      .attr('stroke', Constants.BLUE_DK)
+      .attr('stroke-width', 1)
+      .attr('cx', function (d) {
+        return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
+      })
+      .attr('cy', function (d) {
+        return y(d.value);
+      })
+      .attr('r', 3);
   };
 
   return <svg ref={ref}></svg>;

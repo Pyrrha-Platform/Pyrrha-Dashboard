@@ -19,6 +19,6 @@ export const useAppContext = () => {
     t,
     i18n,
     locale,
-    setLocale
+    setLocale,
   };
 };

@@ -78,12 +78,12 @@ function DeviceDetailsGaugeSet({
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
-  }
+    minute: '2-digit',
+  };
   function toLocaleUTCDateString() {
     let utcDate = new Date(Date.parse(device_timestamp));
     return utcDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC';
-  } 
+  }
 
   return (
     <>
@@ -98,7 +98,8 @@ function DeviceDetailsGaugeSet({
                 {/* t('content.details.now') */}
               </div>
               <div className="bx--col-md-2 icon-firefighter">
-                {new Date() - Date.parse(device_timestamp) < Constants.RECENT_NOTIFICATION_THRESHOLD && (
+                {new Date() - Date.parse(device_timestamp) <
+                  Constants.RECENT_NOTIFICATION_THRESHOLD && (
                   <NotificationFilled20 />
                 )}
               </div>

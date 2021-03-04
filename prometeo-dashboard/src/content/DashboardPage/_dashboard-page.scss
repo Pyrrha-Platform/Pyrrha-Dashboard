@@ -77,8 +77,12 @@
 }
 
 @keyframes onmessage {
-  0% {background-color:#ddd !important;}
-  100% {background-color: #fff !important;}
+  0% {
+    background-color: #ddd !important;
+  }
+  100% {
+    background-color: #fff !important;
+  }
 }
 
 .bx--row {
