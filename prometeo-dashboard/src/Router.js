@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrometeoHeader from './components/PrometeoHeader';
 import FirefightersPage from './content/FirefightersPage';
@@ -11,7 +11,6 @@ import ProfilePage from './content/ProfilePage';
 
 const Router = () => {
   const [active, setActive] = useState(false);
-  const [language, setLanguage] = useState('en');
   const [page, setPage] = useState('Dashboard');
   return (
     <BrowserRouter>
@@ -19,10 +18,8 @@ const Router = () => {
         <Route exact path="/">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <DashboardPage />
@@ -30,10 +27,8 @@ const Router = () => {
         <Route path="/login">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <LoginPage />
@@ -41,10 +36,8 @@ const Router = () => {
         <Route path="/details/:device_id/:increment/:type">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <DetailsPage />
@@ -52,10 +45,8 @@ const Router = () => {
         <Route path="/details/:device_id/:increment">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <DetailsPage />
@@ -63,10 +54,8 @@ const Router = () => {
         <Route path="/details/:device_id">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <DetailsPage />
@@ -74,10 +63,8 @@ const Router = () => {
         <Route path="/events">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <EventsPage />
@@ -85,10 +72,8 @@ const Router = () => {
         <Route path="/devices">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <DevicesPage />
@@ -96,10 +81,8 @@ const Router = () => {
         <Route path="/firefighters">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <FirefightersPage />
@@ -107,10 +90,8 @@ const Router = () => {
         <Route path="/profile">
           <PrometeoHeader
             active={active}
-            language={language}
             page={page}
             setActive={setActive}
-            setLanguage={setLanguage}
             setPage={setPage}
           />
           <ProfilePage />

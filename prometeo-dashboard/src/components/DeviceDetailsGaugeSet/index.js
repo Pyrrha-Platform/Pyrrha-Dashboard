@@ -3,6 +3,7 @@ import DeviceGauge from '../DeviceGauge';
 import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
+import Constants from '../../utils/Constants';
 import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
 
 function DeviceDetailsGaugeSet({
@@ -70,7 +71,19 @@ function DeviceDetailsGaugeSet({
   console.log("--------------------------");
   */
 
-  const { t } = useContext(AppContext);
+  const { t, locale } = useContext(AppContext);
+  const dateFormatOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+  function toLocaleUTCDateString() {
+    let utcDate = new Date(Date.parse(device_timestamp));
+    return utcDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC';
+  } 
 
   return (
     <>
@@ -81,11 +94,11 @@ function DeviceDetailsGaugeSet({
               <div className="bx--col-md-6 label-firefighter">
                 {/* device_id */}
                 {/* <br /> */}
-                {new Date(Date.parse(device_timestamp)).toString()}
+                {toLocaleUTCDateString()}
                 {/* t('content.details.now') */}
               </div>
               <div className="bx--col-md-2 icon-firefighter">
-                {new Date() - Date.parse(device_timestamp) < 45 && (
+                {new Date() - new Date(Date.parse(device_timestamp)) < Constants.RECENT_NOTIFICATION_MILLISECONDS && (
                   <NotificationFilled20 />
                 )}
               </div>

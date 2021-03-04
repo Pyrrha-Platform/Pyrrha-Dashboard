@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
+import Constants from '../../utils/Constants';
 import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
 
 function DeviceDashboardGaugeSet({
@@ -15,11 +16,23 @@ function DeviceDashboardGaugeSet({
   nitrogen_dioxide,
   increment,
 }) {
-  const { t } = useContext(AppContext);
+  const { t, locale } = useContext(AppContext);
   let background = 'database'; // "websocket"
   if (new Date() - Date.parse(device_timestamp) < 10000) {
     background = 'websocket'
   }
+  const dateFormatOptions = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }
+  function toLocaleUTCDateString() {
+    let utcDate = new Date(Date.parse(device_timestamp));
+    return utcDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC';
+  } 
 
   return (
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
@@ -33,11 +46,11 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            {new Date(Date.parse(device_timestamp)).toString()}
+            {toLocaleUTCDateString()}
             {/* t('content.details.now') */}
           </div>
           <div className="bx--col-md-2 icon-firefighter">
-            {new Date() - Date.parse(device_timestamp) < 45 && (
+            {new Date() - Date.parse(device_timestamp) < Constants.RECENT_NOTIFICATION_MILLISECONDS && (
               <NotificationFilled20 />
             )}
           </div>

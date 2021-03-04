@@ -21,12 +21,11 @@ function PrometeoHeader(props) {
   const language = props.language;
   const page = props.page;
   const setActive = props.setActive;
-  const setLanguage = props.setLanguage;
   const setPage = props.setPage;
 
   const history = useHistory();
 
-  const { t, i18n, currentUser } = useContext(AppContext);
+  const { t, i18n, currentUser, setLocale } = useContext(AppContext);
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
@@ -112,7 +111,7 @@ function PrometeoHeader(props) {
             aria-label={t('components.header.english')}
             isSelected={language === 'en'}
             onClick={() => {
-              setLanguage('en');
+              setLocale('en-us');
               setActive(false);
               changeLanguage('en');
             }}>
@@ -122,7 +121,7 @@ function PrometeoHeader(props) {
             aria-label={t('components.header.spanish')}
             isSelected={language === 'es'}
             onClick={() => {
-              setLanguage('es');
+              setLocale('es-es');
               setActive(false);
               changeLanguage('es');
             }}>
@@ -132,7 +131,7 @@ function PrometeoHeader(props) {
             aria-label={t('components.header.catalan')}
             isSelected={language === 'ca'}
             onClick={() => {
-              setLanguage('ca');
+              setLocale('ca-es');
               setActive(false);
               changeLanguage('ca');
             }}>

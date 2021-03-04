@@ -245,6 +245,7 @@ class dashboard_manager(object):
         # Default column names
         ty = "carbon_monoxide_twa_"
         inc = "10min"
+        limit = 10
 
         if type == 'NO2':
             ty = "nitrogen_dioxide_twa_"
@@ -252,12 +253,16 @@ class dashboard_manager(object):
         # Set these manually rather than on client input
         if increment == '30min':
             inc = '30min'
+            limit = 30
         elif increment == '1hr':
             inc = '60min'
+            limit = 30
         elif increment == '4hr':
             inc = '240min'
+            limit = 240
         elif increment == '8hr':
             inc = '480min'
+            limit = 480
 
         # The one column name to select
         column = ty + inc
@@ -285,7 +290,7 @@ class dashboard_manager(object):
                 WHERE
                     device_id = %s 
                 ORDER BY device_timestamp DESC
-                LIMIT 10;
+                LIMIT {limit};
             """
             print(sql)
 
