@@ -98,7 +98,7 @@ function DeviceDetailsGaugeSet({
                 {/* t('content.details.now') */}
               </div>
               <div className="bx--col-md-2 icon-firefighter">
-                {new Date() - new Date(Date.parse(device_timestamp)) < Constants.RECENT_NOTIFICATION_MILLISECONDS && (
+                {new Date(Date.UTC()) - new Date(Date.parse(device_timestamp)) < Constants.RECENT_NOTIFICATION_MILLISECONDS && (
                   <NotificationFilled20 />
                 )}
               </div>

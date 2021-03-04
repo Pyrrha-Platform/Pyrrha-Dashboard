@@ -47,7 +47,7 @@ class dashboard_manager(object):
                 for i in data:
                     print(i)
                     devices.append({
-                        'timestamp_mins': i[0],
+                        'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
                         'device_id': i[2],
                         'device_battery_level': i[3],
                         'temperature': i[4],
@@ -57,7 +57,7 @@ class dashboard_manager(object):
                         'formaldehyde': i[8],
                         'acrolein': i[9],
                         'benzene': i[10],
-                        'device_timestamp': i[11],
+                        'device_timestamp': i[11].strftime("%Y-%m-%dT%H:%M:%S"),
                         'device_status_LED': i[12]
                     })
                 # firefighters = data
@@ -129,8 +129,8 @@ class dashboard_manager(object):
                         'humidity': i[2],
                         'carbon_monoxide': i[3],
                         'nitrogen_dioxide': i[4],
-                        'timestamp_mins': i[5],
-                        'device_timestamp': i[6],
+                        'timestamp_mins': i[5].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'device_timestamp': i[6].strftime("%Y-%m-%dT%H:%M:%S"),
                     })
 
             else:
@@ -194,8 +194,8 @@ class dashboard_manager(object):
                         'humidity': i[5],
                         'carbon_monoxide': i[6],
                         'nitrogen_dioxide': i[7],
-                        'timestamp_mins': i[0],
-                        'device_timestamp': i[11],
+                        'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
+                        'device_timestamp': i[11].strftime("%Y-%m-%dT%H:%M:%S"),
                         'carbon_monoxide_twa_10min': "{:.2f}".format(i[14]),
                         'carbon_monoxide_twa_30min': "{:.2f}".format(i[15]),
                         'carbon_monoxide_twa_60min': "{:.2f}".format(i[16]),
