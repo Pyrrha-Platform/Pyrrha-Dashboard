@@ -77,7 +77,7 @@
     },
     "details": {
       "heading": "Detalls",
-      "subheading": "Ara esteu veient els detalls de les lectures d’un bomber específic. Trieu una lectura per veure un gràfic detallat.",
+      "subheading": "Ara esteu veient els detalls de les lectures d’un dispositiu específic. Trieu una lectura per veure un gràfic detallat.",
       "all": "Tots",
       "now": "Ara",
       "10min": "10 min mit",
@@ -86,7 +86,7 @@
       "4hr": "4 hr mit",
       "8hr": "8 hr mit",
       "measure": "Mesura (ppm)",
-      "time": "Temps"
+      "time": "Hora (hora local)"
     },
     "events": {
       "heading": "Esdeveniments",

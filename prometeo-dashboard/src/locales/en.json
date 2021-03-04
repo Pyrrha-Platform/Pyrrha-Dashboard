@@ -77,7 +77,7 @@
     },
     "details": {
       "heading": "Details",
-      "subheading": "You are now viewing the details for the readings for a specific firefighter. Choose a reading to see a detailed chart.",
+      "subheading": "You are now viewing the details for the readings for a specific device. Choose a reading to see a detailed chart.",
       "all": "All",
       "now": "Now",
       "10min": "10 min avg",
@@ -86,7 +86,7 @@
       "4hr": "4 hr avg",
       "8hr": "8 hr avg",
       "measure": "Measure (ppm)",
-      "time": "Time"
+      "time": "Time (local time)"
     },
     "events": {
       "heading": "Events",
