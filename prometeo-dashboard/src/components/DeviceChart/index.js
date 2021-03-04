@@ -104,9 +104,9 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
 
     // Add the red threshold
     /*
- console.log("redThreshold", redThreshold);
- console.log("-----");
- */
+    console.log("redThreshold", redThreshold);
+    console.log("-----");
+    */
     svg
       .append('line')
       .style('stroke', Constants.RED)
@@ -136,6 +136,74 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
           .curve(d3.curveLinear)
       );
 
+    // Tooltip
+    var mouseover = function (d) {
+      console.log('mouseover', d);
+      d3.select('#device-chart-tooltip')
+        .html(
+          `
+        <div class="content-box">
+          <ul class="multi-tooltip">
+            <li>
+            <div class="datapoint-tooltip">
+              <p class="label">Value</p>
+              <p class="value">${d.value}</p>
+            </div>
+            </li>
+            <li>
+            <div class="datapoint-tooltip">
+              <p class="label">Time</p>
+              <p class="value">${d3
+                .utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp)
+                .toTimeString()}</p>
+            </div>
+            </li>
+          </ul>
+        </div>    
+      `
+        )
+        .style('opacity', 1)
+        .transition()
+        .duration(200);
+    };
+
+    var mousemove = function (d) {
+      console.log('mousemove', d);
+      d3.select('#device-chart-tooltip')
+        .html(
+          `
+          <div class="content-box">
+            <ul class="multi-tooltip">
+              <li>
+              <div class="datapoint-tooltip">
+                <p class="label">Value</p>
+                <p class="value">${d.value}</p>
+              </div>
+              </li>
+              <li>
+              <div class="datapoint-tooltip">
+                <p class="label">Time</p>
+                <p class="value">${d3
+                  .utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp)
+                  .toTimeString()}</p>
+              </div>
+              </li>
+            </ul>
+          </div>    
+        `
+        )
+        .style('left', d3.event.pageX + 10 + 'px')
+        .style('top', d3.event.pageY + 10 + 'px');
+    };
+
+    var mouseout = function (d) {
+      console.log('mouseout', d);
+      d3.select('#device-chart-tooltip')
+        .transition()
+        .duration(200)
+        .style('opacity', 0);
+    };
+
     // Highlight the data points
     svg
       .selectAll('data-points')
@@ -151,7 +219,10 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .attr('cy', function (d) {
         return y(d.value);
       })
-      .attr('r', 3);
+      .attr('r', 3)
+      .on('mouseover', mouseover)
+      .on('mousemove', mousemove)
+      .on('mouseout', mouseout);
   };
 
   return <svg ref={ref}></svg>;

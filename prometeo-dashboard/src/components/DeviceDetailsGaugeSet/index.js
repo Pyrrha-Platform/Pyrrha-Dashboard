@@ -72,6 +72,7 @@ function DeviceDetailsGaugeSet({
   */
 
   const { t, locale } = useContext(AppContext);
+
   const dateFormatOptions = {
     weekday: 'short',
     year: 'numeric',
@@ -80,92 +81,127 @@ function DeviceDetailsGaugeSet({
     hour: '2-digit',
     minute: '2-digit',
   };
+
+  let now = new Date();
+  let utcTimestampDate = new Date(Date.parse(device_timestamp));
+  let utcCurrentDate = new Date(
+    Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      now.getUTCMinutes(),
+      now.getUTCSeconds(),
+      now.getUTCMilliseconds()
+    )
+  );
+  let utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
+
   function toLocaleUTCDateString() {
-    let utcDate = new Date(Date.parse(device_timestamp));
-    return utcDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC';
+    return (
+      utcTimestampDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC'
+    );
   }
+
+  let background = 'database'; // "websocket"
+  if (utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD) {
+    background = 'websocket';
+  }
+
+  console.log('Date now', utcCurrentDate.getTime());
+  console.log('Date timestamp', device_id, utcTimestampDate.getTime());
+  console.log('Date difference', utcTimeDifference);
+  console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
 
   return (
     <>
       <div className="bx--row">
-        <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-          <div className="bx--grid bx--grid--full-width dashboard-content">
-            <div className="bx--row dashboard-tile">
-              <div className="bx--col-md-6 label-firefighter">
-                {/* device_id */}
-                {/* <br /> */}
-                {toLocaleUTCDateString()}
-                {/* t('content.details.now') */}
-              </div>
-              <div className="bx--col-md-2 icon-firefighter">
-                {new Date() - Date.parse(device_timestamp) <
-                  Constants.RECENT_NOTIFICATION_THRESHOLD && (
-                  <NotificationFilled20 />
-                )}
-              </div>
-            </div>
-            <div className="bx--row dashboard-tile">
-              <div className="bx--col bx--col-md-2">
-                <div>
-                  <DeviceGauge
-                    device_id={device_id}
-                    type={'CO'}
-                    value={carbon_monoxide}
-                    unit={'ppm'}
-                    increment={'now'}
-                    gauge={Utils.getPercentage('CO', carbon_monoxide, 'now')}
-                  />
+        {(increment === 'latest' || increment === 'all') && (
+          <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+            <div className="bx--grid bx--grid--full-width dashboard-content">
+              <div className="bx--row dashboard-tile">
+                <div className="bx--col-md-6 label-firefighter">
+                  {/* device_id */}
+                  {/* <br /> */}
+                  {toLocaleUTCDateString()}
+                  {/* t('content.details.now') */}
                 </div>
-                <div className="label-legend">CO</div>
-              </div>
-              <div className="bx--col bx--col-md-2">
-                <div>
-                  <DeviceGauge
-                    device_id={device_id}
-                    type={'NO2'}
-                    value={nitrogen_dioxide}
-                    unit={'ppm'}
-                    increment={'now'}
-                    gauge={Utils.getPercentage('NO2', nitrogen_dioxide, 'now')}
-                  />
-                </div>
-                <div className="label-legend">
-                  NO<sub>2</sub>
+                <div className="bx--col-md-2 icon-firefighter-holder">
+                  {utcTimeDifference <
+                    Constants.RECENT_NOTIFICATION_THRESHOLD && (
+                    <>
+                      <NotificationFilled20 />
+                    </>
+                  )}
                 </div>
               </div>
-              <div className="bx--col bx--col-md-2">
-                <div>
-                  <DeviceGauge
-                    device_id={device_id}
-                    type={'Tmp'}
-                    value={temperature}
-                    unit={'°C'}
-                    increment={'now'}
-                    gauge={Utils.getPercentage('Tmp', temperature, 'now')}
-                  />
+              <div className="bx--row dashboard-tile">
+                <div className="bx--col bx--col-md-2">
+                  <div>
+                    <DeviceGauge
+                      device_id={device_id}
+                      type={'CO'}
+                      value={carbon_monoxide}
+                      unit={'ppm'}
+                      increment={'now'}
+                      gauge={Utils.getPercentage('CO', carbon_monoxide, 'now')}
+                    />
+                  </div>
+                  <div className="label-legend">CO</div>
                 </div>
-                <div className="label-legend">
-                  {t('content.common.temperature')}
+                <div className="bx--col bx--col-md-2">
+                  <div>
+                    <DeviceGauge
+                      device_id={device_id}
+                      type={'NO2'}
+                      value={nitrogen_dioxide}
+                      unit={'ppm'}
+                      increment={'now'}
+                      gauge={Utils.getPercentage(
+                        'NO2',
+                        nitrogen_dioxide,
+                        'now'
+                      )}
+                    />
+                  </div>
+                  <div className="label-legend">
+                    NO<sub>2</sub>
+                  </div>
                 </div>
-              </div>
-              <div className="bx--col bx--col-md-2">
-                <div>
-                  <DeviceGauge
-                    device_id={device_id}
-                    type={'Hum'}
-                    value={humidity}
-                    unit={'%'}
-                    increment={'now'}
-                    gauge={Utils.getPercentage('Hum', humidity, 'now')}
-                  />
+                <div className="bx--col bx--col-md-2">
+                  <div>
+                    <DeviceGauge
+                      device_id={device_id}
+                      type={'Tmp'}
+                      value={temperature}
+                      unit={'°C'}
+                      increment={'now'}
+                      gauge={Utils.getPercentage('Tmp', temperature, 'now')}
+                    />
+                  </div>
+                  <div className="label-legend">
+                    {t('content.common.temperature')}
+                  </div>
                 </div>
-                <div className="label-legend">
-                  {t('content.common.humidity')}
+                <div className="bx--col bx--col-md-2">
+                  <div>
+                    <DeviceGauge
+                      device_id={device_id}
+                      type={'Hum'}
+                      value={humidity}
+                      unit={'%'}
+                      increment={'now'}
+                      gauge={Utils.getPercentage('Hum', humidity, 'now')}
+                    />
+                  </div>
+                  <div className="label-legend">
+                    {t('content.common.humidity')}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {(increment === '10min' || increment === 'all') && (
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
@@ -685,20 +721,22 @@ function DeviceDetailsGaugeSet({
           </div>
         )}
       </div>
-      <div className="bx--row">
-        <div className="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
-          <DeviceChartHolder
-            device_id={device_id}
-            type={!type ? 'CO' : type}
-            data={chart}
-            unit={'ppm'}
-            gauge={''}
-            increment={
-              increment === 'all' ? t('content.details.10min') : increment
-            }
-          />
+      {increment != 'now' && increment != 'latest' && increment != 'all' && (
+        <div className="bx--row">
+          <div className="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
+            <DeviceChartHolder
+              device_id={device_id}
+              type={!type ? 'CO' : type}
+              data={chart}
+              unit={'ppm'}
+              gauge={''}
+              increment={
+                increment === 'all' ? t('content.details.10min') : increment
+              }
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

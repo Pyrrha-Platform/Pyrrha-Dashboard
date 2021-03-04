@@ -9,7 +9,7 @@ class Constants {
   static AUTH_ENABLED = false;
 
   // Recent reading notification threshold
-  static RECENT_NOTIFICATION_THRESHOLD = 4500000;
+  static RECENT_NOTIFICATION_THRESHOLD = 45000;
 
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = '#da1e28';

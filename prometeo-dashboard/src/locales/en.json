@@ -79,6 +79,7 @@
       "heading": "Details",
       "subheading": "You are now viewing the details for the readings for a specific device. Choose a reading to see a detailed chart.",
       "all": "All",
+      "latest": "Latest",
       "now": "Now",
       "10min": "10 min avg",
       "30min": "30 min avg",

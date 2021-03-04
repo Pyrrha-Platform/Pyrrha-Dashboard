@@ -12,6 +12,7 @@ function DeviceChartHolder({ device_id, type, data, unit, limit, increment }) {
         </div>
       </div>
       <div className="bx--row details-tile">
+        <div id="device-chart-tooltip" className="bx--cc--tooltip" />
         <div className="bx--col bx--col-md-16">
           <DeviceChart
             device_id={device_id}
