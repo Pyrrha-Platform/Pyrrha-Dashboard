@@ -29,11 +29,12 @@ const DetailsGrid = (params) => {
 
   const incrementMapping = {
     all: 0,
-    '10min': 1,
-    '30min': 2,
-    '1hr': 3,
-    '4hr': 4,
-    '8hr': 5,
+    latest: 1,
+    '10min': 2,
+    '30min': 3,
+    '1hr': 4,
+    '4hr': 5,
+    '8hr': 6,
   };
 
   return (
@@ -60,6 +61,7 @@ const DetailsGrid = (params) => {
         selectedIndex={incrementMapping[increment]}
         className="details-page__switcher">
         <Switch name="all" text={t('content.details.all')} />
+        <Switch name="latest" text={t('content.details.latest')} />
         <Switch name="10min" text={t('content.details.10min')} />
         <Switch name="30min" text={t('content.details.30min')} />
         <Switch name="1hr" text={t('content.details.1hr')} />

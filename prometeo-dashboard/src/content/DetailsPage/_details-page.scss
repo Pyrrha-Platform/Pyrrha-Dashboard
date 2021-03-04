@@ -151,3 +151,35 @@
 .bx--col {
   text-align: center !important;
 }
+
+.bx--cc--tooltip {
+  background-color: #fff;
+  pointer-events: none;
+  display: inline;
+  opacity: 0;
+  box-shadow: 0 1px 6px 0 rgb(0 0 0 / 20%);
+  position: absolute;
+  word-wrap: break-word;
+  z-index: 1059;
+  font-family: IBM Plex Sans Condensed, Helvetica Neue, Arial, sans-serif;
+}
+
+.bx--cc--tooltip {
+  transition: opacity 0.1s;
+  transition-timing-function: cubic-bezier(0.4, 0.14, 0.3, 1);
+}
+
+.bx--cc--tooltip .datapoint-tooltip {
+  display: flex;
+  padding: 4px;
+  flex-flow: row nowrap;
+  width: auto;
+  min-width: 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.bx--cc--tooltip ul.multi-tooltip {
+  margin: 0;
+  padding: 0;
+}

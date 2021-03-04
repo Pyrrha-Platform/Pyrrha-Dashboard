@@ -77,8 +77,12 @@
 }
 
 @keyframes onmessage {
-  0% {background-color:#ddd !important;}
-  100% {background-color: #fff !important;}
+  0% {
+    background-color: #ddd !important;
+  }
+  100% {
+    background-color: #fff !important;
+  }
 }
 
 .bx--row {
@@ -133,9 +137,13 @@
   padding-left: 0;
 }
 
-.icon-firefighter {
+.icon-firefighter-holder {
   text-align: right !important;
   padding: 15px 15px 0 15px;
+}
+
+.icon-firefighter-holder svg {
+  padding: 0 0 0 5px;
 }
 
 .label-num {

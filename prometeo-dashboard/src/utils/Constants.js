@@ -5,13 +5,17 @@ class Constants {
   // static WEBSOCKET_URL = 'ws://localhost:8010';
   static WEBSOCKET_URL = 'ws://159.122.237.4:32035';
 
+  // Whether to validate against App ID. Important when developing locally.
+  static AUTH_ENABLED = false;
+
   // Recent reading notification threshold
-  static RECENT_NOTIFICATION_THRESHOLD = 4500000;
+  static RECENT_NOTIFICATION_THRESHOLD = 45000;
 
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = '#da1e28';
   static YELLOW = '#f1c21b';
   static GREEN = '#24a148';
+  static WHITE = '#efefef';
   static BLUE_DK = '#0f62fe';
   static BLUE_LT = '#78a9ff';
   static DEFAULT_COLOR = '#ddd';
