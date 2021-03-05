@@ -401,8 +401,17 @@ def get_dashboard_details(device_id, increment='all', type='CO'):
 @app.route('/api-main/v1/dashboard-chart-details/<string:device_id>/<string:increment>/<string:type>', methods=['GET'])
 def get_dashboard_chart_details(device_id, increment='all', type='CO'):
 
-    chart = dashboard_manager().get_dashboard_chart_details(
-        device_id, increment, type)
+    is_device_active = dashboard_manager().get_dashboard_device_active(device_id)
+
+    if is_device_active:
+        print('device is active')
+        chart = dashboard_manager().get_dashboard_chart_details(
+            device_id, increment, type, 'window')
+    else:
+        print('device is inactive')
+        chart = dashboard_manager().get_dashboard_chart_details(
+            device_id, increment, type, 'history')
+
     message = {
         'status': 200,
         'message': 'OK',
