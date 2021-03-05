@@ -45,7 +45,7 @@ class dashboard_manager(object):
             if len(data) > 0:
                 print("get_dashboard - Hay informacion")
                 for i in data:
-                    print(i)
+                    # print(i)
                     devices.append({
                         'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
                         'device_id': i[2],
@@ -122,7 +122,7 @@ class dashboard_manager(object):
             if len(data) > 0:
                 print("get_dashboard_now - Hay informacion")
                 for i in data:
-                    print(i)
+                    # print(i)
                     devices.append({
                         'device_id': i[0],
                         'temperature': i[1],
@@ -187,7 +187,7 @@ class dashboard_manager(object):
             if len(data) > 0:
                 print("get_dashboard_details - Hay informacion")
                 for i in data:
-                    print(i)
+                    # print(i)
                     details.append({
                         'device_id': i[2],
                         'temperature': i[4],
@@ -233,7 +233,7 @@ class dashboard_manager(object):
 
         return details
 
-    def get_dashboard_chart_details(self, device_id, increment, type):
+    def get_dashboard_chart_details(self, device_id, increment, type, range='window'):
         print("get_dashboard_chart_details - entro en la funcion")
 
         chart = []
@@ -245,7 +245,6 @@ class dashboard_manager(object):
         # Default column names
         ty = "carbon_monoxide_twa_"
         inc = "10min"
-        limit = 10
 
         if type == 'NO2':
             ty = "nitrogen_dioxide_twa_"
@@ -253,16 +252,12 @@ class dashboard_manager(object):
         # Set these manually rather than on client input
         if increment == '30min':
             inc = '30min'
-            limit = 30
         elif increment == '1hr':
             inc = '60min'
-            limit = 30
         elif increment == '4hr':
             inc = '240min'
-            limit = 240
         elif increment == '8hr':
             inc = '480min'
-            limit = 480
 
         # The one column name to select
         column = ty + inc
@@ -282,6 +277,8 @@ class dashboard_manager(object):
             cursor = conn.cursor()
 
             print("get_dashboard_chart_details - llamada a sql")
+
+            # Default, past 8 hours
             sql = f"""
                 SELECT 
                     timestamp_mins, device_timestamp, {column}
@@ -289,12 +286,27 @@ class dashboard_manager(object):
                     firefighter_status_analytics
                 WHERE
                     device_id = %s 
+                AND 
+                    device_timestamp >= DATE_SUB(NOW(), INTERVAL 8 HOUR)
                 ORDER BY device_timestamp DESC
-                LIMIT {limit};
             """
+
+            # Otherwise, the last 240 readings
+            if range == 'history': 
+                sql = f"""
+                    SELECT 
+                        timestamp_mins, device_timestamp, {column}
+                    FROM
+                        firefighter_status_analytics
+                    WHERE
+                        device_id = %s 
+                    ORDER BY device_timestamp DESC
+                    LIMIT 240
+                """
+
             print(sql)
 
-            print("get_dashboard_chart_details - get latest 10 reading for", column)
+            print("get_dashboard_chart_details - get latest readings for", column)
             cursor.execute(sql, (device_id, ))
 
             print("get_dashboard_chart_details - fetchall")
@@ -303,7 +315,7 @@ class dashboard_manager(object):
             if len(data) > 0:
                 print("get_dashboard_chart_details - Hay informacion")
                 for i in data:
-                    print(i)
+                    # print(i)
                     chart.append({
                         'timestamp_mins': i[0].strftime("%Y-%m-%dT%H:%M:%S"),
                         'device_timestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S"),
@@ -324,3 +336,48 @@ class dashboard_manager(object):
             conn.close()
 
         return chart
+
+    def get_dashboard_device_active(self, device_id):
+
+        print("get_dashboard_device_active - entro en la funcion")
+
+        device_active = True
+
+        try:
+            conn = mariadb.connect(
+                user=os.getenv('MARIADB_USERNAME'),
+                password=os.getenv('MARIADB_PASSWORD'),
+                host=os.getenv('MARIADB_HOST'),
+                database='prometeo',
+                port=int(os.getenv('MARIADB_PORT'))
+            )
+
+            cursor = conn.cursor()
+
+            sql = f"""
+                SELECT 
+                    device_timestamp 
+                FROM 
+                    firefighter_status_analytics 
+                WHERE 
+                    device_id = %s
+                AND 
+                    device_timestamp >= DATE_SUB(NOW(), INTERVAL 8 HOUR)
+            """
+            cursor.execute(sql, (device_id,))
+
+            data = cursor.fetchone()
+
+            if len(data) > 0:
+                device_active = True
+            else:
+                device_active = False
+
+        except Exception as e:
+            return None
+
+        finally:
+            cursor.close()
+            conn.close()
+
+        return device_active
