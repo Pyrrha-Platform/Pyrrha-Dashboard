@@ -216,18 +216,29 @@ function DeviceDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'CO'}
-                      value={carbon_monoxide_twa_10min}
-                      increment={'10min'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'CO',
-                        carbon_monoxide_twa_10min,
-                        '10min'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log(
+                          'Setting type to CO and increment to 10min'
+                        );
+                        setType('CO');
+                        setIncrement('10min');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'CO'}
+                        value={carbon_monoxide_twa_10min}
+                        increment={'10min'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide_twa_10min,
+                          '10min'
+                        )}
+                      />
+                    </a>
                     {/* gauge={carbon_monoxide_gauge_10min} */}
                   </div>
                   <div className="label-legend">
@@ -247,18 +258,29 @@ function DeviceDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'NO2'}
-                      value={nitrogen_dioxide_twa_10min}
-                      increment={'10min'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'NO2',
-                        nitrogen_dioxide_twa_10min,
-                        '10min'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log(
+                          'Setting type to CO and increment to 10min'
+                        );
+                        setType('NO2');
+                        setIncrement('10min');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'NO2'}
+                        value={nitrogen_dioxide_twa_10min}
+                        increment={'10min'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'NO2',
+                          nitrogen_dioxide_twa_10min,
+                          '10min'
+                        )}
+                      />
+                    </a>
                     {/* gauge={nitrogen_dioxide_gauge_10min} */}
                   </div>
                   <div className="label-legend">
@@ -322,18 +344,29 @@ function DeviceDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'CO'}
-                      value={carbon_monoxide_twa_30min}
-                      increment={'30min'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'CO',
-                        carbon_monoxide_twa_30min,
-                        '30min'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log(
+                          'Setting type to CO and increment to 30min'
+                        );
+                        setType('CO');
+                        setIncrement('30min');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'CO'}
+                        value={carbon_monoxide_twa_30min}
+                        increment={'30min'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide_twa_30min,
+                          '30min'
+                        )}
+                      />
+                    </a>
                     {/* gauge={carbon_monoxide_gauge_30min} */}
                   </div>
                   <div className="label-legend">
@@ -353,18 +386,29 @@ function DeviceDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'NO2'}
-                      value={nitrogen_dioxide_twa_30min}
-                      increment={'30min'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'NO2',
-                        nitrogen_dioxide_twa_30min,
-                        '30min'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log(
+                          'Setting type to CO and increment to 30min'
+                        );
+                        setType('NO2');
+                        setIncrement('30min');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'NO2'}
+                        value={nitrogen_dioxide_twa_30min}
+                        increment={'30min'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'NO2',
+                          nitrogen_dioxide_twa_30min,
+                          '30min'
+                        )}
+                      />
+                    </a>
                     {/* gauge={nitrogen_dioxide_gauge_30min} */}
                   </div>
                   <div className="label-legend">
@@ -428,18 +472,27 @@ function DeviceDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'CO'}
-                      value={carbon_monoxide_twa_60min}
-                      increment={'1hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'CO',
-                        carbon_monoxide_twa_60min,
-                        '1hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 1hr');
+                        setType('CO');
+                        setIncrement('1hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'CO'}
+                        value={carbon_monoxide_twa_60min}
+                        increment={'1hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide_twa_60min,
+                          '1hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={carbon_monoxide_gauge_60min} */}
                   </div>
                   <div className="label-legend">
@@ -457,18 +510,27 @@ function DeviceDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'NO2'}
-                      value={nitrogen_dioxide_twa_60min}
-                      increment={'1hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'NO2',
-                        nitrogen_dioxide_twa_60min,
-                        '1hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 1hr');
+                        setType('NO2');
+                        setIncrement('1hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'NO2'}
+                        value={nitrogen_dioxide_twa_60min}
+                        increment={'1hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'NO2',
+                          nitrogen_dioxide_twa_60min,
+                          '1hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={nitrogen_dioxide_gauge_60min} */}
                   </div>
                   <div className="label-legend">
@@ -530,18 +592,27 @@ function DeviceDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'CO'}
-                      value={carbon_monoxide_twa_240min}
-                      increment={'4hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'CO',
-                        carbon_monoxide_twa_240min,
-                        '4hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 4hr');
+                        setType('CO');
+                        setIncrement('4hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'CO'}
+                        value={carbon_monoxide_twa_240min}
+                        increment={'4hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide_twa_240min,
+                          '4hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={carbon_monoxide_gauge_240min} */}
                   </div>
                   <div className="label-legend">
@@ -559,18 +630,27 @@ function DeviceDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'NO2'}
-                      value={nitrogen_dioxide_twa_240min}
-                      increment={'4hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'NO2',
-                        nitrogen_dioxide_twa_240min,
-                        '4hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 4hr');
+                        setType('NO2');
+                        setIncrement('4hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'NO2'}
+                        value={nitrogen_dioxide_twa_240min}
+                        increment={'4hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'NO2',
+                          nitrogen_dioxide_twa_240min,
+                          '4hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={nitrogen_dioxide_gauge_240min} */}
                   </div>
                   <div className="label-legend">
@@ -632,18 +712,27 @@ function DeviceDetailsGaugeSet({
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'CO'}
-                      value={carbon_monoxide_twa_480min}
-                      increment={'8hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'CO',
-                        carbon_monoxide_twa_480min,
-                        '8hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 8hr');
+                        setType('CO');
+                        setIncrement('8hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'CO'}
+                        value={carbon_monoxide_twa_480min}
+                        increment={'8hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide_twa_480min,
+                          '8hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={carbon_monoxide_gauge_480min} */}
                   </div>
                   <div className="label-legend">
@@ -661,18 +750,27 @@ function DeviceDetailsGaugeSet({
                 </div>
                 <div className="bx--col bx--col-md-2">
                   <div>
-                    <DeviceGauge
-                      device_id={device_id}
-                      type={'NO2'}
-                      value={nitrogen_dioxide_twa_480min}
-                      increment={'8hr'}
-                      unit={'ppm'}
-                      gauge={Utils.getPercentage(
-                        'NO2',
-                        nitrogen_dioxide_twa_480min,
-                        '8hr'
-                      )}
-                    />
+                    <a
+                      href="javascript:void(0)"
+                      className="bx--link label-legend-link"
+                      onClick={() => {
+                        console.log('Setting type to CO and increment to 8hr');
+                        setType('NO2');
+                        setIncrement('8hr');
+                      }}>
+                      <DeviceGauge
+                        device_id={device_id}
+                        type={'NO2'}
+                        value={nitrogen_dioxide_twa_480min}
+                        increment={'8hr'}
+                        unit={'ppm'}
+                        gauge={Utils.getPercentage(
+                          'NO2',
+                          nitrogen_dioxide_twa_480min,
+                          '8hr'
+                        )}
+                      />
+                    </a>
                     {/* gauge={nitrogen_dioxide_gauge_480min} */}
                   </div>
                   <div className="label-legend">
