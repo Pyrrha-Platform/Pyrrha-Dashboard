@@ -45,6 +45,6 @@ spec:
       containers:
         - name: api-auth
           image: "us.icr.io/upkar_ns/api-auth:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000

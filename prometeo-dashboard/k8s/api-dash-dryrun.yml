@@ -45,7 +45,7 @@ spec:
       containers:
         - name: api-dash
           image: "us.icr.io/upkar_ns/api-dash:latest"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 
