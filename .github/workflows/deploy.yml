@@ -1,0 +1,45 @@
+name: Build and Deploy to IBM Kubernetes Service Cluster
+
+# Execute on every push to master
+on:
+  push:
+    branches:
+      - master
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GITHUB_SHA: ${{ github.sha }}
+  IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
+  IBM_CLOUD_REGION: us-east
+  ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
+  REGISTRY_HOSTNAME: us.icr.io
+  IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
+  K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE }}
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy 
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      # A GitHub Action for serializing workflow runs
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: call-for-code/build-push-deploy@v1
+        with:
+          cloud-api-key: $IBM_CLOUD_API_KEY
+          cloud-resource-group: default
+          cloud-region: $IBM_CLOUD_REGION
+          deployment-name: api-main-api-main
+          github-sha: $GITHUB_SHA
+          icr-namespace: $ICR_NAMESPACE
+          image-name: api-main
+          k8s-cluster-name: $IKS_CLUSTER
+          k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
+          registry-hostname: us.icr.io
+          working-directory: "prometeo-dashboard/api-main"
+
