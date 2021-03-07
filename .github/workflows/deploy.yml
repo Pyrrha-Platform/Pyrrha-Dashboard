@@ -30,12 +30,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: call-for-code/build-push-deploy@a5b04827853f6c4c1c9a3ca42bb1c718f4667433
+      - uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
           cloud-region: $IBM_CLOUD_REGION
           icr-region: $ICR_REGION
           deployment-name: api-main-api-main
+          container-name: api-main
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
           image-name: api-main
