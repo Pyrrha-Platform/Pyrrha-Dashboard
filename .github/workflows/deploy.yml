@@ -32,7 +32,6 @@ jobs:
       - uses: call-for-code/build-push-deploy@v1
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
-          cloud-resource-group: default
           cloud-region: $IBM_CLOUD_REGION
           deployment-name: api-main-api-main
           github-sha: $GITHUB_SHA
