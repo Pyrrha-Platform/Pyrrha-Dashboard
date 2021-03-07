@@ -23,7 +23,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2      
+      - name: Add VCAP_LOCAL from secret to development environment
+        env:
+          VCAP_LOCAL: ${{ secrets.VCAP_LOCAL }}
+        run: |
+          echo "$VCAP_LOCAL" >> ./prometeo-dashboard/api-auth/vcap-local.json
+      
       # A GitHub Action for serializing workflow runs
       - name: Turnstyle
         uses: softprops/turnstyle@v1
