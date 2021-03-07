@@ -15,7 +15,6 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": ">=0.21.1",
-    "babel-loader": "^8.1.0",
     "carbon-components": "10.29.0",
     "carbon-components-react": "7.29.0",
     "carbon-icons": "7.0.7",
