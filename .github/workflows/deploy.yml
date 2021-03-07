@@ -11,6 +11,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: us-east
+  $ICR_REGION: us-south
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
   REGISTRY_HOSTNAME: us.icr.io
   IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
@@ -29,10 +30,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: call-for-code/build-push-deploy@v1
+      - uses: call-for-code/build-push-deploy@a5b04827853f6c4c1c9a3ca42bb1c718f4667433
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
           cloud-region: $IBM_CLOUD_REGION
+          icr-region: $ICR_REGION
           deployment-name: api-main-api-main
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
