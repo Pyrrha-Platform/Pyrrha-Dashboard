@@ -11,7 +11,7 @@ env:
   GITHUB_SHA: ${{ github.sha }}
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
   IBM_CLOUD_REGION: us-east
-  $ICR_REGION: us-south
+  ICR_REGION: us-south
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
   REGISTRY_HOSTNAME: us.icr.io
   IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
