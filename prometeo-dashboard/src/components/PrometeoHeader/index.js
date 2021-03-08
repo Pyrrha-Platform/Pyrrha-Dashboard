@@ -15,6 +15,7 @@ import {
 import UserAvatar20 from '@carbon/icons-react/lib/user--avatar/20';
 import Translate20 from '@carbon/icons-react/lib/translate/20';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
 function PrometeoHeader(props) {
   const active = props.active;
@@ -45,7 +46,7 @@ function PrometeoHeader(props) {
         }}>
         Platform
       </HeaderName>
-      {currentUser.isAuth && (
+      {(Constants.AUTH_DISABLED || currentUser.isAuth) && (
         <HeaderNavigation aria-label={t('components.header.title')}>
           <HeaderMenuItem
             element={Link}
@@ -82,7 +83,7 @@ function PrometeoHeader(props) {
             onClick={() => {
               setPage('Firefighters');
             }}>
-            {t('components.header.firefighters')}
+            {t('components.header.firefighters')}b
           </HeaderMenuItem>
           */}
         </HeaderNavigation>

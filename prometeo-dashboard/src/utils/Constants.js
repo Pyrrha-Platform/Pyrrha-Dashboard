@@ -6,7 +6,7 @@ class Constants {
   static WEBSOCKET_URL = 'ws://159.122.237.4:32035';
 
   // Whether to validate against App ID. Important when developing locally.
-  static AUTH_ENABLED = false;
+  static AUTH_DISABLED = true;
 
   // Recent reading notification threshold
   static RECENT_NOTIFICATION_THRESHOLD = 45000;
