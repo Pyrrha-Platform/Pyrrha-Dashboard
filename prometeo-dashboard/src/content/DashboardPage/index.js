@@ -14,7 +14,6 @@ function DashboardPage() {
     history.push('/login');
     return null;
   }
-
 }
 
 export default DashboardPage;

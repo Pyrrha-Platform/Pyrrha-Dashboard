@@ -17,7 +17,6 @@ function DetailsPage() {
     history.push('/login');
     return null;
   }
-
 }
 
 export default DetailsPage;
