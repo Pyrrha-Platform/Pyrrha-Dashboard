@@ -819,7 +819,7 @@ function DeviceDetailsGaugeSet({
           </div>
         )}
       </div>
-      {increment != 'now' && increment != 'latest' && increment != 'all' && (
+      {increment != 'all' && (
         <div className="bx--row">
           <div className="bx--col-lg-16 bx--col-md-8 bx--col-sm-1">
             <DeviceChartHolder
