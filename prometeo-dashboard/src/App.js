@@ -4,11 +4,13 @@ import Router from './Router';
 import './App.scss';
 
 function App() {
+  
   return (
     <AppContext.Provider value={useAppContext()}>
       <Router />
     </AppContext.Provider>
   );
+  
 }
 
 export default App;
