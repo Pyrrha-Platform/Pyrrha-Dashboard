@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next';
 export default createContext({});
 
 export const useAppContext = () => {
+
+  const [locale, setLocale] = useState('en-us');
+
   const { t, i18n } = useTranslation();
   const [currentUser, setCurrentUser] = useState({
     isAuth: false,
@@ -11,7 +14,6 @@ export const useAppContext = () => {
     lastName: '',
     email: '',
   });
-  const [locale, setLocale] = useState('en-us');
 
   return {
     currentUser,
@@ -21,4 +23,5 @@ export const useAppContext = () => {
     locale,
     setLocale,
   };
+
 };
