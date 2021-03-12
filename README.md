@@ -44,24 +44,21 @@ TBD. This will either be deployed as three microservices, or a containerized mon
 
 ### Screenshots
 
-#### Nitrogen dioxide full view in Spanish
+#### Full view of connected devices in Catalan
 
-The bell indicator shows an updated reading has been received from the websocket recently that replaces the latest pulled from the database.
+![ca-dashboard.png](/img/ca-dashboard.png)
 
-![dashboard-events.png](/img/es-now-no2.png)
+#### Full latest averages in Spanish
 
-#### Nitrogen dioxide 4 hour view in English
+![es-now-co.png](/img/es-now-co.png)
 
-![dashboard-events.png](/img/en-4hr-no2.png)
+#### Carbon monoxide 30 minute view in English
 
-#### Nitrogen dioxide 8 hour view in Catalan
+![en-30mn-co.png](/img/en-30mn-co.png)
 
-![dashboard-events.png](/img/ca-8hr-no2.png)
+#### Nitrogen dioxide 1 hour view in Catalan
 
-#### Nitrogen dioxide 8 hour view in English
-
-![dashboard-events.png](/img/en-8hr-no2.png)
-
+![dashboard-events.png](/img/ca-1hr-no2.png)
 
 ## Contributing
 
