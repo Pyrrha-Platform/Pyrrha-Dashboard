@@ -43,6 +43,28 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 On the IBM Cloud Kubernetes Service, this application is hosted as [three microservices](https://github.com/Call-for-Code/Prometeo-Dashboard/tree/master/prometeo-dashboard/k8s).
 
+### Files
+
+#### User interface (React)
+
+- `src/components` - The React components used by the app, including Carbon and custom widgets.
+- `src/content` - The React pages and custom styling for each page.
+- `src/context` - The React stateful variables.
+- `src/hooks` - The API access clients.
+- `src/locales` - The localization files. They are also enabled in other files, such as the header widget.
+- `src/utils` - Configuration, thresholds, and common functions.
+
+#### Main API (Python Flask)
+
+- `api-main/apy.py` - The main REST controller.
+- `api-main/*_manager` - The models for data access for a given entity.
+
+#### Authentication API (Node.js)
+
+- `api-auth/server.js` - The main REST controller.
+- `api-auth/rest` - Defines the REST routes.
+- `api-auth/services` - Various utilities for interactiong with App ID.
+
 ### Pages
 
 Currently the dashboard takes a device-centric view of the current readings. These readings can be correlated with a particular firefighter who was assigned the device. This separation is intentional at the moment in order to preserve identity privacy in the current implementation. This mapping, and the thresholds used by the system are controlled by the firefighter department medical professional.
