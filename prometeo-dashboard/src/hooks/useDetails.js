@@ -38,6 +38,7 @@ const updateDetails = (details, message) => {
   console.log('newDetails', newDetails);
 
   let newMessage = JSON.parse(message);
+  newMessage.device_timestamp += '+00:00';
 
   console.log(typeof newMessage, newMessage);
   if (typeof newMessage === 'object') {

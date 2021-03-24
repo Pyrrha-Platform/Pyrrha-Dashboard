@@ -37,7 +37,7 @@ function renderChart(parent, firefighter_id, type, value, unit) {
     // When reading the csv, I must format variables:
     function (d) {
       return {
-        date: d3.utcParse('%Y-%m-%dT%H:%M:%S.%LZ')(d.date),
+        date: d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.date),
         value: d.value,
       };
     },

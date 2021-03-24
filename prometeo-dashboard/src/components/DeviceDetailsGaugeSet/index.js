@@ -4,7 +4,7 @@ import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
-import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
+import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
 
 function DeviceDetailsGaugeSet({
   chart,
@@ -127,12 +127,7 @@ function DeviceDetailsGaugeSet({
                   {/* t('content.details.now') */}
                 </div>
                 <div className="bx--col-md-2 icon-firefighter-holder">
-                  {utcTimeDifference <
-                    Constants.RECENT_NOTIFICATION_THRESHOLD && (
-                    <>
-                      <NotificationFilled20 />
-                    </>
-                  )}
+
                 </div>
               </div>
               <div className="bx--row dashboard-tile">
@@ -199,6 +194,30 @@ function DeviceDetailsGaugeSet({
                   </div>
                 </div>
               </div>
+              {utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD && (
+              <div
+                className="bx--row"
+                style={{
+                  paddingTop: 0,
+                  marginTop: 0,
+                  paddingBottom: 0,
+                  marginBottom: 0,
+                }}>
+                <InlineNotification
+                  lowContrast
+                  kind="info"
+                  style={{
+                    paddingTop: 0,
+                    marginTop: 0,
+                    paddingBottom: 0,
+                    marginBottom: 0,
+                  }}
+                  iconDescription="close"
+                  subtitle={<span>less than a minute ago</span>}
+                  title="New reading received"
+                />
+              </div>
+            )}
             </div>
           </div>
         )}

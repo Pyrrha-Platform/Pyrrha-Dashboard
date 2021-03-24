@@ -4,9 +4,9 @@ import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
-import NotificationFilled20 from '@carbon/icons-react/lib/notification--filled/20';
-import WarningAltFilled20 from '@carbon/icons-react/lib/warning--alt--filled/20';
 import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 function DeviceDashboardGaugeSet({
   device_id,
@@ -28,6 +28,8 @@ function DeviceDashboardGaugeSet({
     hour: '2-digit',
     minute: '2-digit',
   };
+
+  Moment.globalTimezone = 'Etc/UTC';
 
   let now = new Date();
   let utcTimestampDate = new Date(Date.parse(device_timestamp));
@@ -64,7 +66,7 @@ function DeviceDashboardGaugeSet({
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className={'bx--row dashboard-tile background-' + background}>
-          <div className="bx--col-md-6 label-firefighter">
+          <div className="bx--col-md-5 label-firefighter">
             <Link
               to={'/details/' + device_id}
               className="bx--link label-firefighter"
@@ -72,21 +74,15 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            {toLocaleUTCDateString()}
+            Last update: <Moment fromNow>{device_timestamp}</Moment> <br />
+            {/*toLocaleUTCDateString()*/}
             {/* t('content.details.now') */}
           </div>
-          <div className="bx--col-md-2 icon-firefighter-holder">
-            {utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD && (
-              <>
-                <WarningAltFilled20 />
-                <NotificationFilled20 />
-              </>
-            )}
-            {utcTimeDifference > Constants.RECENT_NOTIFICATION_THRESHOLD && (
-              <>
-                <WarningAltFilled20 />
-              </>
-            )}
+          <div className="bx--col-md-3 icon-firefighter-holder">
+            {/*
+            <WarningAltFilled20 />
+            Potential risk
+            */}
           </div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
@@ -171,7 +167,8 @@ function DeviceDashboardGaugeSet({
             />
           </div>
         )}
-        {utcTimeDifference > Constants.RECENT_NOTIFICATION_THRESHOLD && (
+        {
+          /* utcTimeDifference > Constants.RECENT_NOTIFICATION_THRESHOLD && (
           <div
             className="bx--row"
             style={{
@@ -194,7 +191,8 @@ function DeviceDashboardGaugeSet({
               title="Dangerous long-term average"
             />
           </div>
-        )}
+          )*/ 
+        }
       </div>
     </div>
   );
