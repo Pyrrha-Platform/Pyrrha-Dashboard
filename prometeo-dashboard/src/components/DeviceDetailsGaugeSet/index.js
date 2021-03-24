@@ -99,7 +99,8 @@ function DeviceDetailsGaugeSet({
 
   function toLocaleUTCDateString() {
     return (
-      utcTimestampDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC'
+      // utcTimestampDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC'
+      utcTimestampDate.toLocaleDateString(locale, dateFormatOptions)
     );
   }
 

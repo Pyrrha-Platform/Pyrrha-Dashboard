@@ -73,7 +73,17 @@
     },
     "dashboard": {
       "heading": "Dashboard",
-      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold."
+      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold.",
+      "noDevices": "No devices",
+      "tileHeadingNormal": "Normal range",
+      "tileSubheadingNormal": "Normal levels",
+      "tileHeadingWarning": "Potential risk",
+      "tileSubheadingWarning": "Could be at risk soon",
+      "tileHeadingDanger": "Immediate risk",
+      "tileSubheadingDanger": "Dangerous levels",
+      "lastUpdate": "Last update",
+      "newReadingTitle": "New reading received",
+      "newReadingSubtitle": "less than a minute ago"
     },
     "details": {
       "heading": "Details",
