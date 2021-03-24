@@ -7,6 +7,8 @@ import Constants from '../../utils/Constants';
 import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import 'moment/locale/es';
+import 'moment/locale/ca';
 
 function DeviceDashboardGaugeSet({
   device_id,
@@ -48,7 +50,8 @@ function DeviceDashboardGaugeSet({
 
   function toLocaleUTCDateString() {
     return (
-      utcTimestampDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC'
+      // utcTimestampDate.toLocaleDateString(locale, dateFormatOptions) + ' UTC'
+      utcTimestampDate.toLocaleDateString(locale, dateFormatOptions)
     );
   }
 
@@ -74,15 +77,10 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            Last update: <Moment fromNow>{device_timestamp}</Moment> <br />
-            {/*toLocaleUTCDateString()*/}
-            {/* t('content.details.now') */}
+            {t('content.dashboard.lastUpdate')}: <Moment fromNow locale={locale}>{device_timestamp}</Moment> <br />
           </div>
           <div className="bx--col-md-3 icon-firefighter-holder">
-            {/*
-            <WarningAltFilled20 />
-            Potential risk
-            */}
+
           </div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
@@ -162,37 +160,11 @@ function DeviceDashboardGaugeSet({
                 marginBottom: 0,
               }}
               iconDescription="close"
-              subtitle={<span>less than a minute ago</span>}
-              title="New reading received"
+              subtitle={<span>{t('content.dashboard.newReadingSubtitle')}</span>}
+              title={t('content.dashboard.newReadingTitle')}
             />
           </div>
         )}
-        {
-          /* utcTimeDifference > Constants.RECENT_NOTIFICATION_THRESHOLD && (
-          <div
-            className="bx--row"
-            style={{
-              paddingTop: 0,
-              marginTop: 0,
-              paddingBottom: 0,
-              marginBottom: 0,
-            }}>
-            <InlineNotification
-              lowContrast
-              kind="warning-alt"
-              style={{
-                paddingTop: 0,
-                marginTop: 0,
-                paddingBottom: 0,
-                marginBottom: 0,
-              }}
-              iconDescription="close"
-              subtitle={<span>over several hours</span>}
-              title="Dangerous long-term average"
-            />
-          </div>
-          )*/ 
-        }
       </div>
     </div>
   );

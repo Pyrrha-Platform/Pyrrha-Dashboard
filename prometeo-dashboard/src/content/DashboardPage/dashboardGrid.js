@@ -27,7 +27,6 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      {/*
       <div className="bx--row">
         <div className="bx--col bx--no-gutter">
           <div class="bx--grid bx--grid--full-width">
@@ -36,10 +35,10 @@ const DashboardGrid = () => {
                 <ClickableTile>
                 <div class="bx--grid bx--grid--full-width">
                   <div className="bx--row">
-                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__risk">1</span></div>
+                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__danger">1</span></div>
                     <div className="bx--col-md-7">
-                      <div className="dashboard-page__tile_heading">Immediate risk</div>
-                      <div className="dashboard-page__tile_subheading">Firefighters with dangerous levels</div>
+                      <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingDanger')}</div>
+                      <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingDanger')}</div>
                     </div>
                   </div>
                 </div>
@@ -51,8 +50,8 @@ const DashboardGrid = () => {
                   <div className="bx--row">
                     <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__warning">1</span></div>
                     <div className="bx--col-md-7">
-                      <div className="dashboard-page__tile_heading">Potential risk</div>
-                      <div className="dashboard-page__tile_subheading">Firefighters who could be at risk soon</div>
+                      <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingWarning')}</div>
+                      <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingWarning')}</div>
                     </div>
                   </div>
                 </div>
@@ -64,8 +63,8 @@ const DashboardGrid = () => {
                     <div className="bx--row">
                       <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__normal">1</span></div>
                       <div className="bx--col-md-7">
-                        <div className="dashboard-page__tile_heading">Normal range</div>
-                        <div className="dashboard-page__tile_subheading">Firefighters with normal levels</div>
+                        <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingNormal')}</div>
+                        <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingNormal')}</div>
                       </div>
                     </div>
                   </div>
@@ -75,7 +74,6 @@ const DashboardGrid = () => {
           </div>
         </div>
       </div>
-      */}
 
       {dashboard.map != undefined && (
         <div className="bx--row">
@@ -111,7 +109,7 @@ const DashboardGrid = () => {
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className={'bx--row dashboard-tile background-'}>
                 <div className="bx--col-md-8 label-firefighter">
-                  No devices
+                  {t('content.dashboard.noDevices')}
                 </div>
               </div>
             </div>
