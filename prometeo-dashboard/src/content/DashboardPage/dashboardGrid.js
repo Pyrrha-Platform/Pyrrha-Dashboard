@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
+import { Tile, ClickableTile } from 'carbon-components-react';
 import DeviceDashboardGaugeSet from '../../components/DeviceDashboardGaugeSet';
 import useDashboard from '../../hooks/useDashboard';
 import AppContext from '../../context/app';
@@ -26,31 +27,98 @@ const DashboardGrid = () => {
         </div>
       </div>
 
+      {/*
       <div className="bx--row">
-        {dashboard.map(
-          ({
-            device_id,
-            timestamp_mins,
-            device_timestamp,
-            temperature,
-            humidity,
-            carbon_monoxide,
-            nitrogen_dioxide,
-            increment,
-          }) => (
-            <DeviceDashboardGaugeSet
-              device_id={device_id}
-              timestamp_mins={timestamp_mins}
-              device_timestamp={device_timestamp}
-              temperature={temperature}
-              humidity={humidity}
-              carbon_monoxide={carbon_monoxide}
-              nitrogen_dioxide={nitrogen_dioxide}
-              increment={'now'}
-            />
-          )
-        )}
+        <div className="bx--col bx--no-gutter">
+          <div class="bx--grid bx--grid--full-width">
+            <div className="bx--row">
+              <div className="bx--col">
+                <ClickableTile>
+                <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--row">
+                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__risk">1</span></div>
+                    <div className="bx--col-md-7">
+                      <div className="dashboard-page__tile_heading">Immediate risk</div>
+                      <div className="dashboard-page__tile_subheading">Firefighters with dangerous levels</div>
+                    </div>
+                  </div>
+                </div>
+                </ClickableTile>
+              </div>
+              <div className="bx--col">
+              <ClickableTile>
+                <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--row">
+                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__warning">1</span></div>
+                    <div className="bx--col-md-7">
+                      <div className="dashboard-page__tile_heading">Potential risk</div>
+                      <div className="dashboard-page__tile_subheading">Firefighters who could be at risk soon</div>
+                    </div>
+                  </div>
+                </div>
+                </ClickableTile>
+              </div>
+              <div className="bx--col">
+                <ClickableTile>
+                  <div class="bx--grid bx--grid--full-width">
+                    <div className="bx--row">
+                      <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__normal">1</span></div>
+                      <div className="bx--col-md-7">
+                        <div className="dashboard-page__tile_heading">Normal range</div>
+                        <div className="dashboard-page__tile_subheading">Firefighters with normal levels</div>
+                      </div>
+                    </div>
+                  </div>
+                </ClickableTile>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+      */}
+
+      {dashboard.map != undefined && (
+        <div className="bx--row">
+          {dashboard.map(
+            ({
+              device_id,
+              timestamp_mins,
+              device_timestamp,
+              temperature,
+              humidity,
+              carbon_monoxide,
+              nitrogen_dioxide,
+              increment,
+            }) => (
+              <DeviceDashboardGaugeSet
+                device_id={device_id}
+                timestamp_mins={timestamp_mins}
+                device_timestamp={device_timestamp}
+                temperature={temperature}
+                humidity={humidity}
+                carbon_monoxide={carbon_monoxide}
+                nitrogen_dioxide={nitrogen_dioxide}
+                increment={'now'}
+              />
+            )
+          )}
+        </div>
+      )}
+
+      {dashboard.map == undefined && (
+        <div className="bx--row">
+          <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+            <div className="bx--grid bx--grid--full-width dashboard-content">
+              <div className={'bx--row dashboard-tile background-'}>
+                <div className="bx--col-md-8 label-firefighter">
+                  No devices
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

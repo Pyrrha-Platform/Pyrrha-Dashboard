@@ -46,7 +46,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         d3.extent(data, function (d) {
           // console.log("d.device_timestamp", d.device_timestamp);
           // console.log("d.device_timestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.device_timestamp));
-          return d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp);
+          return d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp);
         })
       )
       .range([0, width]);
@@ -128,7 +128,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         d3
           .line()
           .x(function (d) {
-            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
+            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp));
           })
           .y(function (d) {
             return y(d.value);
@@ -154,7 +154,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
             <div class="datapoint-tooltip">
               <p class="label">Time</p>
               <p class="value">${d3
-                .utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp)
+                .utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp)
                 .toTimeString()}</p>
             </div>
             </li>
@@ -184,7 +184,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
               <div class="datapoint-tooltip">
                 <p class="label">Time</p>
                 <p class="value">${d3
-                  .utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp)
+                  .utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp)
                   .toTimeString()}</p>
               </div>
               </li>
@@ -214,7 +214,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .attr('stroke', Constants.BLUE_DK)
       .attr('stroke-width', 1)
       .attr('cx', function (d) {
-        return x(d3.utcParse('%Y-%m-%dT%H:%M:%S')(d.device_timestamp));
+        return x(d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp));
       })
       .attr('cy', function (d) {
         return y(d.value);

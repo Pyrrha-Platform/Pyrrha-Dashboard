@@ -25,6 +25,44 @@
   padding-top: $spacing-03;
 }
 
+.dashboard-page__tile_number {
+  @include carbon--type-style('productive-heading-04');
+  /*@include carbon--font-weight('semibold');*/
+  padding: $spacing-05;
+  padding-top: $spacing-01;
+  padding-bottom: $spacing-01;
+}
+
+.dashboard-page__danger {
+  color: $danger-02;
+}
+
+.dashboard-page__warning {
+  color: $support-03;
+}
+
+.dashboard-page__normal {
+  color: $interactive-02;
+}
+
+.dashboard-page__tile_heading {
+  @include carbon--type-style('productive-heading-02');
+  /*@include carbon--font-weight('semibold');*/
+  padding: $spacing-05;
+  padding-top: $spacing-01;
+  padding-bottom: $spacing-01;
+  text-align: left;
+}
+
+.dashboard-page__tile_subheading {
+  @include carbon--type-style('body-short-01');
+  /*@include carbon--font-weight('semibold');*/
+  padding: $spacing-05;
+  padding-top: $spacing-01;
+  padding-bottom: $spacing-01;
+  text-align: left;
+}
+
 .dashboard-page__p {
   @include carbon--type-style('body-long-01');
   margin-top: $spacing-06;
@@ -139,11 +177,11 @@
 
 .icon-firefighter-holder {
   text-align: right !important;
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 15px 15px;
 }
 
 .icon-firefighter-holder svg {
-  padding: 0 0 0 5px;
+  padding: 10px 0 0 5px;
 }
 
 .label-num {
