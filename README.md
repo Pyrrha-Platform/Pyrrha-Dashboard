@@ -79,13 +79,17 @@ Currently the dashboard takes a device-centric view of the current readings. The
 
 ### Screenshots
 
-#### Full view of connected devices in Catalan
+#### Full view of connected devices in Spanish
 
-![ca-dashboard.png](/img/ca-dashboard.png)
+![es-dashboard.png](/img/es-dashboard.png)
 
-#### Full latest averages in Spanish
+#### Full view of connected devices in English
 
-![es-now-co.png](/img/es-now-co.png)
+![en-dashboard.png](/img/en-dashboard.png)
+
+#### Full latest averages in Catalan
+
+![ca-details.png](/img/ca-details.png)
 
 #### Carbon monoxide 30 minute view in English
 
