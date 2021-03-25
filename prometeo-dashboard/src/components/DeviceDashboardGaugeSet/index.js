@@ -69,7 +69,7 @@ function DeviceDashboardGaugeSet({
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
       <div className="bx--grid bx--grid--full-width dashboard-content">
         <div className={'bx--row dashboard-tile background-' + background}>
-          <div className="bx--col-md-5 label-firefighter">
+          <div className="bx--col-md-7 label-firefighter">
             <Link
               to={'/details/' + device_id}
               className="bx--link label-firefighter"
@@ -83,7 +83,7 @@ function DeviceDashboardGaugeSet({
             </Moment>{' '}
             <br />
           </div>
-          <div className="bx--col-md-3 icon-firefighter-holder"></div>
+          <div className="bx--col-md-1 icon-firefighter-holder"></div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
           <div className="bx--col bx--col-md-2">
