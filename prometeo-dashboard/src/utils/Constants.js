@@ -14,7 +14,7 @@ class Constants {
   // For displaying status colors (palette from Carbon, should use tokens)
   static RED = '#da1e28';
   static YELLOW = '#f1c21b';
-  static GREEN = '#24a148';
+  static GREEN = '#24a148'; // 8d8d8d
   static WHITE = '#efefef';
   static BLUE_DK = '#0f62fe';
   static BLUE_LT = '#78a9ff';

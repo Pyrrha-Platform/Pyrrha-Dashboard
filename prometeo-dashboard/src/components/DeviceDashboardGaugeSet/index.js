@@ -4,6 +4,7 @@ import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
+import WarningFilled20 from '@carbon/icons-react/lib/warning--filled/20';
 import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -60,6 +61,24 @@ function DeviceDashboardGaugeSet({
     background = 'websocket';
   }
 
+  let status = 'normal'; // "websocket"
+  if (
+    carbon_monoxide > Constants.CO_RED ||
+    carbon_monoxide === Constants.CHERNOBYL
+  ) {
+    status = 'danger';
+  } else if (carbon_monoxide > Constants.CO_YELLOW) {
+    status = 'warning';
+  }
+  if (
+    nitrogen_dioxide > Constants.NO2_RED ||
+    nitrogen_dioxide === Constants.CHERNOBYL
+  ) {
+    status = 'danger';
+  } else if (nitrogen_dioxide > Constants.NO2_YELLOW) {
+    status = 'warning';
+  }
+
   console.log('Date now', utcCurrentDate.getTime());
   console.log('Date timestamp', device_id, utcTimestampDate.getTime());
   console.log('Date difference', utcTimeDifference);
@@ -83,7 +102,14 @@ function DeviceDashboardGaugeSet({
             </Moment>{' '}
             <br />
           </div>
-          <div className="bx--col-md-1 icon-firefighter-holder"></div>
+          <div className="bx--col-md-1 icon-firefighter-holder">
+          {(status === 'danger') && (
+            <WarningFilled20 className='danger' />
+          )}
+          {(status === 'warning') && (
+            <WarningFilled20 className='warning' />
+          )}
+          </div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
           <div className="bx--col bx--col-md-2">
