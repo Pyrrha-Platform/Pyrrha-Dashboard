@@ -80,7 +80,7 @@
       "tileHeadingWarning": "Potential risk",
       "tileSubheadingWarning": "Could be at risk soon",
       "tileHeadingDanger": "Immediate risk",
-      "tileSubheadingDanger": "Dangerous levels",
+      "tileSubheadingDanger": "Dangerous readings",
       "lastUpdate": "Last update",
       "newReadingTitle": "New reading received",
       "newReadingSubtitle": "less than a minute ago"

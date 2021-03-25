@@ -114,6 +114,30 @@
   animation-iteration-count: 1;
 }
 
+.border-no-bottom-normal, .border-no-top-normal {
+  border: 2px solid #fff;
+}
+
+.border-no-bottom-warning {
+  border: 2px solid $support-03;
+  border-bottom: 2px solid #fff;
+}
+
+.border-no-top-warning {
+  border: 2px solid $support-03;
+  border-top: 2px solid #fff;
+}
+
+.border-no-bottom-danger {
+  border: 2px solid $danger-02;
+  border-bottom: 2px solid #fff;
+}
+
+.border-no-top-danger {
+  border: 2px solid $danger-02;
+  border-top: 2px solid #fff;
+}
+
 @keyframes onmessage {
   0% {
     background-color: #ddd !important;
@@ -180,8 +204,14 @@
   padding: 15px 15px 15px 15px;
 }
 
-.icon-firefighter-holder svg {
-  padding: 10px 0 0 5px;
+.icon-firefighter-holder svg.warning {
+  fill: $support-03;
+  opacity: 1;
+}
+
+.icon-firefighter-holder svg.danger {
+  fill: $danger-02;
+  opacity: 1;
 }
 
 .label-num {
