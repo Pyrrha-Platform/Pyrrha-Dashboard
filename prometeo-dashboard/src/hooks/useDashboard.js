@@ -85,7 +85,6 @@ const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
   var tmpWarning = 0;
   var tmpDanger = 0;
   dashboard.forEach((device) => {
-    console.log('setRiskLevels', device);
     if (
       device.carbon_monoxide > Constants.CO_RED ||
       device.carbon_monoxide === Constants.CHERNOBYL

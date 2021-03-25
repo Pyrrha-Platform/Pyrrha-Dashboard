@@ -121,10 +121,10 @@ function DeviceDetailsGaugeSet({
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
-                <div className="bx--col-md-6 label-firefighter">
+                <div className="bx--col-md-7 label-firefighter">
                   {toLocaleUTCDateString()}
                 </div>
-                <div className="bx--col-md-2 icon-firefighter-holder"></div>
+                <div className="bx--col-md-1 icon-firefighter-holder"></div>
               </div>
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
