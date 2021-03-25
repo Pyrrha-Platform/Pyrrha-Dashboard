@@ -80,20 +80,26 @@ const updateDashboard = (dashboard, message) => {
 };
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
-  console.log('setRiskLevels', dashboard);
+  console.log('setRiskLevels');
   var tmpNormal = dashboard.length;
   var tmpWarning = 0;
   var tmpDanger = 0;
-  dashboard.forEach(device => {
+  dashboard.forEach((device) => {
     console.log('setRiskLevels', device);
-    if (device.carbon_monoxide > Constants.CO_RED || device.carbon_monoxide === Constants.CHERNOBYL) {
+    if (
+      device.carbon_monoxide > Constants.CO_RED ||
+      device.carbon_monoxide === Constants.CHERNOBYL
+    ) {
       tmpDanger++;
       tmpNormal--;
     } else if (device.carbon_monoxide > Constants.CO_YELLOW) {
       tmpWarning++;
       tmpNormal--;
     }
-    if (device.nitrogen_dioxide > Constants.NO2_RED || device.nitrogen_dioxide === Constants.CHERNOBYL) {
+    if (
+      device.nitrogen_dioxide > Constants.NO2_RED ||
+      device.nitrogen_dioxide === Constants.CHERNOBYL
+    ) {
       tmpDanger++;
       tmpNormal--;
     } else if (device.nitrogen_dioxide > Constants.NO2_YELLOW) {
@@ -101,13 +107,10 @@ const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
       tmpNormal--;
     }
   });
-  console.log('setRiskLevels', 'tmpNormal', tmpNormal);
-  console.log('setRiskLevels', 'tmpWarning', tmpWarning);
-  console.log('setRiskLevels', 'tmpDanger', tmpDanger);
   setNormal(tmpNormal);
   setWarning(tmpWarning);
   setDanger(tmpDanger);
-}
+};
 
 const useDashboard = () => {
   const [dashboard, setDashboard] = useState([]);
@@ -157,7 +160,18 @@ const useDashboard = () => {
     };
   }, [message]);
 
-  return [loading, setLoading, dashboard, setDashboard, normal, setNormal, warning, setWarning, danger, setDanger];
+  return [
+    loading,
+    setLoading,
+    dashboard,
+    setDashboard,
+    normal,
+    setNormal,
+    warning,
+    setWarning,
+    danger,
+    setDanger,
+  ];
 };
 
 export default useDashboard;

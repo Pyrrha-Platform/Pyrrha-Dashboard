@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Field = ({ title, value, hasMargin }) => {
-  
   return (
     <div
       className="field"

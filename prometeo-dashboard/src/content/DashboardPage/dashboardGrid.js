@@ -7,7 +7,18 @@ import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
 
 const DashboardGrid = () => {
-  const [loading, setLoading, dashboard, setDashboard, normal, setNormal, warning, setWarning, danger, setDanger] = useDashboard();
+  const [
+    loading,
+    setLoading,
+    dashboard,
+    setDashboard,
+    normal,
+    setNormal,
+    warning,
+    setWarning,
+    danger,
+    setDanger,
+  ] = useDashboard();
   const { t } = useContext(AppContext);
 
   return (
@@ -33,43 +44,63 @@ const DashboardGrid = () => {
           <div class="bx--grid bx--grid--full-width">
             <div className="bx--row">
               <div className="bx--col">
-                <ClickableTile>
-                <div class="bx--grid bx--grid--full-width">
-                  <div className="bx--row">
-                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__danger">{danger}</span></div>
-                    <div className="bx--col-md-7">
-                      <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingDanger')}</div>
-                      <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingDanger')}</div>
-                    </div>
-                  </div>
-                </div>
-                </ClickableTile>
-              </div>
-              <div className="bx--col">
-              <ClickableTile>
-                <div class="bx--grid bx--grid--full-width">
-                  <div className="bx--row">
-                    <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__warning">{warning}</span></div>
-                    <div className="bx--col-md-7">
-                      <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingWarning')}</div>
-                      <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingWarning')}</div>
-                    </div>
-                  </div>
-                </div>
-                </ClickableTile>
-              </div>
-              <div className="bx--col">
-                <ClickableTile>
+                <Tile>
                   <div class="bx--grid bx--grid--full-width">
                     <div className="bx--row">
-                      <div className="bx--col-md-1 dashboard-page__tile_number"><span className="dashboard-page__normal">{normal}</span></div>
+                      <div className="bx--col-md-1 dashboard-page__tile_number">
+                        <span className="dashboard-page__danger">{danger}</span>
+                      </div>
                       <div className="bx--col-md-7">
-                        <div className="dashboard-page__tile_heading">{t('content.dashboard.tileHeadingNormal')}</div>
-                        <div className="dashboard-page__tile_subheading">{t('content.dashboard.tileSubheadingNormal')}</div>
+                        <div className="dashboard-page__tile_heading">
+                          {t('content.dashboard.tileHeadingDanger')}
+                        </div>
+                        <div className="dashboard-page__tile_subheading">
+                          {t('content.dashboard.tileSubheadingDanger')}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </ClickableTile>
+                </Tile>
+              </div>
+              <div className="bx--col">
+                <Tile>
+                  <div class="bx--grid bx--grid--full-width">
+                    <div className="bx--row">
+                      <div className="bx--col-md-1 dashboard-page__tile_number">
+                        <span className="dashboard-page__warning">
+                          {warning}
+                        </span>
+                      </div>
+                      <div className="bx--col-md-7">
+                        <div className="dashboard-page__tile_heading">
+                          {t('content.dashboard.tileHeadingWarning')}
+                        </div>
+                        <div className="dashboard-page__tile_subheading">
+                          {t('content.dashboard.tileSubheadingWarning')}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Tile>
+              </div>
+              <div className="bx--col">
+                <Tile>
+                  <div class="bx--grid bx--grid--full-width">
+                    <div className="bx--row">
+                      <div className="bx--col-md-1 dashboard-page__tile_number">
+                        <span className="dashboard-page__normal">{normal}</span>
+                      </div>
+                      <div className="bx--col-md-7">
+                        <div className="dashboard-page__tile_heading">
+                          {t('content.dashboard.tileHeadingNormal')}
+                        </div>
+                        <div className="dashboard-page__tile_subheading">
+                          {t('content.dashboard.tileSubheadingNormal')}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Tile>
               </div>
             </div>
           </div>
@@ -117,7 +148,6 @@ const DashboardGrid = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

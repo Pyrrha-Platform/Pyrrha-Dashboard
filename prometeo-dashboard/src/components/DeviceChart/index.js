@@ -128,7 +128,9 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         d3
           .line()
           .x(function (d) {
-            return x(d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp));
+            return x(
+              d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp)
+            );
           })
           .y(function (d) {
             return y(d.value);
