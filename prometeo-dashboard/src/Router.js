@@ -10,7 +10,6 @@ import LoginPage from './content/LoginPage';
 import ProfilePage from './content/ProfilePage';
 
 const Router = () => {
-  
   const [active, setActive] = useState(false);
   const [page, setPage] = useState('Dashboard');
 

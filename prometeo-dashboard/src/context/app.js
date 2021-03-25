@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 export default createContext({});
 
 export const useAppContext = () => {
-
   const [locale, setLocale] = useState('en-us');
 
   const { t, i18n } = useTranslation();
@@ -23,5 +22,4 @@ export const useAppContext = () => {
     locale,
     setLocale,
   };
-
 };

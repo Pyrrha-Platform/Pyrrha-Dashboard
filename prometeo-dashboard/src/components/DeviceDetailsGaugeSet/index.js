@@ -122,14 +122,9 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-6 label-firefighter">
-                  {/* device_id */}
-                  {/* <br /> */}
                   {toLocaleUTCDateString()}
-                  {/* t('content.details.now') */}
                 </div>
-                <div className="bx--col-md-2 icon-firefighter-holder">
-
-                </div>
+                <div className="bx--col-md-2 icon-firefighter-holder"></div>
               </div>
               <div className="bx--row dashboard-tile">
                 <div className="bx--col bx--col-md-2">
@@ -196,29 +191,31 @@ function DeviceDetailsGaugeSet({
                 </div>
               </div>
               {utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD && (
-              <div
-                className="bx--row"
-                style={{
-                  paddingTop: 0,
-                  marginTop: 0,
-                  paddingBottom: 0,
-                  marginBottom: 0,
-                }}>
-                <InlineNotification
-                  lowContrast
-                  kind="info"
+                <div
+                  className="bx--row"
                   style={{
                     paddingTop: 0,
                     marginTop: 0,
                     paddingBottom: 0,
                     marginBottom: 0,
-                  }}
-                  iconDescription="close"
-                  subtitle={<span>less than a minute ago</span>}
-                  title="New reading received"
-                />
-              </div>
-            )}
+                  }}>
+                  <InlineNotification
+                    lowContrast
+                    kind="info"
+                    style={{
+                      paddingTop: 0,
+                      marginTop: 0,
+                      paddingBottom: 0,
+                      marginBottom: 0,
+                    }}
+                    iconDescription="close"
+                    subtitle={
+                      <span>{t('content.dashboard.newReadingSubtitle')}</span>
+                    }
+                    title={t('content.dashboard.newReadingTitle')}
+                  />
+                </div>
+              )}
             </div>
           </div>
         )}

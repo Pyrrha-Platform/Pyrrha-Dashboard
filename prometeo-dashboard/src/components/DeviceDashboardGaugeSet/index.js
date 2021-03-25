@@ -77,11 +77,13 @@ function DeviceDashboardGaugeSet({
               {device_id}
               <br />
             </Link>
-            {t('content.dashboard.lastUpdate')}: <Moment fromNow locale={locale}>{device_timestamp}</Moment> <br />
+            {t('content.dashboard.lastUpdate')}:{' '}
+            <Moment fromNow locale={locale}>
+              {device_timestamp}
+            </Moment>{' '}
+            <br />
           </div>
-          <div className="bx--col-md-3 icon-firefighter-holder">
-
-          </div>
+          <div className="bx--col-md-3 icon-firefighter-holder"></div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
           <div className="bx--col bx--col-md-2">
@@ -160,7 +162,9 @@ function DeviceDashboardGaugeSet({
                 marginBottom: 0,
               }}
               iconDescription="close"
-              subtitle={<span>{t('content.dashboard.newReadingSubtitle')}</span>}
+              subtitle={
+                <span>{t('content.dashboard.newReadingSubtitle')}</span>
+              }
               title={t('content.dashboard.newReadingTitle')}
             />
           </div>
