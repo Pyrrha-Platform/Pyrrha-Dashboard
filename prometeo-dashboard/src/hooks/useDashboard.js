@@ -79,10 +79,43 @@ const updateDashboard = (dashboard, message) => {
   );
 };
 
+const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
+  console.log('setRiskLevels', dashboard);
+  var tmpNormal = dashboard.length;
+  var tmpWarning = 0;
+  var tmpDanger = 0;
+  dashboard.forEach(device => {
+    console.log('setRiskLevels', device);
+    if (device.carbon_monoxide > Constants.CO_RED || device.carbon_monoxide === Constants.CHERNOBYL) {
+      tmpDanger++;
+      tmpNormal--;
+    } else if (device.carbon_monoxide > Constants.CO_YELLOW) {
+      tmpWarning++;
+      tmpNormal--;
+    }
+    if (device.nitrogen_dioxide > Constants.NO2_RED || device.nitrogen_dioxide === Constants.CHERNOBYL) {
+      tmpDanger++;
+      tmpNormal--;
+    } else if (device.nitrogen_dioxide > Constants.NO2_YELLOW) {
+      tmpWarning++;
+      tmpNormal--;
+    }
+  });
+  console.log('setRiskLevels', 'tmpNormal', tmpNormal);
+  console.log('setRiskLevels', 'tmpWarning', tmpWarning);
+  console.log('setRiskLevels', 'tmpDanger', tmpDanger);
+  setNormal(tmpNormal);
+  setWarning(tmpWarning);
+  setDanger(tmpDanger);
+}
+
 const useDashboard = () => {
   const [dashboard, setDashboard] = useState([]);
   const [message, setMessage] = useState([]);
   const [loading, setLoading] = useState('Loading from database...');
+  const [normal, setNormal] = useState(Constants.CHERNOBYL);
+  const [warning, setWarning] = useState(Constants.CHERNOBYL);
+  const [danger, setDanger] = useState(Constants.CHERNOBYL);
 
   const dashboardRef = useRef([]);
   dashboardRef.current = dashboard;
@@ -93,6 +126,7 @@ const useDashboard = () => {
       setDashboard(dashboard);
       console.log('Loaded from database.', dashboard);
       setLoading('Loaded from database.');
+      setRiskLevels(dashboard, setNormal, setWarning, setDanger);
     });
   }, []);
 
@@ -106,7 +140,9 @@ const useDashboard = () => {
       } else {
         console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
-        setDashboard(updateDashboard(dashboardRef, msg.data));
+        let updatedDashboard = updateDashboard(dashboardRef, msg.data);
+        setDashboard(updatedDashboard);
+        setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }
       console.log('dashboard', dashboard);
     };
@@ -121,7 +157,7 @@ const useDashboard = () => {
     };
   }, [message]);
 
-  return [loading, setLoading, dashboard, setDashboard];
+  return [loading, setLoading, dashboard, setDashboard, normal, setNormal, warning, setWarning, danger, setDanger];
 };
 
 export default useDashboard;

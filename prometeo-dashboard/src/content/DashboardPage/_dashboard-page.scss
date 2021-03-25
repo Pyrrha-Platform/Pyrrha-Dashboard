@@ -29,7 +29,7 @@
   @include carbon--type-style('productive-heading-04');
   /*@include carbon--font-weight('semibold');*/
   padding: $spacing-05;
-  padding-top: $spacing-01;
+  padding-top: 0;
   padding-bottom: $spacing-01;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .dashboard-page__normal {
-  color: $interactive-02;
+  color: $support-02;
 }
 
 .dashboard-page__tile_heading {

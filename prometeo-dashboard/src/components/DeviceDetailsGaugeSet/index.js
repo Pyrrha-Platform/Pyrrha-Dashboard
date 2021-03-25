@@ -122,10 +122,7 @@ function DeviceDetailsGaugeSet({
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className="bx--row dashboard-tile">
                 <div className="bx--col-md-6 label-firefighter">
-                  {/* device_id */}
-                  {/* <br /> */}
                   {toLocaleUTCDateString()}
-                  {/* t('content.details.now') */}
                 </div>
                 <div className="bx--col-md-2 icon-firefighter-holder">
 
@@ -214,8 +211,8 @@ function DeviceDetailsGaugeSet({
                     marginBottom: 0,
                   }}
                   iconDescription="close"
-                  subtitle={<span>less than a minute ago</span>}
-                  title="New reading received"
+                  subtitle={<span>{t('content.dashboard.newReadingSubtitle')}</span>}
+                  title={t('content.dashboard.newReadingTitle')}
                 />
               </div>
             )}
