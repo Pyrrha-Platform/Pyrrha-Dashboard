@@ -2,6 +2,7 @@ name: Build and Deploy to IBM Kubernetes Service Cluster
 
 # Execute on every push to master
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
