@@ -1,6 +1,6 @@
-# Prometeo dashboard
+# Pyrrha dashboard
 
-This repository contains the [Prometeo](https://github.com/Code-and-Response/Prometeo) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
+This repository contains the [Pyrrha](https://github.com/Code-and-Response/Prometeo) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
 
 The dashboard shows the real-time and long-term averages of firefighter exposure to carbon monoxide, nitrogen dioxide, temperature, and humidity.
 
@@ -12,7 +12,7 @@ It also provides a way to create, read, update and delete devices and events, th
 
 ### Code overview
 
-The code is in a `prometeo-dashboard` subdirectory as React does not support mixed case directories such as this top-level repo. All the instructions below assume you're in that directory.
+The code is in a `pyrrha-dashboard` subdirectory as React does not support mixed case directories such as this top-level repo. All the instructions below assume you're in that directory.
 
 The database backend for the React project is based on Python using Flask and was originally created based on this [great post and series from Miguel Grinberg](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project).
 
@@ -20,7 +20,7 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 ### Create services
 
-- Create a MySQL or MariaDB database service then use the SQL file in the [Prometeo Database](https://github.com/Call-for-Code/Prometeo-Database) repo to create the structure and populate your database instance.
+- Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrah Database](https://github.com/Call-for-Code/Prometeo-Database) repo to create the structure and populate your database instance.
 - Provision an IBM App ID service instance and create a user and password within a registry and generate service credentials. Access is currently based only on authentication, there aren't [separate authorization control tiers](https://github.com/Call-for-Code/Prometeo-Dashboard/issues/24) (such as admin, reader, etc).
 
 ### Update configuration files
