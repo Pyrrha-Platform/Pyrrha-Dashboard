@@ -20,7 +20,7 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 ### Create services
 
-- Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrah Database](https://github.com/Call-for-Code/Prometeo-Database) repo to create the structure and populate your database instance.
+- Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrha Database](https://github.com/Call-for-Code/Prometeo-Database) repo to create the structure and populate your database instance.
 - Provision an IBM App ID service instance and create a user and password within a registry and generate service credentials. Access is currently based only on authentication, there aren't [separate authorization control tiers](https://github.com/Call-for-Code/Prometeo-Dashboard/issues/24) (such as admin, reader, etc).
 
 ### Update configuration files
@@ -69,7 +69,7 @@ On the IBM Cloud Kubernetes Service, this application is hosted as [three micros
 
 Currently the dashboard takes a device-centric view of the current readings. These readings can be correlated with a particular firefighter who was assigned the device. This separation is intentional at the moment in order to preserve identity privacy in the current implementation. This mapping, and the thresholds used by the system are controlled by the firefighter department medical professional.
 
-- Dashboard (`/`) - Lists the currently connected devices (by default, those named starting with "Prometeo-"). It shows the latest reading for the device, whether from the database or from a WebSocket message. Devices with notifications that have been received in the last minute are highlighted. Devices with dangerous long-term averages are also highlighted.
+- Dashboard (`/`) - Lists the currently connected devices (by default, those named starting with "Pyrrha-"). It shows the latest reading for the device, whether from the database or from a WebSocket message. Devices with notifications that have been received in the last minute are highlighted. Devices with dangerous long-term averages are also highlighted.
 - Details (`/details/[device-mac]`) - Clicking into a specific device will show its current status and provide options for reading averages over time, such as 10, 30, and 60 minute averages, as well as 4 and 8 hour averages.
 - Events (`/events`) - List, edit, add, delete events.
 - Devices (`/devices`) - List, edit, add, delete devices.
@@ -101,7 +101,7 @@ Currently the dashboard takes a device-centric view of the current readings. The
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting Prometeo pull requests.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting Pyrrha pull requests.
 
 ## License
 
