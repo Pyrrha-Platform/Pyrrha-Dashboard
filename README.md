@@ -1,6 +1,6 @@
 # Pyrrha dashboard
 
-This repository contains the [Pyrrha](https://github.com/Code-and-Response/Prometeo) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
+This repository contains the [Pyrrha](https://github.com/Pyrrha-Platform/Pyrrha) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
 
 The dashboard shows the real-time and long-term averages of firefighter exposure to carbon monoxide, nitrogen dioxide, temperature, and humidity.
 
