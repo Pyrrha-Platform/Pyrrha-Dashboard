@@ -25,7 +25,7 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 ### Update configuration files
 
-- Create an `.env` file from the `/api-main/env.example` file and include your database connection settings. This file is hidden by `.gitignore`.
+- Create an `.env` file from the `/api-main/.env.example` file and include your database connection settings. This file is hidden by `.gitignore`.
 - Set up your Python `/api-main/venv` environment as shown in the blog post above. Then install the requirements.
 - Create a `vcap-local.json` file from the `/api-auth/vcap-local.json` file and include your App ID settings. This file is hidden by `.gitignore`.
 - Update the WebSockets endpoint in `src/Utils/Constants.js` and review that file for any other changes you want to make.
