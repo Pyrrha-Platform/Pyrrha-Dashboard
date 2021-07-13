@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - master
+    paths-ignore: #do not push a new build when the change is only to md files
+      - "**/*.md"
 
 # Environment variables available to all jobs and steps in this workflow
 env:
