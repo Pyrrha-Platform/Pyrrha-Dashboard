@@ -1,4 +1,4 @@
-#import requests
+# import requests
 import json
 import mariadb
 import os
@@ -7,11 +7,10 @@ from dotenv import load_dotenv
 
 
 class event_manager(object):
-
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger('pyrrha.events.fire_fighters')
-        self.logger.debug('creating an instance of events')
+        self.logger = logging.getLogger("pyrrha.events.fire_fighters")
+        self.logger.debug("creating an instance of events")
 
     def insert_event(self, code, type, firefighters, state):
 
@@ -19,18 +18,20 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT')),
-                autocommit=False
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
+                autocommit=False,
             )
 
             cursor = conn.cursor()
 
             cursor.execute(
-                'INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)', (code, first, last, email))
+                "INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)",
+                (code, first, last, email),
+            )
             # cursor.callproc('sp_create_event', (data))
 
             conn.commit()
@@ -38,7 +39,7 @@ class event_manager(object):
             id = cursor.lastrowid
 
             if id > 0:
-                event = {'id': id}
+                event = {"id": id}
             else:
                 return False
 
@@ -57,22 +58,22 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT')),
-                autocommit=False
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
+                autocommit=False,
             )
 
             cursor = conn.cursor()
 
             # cursor.execute('UPDATE events SET event_code = ?, name = ?, surname = ?, email = ? WHERE event_id = ?', (code, first, last, email, id))
-            cursor.callproc('sp_update_event', (data))
+            cursor.callproc("sp_update_event", (data))
 
             if cursor.rowcount == 1:
                 conn.commit()
-                event = {'id': id}
+                event = {"id": id}
             else:
                 return False
 
@@ -91,22 +92,24 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT')),
-                autocommit=False
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
+                autocommit=False,
             )
 
             cursor = conn.cursor()
 
             cursor.execute(
-                'UPDATE events SET deleted_at = NOW() WHERE event_internal_id =  ?', (id,))
+                "UPDATE events SET deleted_at = NOW() WHERE event_internal_id =  ?",
+                (id,),
+            )
 
             if cursor.rowcount == 1:
                 conn.commit()
-                event = {'id': id}
+                event = {"id": id}
             else:
                 return False
 
@@ -127,23 +130,29 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT'))
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
             )
 
             cursor = conn.cursor()
 
             # cursor.execute('SELECT event_id, event_code, name, surname, email FROM events WHERE deleted_at IS NULL AND event_id = ?', (id,))
-            cursor.callproc('sp_select_event', (id,))
+            cursor.callproc("sp_select_event", (id,))
 
             data = cursor.fetchone()
 
             if len(data) > 0:
-                event = {'id': data[0], 'code': data[1], 'type': data[3], 'date': data[5],
-                         'firefighters': 10, 'state': data[2]}
+                event = {
+                    "id": data[0],
+                    "code": data[1],
+                    "type": data[3],
+                    "date": data[5],
+                    "firefighters": 10,
+                    "state": data[2],
+                }
             else:
                 return None
 
@@ -165,11 +174,11 @@ class event_manager(object):
             print("get_all_events - trying")
 
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT'))
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
             )
 
             print("get_all_events - before cursor")
@@ -196,8 +205,15 @@ class event_manager(object):
                 for i in data:
                     print(i)
                     events.append(
-                        {'id': i[0], 'code': i[1], 'status': i[2],
-                            'firefighters': 10, 'type': i[3], 'date': i[4], 'info': i[5]}
+                        {
+                            "id": i[0],
+                            "code": i[1],
+                            "status": i[2],
+                            "firefighters": 10,
+                            "type": i[3],
+                            "date": i[4],
+                            "info": i[5],
+                        }
                     )
             else:
                 print("get_all_events - NO HAY INFORMACION")
@@ -216,18 +232,18 @@ class event_manager(object):
     def get_event_firefighters_devices(self, id):
         try:
             conn = mariadb.connect(
-                user=os.getenv('MARIADB_USERNAME'),
-                password=os.getenv('MARIADB_PASSWORD'),
-                host=os.getenv('MARIADB_HOST'),
-                database=os.getenv('MARIADB_DATABASE'),
-                port=int(os.getenv('MARIADB_PORT'))
+                user=os.getenv("MARIADB_USERNAME"),
+                password=os.getenv("MARIADB_PASSWORD"),
+                host=os.getenv("MARIADB_HOST"),
+                database=os.getenv("MARIADB_DATABASE"),
+                port=int(os.getenv("MARIADB_PORT")),
             )
 
             cursor = conn.cursor()
             print("get_event")
             print(id)
 
-            cursor.callproc('sp_select_event_firefighters_devices', (id,))
+            cursor.callproc("sp_select_event_firefighters_devices", (id,))
 
             print("get_event_firefighters_devices - he abierto el cursor")
 
@@ -237,7 +253,7 @@ class event_manager(object):
                 print("get_event_firefighters_devices - hay datos")
                 for i in data:
                     print(i)
-                return(data)
+                return data
             else:
                 print("get_event_firefighters_devices - no hay datos")
                 return None
