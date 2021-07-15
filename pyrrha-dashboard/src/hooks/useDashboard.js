@@ -160,16 +160,16 @@ const useDashboard = () => {
   }, [message]);
 
   return [
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     dashboard,
-    setDashboard,
+    // setDashboard,
     normal,
-    setNormal,
+    // setNormal,
     warning,
-    setWarning,
+    // setWarning,
     danger,
-    setDanger,
+    // setDanger,
   ];
 };
 

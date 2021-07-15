@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PyrrhaHeader from './components/PyrrhaHeader';
 import FirefightersPage from './content/FirefightersPage';

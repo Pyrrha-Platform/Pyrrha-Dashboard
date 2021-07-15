@@ -1,23 +1,22 @@
 import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
-import { Tile, ClickableTile } from 'carbon-components-react';
+import { Tile } from 'carbon-components-react';
 import DeviceDashboardGaugeSet from '../../components/DeviceDashboardGaugeSet';
 import useDashboard from '../../hooks/useDashboard';
 import AppContext from '../../context/app';
-import Constants from '../../utils/Constants';
 
 const DashboardGrid = () => {
   const [
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     dashboard,
-    setDashboard,
+    // setDashboard,
     normal,
-    setNormal,
+    // setNormal,
     warning,
-    setWarning,
+    // setWarning,
     danger,
-    setDanger,
+    // setDanger,
   ] = useDashboard();
   const { t } = useContext(AppContext);
 
@@ -107,7 +106,7 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      {dashboard.map != undefined && (
+      {dashboard !== undefined && dashboard.map !== undefined && (
         <div className="bx--row">
           {dashboard.map(
             ({
@@ -135,7 +134,7 @@ const DashboardGrid = () => {
         </div>
       )}
 
-      {dashboard.map == undefined && (
+      {dashboard.map === undefined && (
         <div className="bx--row">
           <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
