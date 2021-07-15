@@ -8,10 +8,10 @@ import AppContext from '../../context/app';
 // Table and data
 const DetailsGrid = (params) => {
   const [
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     details,
-    setDetails,
+    // setDetails,
     chart,
     setChart,
     increment,
@@ -108,7 +108,6 @@ const DetailsGrid = (params) => {
             setIncrement={setIncrement}
             device_id={device_id}
             timestamp_mins={timestamp_mins}
-            device_timestamp={device_timestamp}
             temperature={temperature}
             humidity={humidity}
             carbon_monoxide={carbon_monoxide}

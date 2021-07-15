@@ -104,10 +104,12 @@ function DeviceDetailsGaugeSet({
     );
   }
 
+  /*
   let background = 'database'; // "websocket"
   if (utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD) {
     background = 'websocket';
   }
+  */
 
   console.log('Date now', utcCurrentDate.getTime());
   console.log('Date timestamp', device_id, utcTimestampDate.getTime());
