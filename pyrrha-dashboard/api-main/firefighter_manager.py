@@ -22,7 +22,7 @@ class firefighter_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT')),
                 autocommit=False
             )
@@ -59,7 +59,7 @@ class firefighter_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT')),
                 autocommit=False
             )
@@ -94,7 +94,7 @@ class firefighter_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT')),
                 autocommit=False
             )
@@ -131,7 +131,7 @@ class firefighter_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -168,7 +168,7 @@ class firefighter_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
