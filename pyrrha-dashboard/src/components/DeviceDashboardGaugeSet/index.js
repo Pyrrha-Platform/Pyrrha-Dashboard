@@ -103,12 +103,8 @@ function DeviceDashboardGaugeSet({
             <br />
           </div>
           <div className="bx--col-md-1 icon-firefighter-holder">
-          {(status === 'danger') && (
-            <WarningFilled20 className='danger' />
-          )}
-          {(status === 'warning') && (
-            <WarningFilled20 className='warning' />
-          )}
+            {status === 'danger' && <WarningFilled20 className="danger" />}
+            {status === 'warning' && <WarningFilled20 className="warning" />}
           </div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>
