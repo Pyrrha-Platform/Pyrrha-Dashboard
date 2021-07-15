@@ -14,7 +14,11 @@ const fetchDetails = async (device_id, increment, type) => {
       `/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`
     );
     console.log(data);
-    return data.details;
+    if (data.details) {
+      return data.details;
+    } else {
+      return [];
+    }
   } catch (e) {
     console.log(e);
   }

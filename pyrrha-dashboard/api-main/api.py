@@ -343,9 +343,11 @@ def device_by_id(id):
 @app.route("/api-main/v1/dashboard-now", methods=["GET"])
 def dashboard_now():
 
+    logger.debug("dashboard_now")
     devices = dashboard_manager().get_dashboard_now()
     message = {"status": 200, "message": "OK", "devices": devices}
     body = json.dumps(message)
+    print("Dumping body" + body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
 

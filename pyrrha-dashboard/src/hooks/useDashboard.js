@@ -12,7 +12,11 @@ const fetchDashboard = async () => {
   try {
     const data = await client(`/api-main/v1/dashboard-now`);
     console.log(data);
-    return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
+    if (data.devices) {
+      return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
+    } else {
+      return [];
+    }
   } catch (e) {
     console.log(e);
   }
