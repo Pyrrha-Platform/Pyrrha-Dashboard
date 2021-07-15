@@ -106,7 +106,7 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      {dashboard.map !== undefined && (
+      {dashboard !== undefined && dashboard.map !== undefined && (
         <div className="bx--row">
           {dashboard.map(
             ({
