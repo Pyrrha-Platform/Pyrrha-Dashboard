@@ -30,7 +30,11 @@ const fetchChartDetails = async (device_id, increment, type) => {
       `/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`
     );
     console.log(data);
-    return data.chart;
+    if (data.chart) {
+      return data.chart;
+    } else {
+      return [];
+    }
   } catch (e) {
     console.log(e);
   }
@@ -245,10 +249,10 @@ const useDetails = (device_id, inc, ty) => {
   }, [message]);
 
   return [
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     details,
-    setDetails,
+    // setDetails,
     chart,
     setChart,
     increment,
