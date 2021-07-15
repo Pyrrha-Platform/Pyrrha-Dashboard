@@ -1,0 +1,72 @@
+{
+  "name": "pyrrha-dashboard",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@carbon/charts": "^0.41.38",
+    "@carbon/charts-react": "^0.41.38",
+    "@carbon/grid": "^10.21.0",
+    "@carbon/icons-react": "^10.26.0",
+    "@carbon/layout": "^10.19.0",
+    "@carbon/themes": "^10.28.0",
+    "@storybook/addon-actions": "^6.0.21",
+    "@storybook/addon-knobs": "^6.0.21",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": ">=0.21.1",
+    "carbon-components": "10.29.0",
+    "carbon-components-react": "7.29.0",
+    "carbon-icons": "7.0.7",
+    "d3": "5.x",
+    "formik": "^2.2.6",
+    "framer-motion": "^3.2.2-rc.1",
+    "http-proxy-middleware": "^1.0.6",
+    "i18next": "^19.8.4",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "prettier": "^2.2.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-i18next": "^11.8.7",
+    "react-moment": "^1.1.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.3",
+    "sass": "^1.32.5"
+  },
+  "scripts": {
+    "start-ui": "react-scripts start",
+    "start-main-api": "cd api-main && ./venv/bin/flask run --no-debugger",
+    "start-auth-api": "cd api-auth && node server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "ci-check": "yarn format:diff",
+    "clean": "yarn cache clean && yarn install",
+    "format": "prettier --write \"**/*.{js,md,scss}\"",
+    "format:diff": "prettier --list-different \"**/*.{js,md,scss}\"",
+    "format:staged": "prettier --write",
+    "deploy": "rm -rf ./build && yarn build && ibmcloud cf push -f manifest.yml"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "plugin:react-hooks/recommended"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
+}

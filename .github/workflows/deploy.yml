@@ -31,7 +31,7 @@ jobs:
         env:
           VCAP_LOCAL: ${{ secrets.VCAP_LOCAL }}
         run: |
-          echo "$VCAP_LOCAL" >> ./prometeo-dashboard/api-auth/vcap-local.json
+          echo "$VCAP_LOCAL" >> ./pyrrha-dashboard/api-auth/vcap-local.json
       
       # A GitHub Action for serializing workflow runs
       - name: Turnstyle
@@ -52,7 +52,7 @@ jobs:
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
           registry-hostname: us.icr.io
-          working-directory: "prometeo-dashboard/api-main"
+          working-directory: "pyrrha-dashboard/api-main"
 
       - uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
         with:
@@ -67,7 +67,7 @@ jobs:
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
           registry-hostname: us.icr.io
-          working-directory: "prometeo-dashboard/api-auth"
+          working-directory: "pyrrha-dashboard/api-auth"
 
       - uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
         with:
@@ -82,5 +82,5 @@ jobs:
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
           registry-hostname: us.icr.io
-          working-directory: "prometeo-dashboard"
+          working-directory: "pyrrha-dashboard"
 
