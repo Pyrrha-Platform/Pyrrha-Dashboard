@@ -25,7 +25,7 @@ class dashboard_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -61,17 +61,15 @@ class dashboard_manager(object):
                         'device_status_LED': i[12]
                     })
                 # firefighters = data
+                conn.close()
             else:
                 print("get_dashboard - NO HAY INFORMACION")
+                conn.close()
                 return None
         except Exception as e:
             print("get_dashboard - Estoy en la excepcion")
             print(e)
-            return None
-
-        finally:
-            cursor.close()
-            conn.close()
+            return None            
 
         return devices
 
@@ -86,7 +84,7 @@ class dashboard_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -132,19 +130,16 @@ class dashboard_manager(object):
                         'timestamp_mins': i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
                         'device_timestamp': i[6].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
                     })
-
+                conn.close()
             else:
                 print("get_dashboard_now - NO HAY INFORMACION")
+                conn.close()
                 return None
 
         except Exception as e:
             print("get_dashboard_now - Estoy en la excepcion")
             print(e)
             return None
-
-        finally:
-            cursor.close()
-            conn.close()
 
         return devices
 
@@ -159,7 +154,7 @@ class dashboard_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -217,19 +212,16 @@ class dashboard_manager(object):
                         'nitrogen_dioxide_gauge_240min': "{:.2f}".format(i[32]),
                         'nitrogen_dioxide_gauge_480min': "{:.2f}".format(i[33])
                     })
-
+                conn.close()
             else:
                 print("get_dashboard_details - NO HAY INFORMACION")
+                conn.close()
                 return None
 
         except Exception as e:
             print("get_dashboard_details - Estoy en la excepcion")
             print(e)
             return None
-
-        finally:
-            cursor.close()
-            conn.close()
 
         return details
 
@@ -269,7 +261,7 @@ class dashboard_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -321,19 +313,16 @@ class dashboard_manager(object):
                         'device_timestamp': i[1].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
                         'value': "{:.2f}".format(i[2])
                     })
-
+                conn.close()
             else:
                 print("get_dashboard_chart_details - NO HAY INFORMACION")
+                conn.close()
                 return None
 
         except Exception as e:
             print("get_dashboard_chart_details - Estoy en la excepcion")
             print(e)
             return None
-
-        finally:
-            cursor.close()
-            conn.close()
 
         return chart
 
@@ -348,7 +337,7 @@ class dashboard_manager(object):
                 user=os.getenv('MARIADB_USERNAME'),
                 password=os.getenv('MARIADB_PASSWORD'),
                 host=os.getenv('MARIADB_HOST'),
-                database='pyrrha',
+                database=os.getenv('MARIADB_DATABASE'),
                 port=int(os.getenv('MARIADB_PORT'))
             )
 
@@ -373,11 +362,9 @@ class dashboard_manager(object):
             else:
                 device_active = False
 
+            conn.close()
+
         except Exception as e:
             return None
-
-        finally:
-            cursor.close()
-            conn.close()
 
         return device_active
