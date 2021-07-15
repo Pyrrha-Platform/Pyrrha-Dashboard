@@ -249,10 +249,10 @@ const useDetails = (device_id, inc, ty) => {
   }, [message]);
 
   return [
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     details,
-    setDetails,
+    // setDetails,
     chart,
     setChart,
     increment,

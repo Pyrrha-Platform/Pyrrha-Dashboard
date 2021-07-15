@@ -1,5 +1,3 @@
-# import requests
-import json
 import mariadb
 import os
 import logging
@@ -110,7 +108,7 @@ class dashboard_manager(object):
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
                         firefighter_sensor_log
-                    WHERE device_id LIKE '%Pyrrha%'
+                    WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
                 WHERE device_readings.latest_reading_for_device = 1
