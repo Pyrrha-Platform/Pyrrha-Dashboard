@@ -20,12 +20,12 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 ### Create services
 
-- Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrha Database](https://github.com/Call-for-Code/Prometeo-Database) repo to create the structure and populate your database instance.
-- Provision an IBM App ID service instance and create a user and password within a registry and generate service credentials. Access is currently based only on authentication, there aren't [separate authorization control tiers](https://github.com/Call-for-Code/Prometeo-Dashboard/issues/24) (such as admin, reader, etc).
+- Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrha Database](https://github.com/Pyrrha-Platform/Pyrrha-Database) repo to create the structure and populate your database instance.
+- Provision an IBM App ID service instance and create a user and password within a registry and generate service credentials. Access is currently based only on authentication, there aren't [separate authorization control tiers](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/issues/24) (such as admin, reader, etc).
 
 ### Update configuration files
 
-- Create an `.env` file from the `/api-main/env.example` file and include your database connection settings. This file is hidden by `.gitignore`.
+- Create an `.env` file from the `/api-main/.env.example` file and include your database connection settings. This file is hidden by `.gitignore`.
 - Set up your Python `/api-main/venv` environment as shown in the blog post above. Then install the requirements.
 - Create a `vcap-local.json` file from the `/api-auth/vcap-local.json` file and include your App ID settings. This file is hidden by `.gitignore`.
 - Update the WebSockets endpoint in `src/Utils/Constants.js` and review that file for any other changes you want to make.
@@ -36,12 +36,12 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 - Ensure you have a MariaDB or MySQL client installed on your workstation. If you're using macOS, you can [follow these instructions](https://mariadb.com/kb/en/installing-mariadb-on-macos-using-homebrew/).
 - Start the back-end Flask API services with the command in the `package.json` file set of NPM scripts, in this case `start-main-api`. This will launch a server on port 5000, proxied through the front end port 3000 for the `/api-main/v1/` path.
 - Start the back-end Node.js API services with the command in the `package.json` file set of NPM scripts, in this case `start-auth-api`. This will launch a server on port 4000, proxied through the front end port 3000 for the `/api-auth/v1/` path.
-- Build (`npm run setup`) and start the front-end user React user interface with the command in the [package.json](https://github.com/Call-for-Code/Prometeo-Dashboard/blob/master/prometeo-dashboard/package.json#L35) file set of NPM scripts, in this case `start-ui`. This will automatically open a web brower at [http://localhost:3000](http://localhost:3000)
-- If you have [security enabled](https://github.com/Call-for-Code/Prometeo-Dashboard/blob/master/prometeo-dashboard/src/utils/Constants.js#L9), log into the UI using your App ID user. You will want to save your credentials in your browser as changes during development will destroy the session and cause you to reauthenticate often.
+- Build (`npm run setup`) and start the front-end user React user interface with the command in the [package.json](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/blob/master/pyrrha-dashboard/package.json#L35) file set of NPM scripts, in this case `start-ui`. This will automatically open a web brower at [http://localhost:3000](http://localhost:3000)
+- If you have [security enabled](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/blob/master/pyrrha-dashboard/src/utils/Constants.js#L9), log into the UI using your App ID user. You will want to save your credentials in your browser as changes during development will destroy the session and cause you to reauthenticate often.
 
 ### Deploy to the IBM Cloud
 
-On the IBM Cloud Kubernetes Service, this application is hosted as [three microservices](https://github.com/Call-for-Code/Prometeo-Dashboard/tree/master/prometeo-dashboard/k8s).
+On the IBM Cloud Kubernetes Service, this application is hosted as [three microservices](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/tree/master/pyrrha-dashboard/k8s).
 
 ### Files
 

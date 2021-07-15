@@ -26,7 +26,7 @@ so that you can make the actual changes. This is where we will start.
   * [Respect the minimum wait time for comments](#respect-the-minimum-wait-time-for-comments)
   * [Abandoned or stalled pull requests](#abandoned-or-stalled-pull-requests)
   * [Approving a change](#approving-a-change)
-  * [Accept that there are different opinions about what belongs in Prometeo](#accept-that-there-are-different-opinions-about-what-belongs-in-Prometeo)
+  * [Accept that there are different opinions about what belongs in Pyrrha](#accept-that-there-are-different-opinions-about-what-belongs-in-Pyrrha)
   * [Performance is not everything](#performance-is-not-everything)
   * [Continuous integration testing](#continuous-integration-testing)
 * [Notes](#notes)
@@ -37,9 +37,9 @@ so that you can make the actual changes. This is where we will start.
 
 ## Dependencies
 
-More details to come on Prometeo dependencies. In case of doubt, open an issue in the
-[issue tracker](https://github.com/Call-for-Code/Prometeo/issues/) or engage on the
-[Prometeo Slack workspace][].
+More details to come on Pyrrha dependencies. In case of doubt, open an issue in the
+[issue tracker](https://github.com/Pyrrha-Platform/Pyrrha/issues/) or engage on the
+[Pyrrha Slack workspace][].
 
 ## Setting up your local environment
 
@@ -51,15 +51,15 @@ it's time to create a fork.
 
 ### Step 1: Fork
 
-Fork the project [on GitHub](https://github.com/Call-for-Code/Prometeo) and clone your fork
+Fork the project [on GitHub](https://github.com/Pyrrha-Platform/Pyrrha) and clone your fork
 locally.
 
 You will need to have [Git Large File Storage](https://help.github.com/en/github/managing-large-files/installing-git-large-file-storage) installed locally.
 
 ```text
-$ git clone git@github.com:username/Prometeo.git
-$ cd Prometeo
-$ git remote add upstream https://github.com/Call-for-Code/Prometeo.git
+$ git clone git@github.com:username/Pyrrha.git
+$ cd Pyrrha
+$ git remote add upstream https://github.com/Pyrrha-Platform/Pyrrha.git
 $ git fetch upstream
 ```
 
@@ -89,7 +89,7 @@ $ git checkout -b my-branch -t upstream/master
 
 ### Step 3: Code
 
-Prometeo does not yet have a style guide. If you're interested in creating one, you're on the right page 😃
+Pyrrha does not yet have a style guide. If you're interested in creating one, you're on the right page 😃
 
 ### Step 4: Commit
 
@@ -145,11 +145,11 @@ please do proper word-wrap and keep columns shorter than about
 72 characters or so. That way, `git log` will show things
 nicely even when it is indented.
 
-Fixes: https://github.com/Call-for-Code/Prometeo/issues/1337
+Fixes: https://github.com/Pyrrha-Platform/Pyrrha/issues/1337
 Refs: http://eslint.org/docs/rules/space-in-parens.html
 ```
 
-If you are new to contributing to Prometeo, please try to do your best at
+If you are new to contributing to Pyrrha, please try to do your best at
 conforming to these guidelines, but do not worry if you get something wrong.
 One of the existing contributors will help get things situated and the
 contributor landing the pull request will ensure that everything follows
@@ -223,7 +223,7 @@ $ git push --force-with-lease origin my-branch
 **Important:** The `git push --force-with-lease` command is one of the few ways
 to delete history in `git`. Before you use it, make sure you understand the
 risks. If in doubt, you can always ask for guidance in the pull request or on the
-[Prometeo Slack workspace].
+[Pyrrha Slack workspace].
 
 If you happen to make a mistake in any of your commits, do not worry. You can
 amend the last commit (for example if you want to change the commit log).
@@ -263,7 +263,7 @@ unhelpful is likely safe to ignore.
 ### Step 10: Landing
 
 In order to land, a pull request needs to be reviewed and [approved][] by
-at least one Prometeo Collaborators. After that, as long as there are no
+at least one Pyrrha Collaborators. After that, as long as there are no
 objections from other contributors, the pull request can be merged. If you find
 your pull request waiting longer than you expect, see the
 [notes about the waiting time](#waiting-until-the-pull-request-gets-landed).
@@ -277,7 +277,7 @@ your name on it. Congratulations and thanks for your contribution!
 
 ## Reviewing pull requests
 
-All Prometeo contributors who choose to review and provide feedback on pull
+All Pyrrha contributors who choose to review and provide feedback on pull
 requests have a responsibility to both the project and the individual making the
 contribution. Reviews and feedback must be helpful, insightful, and geared
 towards improving the contribution as opposed to simply blocking it. If there
@@ -304,8 +304,8 @@ perfect grammar, or exact style matches. Do not succumb to that temptation.
 
 Focus first on the most significant aspects of the change:
 
-1. Does this change make sense for Prometeo?
-2. Does this change make Prometeo better, even if only incrementally?
+1. Does this change make sense for Pyrrha?
+2. Does this change make Pyrrha better, even if only incrementally?
 3. Are there clear bugs or larger scale issues that need attending to?
 4. Is the commit message readable and correct? If it contains a breaking change
    is it clear enough?
@@ -318,7 +318,7 @@ change over time. The first impression you give to a new contributor never does.
 
 Nits (requests for small changes that are not essential) are fine, but try to
 avoid stalling the pull request. Most nits can typically be fixed by the
-Prometeo Collaborator landing the pull request but they can also be an
+Pyrrha Collaborator landing the pull request but they can also be an
 opportunity for the contributor to learn a bit more about the project.
 
 It is always good to clearly indicate nits when you comment: e.g.
@@ -332,8 +332,8 @@ with the appropriate reason to keep the conversation flow concise and relevant.
 
 Be aware that *how* you communicate requests and reviews in your feedback can
 have a significant impact on the success of the pull request. Yes, we may land
-a particular change that makes Prometeo better, but the individual might just
-not want to have anything to do with Prometeo ever again. The goal is not just
+a particular change that makes Pyrrha better, but the individual might just
+not want to have anything to do with Pyrrha ever again. The goal is not just
 having good code.
 
 ### Respect the minimum wait time for comments
@@ -363,8 +363,8 @@ commit.
 
 ### Approving a change
 
-Any Prometeo core Collaborator (any GitHub user with commit rights in the
-`Call-for-Code/Prometeo` repository) is authorized to approve any other contributor's
+Any Pyrrha core Collaborator (any GitHub user with commit rights in the
+`Pyrrha-Platform/Pyrrha` repository) is authorized to approve any other contributor's
 work. Collaborators are not permitted to approve their own pull requests.
 
 Collaborators indicate that they have reviewed and approve of the changes in
@@ -392,32 +392,32 @@ to block the PR from landing. When doing so, explain *why* you believe the
 pull request should not land along with an explanation of what may be an
 acceptable alternative course, if any.
 
-### Accept that there are different opinions about what belongs in Prometeo
+### Accept that there are different opinions about what belongs in Pyrrha
 
 Opinions on this vary, even among the members of the Technical Steering
 Committee.
 
-One general rule of thumb is that if Prometeo itself needs it (due to historic
-or functional reasons), then it belongs in Prometeo.
+One general rule of thumb is that if Pyrrha itself needs it (due to historic
+or functional reasons), then it belongs in Pyrrha.
 
 Also, functionality that either cannot be implemented outside of core in any
 reasonable way, or only with significant pain.
 
 It is not uncommon for contributors to suggest new features they feel would
-make Prometeo better. These may or may not make sense to add, but as with all
+make Pyrrha better. These may or may not make sense to add, but as with all
 changes, be courteous in how you communicate your stance on these. Comments
 that make the contributor feel like they should have "known better" or
 ridiculed for even trying run counter to the [Code of Conduct][].
 
 ### Performance is not everything
 
-Prometeo has always optimized for speed of execution. If a particular change
-can be shown to make some part of Prometeo faster, it's quite likely to be
+Pyrrha has always optimized for speed of execution. If a particular change
+can be shown to make some part of Pyrrha faster, it's quite likely to be
 accepted. Claims that a particular pull request will make things faster will
 almost always be met by requests for performance [benchmark results][] that
 demonstrate the improvement.
 
-That said, performance is not the only factor to consider. Prometeo also
+That said, performance is not the only factor to consider. Pyrrha also
 optimizes in favor of not breaking existing code in the ecosystem, and not
 changing working functional code just for the sake of changing.
 
@@ -431,7 +431,7 @@ feedback.
 ### Continuous integration testing
 
 Every pull request needs to be tested
-to make sure that it works on the platforms that Prometeo
+to make sure that it works on the platforms that Pyrrha
 supports. This is currently done manually, but automated testing
 may come soon.
 
@@ -468,7 +468,7 @@ because the reviewers have hit the buttons before.
 ### CI testing
 
 Every pull request needs to be tested
-to make sure that it works on the platforms that Prometeo
+to make sure that it works on the platforms that Pyrrha
 supports. This is currently done manually, but automated testing
 may come soon.
 
@@ -481,6 +481,6 @@ collaborators may decide it doesn't need to wait. A pull request may well take
 longer to be merged in.
 
 
-[Code of Conduct]: https://github.com/Call-for-Code/Prometeo/blob/master/CONTRIBUTING.md#code-of-conduct
-[Collaborator Guide]: https://github.com/Call-for-Code/Prometeo/blob/master/CONTRIBUTING.md
-[Prometeo Slack workspace]: https://callforcode.org/slack
+[Code of Conduct]: https://github.com/Pyrrha-Platform/Pyrrha/blob/master/CONTRIBUTING.md#code-of-conduct
+[Collaborator Guide]: https://github.com/Pyrrha-Platform/Pyrrha/blob/master/CONTRIBUTING.md
+[Pyrrha Slack workspace]: https://callforcode.org/slack

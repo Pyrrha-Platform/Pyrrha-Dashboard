@@ -13,7 +13,7 @@ For any issue, there are fundamentally three ways an individual can
 contribute:
 
 1. By opening the issue for discussion: For instance, if you believe that you
-   have uncovered a bug in Prometeo, creating a new issue in the `Call-for-Code/Prometeo`
+   have uncovered a bug in Pyrrha, creating a new issue in the `Pyrrha-Platform/Pyrrha`
    issue tracker is the way to report it.
 2. By helping to triage the issue: This can be done either by providing
    supporting details (a test case that demonstrates a bug), or providing
@@ -21,7 +21,7 @@ contribute:
 3. By helping to resolve the issue: Typically this is done either in the form
    of demonstrating that the issue reported is not a problem after all, or more
    often, by opening a Pull Request that changes some bit of something in
-   `Call-for-Code/Prometeo` in a concrete and reviewable manner.
+   `Pyrrha-Platform/Pyrrha` in a concrete and reviewable manner.
 
 ## Asking for General Help
 
@@ -35,7 +35,7 @@ of the [Call for Code Slack workspace][].
 
 ## Submitting a Bug Report
 
-When opening a new issue in the `Call-for-Code/Prometeo` issue tracker, please provide as much
+When opening a new issue in the `Pyrrha-Platform/Pyrrha` issue tracker, please provide as much
 detail about your environment as possible.
 
 See [How to create a Minimal, Complete, and Verifiable example](https://stackoverflow.com/help/mcve).
