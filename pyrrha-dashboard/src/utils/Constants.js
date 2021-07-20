@@ -3,7 +3,8 @@ import * as d3 from 'd3';
 class Constants {
   // Should be in an .env file
   // static WEBSOCKET_URL = 'ws://localhost:8010';
-  static WEBSOCKET_URL = 'ws://159.122.237.4:32035';
+
+  static WEBSOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
   // Whether to validate against App ID. Important when developing locally.
   static AUTH_DISABLED = true;
