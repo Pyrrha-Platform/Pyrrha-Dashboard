@@ -130,7 +130,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
     d3.select(
       '#number-' + type + '-' + increment + '-' + url_safe_device_id
-    ).text(Utils.formatFloat(value, 2));
+    ).text(Utils.formatFloat(value, 1));
   };
 
   return <svg ref={ref}></svg>;
