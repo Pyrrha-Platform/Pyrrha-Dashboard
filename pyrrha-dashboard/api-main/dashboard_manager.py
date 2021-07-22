@@ -7,30 +7,36 @@ from dotenv import load_dotenv
 class dashboard_manager(object):
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger("pyrrha.dashboards.fire_fighters")
-        self.logger.debug("creating an instance of dashboards")
+        self._logger = logging.getLogger("pyrrha.dashboard")
+        self._logger.setLevel(logging.DEBUG)
+        self._logger.debug("creating an instance of dashboards")
+        self._user = os.getenv("MARIADB_USERNAME")
+        self._password = os.getenv("MARIADB_PASSWORD")
+        self._host = os.getenv("MARIADB_HOST")
+        self._port = int(os.getenv("MARIADB_PORT"))
+        self._database = os.getenv("MARIADB_DATABASE")
 
     def get_dashboard_for(self, device_id):
-        print("get_dashboard - entro en la funcion")
+        self._logger.debug("get_dashboard - entro en la funcion")
 
         devices = []
 
         try:
-            print("get_dashboard - trying")
+            self._logger.debug("get_dashboard - trying")
 
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_dashboard - before cursor")
+            self._logger.debug("get_dashboard - before cursor")
             cursor = conn.cursor()
-            print("get_dashboard - after cursor")
+            self._logger.debug("get_dashboard - after cursor")
 
-            print("get_dashboard - llamada a sql")
+            self._logger.debug("get_dashboard - llamada a sql")
 
             cursor.execute(
                 "SELECT * FROM firefighter_sensor_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1",
@@ -38,13 +44,13 @@ class dashboard_manager(object):
             )
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
 
-            print("get_dashboard - sp_select_all_devices")
+            self._logger.debug("get_dashboard - sp_select_all_devices")
             data = cursor.fetchall()
-            print("get_dashboard - fetchall")
+            self._logger.debug("get_dashboard - fetchall")
             if len(data) > 0:
-                print("get_dashboard - Hay informacion")
+                self._logger.debug("get_dashboard - Hay informacion")
                 for i in data:
-                    # print(i)
+                    # self._logger.debug(i)
                     devices.append(
                         {
                             "timestamp_mins": i[0].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
@@ -66,35 +72,35 @@ class dashboard_manager(object):
                 # firefighters = data
                 conn.close()
             else:
-                print("get_dashboard - NO HAY INFORMACION")
+                self._logger.debug("get_dashboard - NO HAY INFORMACION")
                 conn.close()
                 return None
         except Exception as e:
-            print("get_dashboard - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_dashboard - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         return devices
 
     def get_dashboard_now(self):
-        print("get_dashboard_now - entro en la funcion")
+        self._logger.debug("get_dashboard_now - entro en la funcion")
 
         devices = []
 
         try:
-            print("get_dashboard_now - trying")
+            self._logger.debug("get_dashboard_now - trying")
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_dashboard_now - before cursor")
+            self._logger.debug("get_dashboard_now - before cursor")
             cursor = conn.cursor()
 
-            print("get_dashboard_now - llamada a sql")
+            self._logger.debug("get_dashboard_now - llamada a sql")
             sql = """
                 SELECT * FROM (
                     SELECT 
@@ -114,16 +120,16 @@ class dashboard_manager(object):
                 WHERE device_readings.latest_reading_for_device = 1
             """
 
-            print("get_dashboard_now - get latest reading for each device")
+            self._logger.debug("get_dashboard_now - get latest reading for each device")
             cursor.execute(sql)
 
-            print("get_dashboard_now - fetchall")
+            self._logger.debug("get_dashboard_now - fetchall")
             data = cursor.fetchall()
 
             if len(data) > 0:
-                print("get_dashboard_now - Hay informacion")
+                self._logger.debug("get_dashboard_now - Hay informacion")
                 for i in data:
-                    # print(i)
+                    # self._logger.debug(i)
                     devices.append(
                         {
                             "device_id": i[0],
@@ -139,36 +145,36 @@ class dashboard_manager(object):
                     )
                 conn.close()
             else:
-                print("get_dashboard_now - NO HAY INFORMACION")
+                self._logger.debug("get_dashboard_now - NO HAY INFORMACION")
                 conn.close()
                 return None
 
         except Exception as e:
-            print("get_dashboard_now - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_dashboard_now - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         return devices
 
     def get_dashboard_details(self, device_id, increment, type):
-        print("get_dashboard_details - entro en la funcion")
+        self._logger.debug("get_dashboard_details - entro en la funcion")
 
         details = []
 
         try:
-            print("get_dashboard_details - trying")
+            self._logger.debug("get_dashboard_details - trying")
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_dashboard_details - before cursor")
+            self._logger.debug("get_dashboard_details - before cursor")
             cursor = conn.cursor()
 
-            print("get_dashboard_details - llamada a sql")
+            self._logger.debug("get_dashboard_details - llamada a sql")
             sql = """
                 SELECT 
                     *
@@ -180,16 +186,18 @@ class dashboard_manager(object):
                 LIMIT 1;
             """
 
-            print("get_dashboard_details - get latest reading for the device")
+            self._logger.debug(
+                "get_dashboard_details - get latest reading for the device"
+            )
             cursor.execute(sql, (device_id,))
 
-            print("get_dashboard_details - fetchall")
+            self._logger.debug("get_dashboard_details - fetchall")
             data = cursor.fetchall()
 
             if len(data) > 0:
-                print("get_dashboard_details - Hay informacion")
+                self._logger.debug("get_dashboard_details - Hay informacion")
                 for i in data:
-                    # print(i)
+                    # self._logger.debug(i)
                     details.append(
                         {
                             "device_id": i[2],
@@ -225,25 +233,25 @@ class dashboard_manager(object):
                     )
                 conn.close()
             else:
-                print("get_dashboard_details - NO HAY INFORMACION")
+                self._logger.debug("get_dashboard_details - NO HAY INFORMACION")
                 conn.close()
                 return None
 
         except Exception as e:
-            print("get_dashboard_details - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_dashboard_details - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         return details
 
     def get_dashboard_chart_details(self, device_id, increment, type, range="window"):
-        print("get_dashboard_chart_details - entro en la funcion")
+        self._logger.debug("get_dashboard_chart_details - entro en la funcion")
 
         chart = []
 
-        print("get_dashboard_chart_details - device_id:", device_id)
-        print("get_dashboard_chart_details - increment:", increment)
-        print("get_dashboard_chart_details - type:", type)
+        self._logger.debug("get_dashboard_chart_details - device_id:", device_id)
+        self._logger.debug("get_dashboard_chart_details - increment:", increment)
+        self._logger.debug("get_dashboard_chart_details - type:", type)
 
         # Default column names
         ty = "carbon_monoxide_twa_"
@@ -264,22 +272,22 @@ class dashboard_manager(object):
 
         # The one column name to select
         column = ty + inc
-        print(column)
+        self._logger.debug(column)
 
         try:
-            print("get_dashboard_chart_details - trying")
+            self._logger.debug("get_dashboard_chart_details - trying")
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_dashboard_chart_details - before cursor")
+            self._logger.debug("get_dashboard_chart_details - before cursor")
             cursor = conn.cursor()
 
-            print("get_dashboard_chart_details - llamada a sql")
+            self._logger.debug("get_dashboard_chart_details - llamada a sql")
 
             # Default, past 8 hours
             sql = f"""
@@ -307,18 +315,20 @@ class dashboard_manager(object):
                     LIMIT 240
                 """
 
-            print(sql)
+            self._logger.debug(sql)
 
-            print("get_dashboard_chart_details - get latest readings for", column)
+            self._logger.debug(
+                "get_dashboard_chart_details - get latest readings for", column
+            )
             cursor.execute(sql, (device_id,))
 
-            print("get_dashboard_chart_details - fetchall")
+            self._logger.debug("get_dashboard_chart_details - fetchall")
             data = cursor.fetchall()
 
             if len(data) > 0:
-                print("get_dashboard_chart_details - Hay informacion")
+                self._logger.debug("get_dashboard_chart_details - Hay informacion")
                 for i in data:
-                    # print(i)
+                    # self._logger.debug(i)
                     chart.append(
                         {
                             "timestamp_mins": i[0].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
@@ -330,30 +340,30 @@ class dashboard_manager(object):
                     )
                 conn.close()
             else:
-                print("get_dashboard_chart_details - NO HAY INFORMACION")
+                self._logger.debug("get_dashboard_chart_details - NO HAY INFORMACION")
                 conn.close()
                 return None
 
         except Exception as e:
-            print("get_dashboard_chart_details - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_dashboard_chart_details - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         return chart
 
     def get_dashboard_device_active(self, device_id):
 
-        print("get_dashboard_device_active - entro en la funcion")
+        self._logger.debug("get_dashboard_device_active - entro en la funcion")
 
         device_active = True
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()

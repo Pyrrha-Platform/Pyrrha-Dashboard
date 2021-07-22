@@ -7,3 +7,4 @@ flask_wtf
 requests
 mariadb
 python-dotenv
+black
