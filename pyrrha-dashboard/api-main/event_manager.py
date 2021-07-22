@@ -1,5 +1,3 @@
-# import requests
-import json
 import mariadb
 import os
 import logging
@@ -9,8 +7,14 @@ from dotenv import load_dotenv
 class event_manager(object):
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger("pyrrha.events.fire_fighters")
-        self.logger.debug("creating an instance of events")
+        self._logger = logging.getLogger("pyrrha.events")
+        self._logger.setLevel(logging.DEBUG)
+        self._logger.debug("creating an instance of events")
+        self._user = os.getenv("MARIADB_USERNAME")
+        self._password = os.getenv("MARIADB_PASSWORD")
+        self._host = os.getenv("MARIADB_HOST")
+        self._port = int(os.getenv("MARIADB_PORT"))
+        self._database = os.getenv("MARIADB_DATABASE")
 
     def insert_event(self, code, type, firefighters, state):
 
@@ -18,12 +22,11 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -58,12 +61,11 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -92,12 +94,11 @@ class event_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -124,17 +125,17 @@ class event_manager(object):
 
     def get_event(self, id):
 
-        print("get_event - entro en la funcion")
+        self._logger.debug("get_event - entro en la funcion")
 
         event = {}
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -166,44 +167,44 @@ class event_manager(object):
         return event
 
     def get_all_events(self):
-        print("get_all_events - entro en la funcion")
+        self._logger.debug("get_all_events - entro en la funcion")
 
         events = []
 
         try:
-            print("get_all_events - trying")
+            self._logger.debug("get_all_events - trying")
 
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_all_events - before cursor")
+            self._logger.debug("get_all_events - before cursor")
             cursor = conn.cursor()
 
-            print("get_all_events - after cursor")
+            self._logger.debug("get_all_events - after cursor")
             sql = """
                 SELECT event_internal_id, event_code, status, event_type, event_date, extra_info 
                 FROM events 
                 WHERE deleted_at IS NULL
             """
 
-            print("get_all_events - llamada a sql")
+            self._logger.debug("get_all_events - llamada a sql")
             cursor.execute(sql)
             # cursor.callproc('sp_select_all_events')
 
-            print("get_all_events - sp_select_all_events")
+            self._logger.debug("get_all_events - sp_select_all_events")
             data = cursor.fetchall()
 
-            print("get_all_events - fetchall")
-            print(data)
+            self._logger.debug("get_all_events - fetchall")
+            self._logger.debug(data)
             if len(data) > 0:
-                print("get_all_events - Hay informacion")
+                self._logger.debug("get_all_events - Hay informacion")
                 for i in data:
-                    print(i)
+                    self._logger.debug(i)
                     events.append(
                         {
                             "id": i[0],
@@ -216,11 +217,11 @@ class event_manager(object):
                         }
                     )
             else:
-                print("get_all_events - NO HAY INFORMACION")
+                self._logger.debug("get_all_events - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            print("get_all_events - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_all_events - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         finally:
@@ -232,34 +233,34 @@ class event_manager(object):
     def get_event_firefighters_devices(self, id):
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
-            print("get_event")
-            print(id)
+            self._logger.debug("get_event")
+            self._logger.debug(id)
 
             cursor.callproc("sp_select_event_firefighters_devices", (id,))
 
-            print("get_event_firefighters_devices - he abierto el cursor")
+            self._logger.debug("get_event_firefighters_devices - he abierto el cursor")
 
             data = cursor.fetchall()
 
             if len(data) > 0:
-                print("get_event_firefighters_devices - hay datos")
+                self._logger.debug("get_event_firefighters_devices - hay datos")
                 for i in data:
-                    print(i)
+                    self._logger.debug(i)
                 return data
             else:
-                print("get_event_firefighters_devices - no hay datos")
+                self._logger.debug("get_event_firefighters_devices - no hay datos")
                 return None
 
         except Exception as e:
-            print("get_event_firefighters_devices - estoy en la excepcion")
+            self._logger.debug("get_event_firefighters_devices - estoy en la excepcion")
             return None
 
         finally:

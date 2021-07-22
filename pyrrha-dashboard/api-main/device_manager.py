@@ -1,5 +1,3 @@
-# import requests
-import json
 import mariadb
 import os
 import logging
@@ -9,8 +7,14 @@ from dotenv import load_dotenv
 class device_manager(object):
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger("pyrrha.devices.fire_fighters")
-        self.logger.debug("creating an instance of devices")
+        self._logger = logging.getLogger("pyrrha.devices")
+        self._logger.setLevel(logging.DEBUG)
+        self._logger.debug("creating an instance of devices")
+        self._user = os.getenv("MARIADB_USERNAME")
+        self._password = os.getenv("MARIADB_PASSWORD")
+        self._host = os.getenv("MARIADB_HOST")
+        self._port = int(os.getenv("MARIADB_PORT"))
+        self._database = os.getenv("MARIADB_DATABASE")
 
     def insert_device(self, code, first, last, email):
 
@@ -18,12 +22,11 @@ class device_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -57,12 +60,11 @@ class device_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -93,12 +95,11 @@ class device_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -124,17 +125,17 @@ class device_manager(object):
 
     def get_device(self, id):
 
-        print("get_device - entro en la funcion")
+        self._logger.debug("get_device - entro en la funcion")
 
         device = {}
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -166,45 +167,45 @@ class device_manager(object):
         return device
 
     def get_all_devices(self):
-        print("get_all_devices - entro en la funcion")
+        self._logger.debug("get_all_devices - entro en la funcion")
 
         devices = []
 
         try:
-            print("get_all_devices - trying")
+            self._logger.debug("get_all_devices - trying")
 
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
-            print("get_all_devices - before cursor")
+            self._logger.debug("get_all_devices - before cursor")
             cursor = conn.cursor()
-            print("get_all_devices - after cursor")
+            self._logger.debug("get_all_devices - after cursor")
 
-            print("get_all_devices - llamada a sql")
+            self._logger.debug("get_all_devices - llamada a sql")
             # cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL')
             cursor.callproc("sp_select_all_devices")
-            print("get_all_devices - sp_select_all_devices")
+            self._logger.debug("get_all_devices - sp_select_all_devices")
             data = cursor.fetchall()
-            print("get_all_devices - fetchall")
-            print(data)
+            self._logger.debug("get_all_devices - fetchall")
+            self._logger.debug(data)
             if len(data) > 0:
-                print("get_all_devices - Hay informacion")
+                self._logger.debug("get_all_devices - Hay informacion")
                 for i in data:
-                    print(i)
+                    self._logger.debug(i)
                     devices.append(
                         {"id": i[0], "code": i[1], "model": i[2], "version": i[3]}
                     )
             else:
-                print("get_all_devices - NO HAY INFORMACION")
+                self._logger.debug("get_all_devices - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            print("get_all_devices - Estoy en la excepcion")
-            print(e)
+            self._logger.debug("get_all_devices - Estoy en la excepcion")
+            self._logger.debug(e)
             return None
 
         finally:

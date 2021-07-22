@@ -43,8 +43,9 @@
     "test": "react-scripts test",
     "ci-check": "yarn format:diff",
     "clean": "yarn cache clean && yarn install",
-    "format": "prettier --write \"**/*.{js,md,scss}\"",
+    "format:prettier": "prettier --write \"**/*.{js,md,scss}\"",
     "format:diff": "prettier --list-different \"**/*.{js,md,scss}\"",
+    "format:black": "cd api-main && ./venv/bin/black .",
     "format:staged": "prettier --write",
     "deploy": "rm -rf ./build && yarn build && ibmcloud cf push -f manifest.yml"
   },

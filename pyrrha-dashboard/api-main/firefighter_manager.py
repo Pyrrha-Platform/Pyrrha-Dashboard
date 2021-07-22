@@ -1,5 +1,3 @@
-# import requests
-import json
 import mariadb
 import os
 import logging
@@ -9,8 +7,14 @@ from dotenv import load_dotenv
 class firefighter_manager(object):
     def __init__(self):
         load_dotenv()
-        self.logger = logging.getLogger("pyrrha.firefighters.fire_fighters")
-        self.logger.debug("creating an instance of firefighters")
+        self._logger = logging.getLogger("pyrrha.firefighters")
+        self._logger.setLevel(logging.DEBUG)
+        self._logger.debug("creating an instance of firefighters")
+        self._user = os.getenv("MARIADB_USERNAME")
+        self._password = os.getenv("MARIADB_PASSWORD")
+        self._host = os.getenv("MARIADB_HOST")
+        self._port = int(os.getenv("MARIADB_PORT"))
+        self._database = os.getenv("MARIADB_DATABASE")
 
     def insert_firefighter(self, code, first, last, email):
 
@@ -18,12 +22,11 @@ class firefighter_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -57,12 +60,11 @@ class firefighter_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -94,12 +96,11 @@ class firefighter_manager(object):
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
-                autocommit=False,
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -127,17 +128,17 @@ class firefighter_manager(object):
 
     def get_firefighter(self, id):
 
-        print("get_firefighter - entro en la funcion")
+        self._logger.debug("get_firefighter - entro en la funcion")
 
         firefighter = {}
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()
@@ -171,17 +172,17 @@ class firefighter_manager(object):
         return firefighter
 
     def get_all_firefighters(self):
-        print("get_all_firefighters - entro en la funcion")
+        self._logger.debug("get_all_firefighters - entro en la funcion")
 
         firefighters = []
 
         try:
             conn = mariadb.connect(
-                user=os.getenv("MARIADB_USERNAME"),
-                password=os.getenv("MARIADB_PASSWORD"),
-                host=os.getenv("MARIADB_HOST"),
-                database=os.getenv("MARIADB_DATABASE"),
-                port=int(os.getenv("MARIADB_PORT")),
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
             )
 
             cursor = conn.cursor()

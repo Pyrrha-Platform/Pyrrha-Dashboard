@@ -5,7 +5,7 @@ from .event_manager import event_manager
 from .device_manager import device_manager
 from .dashboard_manager import dashboard_manager
 
-logger = logging.getLogger("pyrrha")
+logger = logging.getLogger("pyrrha.api")
 logger.setLevel(logging.DEBUG)
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def firefighters():
         firefighters = firefighter_manager().get_all_firefighters()
         message = {"status": 200, "message": "OK", "firefighters": firefighters}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -66,7 +66,7 @@ def firefighters():
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -83,7 +83,7 @@ def firefighters():
                 "firefighter": firefighter["id"],
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=201, mimetype="application/json")
             return resp
 
@@ -95,7 +95,7 @@ def firefighter_by_id(id):
         firefighter = firefighter_manager().get_firefighter(id)
         message = {"status": 200, "message": "OK", "firefighter": firefighter}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -114,7 +114,7 @@ def firefighter_by_id(id):
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -132,20 +132,20 @@ def firefighter_by_id(id):
                 "firefighter": firefighter["id"],
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=200, mimetype="application/json")
             return resp
 
     elif request.method == "DELETE":
         firefighter = firefighter_manager().delete_firefighter(id)
-        print(firefighter)
+        logger.debug(firefighter)
         message = {
             "status": 200,
             "message": "Deleted",
             "firefighter": firefighter["id"],
         }
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -160,7 +160,7 @@ def events():
         events = event_manager().get_all_events()
         message = {"status": 200, "message": "OK", "events": events}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -181,7 +181,7 @@ def events():
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -195,7 +195,7 @@ def events():
             )
             message = {"status": 201, "message": "Created", "event": event["id"]}
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=201, mimetype="application/json")
             return resp
 
@@ -207,7 +207,7 @@ def event_by_id(id):
         event = event_manager().get_event(id)
         message = {"status": 200, "message": "OK", "event": event}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -227,7 +227,7 @@ def event_by_id(id):
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -242,16 +242,16 @@ def event_by_id(id):
             )
             message = {"status": 200, "message": "Updated", "event": event["id"]}
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=200, mimetype="application/json")
             return resp
 
     elif request.method == "DELETE":
         event = event_manager().delete_event(id)
-        print(event)
+        logger.debug(event)
         message = {"status": 200, "message": "Deleted", "event": event["id"]}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -266,7 +266,7 @@ def devices():
         devices = device_manager().get_all_devices()
         message = {"status": 200, "message": "OK", "devices": devices}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -285,7 +285,7 @@ def devices():
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -297,7 +297,7 @@ def devices():
             )
             message = {"status": 201, "message": "Created", "device": device["id"]}
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=201, mimetype="application/json")
             return resp
 
@@ -309,7 +309,7 @@ def device_by_id(id):
         device = device_manager().get_device(id)
         message = {"status": 200, "message": "OK", "device": device}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -328,7 +328,7 @@ def device_by_id(id):
                 "message": "Bad request",
             }
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=400, mimetype="application/json")
             return resp
 
@@ -341,16 +341,16 @@ def device_by_id(id):
             )
             message = {"status": 200, "message": "Updated", "device": device["id"]}
             body = json.dumps(message)
-            print(body)
+            logger.debug(body)
             resp = Response(body, status=200, mimetype="application/json")
             return resp
 
     elif request.method == "DELETE":
         device = device_manager().delete_device(id)
-        print(device)
+        logger.debug(device)
         message = {"status": 200, "message": "Deleted", "device": device["id"]}
         body = json.dumps(message)
-        print(body)
+        logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
         return resp
 
@@ -364,7 +364,7 @@ def dashboard_now():
     devices = dashboard_manager().get_dashboard_now()
     message = {"status": 200, "message": "OK", "devices": devices}
     body = json.dumps(message)
-    print(body)
+    logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
 
@@ -375,7 +375,7 @@ def get_dashboard_for(device_id):
     device = dashboard_manager().get_dashboard_for(device_id)
     message = {"status": 200, "message": "OK", "device": device}
     body = json.dumps(message)
-    print(body)
+    logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
 
@@ -389,7 +389,7 @@ def get_dashboard_details(device_id, increment="all", type="CO"):
     details = dashboard_manager().get_dashboard_details(device_id, increment, type)
     message = {"status": 200, "message": "OK", "details": details}
     body = json.dumps(message)
-    print(body)
+    logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
 
@@ -403,18 +403,18 @@ def get_dashboard_chart_details(device_id, increment="all", type="CO"):
     is_device_active = dashboard_manager().get_dashboard_device_active(device_id)
 
     if is_device_active:
-        print("device is active")
+        logger.debug("device is active")
         chart = dashboard_manager().get_dashboard_chart_details(
             device_id, increment, type, "window"
         )
     else:
-        print("device is inactive")
+        logger.debug("device is inactive")
         chart = dashboard_manager().get_dashboard_chart_details(
             device_id, increment, type, "history"
         )
 
     message = {"status": 200, "message": "OK", "chart": chart}
     body = json.dumps(message)
-    print(body)
+    logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
