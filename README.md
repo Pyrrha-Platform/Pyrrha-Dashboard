@@ -1,12 +1,12 @@
 # Pyrrha dashboard
 
+[![License](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Slack](https://img.shields.io/static/v1?label=Slack&message=%23prometeo-pyrrha&color=blue)](https://callforcode.org/slack)
+
 This repository contains the [Pyrrha](https://github.com/Pyrrha-Platform/Pyrrha) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
 
 The dashboard shows the real-time and long-term averages of firefighter exposure to carbon monoxide, nitrogen dioxide, temperature, and humidity.
 
 It also provides a way to create, read, update and delete devices and events, though these aren't currently used.
-
-[![License](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Slack](https://img.shields.io/static/v1?label=Slack&message=%23prometeo-pyrrha&color=blue)](https://callforcode.org/slack)
 
 ## Setting up the solution
 
