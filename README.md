@@ -2,11 +2,11 @@
 
 [![License](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0) [![Slack](https://img.shields.io/static/v1?label=Slack&message=%23prometeo-pyrrha&color=blue)](https://callforcode.org/slack)
 
-This repository contains the [Pyrrha](https://github.com/Pyrrha-Platform/Pyrrha) solution next generation in progress dashboard built on the Carbon Design System, React, Node.js, and Flask.
+This repository contains the [Pyrrha](https://github.com/Pyrrha-Platform/Pyrrha) solution dashboard built on the Carbon Design System, React, Node.js, and Flask.
 
-The dashboard shows the real-time and long-term averages of firefighter exposure to carbon monoxide, nitrogen dioxide, temperature, and humidity.
+The dashboard shows the real-time and long-term averages of firefighter exposure to carbon monoxide, nitrogen dioxide, temperature, and humidity that are provided by the Pyrrha [sensor](https://github.com/Pyrrha-Platform/Pyrrha-Hardware) and [analytics](https://github.com/Pyrrha-Platform/Pyrrha-Rules-Decision).
 
-It also provides a way to create, read, update and delete devices and events, though these aren't currently used.
+It also provides a way to create, read, update and delete firefighters, devices, and events, though these aren't currently used as they are registered in App ID and the [IoT Platform](https://github.com/Pyrrha-Platform/Pyrrha-MQTT-Client).
 
 ## Setting up the solution
 
@@ -14,9 +14,9 @@ It also provides a way to create, read, update and delete devices and events, th
 
 The code is in a `pyrrha-dashboard` subdirectory as React does not support mixed case directories such as this top-level repo. All the instructions below assume you're in that directory.
 
-The database backend for the React project is based on Python using Flask and was originally created based on this [great post and series from Miguel Grinberg](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project).
+The database backend for the React project is based on Python using Flask and was originally created based on this [valuable post and series from Miguel Grinberg](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project).
 
-The authentication backend is a Node.js app that uses the IBM App ID service, reused from another Call for Code project, [OpenEEW](https://github.com/openeew/openeew-dashboard).
+The authentication backend is a Node.js app that uses the IBM App ID service, reused from another Call for Code project built upon Carbon and React, [OpenEEW](https://github.com/openeew/openeew-dashboard).
 
 ### Create services
 
@@ -35,7 +35,7 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 - NOTE: This assumes everything is running in a local development environment on a single `localhost`, if you are deploying the services separately, update the proxy and CORS settings in `src/setupProxy.js`
 - Ensure you have a MariaDB or MySQL client installed on your workstation. If you're using macOS, you can [follow these instructions](https://mariadb.com/kb/en/installing-mariadb-on-macos-using-homebrew/).
 - Run `yarn install` to pull in all required packages.
-- Start the back-end Flask API services with the command in the `package.json` file set of NPM scripts, in this case `start-main-api`. This will launch a server on port 5000, proxied through the front end port 3000 for the `/api-main/v1/` path. If you haven't yet installed a Flask environment, run `python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt`. 
+- Start the back-end Flask API services with the command in the `package.json` file set of NPM scripts, in this case `start-main-api`. This will launch a server on port 5000, proxied through the front end port 3000 for the `/api-main/v1/` path. If you haven't yet installed a Flask environment, run `python3 -m venv venv; . venv/bin/activate; pip install -r requirements.txt`.
 - Start the back-end Node.js API services with the command in the `package.json` file set of NPM scripts, in this case `start-auth-api`. This will launch a server on port 4000, proxied through the front end port 3000 for the `/api-auth/v1/` path. You may need to run `yarn install` from within the `api-auth` directory first.
 - Build (`npm run setup`) and start the front-end user React user interface with the command in the [package.json](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/blob/master/pyrrha-dashboard/package.json#L35) file set of NPM scripts, in this case `start-ui`. This will automatically open a web brower at [http://localhost:3000](http://localhost:3000)
 - If you have [security enabled](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/blob/master/pyrrha-dashboard/src/utils/Constants.js#L9), log into the UI using your App ID user. You will want to save your credentials in your browser as changes during development will destroy the session and cause you to reauthenticate often.
