@@ -22,10 +22,11 @@ The authentication backend is a Node.js app that uses the IBM App ID service, re
 
 - Create a MySQL or MariaDB database service then use the SQL file in the [Pyrrha Database](https://github.com/Pyrrha-Platform/Pyrrha-Database) repo to create the structure and populate your database instance.
 - Provision an IBM App ID service instance and create a user and password within a registry and generate service credentials. Access is currently based only on authentication, there aren't [separate authorization control tiers](https://github.com/Pyrrha-Platform/Pyrrha-Dashboard/issues/24) (such as admin, reader, etc).
+- Create a [Mapbox](https://mapbox.com) account, and then navigate to your account's [access token page](https://account.mapbox.com/access-tokens/) to view your tokens. You can use the Default public token or create a new one.
 
 ### Update configuration files
 
-- Create an `.env` file from the `/api-main/.env.example` file and include your database connection settings. This file is hidden by `.gitignore`.
+- Create an `.env` file from the `/api-main/.env.example` file and include your database connection settings and Mapbox token. This file is hidden by `.gitignore`.
 - Set up your Python `/api-main/venv` environment as shown in the blog post above. Then install the requirements.
 - Create a `vcap-local.json` file from the `/api-auth/vcap-local.json` file and include your App ID settings. This file is hidden by `.gitignore`.
 - Update the WebSockets endpoint in `src/Utils/Constants.js` and review that file for any other changes you want to make.
