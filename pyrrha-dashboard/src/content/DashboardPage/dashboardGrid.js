@@ -106,40 +106,46 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      {dashboard !== undefined && dashboard.map !== undefined && (
-        <div className="bx--row">
-          {dashboard.map(
-            ({
-              device_id,
-              timestamp_mins,
-              device_timestamp,
-              temperature,
-              humidity,
-              carbon_monoxide,
-              nitrogen_dioxide,
-              increment,
-            }) => (
-              <DeviceDashboardGaugeSet
-                device_id={device_id}
-                timestamp_mins={timestamp_mins}
-                device_timestamp={device_timestamp}
-                temperature={temperature}
-                humidity={humidity}
-                carbon_monoxide={carbon_monoxide}
-                nitrogen_dioxide={nitrogen_dioxide}
-                increment={'now'}
-              />
-            )
-          )}
-        </div>
-      )}
+      {console.log(dashboard)}
 
-      {dashboard.map === undefined && (
+      {dashboard !== undefined &&
+        dashboard.length !== 0 &&
+        dashboard.map !== undefined && (
+          <div className="bx--row">
+            {dashboard.map(
+              ({
+                device_id,
+                timestamp_mins,
+                device_timestamp,
+                temperature,
+                humidity,
+                carbon_monoxide,
+                nitrogen_dioxide,
+                increment,
+              }) => (
+                <DeviceDashboardGaugeSet
+                  device_id={device_id}
+                  timestamp_mins={timestamp_mins}
+                  device_timestamp={device_timestamp}
+                  temperature={temperature}
+                  humidity={humidity}
+                  carbon_monoxide={carbon_monoxide}
+                  nitrogen_dioxide={nitrogen_dioxide}
+                  increment={'now'}
+                />
+              )
+            )}
+          </div>
+        )}
+
+      {(dashboard == undefined ||
+        dashboard.length == 0 ||
+        dashboard.map == undefined) && (
         <div className="bx--row">
-          <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
+          <div className="bx--grid bx--grid--full-width bx--col-lg-16 bx--col-md-4 bx--col-sm-2">
             <div className="bx--grid bx--grid--full-width dashboard-content">
               <div className={'bx--row dashboard-tile background-'}>
-                <div className="bx--col-md-8 label-firefighter">
+                <div className="bx--grid bx--grid--full-width label-firefighter">
                   {t('content.dashboard.noDevices')}
                 </div>
               </div>

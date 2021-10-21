@@ -59,7 +59,8 @@ const DetailsGrid = (params) => {
           setIncrement(e.name);
         }}
         selectedIndex={incrementMapping[increment]}
-        className="details-page__switcher">
+        className="details-page__switcher"
+      >
         <Switch name="all" text={t('content.details.all')} />
         <Switch name="latest" text={t('content.details.latest')} />
         <Switch name="10min" text={t('content.details.10min')} />

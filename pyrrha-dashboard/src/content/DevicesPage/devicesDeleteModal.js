@@ -136,7 +136,8 @@ class DevicesDeleteModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}>
+        )}
+      >
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -145,7 +146,8 @@ class DevicesDeleteModal extends React.Component {
             row={this.props.row}
             loadDevices={this.props.loadDevices}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
+            onClose={() => setOpen(false)}
+          >
             <ModalHeader
               {...deleteProps.modalHeader({
                 titleOnly: true,

@@ -85,31 +85,35 @@ const updateDashboard = (dashboard, message) => {
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
   console.log('setRiskLevels');
-  var tmpNormal = dashboard.length;
+  var tmpNormal =
+    dashboard !== undefined && dashboard.length !== 0 ? dashboard.length : 0;
   var tmpWarning = 0;
   var tmpDanger = 0;
-  dashboard.forEach((device) => {
-    if (
-      device.carbon_monoxide > Constants.CO_RED ||
-      device.carbon_monoxide === Constants.CHERNOBYL
-    ) {
-      tmpDanger++;
-      tmpNormal--;
-    } else if (device.carbon_monoxide > Constants.CO_YELLOW) {
-      tmpWarning++;
-      tmpNormal--;
-    }
-    if (
-      device.nitrogen_dioxide > Constants.NO2_RED ||
-      device.nitrogen_dioxide === Constants.CHERNOBYL
-    ) {
-      tmpDanger++;
-      tmpNormal--;
-    } else if (device.nitrogen_dioxide > Constants.NO2_YELLOW) {
-      tmpWarning++;
-      tmpNormal--;
-    }
-  });
+
+  if (dashboard !== undefined && dashboard.length !== 0) {
+    dashboard.forEach((device) => {
+      if (
+        device.carbon_monoxide > Constants.CO_RED ||
+        device.carbon_monoxide === Constants.CHERNOBYL
+      ) {
+        tmpDanger++;
+        tmpNormal--;
+      } else if (device.carbon_monoxide > Constants.CO_YELLOW) {
+        tmpWarning++;
+        tmpNormal--;
+      }
+      if (
+        device.nitrogen_dioxide > Constants.NO2_RED ||
+        device.nitrogen_dioxide === Constants.CHERNOBYL
+      ) {
+        tmpDanger++;
+        tmpNormal--;
+      } else if (device.nitrogen_dioxide > Constants.NO2_YELLOW) {
+        tmpWarning++;
+        tmpNormal--;
+      }
+    });
+  }
   setNormal(tmpNormal);
   setWarning(tmpWarning);
   setDanger(tmpDanger);

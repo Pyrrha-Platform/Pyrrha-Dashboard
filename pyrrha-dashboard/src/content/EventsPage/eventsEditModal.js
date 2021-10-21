@@ -151,7 +151,8 @@ class EventsEditModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}>
+        )}
+      >
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -160,11 +161,13 @@ class EventsEditModal extends React.Component {
             row={this.props.row}
             loadEvents={this.props.loadEvents}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
+            onClose={() => setOpen(false)}
+          >
             <ModalHeader {...editProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}
+            >
               <br />
               <TextInput
                 id={this.state.code}

@@ -214,13 +214,15 @@ const SensorsMap = ({
           <span
             tabIndex={0}
             onClick={zoomIn}
-            onKeyDown={(e) => keyboardOnlySubmit(e, zoomIn)}>
+            onKeyDown={(e) => keyboardOnlySubmit(e, zoomIn)}
+          >
             <ZoomIn16 />
           </span>
           <span
             tabIndex={0}
             onClick={zoomOut}
-            onKeyDown={(e) => keyboardOnlySubmit(e, zoomOut)}>
+            onKeyDown={(e) => keyboardOnlySubmit(e, zoomOut)}
+          >
             <ZoomOut16 />
           </span>
         </div>

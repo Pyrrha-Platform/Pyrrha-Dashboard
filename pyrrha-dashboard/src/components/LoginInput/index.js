@@ -51,7 +51,8 @@ const LoginInput = ({
         } else {
           initLogin(values.password, setSubmitting);
         }
-      }}>
+      }}
+    >
       {({
         values,
         errors,
@@ -67,7 +68,8 @@ const LoginInput = ({
 
               setAttemptedSubmit(true);
               handleSubmit();
-            }}>
+            }}
+          >
             <TextInput
               id={step === 1 ? 'openeewId' : 'password'}
               type={step === 1 ? 'text' : 'password'}
@@ -84,7 +86,8 @@ const LoginInput = ({
                     onClick={() => {
                       setError('');
                       setStep(1);
-                    }}>
+                    }}
+                  >
                     <span>
                       <ArrowLeft16 className="login__back-arrow" />
                       {loginId}
@@ -113,7 +116,8 @@ const LoginInput = ({
                 isSubmitting ? 'display-none' : ''
               }`}
               type="submit"
-              iconDescription={t('content.login.continue')}>
+              iconDescription={t('content.login.continue')}
+            >
               {step === 1 ? 'Continue' : 'Log in'}
             </Button>
             {step === 1 ? (

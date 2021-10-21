@@ -200,7 +200,8 @@ function DeviceDetailsGaugeSet({
                     marginTop: 0,
                     paddingBottom: 0,
                     marginBottom: 0,
-                  }}>
+                  }}
+                >
                   <InlineNotification
                     lowContrast
                     kind="info"
@@ -244,7 +245,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('CO');
                         setIncrement('10min');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'CO'}
@@ -270,7 +272,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('CO');
                         setIncrement('10min');
-                      }}>
+                      }}
+                    >
                       CO
                     </a>
                   </div>
@@ -286,7 +289,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('NO2');
                         setIncrement('10min');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'NO2'}
@@ -312,7 +316,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('NO2');
                         setIncrement('10min');
-                      }}>
+                      }}
+                    >
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -372,7 +377,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('CO');
                         setIncrement('30min');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'CO'}
@@ -398,7 +404,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('CO');
                         setIncrement('30min');
-                      }}>
+                      }}
+                    >
                       CO
                     </a>
                   </div>
@@ -414,7 +421,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('NO2');
                         setIncrement('30min');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'NO2'}
@@ -440,7 +448,8 @@ function DeviceDetailsGaugeSet({
                         );
                         setType('NO2');
                         setIncrement('30min');
-                      }}>
+                      }}
+                    >
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -498,7 +507,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 1hr');
                         setType('CO');
                         setIncrement('1hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'CO'}
@@ -522,7 +532,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 1hr');
                         setType('CO');
                         setIncrement('1hr');
-                      }}>
+                      }}
+                    >
                       CO
                     </a>
                   </div>
@@ -536,7 +547,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 1hr');
                         setType('NO2');
                         setIncrement('1hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'NO2'}
@@ -560,7 +572,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 1hr');
                         setType('NO2');
                         setIncrement('1hr');
-                      }}>
+                      }}
+                    >
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -618,7 +631,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 4hr');
                         setType('CO');
                         setIncrement('4hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'CO'}
@@ -642,7 +656,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 4hr');
                         setType('CO');
                         setIncrement('4hr');
-                      }}>
+                      }}
+                    >
                       CO
                     </a>
                   </div>
@@ -656,7 +671,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 4hr');
                         setType('NO2');
                         setIncrement('4hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'NO2'}
@@ -680,7 +696,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 4hr');
                         setType('NO2');
                         setIncrement('4hr');
-                      }}>
+                      }}
+                    >
                       NO<sub>2</sub>
                     </a>
                   </div>
@@ -738,7 +755,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 8hr');
                         setType('CO');
                         setIncrement('8hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'CO'}
@@ -762,7 +780,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 8hr');
                         setType('CO');
                         setIncrement('8hr');
-                      }}>
+                      }}
+                    >
                       CO
                     </a>
                   </div>
@@ -776,7 +795,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 8hr');
                         setType('NO2');
                         setIncrement('8hr');
-                      }}>
+                      }}
+                    >
                       <DeviceGauge
                         device_id={device_id}
                         type={'NO2'}
@@ -800,7 +820,8 @@ function DeviceDetailsGaugeSet({
                         console.log('Setting type to CO and increment to 8hr');
                         setType('NO2');
                         setIncrement('8hr');
-                      }}>
+                      }}
+                    >
                       NO<sub>2</sub>
                     </a>
                   </div>
