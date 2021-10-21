@@ -106,8 +106,6 @@ const DashboardGrid = () => {
         </div>
       </div>
 
-      {console.log(dashboard)}
-
       {dashboard !== undefined &&
         dashboard.length !== 0 &&
         dashboard.map !== undefined && (
