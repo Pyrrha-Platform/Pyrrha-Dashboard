@@ -59,6 +59,7 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.dashboard')}
           </HeaderMenuItem>
+          {/*
           <HeaderMenuItem
             element={Link}
             to="/events"
@@ -78,6 +79,17 @@ function PyrrhaHeader(props) {
             }}
           >
             {t('components.header.devices')}
+          </HeaderMenuItem>
+          */}
+          <HeaderMenuItem
+            element={Link}
+            to="/map"
+            isCurrentPage={page === 'Map'}
+            onClick={() => {
+              setPage('Map');
+            }}
+          >
+            {t('components.header.map')}
           </HeaderMenuItem>
           {/*
           <HeaderMenuItem
