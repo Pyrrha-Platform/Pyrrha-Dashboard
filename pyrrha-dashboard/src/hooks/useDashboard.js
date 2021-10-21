@@ -24,7 +24,16 @@ const fetchDashboard = async () => {
 
 const updateDashboard = (dashboard, message) => {
   console.log('dashboard', dashboard);
-  let newDashboard = JSON.parse(JSON.stringify(dashboard));
+
+  let newDashboard = { current: [] };
+  if (
+    dashboard !== undefined &&
+    dashboard.length !== 0 &&
+    dashboard.map !== undefined
+  ) {
+    newDashboard = JSON.parse(JSON.stringify(dashboard));
+  }
+
   console.log('newDashboard', newDashboard);
 
   let newMessage = JSON.parse(message);
