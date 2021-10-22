@@ -62,7 +62,7 @@
       },
       "form": {
         "labels": {
-          "openeewId": "Pyrrha ID",
+          "pyrrhaId": "Pyrrha ID",
           "password": "Password"
         },
         "errors": {

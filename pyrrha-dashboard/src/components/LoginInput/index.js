@@ -29,12 +29,12 @@ const LoginInput = ({
 
   return (
     <Formik
-      initialValues={{ openeewId: loginId, password: '' }}
+      initialValues={{ pyrrhaId: loginId, password: '' }}
       validate={(values) => {
         const errors = {};
 
-        if (step === 1 && !values.openeewId) {
-          errors.openeewId = t('content.login.form.errors.idRequired');
+        if (step === 1 && !values.pyrrhaId) {
+          errors.pyrrhaId = t('content.login.form.errors.idRequired');
         }
 
         if (step === 2 && !values.password) {
@@ -45,7 +45,7 @@ const LoginInput = ({
       }}
       onSubmit={(values, { setSubmitting }) => {
         if (step === 1) {
-          setLoginId(values.openeewId);
+          setLoginId(values.pyrrhaId);
 
           setStep(2);
         } else {
@@ -71,7 +71,7 @@ const LoginInput = ({
             }}
           >
             <TextInput
-              id={step === 1 ? 'openeewId' : 'password'}
+              id={step === 1 ? 'pyrrhaId' : 'password'}
               type={step === 1 ? 'text' : 'password'}
               className="login_textInput"
               ref={ref}
@@ -97,17 +97,17 @@ const LoginInput = ({
               }
               placeholder={
                 step === 1
-                  ? t('content.login.form.labels.openeewId')
+                  ? t('content.login.form.labels.pyrrhaId')
                   : t('content.login.form.labels.password')
               }
               onBlur={handleBlur}
               invalid={
                 step === 1
-                  ? errors.openeewId && attemptedSubmit
+                  ? errors.pyrrhaId && attemptedSubmit
                   : errors.password && attemptedSubmit
               }
               onChange={handleChange}
-              value={step === 1 ? values.openeewId : values.password}
+              value={step === 1 ? values.pyrrhaId : values.password}
               autoComplete={step === 1 ? 'email' : 'current-password'}
             />
             <Button
