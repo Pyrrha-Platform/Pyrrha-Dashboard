@@ -86,6 +86,20 @@
       "newReadingTitle": "Nueva lectura recibida",
       "newReadingSubtitle": "Hace menos de un minuto"
     },
+    "map": {
+      "heading": "Map",
+      "subheading": "Ahora está viendo los datos en tiempo real y los umbrales de exposición promedio de 10 minutos. El número son los datos en tiempo real y el indicador representa el promedio de diez minutos dentro de un umbral.",
+      "noDevices": "Sin dispositivos",
+      "tileHeadingNormal": "Rango normal",
+      "tileSubheadingNormal": "Niveles normales",
+      "tileHeadingWarning": "Riesgo potencial",
+      "tileSubheadingWarning": "En riesgo pronto",
+      "tileHeadingDanger": "Riesgo inmediato",
+      "tileSubheadingDanger": "Niveles peligrosos",
+      "lastUpdate": "Última actualización",
+      "newReadingTitle": "Nueva lectura recibida",
+      "newReadingSubtitle": "Hace menos de un minuto"
+    },
     "details": {
       "heading": "Detalles",
       "subheading": "Ahora está viendo los detalles de las lecturas de un dispositivo específico. Elija una lectura para ver un cuadro detallado.",

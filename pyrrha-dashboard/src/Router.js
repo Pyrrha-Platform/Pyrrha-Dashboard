@@ -7,6 +7,7 @@ import DevicesPage from './content/DevicesPage';
 import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import LoginPage from './content/LoginPage';
+import MapPage from './content/MapPage';
 import ProfilePage from './content/ProfilePage';
 
 const Router = () => {
@@ -60,6 +61,15 @@ const Router = () => {
             setPage={setPage}
           />
           <DetailsPage />
+        </Route>
+        <Route path="/map">
+          <PyrrhaHeader
+            active={active}
+            page={page}
+            setActive={setActive}
+            setPage={setPage}
+          />
+          <MapPage />
         </Route>
         <Route path="/events">
           <PyrrhaHeader

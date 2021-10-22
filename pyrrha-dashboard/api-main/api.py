@@ -369,6 +369,17 @@ def dashboard_now():
     return resp
 
 
+@app.route("/api-main/v1/map-now", methods=["GET"])
+def map_now():
+
+    devices = dashboard_manager().get_map_now()
+    message = {"status": 200, "message": "OK", "devices": devices}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
 @app.route("/api-main/v1/dashboard/<string:device_id>", methods=["GET"])
 def get_dashboard_for(device_id):
 

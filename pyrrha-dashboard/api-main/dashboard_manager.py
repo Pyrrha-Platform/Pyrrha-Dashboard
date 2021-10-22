@@ -393,3 +393,83 @@ class dashboard_manager(object):
             return None
 
         return device_active
+
+    def get_map_now(self):
+        self._logger.debug("get_map_now - entro en la funcion")
+
+        # TODO: Store/get latitude and longitude from the database
+
+        devices = []
+
+        try:
+            self._logger.debug("get_map_now - trying")
+            conn = mariadb.connect(
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
+            )
+
+            self._logger.debug("get_map_now - before cursor")
+            cursor = conn.cursor()
+
+            self._logger.debug("get_map_now - llamada a sql")
+            sql = """
+                SELECT * FROM (
+                    SELECT 
+                        device_id,
+                        temperature,
+                        humidity,
+                        carbon_monoxide,
+                        nitrogen_dioxide,
+                        timestamp_mins,
+                        device_timestamp,
+                        row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
+                    FROM
+                        firefighter_sensor_log
+                    WHERE device_id LIKE '%Prometeo%'
+                    ORDER BY timestamp_mins DESC
+                ) device_readings
+                WHERE device_readings.latest_reading_for_device = 1
+            """
+
+            self._logger.debug("get_map_now - get latest reading for each device")
+            cursor.execute(sql)
+
+            self._logger.debug("get_map_now - fetchall")
+            data = cursor.fetchall()
+
+            if len(data) > 0:
+                self._logger.debug("get_map_now - Hay informacion")
+                for i in data:
+                    # self._logger.debug(i)
+
+                    # TODO: Hardcoded to Barcelona's lat/long for now
+                    devices.append(
+                        {
+                            "device_id": i[0],
+                            "temperature": i[1],
+                            "humidity": i[2],
+                            "carbon_monoxide": i[3],
+                            "nitrogen_dioxide": i[4],
+                            "timestamp_mins": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                            "device_timestamp": i[6].strftime(
+                                "%Y-%m-%dT%H:%M:%S+00:00"
+                            ),
+                            "latitude": "41.390205",
+                            "longitude": "2.154007",
+                        }
+                    )
+                conn.close()
+            else:
+                self._logger.debug("get_map_now - NO HAY INFORMACION")
+                conn.close()
+                return None
+
+        except Exception as e:
+            self._logger.debug("get_map_now - Estoy en la excepcion")
+            self._logger.debug(e)
+            return None
+
+        return devices

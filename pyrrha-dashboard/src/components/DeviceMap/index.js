@@ -1,7 +1,7 @@
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { ZoomIn16, ZoomOut16 } from '@carbon/icons-react';
 import mapboxgl from 'mapbox-gl';
-import { keyboardOnlySubmit } from '../../utils';
+import Utils from '../../utils/Utils';
 
 const DEFAULT_LATITUDE = 28;
 const DEFAULT_LONGITUDE = -90;
@@ -32,7 +32,7 @@ const transformToGeoJSON = (sensors) => {
     });
 };
 
-const SensorsMap = ({
+const Map = ({
   sensors,
   setDisplayedSensor,
   setShouldShowSideMenu,
@@ -214,14 +214,14 @@ const SensorsMap = ({
           <span
             tabIndex={0}
             onClick={zoomIn}
-            onKeyDown={(e) => keyboardOnlySubmit(e, zoomIn)}
+            onKeyDown={(e) => Utils.keyboardOnlySubmit(e, zoomIn)}
           >
             <ZoomIn16 />
           </span>
           <span
             tabIndex={0}
             onClick={zoomOut}
-            onKeyDown={(e) => keyboardOnlySubmit(e, zoomOut)}
+            onKeyDown={(e) => Utils.keyboardOnlySubmit(e, zoomOut)}
           >
             <ZoomOut16 />
           </span>
@@ -232,4 +232,4 @@ const SensorsMap = ({
   );
 };
 
-export default memo(SensorsMap);
+export default memo(Map);

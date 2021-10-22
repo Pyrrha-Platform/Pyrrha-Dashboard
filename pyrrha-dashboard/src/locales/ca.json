@@ -86,6 +86,20 @@
       "newReadingTitle": "Nova lectura rebuda",
       "newReadingSubtitle": "fa menys d’un minut"    
     },
+    "map": {
+      "heading": "Map",
+      "subheading": "Ara esteu visualitzant les dades en temps real i els llindars d'exposició mitjana de 10 minuts. El nombre són les dades en temps real i l’indicador representa la mitjana de deu minuts dins d’un llindar.",
+      "noDevices": "Sense dispositius",
+      "tileHeadingNormal": "Abast normal",
+      "tileSubheadingNormal": "Nivells normals",
+      "tileHeadingWarning": "Risc potencial",
+      "tileSubheadingWarning": "Aviat en risc",
+      "tileHeadingDanger": "Risc immediat",
+      "tileSubheadingDanger": "Nivells perillosos",
+      "lastUpdate": "Darrera actualització",
+      "newReadingTitle": "Nova lectura rebuda",
+      "newReadingSubtitle": "fa menys d’un minut"    
+    },
     "details": {
       "heading": "Detalls",
       "subheading": "Ara esteu veient els detalls de les lectures d’un dispositiu específic. Trieu una lectura per veure un gràfic detallat.",
