@@ -1,14 +1,15 @@
-import React, { memo, useEffect, useRef } from 'react';
-import { ZoomIn16, ZoomOut16 } from '@carbon/icons-react';
-import mapboxgl from 'mapbox-gl';
+import React, { memo, useEffect, useRef } from 'react'
+import { ZoomIn16, ZoomOut16 } from '@carbon/icons-react'
+import mapboxgl from 'mapbox-gl'
 import Utils from '../../utils/Utils';
 
-const DEFAULT_LATITUDE = 28;
-const DEFAULT_LONGITUDE = -90;
-const DEFAULT_ZOOM = 2.3;
+const DEFAULT_LATITUDE = 28
+const DEFAULT_LONGITUDE = -90
+const DEFAULT_ZOOM = 2.3
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN
 
-const transformToGeoJSON = (sensors) => {
-  return sensors
+const transformToGeoJSON = (device) => {
+  return device
     .filter((s) => s.latitude && s.longitude)
     .map((sensor) => {
       return {
@@ -28,48 +29,48 @@ const transformToGeoJSON = (sensors) => {
             parseFloat(sensor.latitude),
           ],
         },
-      };
-    });
-};
+      }
+    })
+}
 
-const Map = ({
-  sensors,
+const DeviceMap = ({
+  device,
   setDisplayedSensor,
   setShouldShowSideMenu,
   onSensorHover,
   currentHoveredSensor,
 }) => {
-  let mapWrapper = useRef();
-  let map = useRef();
+  let mapWrapper = useRef()
+  let map = useRef()
 
-  const sensorsData = {
+  const deviceData = {
     type: 'FeatureCollection',
-    features: transformToGeoJSON(sensors),
-  };
+    features: transformToGeoJSON(device),
+  }
 
   useEffect(() => {
-    if (!map.current || currentHoveredSensor === undefined) return;
+    if (!map.current || currentHoveredSensor === undefined) return
 
     const updateSensorHover = (index, hover) => {
-      let newSensorsFeatures = [...sensorsData.features];
+      let newDeviceFeatures = [...deviceData.features]
 
-      newSensorsFeatures[index].properties.hover = hover;
+      newDeviceFeatures[index].properties.hover = hover
 
       map.current
-        .getSource('sensors')
-        .setData({ ...sensorsData, features: newSensorsFeatures });
-    };
+        .getSource('device')
+        .setData({ ...deviceData, features: newDeviceFeatures })
+    }
 
-    updateSensorHover(currentHoveredSensor, true);
+    updateSensorHover(currentHoveredSensor, true)
 
-    return () => updateSensorHover(currentHoveredSensor, false);
-  }, [currentHoveredSensor]);
+    return () => updateSensorHover(currentHoveredSensor, false)
+  }, [currentHoveredSensor])
 
   useEffect(() => {
-    if (sensors.length > 0) {
+    //if (device.length > 0) {
       map.current = new mapboxgl.Map({
         container: mapWrapper,
-        style: 'mapbox://styles/mapbox/dark-v10',
+        style: 'mapbox://styles/mapbox/light-v10',
         center: [DEFAULT_LONGITUDE, DEFAULT_LATITUDE],
         zoom: DEFAULT_ZOOM,
         attributionControl: false,
@@ -78,20 +79,20 @@ const Map = ({
         new mapboxgl.AttributionControl({
           compact: true,
         })
-      );
+      )
 
       map.current.once('load', () => {
-        map.current.resize();
+        map.current.resize()
 
-        map.current.addSource('sensors', {
+        map.current.addSource('device', {
           type: 'geojson',
-          data: sensorsData,
-        });
+          data: deviceData,
+        })
 
         map.current.addLayer({
-          id: 'sensors',
+          id: 'device',
           type: 'circle',
-          source: 'sensors',
+          source: 'device',
           paint: {
             'circle-blur': 0,
             'circle-opacity': {
@@ -121,12 +122,12 @@ const Map = ({
               '#c9bc0d',
             ],
           },
-        });
+        })
 
         map.current.addLayer({
-          id: 'ownedSensors',
+          id: 'ownedDevice',
           type: 'circle',
-          source: 'sensors',
+          source: 'device',
           paint: {
             'circle-radius': [
               'interpolate',
@@ -149,68 +150,68 @@ const Map = ({
             ],
             'circle-stroke-color': '#e5dfdf',
           },
-        });
+        })
 
-        map.current.on('mouseenter', 'sensors', function (e) {
+        map.current.on('mouseenter', 'device', function (e) {
           if (e.features[0].properties.isUserOwner) {
-            map.current.getCanvas().style.cursor = 'pointer';
+            map.current.getCanvas().style.cursor = 'pointer'
           }
 
           map.current.setFeatureState(
             {
-              source: 'sensors',
+              source: 'device',
               id: e.features[0].properties.id,
             },
             {
               hover: true,
             }
-          );
-          const index = sensorsData.features
+          )
+          const index = deviceData.features
             .map((s) => s.properties.id)
-            .indexOf(e.features[0].properties.id);
+            .indexOf(e.features[0].properties.id)
 
-          onSensorHover(index);
-        });
+          onSensorHover(index)
+        })
 
-        map.current.on('mouseleave', 'sensors', function () {
-          map.current.getCanvas().style.cursor = '';
+        map.current.on('mouseleave', 'device', function () {
+          map.current.getCanvas().style.cursor = ''
 
-          onSensorHover(undefined);
-        });
+          onSensorHover(undefined)
+        })
 
-        map.current.on('click', 'sensors', function (e) {
-          const clickedSensor = sensors.filter(
+        map.current.on('click', 'device', function (e) {
+          const clickedSensor = device.filter(
             (sensor) => sensor.id === e.features[0].properties.id
-          )[0];
+          )[0]
 
           if (clickedSensor.isUserOwner) {
             setDisplayedSensor(
-              sensors.filter(
+              device.filter(
                 (sensor) => sensor.id === e.features[0].properties.id
               )[0]
-            );
-            setShouldShowSideMenu(true);
+            )
+            setShouldShowSideMenu(true)
           }
-        });
-      });
-    }
+        })
+      })
+    //}
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sensors]);
+  }, [device])
 
   const zoomIn = () => {
-    map.current.flyTo({ zoom: map.current.getZoom() + 1 });
-  };
+    map.current.flyTo({ zoom: map.current.getZoom() + 1 })
+  }
   const zoomOut = () => {
-    map.current.flyTo({ zoom: map.current.getZoom() - 1 });
-  };
+    map.current.flyTo({ zoom: map.current.getZoom() - 1 })
+  }
 
   return (
     <>
-      <div className="sensors-map__header">
-        <h4 className="sensors-map__title" tabIndex={0}>
+      <div className="device-map__header">
+        <h4 className="device-map__title" tabIndex={0}>
           Sensor locations
         </h4>
-        <div className="sensors-map__controls">
+        <div className="device-map__controls">
           <span
             tabIndex={0}
             onClick={zoomIn}
@@ -229,7 +230,7 @@ const Map = ({
       </div>
       <div ref={(el) => (mapWrapper = el)} className="map-wrapper" />
     </>
-  );
-};
+  )
+}
 
-export default memo(Map);
+export default memo(DeviceMap)
