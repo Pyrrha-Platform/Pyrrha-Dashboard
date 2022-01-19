@@ -89,7 +89,7 @@ const MapPage = ({ history }) => {
   return (
     <div className="device-page">
       <p className="title" tabIndex={0}>
-        Device
+        Map
       </p>
 
       <div className="device-map__container">
