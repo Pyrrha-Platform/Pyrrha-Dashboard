@@ -25,6 +25,7 @@
     "i18next": "^19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "mapbox-gl": "^2.6.1",
+    "javascript-time-ago": "^2.3.10",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "prettier": "^2.2.0",

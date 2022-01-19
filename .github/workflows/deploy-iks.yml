@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths-ignore: #do not push a new build when the change is only to md files
       - "**/*.md"
 
@@ -13,12 +13,14 @@ on:
 env:
   GITHUB_SHA: ${{ github.sha }}
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
-  IBM_CLOUD_REGION: us-east
-  ICR_REGION: us-south
+  IBM_CLOUD_REGION: ${{ secrets.IBM_CLOUD_REGION }}
+  IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP }}
+  ICR_REGION: ${{ secrets.IBM_ICR_REGION }}
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
-  REGISTRY_HOSTNAME: us.icr.io
+  REGISTRY_HOSTNAME: uk.icr.io
   IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
   K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE }}
+  
 
 jobs:
   setup-build-publish-deploy:
@@ -39,48 +41,54 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: call-for-code/build-push-deploy@main
+      - name: Deploy api-main
+        uses: call-for-code/build-push-deploy@main
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
           cloud-region: $IBM_CLOUD_REGION
           icr-region: $ICR_REGION
-          deployment-name: api-main-api-main
+          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
+          deployment-name: pyrrha-dash-dashboard-api-main
           container-name: api-main
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
           image-name: api-main
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: us.icr.io
+          registry-hostname: uk.icr.io
           working-directory: "pyrrha-dashboard/api-main"
 
-      - uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
+      - name: Deploy api-auth
+        uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
           cloud-region: $IBM_CLOUD_REGION
           icr-region: $ICR_REGION
-          deployment-name: api-auth-api-auth
+          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
+          deployment-name: pyrrha-dash-dashboard-api-auth
           container-name: api-auth
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
-          image-name: api-main
+          image-name: api-auth
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: us.icr.io
+          registry-hostname: uk.icr.io
           working-directory: "pyrrha-dashboard/api-auth"
 
-      - uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
+      - name: Deploy api-dash
+        uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
         with:
           cloud-api-key: $IBM_CLOUD_API_KEY
           cloud-region: $IBM_CLOUD_REGION
           icr-region: $ICR_REGION
-          deployment-name: api-dash-api-dash
+          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
+          deployment-name: pyrrha-dash-dashboard-api-dash
           container-name: api-dash
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
-          image-name: api-main
+          image-name: api-dash
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: us.icr.io
+          registry-hostname: uk.icr.io
           working-directory: "pyrrha-dashboard"
 
