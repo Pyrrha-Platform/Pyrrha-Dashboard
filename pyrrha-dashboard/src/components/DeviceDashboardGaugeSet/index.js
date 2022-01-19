@@ -92,7 +92,8 @@ function DeviceDashboardGaugeSet({
             <Link
               to={'/details/' + device_id}
               className="bx--link label-firefighter"
-              title={device_id}>
+              title={device_id}
+            >
               {device_id}
               <br />
             </Link>
@@ -173,7 +174,8 @@ function DeviceDashboardGaugeSet({
               marginTop: 0,
               paddingBottom: 0,
               marginBottom: 0,
-            }}>
+            }}
+          >
             <InlineNotification
               lowContrast
               kind="info"

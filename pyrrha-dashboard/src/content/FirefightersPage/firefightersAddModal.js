@@ -116,10 +116,12 @@ class FirefightersAddModal extends React.Component {
           <Button
             onClick={() => setOpen(true)}
             renderIcon={Add16}
-            iconDescription="Add firefighter">
+            iconDescription="Add firefighter"
+          >
             Add firefighter
           </Button>
-        )}>
+        )}
+      >
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -127,11 +129,13 @@ class FirefightersAddModal extends React.Component {
             t={t}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
+            onClose={() => setOpen(false)}
+          >
             <ModalHeader {...addProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}
+            >
               <br />
               <TextInput
                 id={this.state.code}

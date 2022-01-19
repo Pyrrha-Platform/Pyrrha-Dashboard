@@ -42,8 +42,15 @@ const fetchChartDetails = async (device_id, increment, type) => {
 
 const updateDetails = (details, message) => {
   console.log('details', details);
-  let newDetails = JSON.parse(JSON.stringify(details));
-  console.log('newDetails', newDetails);
+
+  let newDetails = { current: [] };
+  if (
+    details !== undefined &&
+    details.length !== 0 &&
+    details.map !== undefined
+  ) {
+    newDetails = JSON.parse(JSON.stringify(details));
+  }
 
   let newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';

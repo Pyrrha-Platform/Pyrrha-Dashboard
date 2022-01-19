@@ -23,9 +23,9 @@ const apiKeyAuth = (req, res, next) => {
   let apiKey;
 
   if (process.env.VCAP_APPLICATION) {
-    apiKey = process.env.OPENEEW_API_KEY;
+    apiKey = process.env.PYRRHA_API_KEY;
   } else {
-    apiKey = require('../vcap-local.json').user_vars.openeew_api_key;
+    apiKey = require('../vcap-local.json').user_vars.pyrrha_api_key;
   }
 
   if (!req.token || req.token !== apiKey) {

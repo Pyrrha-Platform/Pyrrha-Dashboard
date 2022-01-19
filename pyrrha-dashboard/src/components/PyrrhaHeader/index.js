@@ -43,7 +43,8 @@ function PyrrhaHeader(props) {
         prefix="Pyrrha"
         onClick={() => {
           setPage('Dashboard');
-        }}>
+        }}
+      >
         Platform
       </HeaderName>
       {(Constants.AUTH_DISABLED || currentUser.isAuth) && (
@@ -54,16 +55,19 @@ function PyrrhaHeader(props) {
             isCurrentPage={page === 'Dashboard'}
             onClick={() => {
               setPage('Dashboard');
-            }}>
+            }}
+          >
             {t('components.header.dashboard')}
           </HeaderMenuItem>
+          {/*
           <HeaderMenuItem
             element={Link}
             to="/events"
             isCurrentPage={page === 'Events'}
             onClick={() => {
               setPage('Events');
-            }}>
+            }}
+          >
             {t('components.header.events')}
           </HeaderMenuItem>
           <HeaderMenuItem
@@ -72,8 +76,20 @@ function PyrrhaHeader(props) {
             isCurrentPage={page === 'Devices'}
             onClick={() => {
               setPage('Devices');
-            }}>
+            }}
+          >
             {t('components.header.devices')}
+          </HeaderMenuItem>
+          */}
+          <HeaderMenuItem
+            element={Link}
+            to="/map"
+            isCurrentPage={page === 'Map'}
+            onClick={() => {
+              setPage('Map');
+            }}
+          >
+            {t('components.header.map')}
           </HeaderMenuItem>
           {/*
           <HeaderMenuItem
@@ -92,7 +108,8 @@ function PyrrhaHeader(props) {
         <HeaderGlobalAction
           aria-label="Translate"
           onClick={() => setActive(!active)}
-          isActive={active}>
+          isActive={active}
+        >
           <Translate20 />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
@@ -101,7 +118,8 @@ function PyrrhaHeader(props) {
             onClick={() => {
               history.push('/profile');
               setPage('Profile');
-            }}>
+            }}
+          >
             <UserAvatar20 />
           </HeaderGlobalAction>
         )}
@@ -115,7 +133,8 @@ function PyrrhaHeader(props) {
               setLocale('en-us');
               setActive(false);
               changeLanguage('en');
-            }}>
+            }}
+          >
             {t('components.header.english')}
           </SwitcherItem>
           <SwitcherItem
@@ -125,7 +144,8 @@ function PyrrhaHeader(props) {
               setLocale('es-es');
               setActive(false);
               changeLanguage('es');
-            }}>
+            }}
+          >
             {t('components.header.spanish')}
           </SwitcherItem>
           <SwitcherItem
@@ -135,7 +155,8 @@ function PyrrhaHeader(props) {
               setLocale('ca-es');
               setActive(false);
               changeLanguage('ca');
-            }}>
+            }}
+          >
             {t('components.header.catalan')}
           </SwitcherItem>
         </Switcher>

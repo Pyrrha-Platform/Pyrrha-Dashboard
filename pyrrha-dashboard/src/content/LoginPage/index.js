@@ -73,7 +73,8 @@ const LoginPage = () => {
             }}
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -200, opacity: 0 }}>
+            exit={{ x: -200, opacity: 0 }}
+          >
             <div className="login__supportingContainer">
               {step === 2 ? (
                 <p className="login__forgotPassword">

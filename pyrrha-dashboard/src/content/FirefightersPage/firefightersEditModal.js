@@ -147,7 +147,8 @@ class FirefightersEditModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}>
+        )}
+      >
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -156,11 +157,13 @@ class FirefightersEditModal extends React.Component {
             row={this.props.row}
             loadFirefighters={this.props.loadFirefighters}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
+            onClose={() => setOpen(false)}
+          >
             <ModalHeader {...editProps.modalHeader()} />
             <ModalBody
               {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}>
+              aria-label={hasScrollingContent ? 'Modal content' : undefined}
+            >
               <br />
               <TextInput
                 id={this.state.code}

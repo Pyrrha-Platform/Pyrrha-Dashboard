@@ -1,7 +1,7 @@
 {
   "user_vars": {
     "session_secret": "",
-    "openeew_api_key": "",
+    "pyrrha_api_key": "",
     "jwt_secret": ""
   },
   "ibm_cloud": {

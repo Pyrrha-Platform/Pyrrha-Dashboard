@@ -146,7 +146,8 @@ class EventsDeleteModal extends React.Component {
             onClick={() => setOpen(true)}
             title={this.state.id}
           />
-        )}>
+        )}
+      >
         {({ open, setOpen, t }) => (
           <ComposedModal
             {...rest}
@@ -155,7 +156,8 @@ class EventsDeleteModal extends React.Component {
             row={this.props.row}
             loadEvents={this.props.loadEvents}
             size={size || undefined}
-            onClose={() => setOpen(false)}>
+            onClose={() => setOpen(false)}
+          >
             <ModalHeader
               {...deleteProps.modalHeader({
                 titleOnly: true,

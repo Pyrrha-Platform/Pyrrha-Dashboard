@@ -5,6 +5,7 @@
       "notifications": "Notificacions",
       "avatar": "Avatar de l'usuari",
       "dashboard": "Panell",
+      "map": "Mapa",
       "events": "Esdeveniments",
       "devices": "Dispositius",
       "firefighters": "Bombers",
@@ -61,7 +62,7 @@
       },
       "form": {
         "labels": {
-          "openeewId": "Pyrrha ID",
+          "pyrrhaId": "Pyrrha ID",
           "password": "Contrasenya"
         },
         "errors": {
@@ -73,6 +74,20 @@
     },
     "dashboard": {
       "heading": "Panell",
+      "subheading": "Ara esteu visualitzant les dades en temps real i els llindars d'exposició mitjana de 10 minuts. El nombre són les dades en temps real i l’indicador representa la mitjana de deu minuts dins d’un llindar.",
+      "noDevices": "Sense dispositius",
+      "tileHeadingNormal": "Abast normal",
+      "tileSubheadingNormal": "Nivells normals",
+      "tileHeadingWarning": "Risc potencial",
+      "tileSubheadingWarning": "Aviat en risc",
+      "tileHeadingDanger": "Risc immediat",
+      "tileSubheadingDanger": "Nivells perillosos",
+      "lastUpdate": "Darrera actualització",
+      "newReadingTitle": "Nova lectura rebuda",
+      "newReadingSubtitle": "fa menys d’un minut"    
+    },
+    "map": {
+      "heading": "Map",
       "subheading": "Ara esteu visualitzant les dades en temps real i els llindars d'exposició mitjana de 10 minuts. El nombre són les dades en temps real i l’indicador representa la mitjana de deu minuts dins d’un llindar.",
       "noDevices": "Sense dispositius",
       "tileHeadingNormal": "Abast normal",
