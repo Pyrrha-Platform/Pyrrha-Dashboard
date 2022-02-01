@@ -109,7 +109,8 @@ const DeviceTable = ({
         secondaryButtonText={t('content.modal_basic.cancel')}
         primaryButtonText={t('content.modal_basic.confirm')}
         onRequestClose={() => setShouldShowRemoveMenu(false)}
-        onRequestSubmit={removeDevice}>
+        onRequestSubmit={removeDevice}
+      >
         {removeDeviceLoading ? <Loading /> : null}
         <p>{t('content.device.sensorRemoveModal.removeDeviceText')}</p>
         <p className="mart-1">
@@ -119,7 +120,8 @@ const DeviceTable = ({
       <DataTable
         rows={formatRows(currentlyVisibleDevice)}
         headers={headers}
-        className="device-table">
+        className="device-table"
+      >
         {({
           rows,
           headers,
@@ -134,7 +136,8 @@ const DeviceTable = ({
             <TableToolbar
               {...getToolbarProps()}
               aria-label="data table toolbar"
-              size="small">
+              size="small"
+            >
               <TableToolbarContent>
                 <TableToolbarSearch
                   expanded={true}
@@ -147,7 +150,8 @@ const DeviceTable = ({
               {...getTableProps()}
               overflowMenuOnHover={false}
               tabIndex={0}
-              aria-label={'table'}>
+              aria-label={'table'}
+            >
               <TableHead>
                 <TableRow>
                   <TableExpandHeader />
@@ -159,7 +163,8 @@ const DeviceTable = ({
                       key={`header-${header.header}`}
                       className={
                         headerIndex === 0 ? 'sticky-column left' : undefined
-                      }>
+                      }
+                    >
                       {header.header}
                     </TableHeader>
                   ))}
@@ -183,7 +188,8 @@ const DeviceTable = ({
                           {...getRowProps({ row })}
                           data-hovered={currentHoveredDevice === sensorIndex}
                           onMouseEnter={() => onDeviceHover(sensorIndex)}
-                          onMouseLeave={() => onDeviceHover(undefined)}>
+                          onMouseLeave={() => onDeviceHover(undefined)}
+                        >
                           {loading
                             ? null
                             : row.cells.map((cell, indexCells) => (
@@ -193,11 +199,13 @@ const DeviceTable = ({
                                     indexCells === 0
                                       ? 'sticky-column left'
                                       : undefined
-                                  }>
+                                  }
+                                >
                                   <span
                                     tabIndex={0}
                                     className={getRowClasses(cell, indexCells)}
-                                    aria-label={`${headers[indexCells].header} is ${cell.value}`}>
+                                    aria-label={`${headers[indexCells].header} is ${cell.value}`}
+                                  >
                                     {indexCells === 0 ? (
                                       <code>{cell.value}</code>
                                     ) : Array.isArray(cell.value) ? (
@@ -211,7 +219,8 @@ const DeviceTable = ({
                                       <Tag
                                         className="tag-owner"
                                         tabIndex={0}
-                                        aria-label="My sensor">
+                                        aria-label="My sensor"
+                                      >
                                         My sensor
                                       </Tag>
                                     )}
@@ -232,7 +241,8 @@ const DeviceTable = ({
                         </TableExpandRow>
                         <TableExpandedRow
                           colSpan={headers.length + 2}
-                          className="device-expandable-row">
+                          className="device-expandable-row"
+                        >
                           <div className="sensor-chart" tabIndex={0}>
                             <p className="title dance" tabIndex={0} />
                           </div>

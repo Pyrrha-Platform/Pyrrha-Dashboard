@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import {
   TableCell,
   OverflowMenu,
   OverflowMenuItem,
-} from 'carbon-components-react'
-import AppContext from '../../context/app'
+} from 'carbon-components-react';
+import AppContext from '../../context/app';
 
 const SensorOverflowMenu = ({ id, sensor, onModify, onRemove }) => {
-  const { t } = useContext(AppContext)
+  const { t } = useContext(AppContext);
 
   return (
     <TableCell key={id + '-overflow'} className="sticky-column right">
@@ -22,7 +22,7 @@ const SensorOverflowMenu = ({ id, sensor, onModify, onRemove }) => {
         />
       </OverflowMenu>
     </TableCell>
-  )
-}
+  );
+};
 
-export default SensorOverflowMenu
+export default SensorOverflowMenu;
