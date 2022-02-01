@@ -23,13 +23,15 @@ const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
         size="xs"
         secondaryButtonText={t('content.modal_basic.cancel')}
         primaryButtonText={t('content.modal_basic.confirm')}
-        onRequestClose={() => setTestModalOpen(false)}>
+        onRequestClose={() => setTestModalOpen(false)}
+      >
         {t('content.device.sidePanel.modalTestText')}
       </Modal>
       <div className="device-side-panel__header">
         <h4
           className={`device-side-panel__title with-circle status-${sensor.statusColor}`}
-          data-after="true">
+          data-after="true"
+        >
           Sensor {sensor.id}
         </h4>
         {sensor.isUserOwner && (
@@ -65,7 +67,6 @@ const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
           />
         ) : null}
          */}
-
       </div>
     </div>
   );

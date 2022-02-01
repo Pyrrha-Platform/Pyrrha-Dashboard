@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import DeviceTable from '../../components/DeviceTable';
 import DeviceMap from '../../components/DeviceMap';
 import AppContext from '../../context/app';
@@ -28,8 +29,10 @@ const processSensorData = (device) => {
     }));
 };
 
-const MapPage = ({ history }) => {
-  const { addToast } = useContext(AppContext);
+const MapPage = () => {
+  const { t, currentUser, setCurrentUser, addToast } = useContext(AppContext);
+
+  let history = useHistory();
 
   /*
   const [execQuery, { data, loading }] = useLazyQuery(GET_SENSORS, {
@@ -87,10 +90,22 @@ const MapPage = ({ history }) => {
   };
 
   return (
-    <div className="device-page">
-      <p className="title" tabIndex={0}>
-        Map
-      </p>
+    <div className="bx--grid bx--grid--full-width device-content">
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h1 className="profile-page__heading">
+            {t('content.profile.heading')}
+          </h1>
+        </div>
+      </div>
+
+      <div className="bx--row">
+        <div className="bx--col-md-16">
+          <h2 className="profile-page__subheading">
+            {t('content.profile.subheading')}
+          </h2>
+        </div>
+      </div>
 
       <div className="device-map__container">
         <DeviceMap

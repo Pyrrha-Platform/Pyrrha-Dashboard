@@ -31,6 +31,6 @@ const headers = [
   //   header: 'Earthquakes detected',
   //   key: 'earthquakes_detected',
   // },
-]
+];
 
-export default headers
+export default headers;
