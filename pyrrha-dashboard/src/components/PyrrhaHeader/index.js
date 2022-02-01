@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Header,
   HeaderName,
@@ -24,7 +24,7 @@ function PyrrhaHeader(props) {
   const setActive = props.setActive;
   const setPage = props.setPage;
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { t, i18n, currentUser, setLocale } = useContext(AppContext);
 
@@ -116,7 +116,7 @@ function PyrrhaHeader(props) {
           <HeaderGlobalAction
             aria-label="Profile"
             onClick={() => {
-              history.push('/profile');
+              navigate('/profile');
               setPage('Profile');
             }}
           >

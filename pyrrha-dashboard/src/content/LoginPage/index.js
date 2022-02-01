@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { InlineNotification } from 'carbon-components-react';
 
@@ -9,12 +9,17 @@ import PyrrhaHeader from '../../components/PyrrhaHeader';
 
 import AuthClient from '../../hooks/useAuth';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const { t, setCurrentUser } = useContext(AppContext);
   const [error, setError] = useState('');
   const [step, setStep] = useState(1);
   const [loginId, setLoginId] = useState('');
-  let history = useHistory();
+  let navigate = useNavigate();
+  const active = props.active;
+  const language = props.language;
+  const page = props.page;
+  const setActive = props.setActive;
+  const setPage = props.setPage;
 
   const initLogin = useCallback(
     /**
@@ -40,14 +45,14 @@ const LoginPage = () => {
         });
 
         console.log('Login successful ', user.email);
-        return history.push('/');
+        return navigate('/');
       } catch (err) {
         setSubmitting(false);
 
         return setError(t(err));
       }
     },
-    [loginId, setCurrentUser, t, history]
+    [loginId, setCurrentUser, t, navigate]
   );
 
   return (
