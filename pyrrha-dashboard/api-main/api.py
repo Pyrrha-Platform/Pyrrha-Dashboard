@@ -26,6 +26,7 @@ def health():
     # TODO: Implement a database connection test.
     return "Healthy: OK"
 
+
 """
 Handled through a JavaScript API for App ID
 
@@ -434,4 +435,3 @@ def get_dashboard_chart_details(device_id, increment="all", type="CO"):
     logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")
     return resp
-

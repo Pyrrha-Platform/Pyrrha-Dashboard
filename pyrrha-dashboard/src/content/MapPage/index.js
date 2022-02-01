@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DeviceTable from '../../components/DeviceTable';
 import DeviceMap from '../../components/DeviceMap';
+import PyrrhaHeader from '../../components/PyrrhaHeader';
 import AppContext from '../../context/app';
 
 const processSensorData = (device) => {
@@ -29,10 +30,16 @@ const processSensorData = (device) => {
     }));
 };
 
-const MapPage = () => {
+const MapPage = (props) => {
   const { t, currentUser, setCurrentUser, addToast } = useContext(AppContext);
 
-  let history = useHistory();
+  const navigate = useNavigate();
+
+  const active = props.active;
+  const language = props.language;
+  // const page = props.page;
+  const setActive = props.setActive;
+  // const setPage = props.setPage;
 
   /*
   const [execQuery, { data, loading }] = useLazyQuery(GET_SENSORS, {
@@ -90,52 +97,60 @@ const MapPage = () => {
   };
 
   return (
-    <div className="bx--grid bx--grid--full-width device-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h1 className="profile-page__heading">
-            {t('content.profile.heading')}
-          </h1>
+    <>
+      <PyrrhaHeader
+        active={active}
+        page={page}
+        setActive={setActive}
+        setPage={setPage}
+      />
+      <div className="bx--grid bx--grid--full-width device-content">
+        <div className="bx--row">
+          <div className="bx--col-md-16">
+            <h1 className="profile-page__heading">
+              {t('content.profile.heading')}
+            </h1>
+          </div>
+        </div>
+
+        <div className="bx--row">
+          <div className="bx--col-md-16">
+            <h2 className="profile-page__subheading">
+              {t('content.profile.subheading')}
+            </h2>
+          </div>
+        </div>
+
+        <div className="device-map__container">
+          <DeviceMap
+            device={device}
+            setDisplayedSensor={setDisplayedSensor}
+            setShouldShowSideMenu={setShouldShowSideMenu}
+            onSensorHover={onSensorHover}
+            currentHoveredSensor={currentHoveredSensor}
+          />
+        </div>
+
+        <div className="device-table__container">
+          <DeviceTable
+            loading={loading}
+            navigate={navigate}
+            device={device}
+            onSensorHover={onSensorHover}
+            currentHoveredSensor={currentHoveredSensor}
+            onPaginationChange={onPaginationChange}
+            page={page}
+            pageSize={pageSize}
+            currentlyVisibleDevice={currentlyVisibleDevice}
+            setDevice={setDevice}
+            shouldShowSideMenu={shouldShowSideMenu}
+            displayedSensor={displayedSensor}
+            setDisplayedSensor={setDisplayedSensor}
+            setShouldShowSideMenu={setShouldShowSideMenu}
+          />
         </div>
       </div>
-
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h2 className="profile-page__subheading">
-            {t('content.profile.subheading')}
-          </h2>
-        </div>
-      </div>
-
-      <div className="device-map__container">
-        <DeviceMap
-          device={device}
-          setDisplayedSensor={setDisplayedSensor}
-          setShouldShowSideMenu={setShouldShowSideMenu}
-          onSensorHover={onSensorHover}
-          currentHoveredSensor={currentHoveredSensor}
-        />
-      </div>
-
-      <div className="device-table__container">
-        <DeviceTable
-          loading={loading}
-          history={history}
-          device={device}
-          onSensorHover={onSensorHover}
-          currentHoveredSensor={currentHoveredSensor}
-          onPaginationChange={onPaginationChange}
-          page={page}
-          pageSize={pageSize}
-          currentlyVisibleDevice={currentlyVisibleDevice}
-          setDevice={setDevice}
-          shouldShowSideMenu={shouldShowSideMenu}
-          displayedSensor={displayedSensor}
-          setDisplayedSensor={setDisplayedSensor}
-          setShouldShowSideMenu={setShouldShowSideMenu}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

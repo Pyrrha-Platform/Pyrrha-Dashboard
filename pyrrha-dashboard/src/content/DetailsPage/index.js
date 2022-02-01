@@ -1,20 +1,35 @@
 import React, { useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import DetailsGrid from './detailsGrid';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import PyrrhaHeader from '../../components/PyrrhaHeader';
 
-function DetailsPage() {
-  const history = useHistory();
+function DetailsPage(props) {
+  const navigate = useNavigate();
   const { currentUser } = useContext(AppContext);
   let { device_id, increment, type } = useParams();
 
+  const active = props.active;
+  const language = props.language;
+  const page = props.page;
+  const setActive = props.setActive;
+  const setPage = props.setPage;
+
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
     return (
-      <DetailsGrid device_id={device_id} increment={increment} type={type} />
+      <>
+        <PyrrhaHeader
+          active={active}
+          page={page}
+          setActive={setActive}
+          setPage={setPage}
+        />
+       <DetailsGrid device_id={device_id} increment={increment} type={type} />
+      </>
     );
   } else {
-    history.push('/login');
+    navigate('/login');
     return null;
   }
 }
