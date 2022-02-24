@@ -9,7 +9,7 @@ const Router = () => {
   const [page, setPage] = useState('Dashboard');
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/api-dash">
       <Routes>
         <Route
           path="/"

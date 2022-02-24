@@ -28,8 +28,9 @@ const updateDashboard = (dashboard, message) => {
   let newDashboard = { current: [] };
   if (
     dashboard !== undefined &&
-    dashboard.length !== 0 &&
-    dashboard.map !== undefined
+    dashboard.current !== undefined &&
+    dashboard.current !== null &&
+    dashboard.current.length !== 0
   ) {
     newDashboard = JSON.parse(JSON.stringify(dashboard));
   }
@@ -151,6 +152,7 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
+    console.log('web socket', Constants.WEBSOCKET_URL);
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
       console.log('dashboardRef', dashboardRef);
