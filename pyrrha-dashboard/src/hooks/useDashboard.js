@@ -28,8 +28,9 @@ const updateDashboard = (dashboard, message) => {
   let newDashboard = { current: [] };
   if (
     dashboard !== undefined &&
-    dashboard.length !== 0 &&
-    dashboard.map !== undefined
+    dashboard.current !== undefined &&
+    dashboard.current !== null &&
+    dashboard.current.length !== 0
   ) {
     newDashboard = JSON.parse(JSON.stringify(dashboard));
   }
