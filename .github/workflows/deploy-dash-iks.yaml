@@ -1,0 +1,58 @@
+name: Build and Deploy to IBM Kubernetes Service Cluster
+
+# Execute on every push to master
+on:
+  release: # Execute when a release is created on the master branch
+    types:
+      - created
+  workflow_dispatch:
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  GITHUB_SHA: ${{ github.sha }}
+  IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
+  IBM_CLOUD_REGION: ${{ secrets.IBM_CLOUD_REGION }}
+  IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP }}
+  ICR_REGION: ${{ secrets.IBM_ICR_REGION }}
+  ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
+  REGISTRY_HOSTNAME: uk.icr.io
+  IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
+  K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE }}
+  
+
+jobs:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy 
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2      
+      - name: Add VCAP_LOCAL from secret to development environment
+        env:
+          VCAP_LOCAL: ${{ secrets.VCAP_LOCAL }}
+        run: |
+          echo "$VCAP_LOCAL" >> ./pyrrha-dashboard/api-auth/vcap-local.json
+      
+      # A GitHub Action for serializing workflow runs
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy api-dash
+        uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
+        with:
+          cloud-api-key: $IBM_CLOUD_API_KEY
+          cloud-region: $IBM_CLOUD_REGION
+          icr-region: $ICR_REGION
+          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
+          deployment-name: pyrrha-dash-dashboard-api-dash
+          container-name: api-dash
+          github-sha: $GITHUB_SHA
+          icr-namespace: $ICR_NAMESPACE
+          image-name: api-dash
+          k8s-cluster-name: $IKS_CLUSTER
+          k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
+          registry-hostname: uk.icr.io
+          working-directory: "pyrrha-dashboard"
+
