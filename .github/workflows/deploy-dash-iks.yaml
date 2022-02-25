@@ -1,4 +1,4 @@
-name: Build and Deploy to IBM Kubernetes Service Cluster
+name: Dash IKS
 
 # Execute on every push to master
 on:
@@ -38,40 +38,6 @@ jobs:
         uses: softprops/turnstyle@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy api-main
-        uses: call-for-code/build-push-deploy@main
-        with:
-          cloud-api-key: $IBM_CLOUD_API_KEY
-          cloud-region: $IBM_CLOUD_REGION
-          icr-region: $ICR_REGION
-          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
-          deployment-name: pyrrha-dash-dashboard-api-main
-          container-name: api-main
-          github-sha: $GITHUB_SHA
-          icr-namespace: $ICR_NAMESPACE
-          image-name: api-main
-          k8s-cluster-name: $IKS_CLUSTER
-          k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: uk.icr.io
-          working-directory: "pyrrha-dashboard/api-main"
-
-      - name: Deploy api-auth
-        uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
-        with:
-          cloud-api-key: $IBM_CLOUD_API_KEY
-          cloud-region: $IBM_CLOUD_REGION
-          icr-region: $ICR_REGION
-          cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
-          deployment-name: pyrrha-dash-dashboard-api-auth
-          container-name: api-auth
-          github-sha: $GITHUB_SHA
-          icr-namespace: $ICR_NAMESPACE
-          image-name: api-auth
-          k8s-cluster-name: $IKS_CLUSTER
-          k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: uk.icr.io
-          working-directory: "pyrrha-dashboard/api-auth"
 
       - name: Deploy api-dash
         uses: call-for-code/build-push-deploy@938a160985387d0b683b4319d0daf4ec6732b763
