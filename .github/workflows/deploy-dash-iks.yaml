@@ -1,4 +1,4 @@
-name: Build and Deploy to IBM Kubernetes Service Cluster
+name: Dash IKS
 
 # Execute on every push to master
 on:
