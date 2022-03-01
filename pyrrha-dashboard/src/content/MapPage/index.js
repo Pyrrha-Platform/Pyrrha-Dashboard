@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeviceTable from '../../components/DeviceTable';
 import DeviceMap from '../../components/DeviceMap';
-import PyrrhaHeader from '../../components/PyrrhaHeader';
 import AppContext from '../../context/app';
 
 const processSensorData = (device) => {
@@ -98,12 +97,6 @@ const MapPage = (props) => {
 
   return (
     <>
-      <PyrrhaHeader
-        active={active}
-        page={page}
-        setActive={setActive}
-        setPage={setPage}
-      />
       <div className="bx--grid bx--grid--full-width device-content">
         <div className="bx--row">
           <div className="bx--col-md-16">

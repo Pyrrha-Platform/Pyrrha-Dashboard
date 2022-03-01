@@ -6,16 +6,10 @@ import AuthClient from '../../hooks/useAuth';
 import Utils from '../../utils/Utils';
 import { Button } from 'carbon-components-react';
 import { ArrowRight32 } from '@carbon/icons-react';
-import PyrrhaHeader from '../../components/PyrrhaHeader';
 
 function ProfilePage(props) {
   const { t, currentUser, setCurrentUser } = useContext(AppContext);
   const navigate = useNavigate();
-  const active = props.active;
-  const language = props.language;
-  const page = props.page;
-  const setActive = props.setActive;
-  const setPage = props.setPage;
 
   let onLogoutRequested = async () => {
     try {
@@ -36,13 +30,6 @@ function ProfilePage(props) {
 
   return (
     <>
-      <PyrrhaHeader
-        active={active}
-        page={page}
-        setActive={setActive}
-        setPage={setPage}
-      />
-
       <div className="bx--grid bx--grid--full-width events-content">
         <div className="bx--row">
           <div className="bx--col-md-16">
