@@ -152,6 +152,7 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
+    console.log('web socket', Constants.WEBSOCKET_URL);
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
       console.log('dashboardRef', dashboardRef);
