@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import MapPage from './content/MapPage';
+import PyrrhaHeader from './components/PyrrhaHeader';
 
 const Router = () => {
   const [active, setActive] = useState(false);
@@ -10,6 +11,12 @@ const Router = () => {
 
   return (
     <BrowserRouter basename="/api-dash">
+      <PyrrhaHeader
+          active={active}
+          page={page}
+          setActive={setActive}
+          setPage={setPage}
+        />
       <Routes>
         <Route
           path="/"
