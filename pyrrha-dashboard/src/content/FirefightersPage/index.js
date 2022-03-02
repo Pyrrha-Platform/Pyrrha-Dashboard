@@ -9,11 +9,7 @@ function FirefightersPage(props) {
   const { currentUser } = useContext(AppContext);
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
-    return (
-      <>
-        <FirefightersTable />
-      </>
-    );
+    return <FirefightersTable />;
   } else {
     navigate('/login');
     return null;

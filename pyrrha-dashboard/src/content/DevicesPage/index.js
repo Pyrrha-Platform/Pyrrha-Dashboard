@@ -9,11 +9,7 @@ function DevicesPage(props) {
   const { currentUser } = useContext(AppContext);
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
-    return (
-      <>
-        <DevicesTable />
-      </>
-    );
+    return <DevicesTable />;
   } else {
     navigate('/login');
     return null;
