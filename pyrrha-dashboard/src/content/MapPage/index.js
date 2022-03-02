@@ -80,19 +80,21 @@ const MapPage = (props) => {
   }, [data])
   */
 
+  /*
   useEffect(() => {
     setCurrentlyVisibleDevice(
       device.slice((page - 1) * pageSize, page * pageSize)
     );
   }, [page, pageSize, device]);
 
-  const onSensorHover = (index) => {
-    setCurrentHoveredSensor(index);
-  };
-
   const onPaginationChange = (paginationInfo) => {
     setPage(paginationInfo.page);
     setPageSize(paginationInfo.pageSize);
+  };
+  */
+
+  const onSensorHover = (index) => {
+    setCurrentHoveredSensor(index);
   };
 
   return (
@@ -101,7 +103,7 @@ const MapPage = (props) => {
         <div className="bx--row">
           <div className="bx--col-md-16">
             <h1 className="profile-page__heading">
-              {t('content.profile.heading')}
+              {t('content.map.heading')}
             </h1>
           </div>
         </div>
@@ -109,11 +111,22 @@ const MapPage = (props) => {
         <div className="bx--row">
           <div className="bx--col-md-16">
             <h2 className="profile-page__subheading">
-              {t('content.profile.subheading')}
+              {t('content.map.subheading')}
             </h2>
           </div>
         </div>
 
+        <div className="device-map__container">
+          <DeviceMap
+            device={device}
+            setDisplayedSensor={true}
+            setShouldShowSideMenu={true}
+            onSensorHover={onSensorHover}
+            currentHoveredSensor={currentHoveredSensor}
+          />
+        </div>
+
+        {/*
         <div className="device-map__container">
           <DeviceMap
             device={device}
@@ -142,6 +155,8 @@ const MapPage = (props) => {
             setShouldShowSideMenu={setShouldShowSideMenu}
           />
         </div>
+      */}
+
       </div>
     </>
   );
