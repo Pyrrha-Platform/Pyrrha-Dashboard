@@ -40,11 +40,11 @@ const DashboardGrid = () => {
 
       <div className="bx--row">
         <div className="bx--col bx--no-gutter">
-          <div class="bx--grid bx--grid--full-width">
+          <div className="bx--grid bx--grid--full-width">
             <div className="bx--row">
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 dashboard-page__tile_number">
                         <span className="dashboard-page__danger">{danger}</span>
@@ -63,7 +63,7 @@ const DashboardGrid = () => {
               </div>
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 dashboard-page__tile_number">
                         <span className="dashboard-page__warning">
@@ -84,7 +84,7 @@ const DashboardGrid = () => {
               </div>
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 dashboard-page__tile_number">
                         <span className="dashboard-page__normal">{normal}</span>

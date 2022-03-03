@@ -156,7 +156,6 @@ const MapPage = (props) => {
           />
         </div>
       */}
-
       </div>
     </>
   );
