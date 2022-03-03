@@ -1,10 +1,5 @@
-FROM registry.access.redhat.com/ubi7/ubi:7.9
+FROM registry.access.redhat.com/ubi8/nodejs-16
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
-RUN yum install -y nodejs
-
-RUN mkdir /app
 WORKDIR /app
 
 COPY package.json /app
