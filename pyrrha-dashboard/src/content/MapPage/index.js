@@ -150,7 +150,7 @@ const MapPage = (props) => {
   };
 
   return (
-    <div className="bx--grid bx--grid--full-width device-content">
+    <div className="bx--grid bx--grid--full-width map-content">
       <div className="bx--row">
         <div className="bx--col-md-16">
           <h1 className="map-page__heading">{t('content.map.heading')}</h1>
@@ -180,17 +180,17 @@ const MapPage = (props) => {
           loading={loading}
           navigate={navigate}
           devices={devices}
-          onDeviceHover={onDeviceHover}
-          currentHoveredDevice={currentHoveredDevice}
-          onPaginationChange={onPaginationChange}
+          setDevices={setDevices}
           page={page}
           pageSize={pageSize}
+          onPaginationChange={onPaginationChange}
           currentlyVisibleDevice={currentlyVisibleDevice}
-          setDevices={setDevices}
           shouldShowSideMenu={shouldShowSideMenu}
+          setShouldShowSideMenu={setShouldShowSideMenu}
           displayedDevice={displayedDevice}
           setDisplayedDevice={setDisplayedDevice}
-          setShouldShowSideMenu={setShouldShowSideMenu}
+          onDeviceHover={onDeviceHover}
+          currentHoveredDevice={currentHoveredDevice}
         />
       </div>
     </div>

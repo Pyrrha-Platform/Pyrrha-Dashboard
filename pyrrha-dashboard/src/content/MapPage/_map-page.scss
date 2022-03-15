@@ -34,12 +34,19 @@
   }
 }
 
+.map-content {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 3rem;
+  max-width: 1600px;
+}
+
 .device-map__container {
-  background: #262626;
+  background: #fff;
   margin-top: $layout-02;
   margin-bottom: $layout-03;
   padding: $spacing-05;
-  height: 1500px;
+  height: 500px;
   display: grid;
   grid-template-rows: auto 1fr;
 
