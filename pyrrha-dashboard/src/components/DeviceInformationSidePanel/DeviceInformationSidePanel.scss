@@ -119,7 +119,7 @@
   text-align: left;
   cursor: pointer;
 
-  &[data-testing-sensor='true'] {
+  &[data-testing-device='true'] {
     color: #ff5d5d;
     border: 1px solid #ff5d5d;
   }

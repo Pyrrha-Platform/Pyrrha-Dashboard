@@ -139,7 +139,17 @@
       "code": "Código",
       "model": "Modelo",
       "version": "Versión",
-      "actions": "Accions"
+      "actions": "Accions",
+      "deviceRemoveModal": {
+        "removeDevice": "Remove device",
+        "removeDeviceText": "Remove your device from the network.",
+        "removeDeviceAdditional": "Your device will no longer contribute data and be removed from the dashboard."
+      },
+      "myDevice": "My device",
+      "rowOverflow": {
+        "interact": "Interact",
+        "remove": "Remove"
+      }
     },
     "firefighters": {
       "heading": "Bomberos",

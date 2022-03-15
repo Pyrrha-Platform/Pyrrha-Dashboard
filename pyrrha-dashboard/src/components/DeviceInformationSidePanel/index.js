@@ -10,7 +10,7 @@ import {
 import React, { useContext, useState } from 'react';
 import AppContext from '../../context/app';
 
-const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
+const DeviceInformationSidePanel = ({ device, onRequestClose }) => {
   const { t } = useContext(AppContext);
 
   const [testModalOpen, setTestModalOpen] = useState(false);
@@ -19,24 +19,24 @@ const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
     <div className="device-side-panel">
       <Modal
         open={testModalOpen}
-        modalHeading={t('content.device.sidePanel.modalTestTitle')}
+        modalHeading={t('content.devices.sidePanel.modalTestTitle')}
         size="xs"
         secondaryButtonText={t('content.modal_basic.cancel')}
         primaryButtonText={t('content.modal_basic.confirm')}
         onRequestClose={() => setTestModalOpen(false)}
       >
-        {t('content.device.sidePanel.modalTestText')}
+        {t('content.devices.sidePanel.modalTestText')}
       </Modal>
       <div className="device-side-panel__header">
         <h4
-          className={`device-side-panel__title with-circle status-${sensor.statusColor}`}
+          className={`device-side-panel__title with-circle status-${device.statusColor}`}
           data-after="true"
         >
-          Sensor {sensor.id}
+          Device {device.id}
         </h4>
-        {sensor.isUserOwner && (
-          <Tag className="tag-owner" tabIndex={0} aria-label="My sensor">
-            My sensor
+        {device.isUserOwner && (
+          <Tag className="tag-owner" tabIndex={0} aria-label="My device">
+            My device
           </Tag>
         )}
         <button className="device-side-panel__close" onClick={onRequestClose}>
@@ -46,7 +46,7 @@ const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
       <div className="device-side-panel__content">
         {/* Checks if current firmware version is greater than or equal to latest release in repo
         {currentFirmwareInfo.verNum &&
-        semver.gt(currentFirmwareInfo.verNum, sensor.firmwareVer) &&
+        semver.gt(currentFirmwareInfo.verNum, device.firmwareVer) &&
         !updating ? (
           <ToastNotification
             kind="info"
@@ -55,13 +55,13 @@ const DeviceInformationSidePanel = ({ sensor, onRequestClose }) => {
               <button
                 className={'device-side-panel__updateLink'}
                 onClick={updateFirmware}>
-                {t('content.device.sidePanel.updateNow')}
+                {t('content.devices.sidePanel.updateNow')}
               </button>
             }
             timeout={0}
             hideCloseButton={true}
             title={
-              t('content.device.sidePanel.newFirmwareAvailable') +
+              t('content.devices.sidePanel.newFirmwareAvailable') +
               ` (v${currentFirmwareInfo.verNum})`
             }
           />

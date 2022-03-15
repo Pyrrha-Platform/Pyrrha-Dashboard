@@ -6,23 +6,23 @@ import {
 } from 'carbon-components-react';
 import AppContext from '../../context/app';
 
-const SensorOverflowMenu = ({ id, sensor, onModify, onRemove }) => {
+const DeviceOverflowMenu = ({ id, device, onModify, onRemove }) => {
   const { t } = useContext(AppContext);
 
   return (
     <TableCell key={id + '-overflow'} className="sticky-column right">
       <OverflowMenu style={{ float: 'right' }} flipped>
         <OverflowMenuItem
-          itemText={t('content.device.rowOverflow.interact')}
-          onClick={() => onModify(sensor)}
+          itemText={t('content.devices.rowOverflow.interact')}
+          onClick={() => onModify(device)}
         />
         <OverflowMenuItem
-          itemText={t('content.device.rowOverflow.remove')}
-          onClick={() => onRemove(sensor)}
+          itemText={t('content.devices.rowOverflow.remove')}
+          onClick={() => onRemove(device)}
         />
       </OverflowMenu>
     </TableCell>
   );
 };
 
-export default SensorOverflowMenu;
+export default DeviceOverflowMenu;

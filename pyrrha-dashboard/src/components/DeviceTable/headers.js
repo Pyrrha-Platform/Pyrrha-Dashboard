@@ -1,6 +1,6 @@
 const headers = [
   {
-    header: 'Sensor ID',
+    header: 'Device ID',
     key: 'id',
   },
   {

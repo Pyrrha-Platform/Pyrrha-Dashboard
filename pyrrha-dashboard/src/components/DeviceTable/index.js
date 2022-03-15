@@ -69,7 +69,7 @@ const getRowClasses = (cell, indexCells) => {
 
 const DeviceTable = ({
   loading,
-  device,
+  devices,
   page,
   pageSize,
   onPaginationChange,
@@ -98,23 +98,23 @@ const DeviceTable = ({
     <>
       {shouldShowSideMenu && (
         <DeviceInformationSidePanel
-          sensor={displayedDevice}
+          device={displayedDevice}
           onRequestClose={onSideMenuClose}
         />
       )}
       <Modal
         open={shouldShowRemoveMenu}
-        modalHeading={t('content.device.sensorRemoveModal.removeDevice')}
+        modalHeading={t('content.devices.deviceRemoveModal.removeDevice')}
         size="xs"
-        secondaryButtonText={t('content.modal_basic.cancel')}
-        primaryButtonText={t('content.modal_basic.confirm')}
+        secondaryButtonText={t('content.common.cancel')}
+        primaryButtonText={t('content.common.confirm')}
         onRequestClose={() => setShouldShowRemoveMenu(false)}
         onRequestSubmit={removeDevice}
       >
         {removeDeviceLoading ? <Loading /> : null}
-        <p>{t('content.device.sensorRemoveModal.removeDeviceText')}</p>
+        <p>{t('content.devices.deviceRemoveModal.removeDeviceText')}</p>
         <p className="mart-1">
-          {t('content.device.sensorRemoveModal.removeDeviceAdditional')}
+          {t('content.devices.deviceRemoveModal.removeDeviceAdditional')}
         </p>
       </Modal>
       <DataTable
@@ -177,17 +177,17 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < device.length
+                      (page - 1) * pageSize + rowIndex < devices.length
                   )
                   .map((row, rowIndex) => {
-                    const sensorIndex = (page - 1) * pageSize + rowIndex;
+                    const deviceIndex = (page - 1) * pageSize + rowIndex;
 
                     return (
                       <Fragment key={row.id}>
                         <TableExpandRow
                           {...getRowProps({ row })}
-                          data-hovered={currentHoveredDevice === sensorIndex}
-                          onMouseEnter={() => onDeviceHover(sensorIndex)}
+                          data-hovered={currentHoveredDevice === deviceIndex}
+                          onMouseEnter={() => onDeviceHover(deviceIndex)}
                           onMouseLeave={() => onDeviceHover(undefined)}
                         >
                           {loading
@@ -215,21 +215,21 @@ const DeviceTable = ({
                                     )}
                                   </span>
                                   {indexCells === 0 &&
-                                    device[sensorIndex].isUserOwner && (
+                                    devices[deviceIndex].isUserOwner && (
                                       <Tag
                                         className="tag-owner"
                                         tabIndex={0}
-                                        aria-label="My sensor"
+                                        aria-label="My device"
                                       >
-                                        My sensor
+                                        My device
                                       </Tag>
                                     )}
                                 </TableCell>
                               ))}
-                          {device[sensorIndex].isUserOwner ? (
+                          {devices[deviceIndex].isUserOwner ? (
                             <DeviceOverflowMenu
                               id={row.id}
-                              sensor={
+                              device={
                                 formatRows(currentlyVisibleDevice)[rowIndex]
                               }
                               onModify={onModify}
@@ -243,7 +243,7 @@ const DeviceTable = ({
                           colSpan={headers.length + 2}
                           className="device-expandable-row"
                         >
-                          <div className="sensor-chart" tabIndex={0}>
+                          <div className="device-chart" tabIndex={0}>
                             <p className="title dance" tabIndex={0} />
                           </div>
                         </TableExpandedRow>
@@ -261,7 +261,7 @@ const DeviceTable = ({
               pageSize={5}
               onChange={onPaginationChange}
               pageSizes={[5, 10, 15]}
-              totalItems={device.length}
+              totalItems={devices.length}
             />
           </TableContainer>
         )}
