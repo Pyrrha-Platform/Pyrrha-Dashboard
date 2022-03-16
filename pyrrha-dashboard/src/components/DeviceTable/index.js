@@ -29,6 +29,7 @@ import AppContext from '../../context/app';
 
 const formatRows = (rows) =>
   rows.map((row) => {
+    // console.log('formatRows row', row);
     let rowCopy = { ...row };
     rowCopy['id'] = '' + rowCopy['id'];
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
@@ -36,11 +37,11 @@ const formatRows = (rows) =>
     rowCopy['pos'] = rowCopy['latitude']
       ? `${rowCopy['latitude']} ${rowCopy['longitude']}`
       : 'Unavailable';
-    rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['lastCheckin']));
-    rowCopy['lastCheckinRaw'] = new Date(rowCopy['lastCheckin']);
-    rowCopy['isUserOwner'] = new Date(rowCopy['isUserOwner']);
+    rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['timestamp_mins']));
+    rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
     // rowCopy['peak_acc'] += ' gals'
+    // console.log('formatRows rowCopy', rowCopy);
     return rowCopy;
   });
 
@@ -75,7 +76,7 @@ const DeviceTable = ({
   page,
   pageSize,
   onPaginationChange,
-  currentlyVisibleDevice,
+  currentlyVisibleDevices,
   shouldShowSideMenu,
   setShouldShowSideMenu,
   shouldShowRemoveMenu,
@@ -89,6 +90,10 @@ const DeviceTable = ({
   currentHoveredDevice,
 }) => {
   const { t } = useContext(AppContext);
+
+  console.log('DeviceTable devices', devices);
+  console.log('DeviceTable currentlyVisibleDevices', currentlyVisibleDevices);
+  console.log('DeviceTable loading', loading);
 
   useEffect(() => {
     document.body.className = shouldShowSideMenu ? 'body-no-scroll' : '';
@@ -120,7 +125,7 @@ const DeviceTable = ({
         </p>
       </Modal>
       <DataTable
-        rows={formatRows(currentlyVisibleDevice)}
+        rows={formatRows(currentlyVisibleDevices)}
         headers={headers}
         className="device-table"
       >
@@ -144,7 +149,7 @@ const DeviceTable = ({
                 <TableToolbarSearch
                   expanded={true}
                   onChange={onInputChange}
-                  placeHolderText="Search by Device ID"
+                  placeholder="Search by Device ID"
                 />
               </TableToolbarContent>
             </TableToolbar>
@@ -216,7 +221,7 @@ const DeviceTable = ({
                                       cell.value
                                     )}
                                   </span>
-                                  {indexCells === 0 &&
+                                  {/*indexCells === 0 &&
                                     devices[deviceIndex].isUserOwner && (
                                       <Tag
                                         className="tag-owner"
@@ -225,14 +230,14 @@ const DeviceTable = ({
                                       >
                                         My device
                                       </Tag>
-                                    )}
+                                    )*/}
                                 </TableCell>
                               ))}
                           {devices[deviceIndex].isUserOwner ? (
                             <DeviceOverflowMenu
                               id={row.id}
                               device={
-                                formatRows(currentlyVisibleDevice)[rowIndex]
+                                formatRows(currentlyVisibleDevices)[rowIndex]
                               }
                               onModify={onModify}
                               onRemove={onRemove}

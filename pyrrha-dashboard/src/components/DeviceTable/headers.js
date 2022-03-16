@@ -1,22 +1,30 @@
 const headers = [
   {
-    header: 'Device ID',
+    header: 'Device',
     key: 'id',
   },
   {
-    header: 'Last report',
+    header: 'Last reading',
     key: 'lastCheckin',
   },
   {
-    header: 'Connection type',
-    key: 'connection_type',
+    header: 'User',
+    key: 'firefighter_last',
   },
   {
-    header: 'Device version',
-    key: 'firmwareVer',
+    header: 'CO',
+    key: 'carbon_monoxide',
   },
   {
-    header: 'Coordinates',
+    header: 'NO2',
+    key: 'nitrogen_dioxide',
+  },
+  {
+    header: 'Temperature',
+    key: 'temperature',
+  },
+  {
+    header: 'Position',
     key: 'pos',
   },
 ];
