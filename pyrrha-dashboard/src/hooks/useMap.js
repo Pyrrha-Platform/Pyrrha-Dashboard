@@ -11,9 +11,13 @@ const client = async (url, options) => {
 const fetchMap = async () => {
   try {
     const data = await client(`/api-main/v1/map-now`);
-    console.log(data);
-    if (data.devices) {
-      return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
+    console.log('fetchMap map', data.map);
+    console.log('fetchMap map.devices', data.map.devices);
+    if (data.map.devices) {
+      data.map.devices = data.map.devices.sort((a, b) =>
+        a.device_id < b.device_id ? 1 : -1
+      );
+      return data.map;
     } else {
       return [];
     }
@@ -80,14 +84,15 @@ const updateMap = (map, message) => {
   return newMap.current.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
 };
 
-const setRiskLevels = (map, setNormal, setWarning, setDanger) => {
+const setRiskLevels = (devices, setNormal, setWarning, setDanger) => {
   console.log('setRiskLevels');
-  var tmpNormal = map !== undefined && map.length !== 0 ? map.length : 0;
+  var tmpNormal =
+    devices !== undefined && devices.length !== 0 ? devices.length : 0;
   var tmpWarning = 0;
   var tmpDanger = 0;
 
-  if (map !== undefined && map.length !== 0) {
-    map.forEach((device) => {
+  if (devices !== undefined && devices.length !== 0) {
+    devices.forEach((device) => {
       if (
         device.carbon_monoxide > Constants.CO_RED ||
         device.carbon_monoxide === Constants.CHERNOBYL
@@ -129,14 +134,16 @@ const useMap = () => {
   // Initial load of latest for all devices
   useEffect(() => {
     fetchMap().then((map) => {
+      console.log('Loaded from database.', map);
       setMap(map);
       console.log('Loaded from database.', map);
       setLoading('Loaded from database.');
-      setRiskLevels(map, setNormal, setWarning, setDanger);
+      setRiskLevels(map.devices, setNormal, setWarning, setDanger);
     });
   }, []);
 
   // Updates based on new messages
+  /*
   useEffect(() => {
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
@@ -162,6 +169,7 @@ const useMap = () => {
       socket.close(1000, 'Map disconnecting.');
     };
   }, [message]);
+  */
 
   return [
     // loading,

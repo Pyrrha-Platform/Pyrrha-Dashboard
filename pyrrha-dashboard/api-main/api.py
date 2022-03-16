@@ -398,8 +398,8 @@ def dashboard_now():
 @app.route("/api-main/v1/map-now", methods=["GET"])
 def map_now():
 
-    devices = dashboard_manager().get_map_now()
-    message = {"status": 200, "message": "OK", "devices": devices}
+    map = dashboard_manager().get_map_now()
+    message = {"status": 200, "message": "OK", "map": map}
     body = json.dumps(message)
     logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")

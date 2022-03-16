@@ -2,67 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeviceTable from '../../components/DeviceTable';
 import DeviceMap from '../../components/DeviceMap';
+import useMap from '../../hooks/useMap';
 import AppContext from '../../context/app';
-
-// Hardcoded data. Would come from the database and WebSocket, as with the dashboard
-const data = {
-  devices: [
-    {
-      carbon_monoxide: 10.0,
-      firefighter_code: 'Graf 7',
-      firefighter_email: 'graf0007@graf.cat',
-      firefighter_first: 'Bombero',
-      device_id: 7,
-      firefighter_last: 'Graf 7',
-      humidity: 46,
-      nitrogen_dioxide: 0.55,
-      temperature: 41,
-      latitude: '41.364031',
-      longitude: '1.831706',
-      timestamp_mins: 'Tue, 11 Feb 2020 10:58:00 GMT',
-      id: 7,
-      device_version: 1,
-      lastCheckin: 'Tue, 11 Feb 2020 10:58:00 GMT',
-      isUserOwner: true,
-    },
-    {
-      carbon_monoxide: 10.0,
-      firefighter_code: 'Graf 3',
-      firefighter_email: 'graf0003@graf.cat',
-      firefighter_first: 'Bombero',
-      device_id: 3,
-      firefighter_last: 'Graf 3',
-      humidity: 67,
-      nitrogen_dioxide: 0.5,
-      temperature: 33,
-      latitude: '40.486027649186646',
-      longitude: '0.2514942041995945',
-      timestamp_mins: 'Tue, 11 Feb 2020 10:56:00 GMT',
-      id: 3,
-      device_version: 1,
-      lastCheckin: 'Tue, 11 Feb 2020 10:58:00 GMT',
-      isUserOwner: true,
-    },
-    {
-      carbon_monoxide: 10.0,
-      firefighter_code: 'Graf 3',
-      firefighter_email: 'graf0003@graf.cat',
-      firefighter_first: 'Bombero',
-      device_id: 5,
-      firefighter_last: 'Graf 3',
-      humidity: 67,
-      nitrogen_dioxide: 0.5,
-      temperature: 33,
-      latitude: '39.552386966400555',
-      longitude: '-0.41370484730314183',
-      timestamp_mins: 'Tue, 11 Feb 2020 10:56:00 GMT',
-      id: 5,
-      device_version: 1,
-      lastCheckin: 'Tue, 11 Feb 2020 10:58:00 GMT',
-      isUserOwner: true,
-    },
-  ],
-};
 
 const processDeviceData = (devices) => {
   return devices.slice().map((s) => ({
@@ -97,7 +38,7 @@ const MapPage = (props) => {
   // const setPage = props.setPage;
 
   /*
-  const [execQuery, { data, loading }] = useLazyQuery(GET_DEVICES, {
+  const [execQuery, { map, loading }] = useLazyQuery(GET_DEVICES, {
     errorPolicy: 'all',
     // TODO
     onError() {
@@ -128,11 +69,26 @@ const MapPage = (props) => {
   }, [execQuery])
   */
 
+  const [
+    // loading,
+    // setLoading,
+    map,
+    // setDashboard,
+    normal,
+    // setNormal,
+    warning,
+    // setWarning,
+    danger,
+    // setDanger,
+  ] = useMap();
+
   useEffect(() => {
-    if (data && data.devices) {
-      setDevices(processDeviceData(data.devices));
+    if (map && map.devices) {
+      console.log('useEffect map', map);
+      console.log('useEffect devices', map.devices);
+      setDevices(processDeviceData(map.devices));
     }
-  }, [data]);
+  }, [map]);
 
   useEffect(() => {
     setCurrentlyVisibleDevice(
