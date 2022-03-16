@@ -13,7 +13,7 @@ const fetchDetails = async (device_id, increment, type) => {
     const data = await client(
       `/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`
     );
-    console.log(data);
+    // console.log(data);
     if (data.details) {
       return data.details;
     } else {
@@ -29,7 +29,7 @@ const fetchChartDetails = async (device_id, increment, type) => {
     const data = await client(
       `/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`
     );
-    console.log(data);
+    // console.log(data);
     if (data.chart) {
       return data.chart;
     } else {
@@ -41,7 +41,7 @@ const fetchChartDetails = async (device_id, increment, type) => {
 };
 
 const updateDetails = (details, message) => {
-  console.log('details', details);
+  // console.log('details', details);
 
   let newDetails = { current: [] };
   if (
@@ -55,19 +55,16 @@ const updateDetails = (details, message) => {
   let newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
-  console.log(typeof newMessage, newMessage);
+  // console.log(typeof newMessage, newMessage);
   if (typeof newMessage === 'object') {
     if (newMessage instanceof Array) {
       // For each item in the newDetails.current array, check to see if
       // there's a replacement in the newMessage array, then replace
-      console.log('array', newMessage);
+      // console.log('array', newMessage);
       newDetails.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
           if (oldReading.device_id === newReading.device_id) {
-            console.log(
-              'Replacing an old reading with a new one in the array',
-              newMessage
-            );
+            // console.log('Replacing an old reading with a new one in the array', newMessage);
 
             newMessage.carbon_monoxide_gauge_10min =
               oldReading.carbon_monoxide_gauge_10min;
@@ -124,13 +121,10 @@ const updateDetails = (details, message) => {
     } else {
       // It's a single device update, replace the
       // latest reading for the device, or add it
-      console.log('object', newMessage);
+      // console.log('object', newMessage);
       newDetails.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
-          console.log(
-            'Replacing a single old reading with a new one',
-            newMessage
-          );
+          // console.log('Replacing a single old reading with a new one', newMessage);
 
           newMessage.carbon_monoxide_gauge_10min =
             oldReading.carbon_monoxide_gauge_10min;
@@ -184,7 +178,7 @@ const updateDetails = (details, message) => {
         }
       });
 
-      console.log(newDetails);
+      // console.log(newDetails);
     }
   }
   return newDetails.current;
@@ -216,7 +210,7 @@ const useDetails = (device_id, inc, ty) => {
   useEffect(() => {
     fetchDetails(device_id, increment, type).then((details) => {
       setDetails(details);
-      console.log('Loaded details from database.', details);
+      // console.log('Loaded details from database.', details);
       setLoading('Loaded details from database.');
     });
   }, [increment, type]);
@@ -225,7 +219,7 @@ const useDetails = (device_id, inc, ty) => {
   useEffect(() => {
     fetchChartDetails(device_id, increment, type).then((chart) => {
       setChart(chart);
-      console.log('Loaded chart from database.', chart);
+      // console.log('Loaded chart from database.', chart);
       setLoading('Loaded chart from database.');
     });
   }, [increment, type]);
@@ -234,22 +228,22 @@ const useDetails = (device_id, inc, ty) => {
   useEffect(() => {
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
-      console.log('detailsRef', detailsRef);
+      // console.log('detailsRef', detailsRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
       } else {
-        console.log('Received update.', msg);
+        // console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
         setDetails(updateDetails(detailsRef, msg.data));
       }
-      console.log('details', details);
+      // console.log('details', details);
     };
     socket.onclose = (msg) => {
-      console.log('Connection closing.', msg);
+      // console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
-      console.log('Connection closed.');
+      // console.log('Connection closed.');
       setLoading('Connection closed.');
       socket.close(1000, 'Details disconnecting.');
     };

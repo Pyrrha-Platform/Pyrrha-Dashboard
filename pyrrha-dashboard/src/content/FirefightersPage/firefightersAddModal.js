@@ -62,11 +62,11 @@ const addProps = {
 
 // On submit we should be passed the values.
 const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
-  console.log('handleSubmit');
-  console.log('code ' + code);
-  console.log('first ' + first);
-  console.log('last ' + last);
-  console.log('email ' + email);
+  // console.log('handleSubmit');
+  // console.log('code ' + code);
+  // console.log('first ' + first);
+  // console.log('last ' + last);
+  // console.log('email ' + email);
 
   axios
     .post(`/api-main/v1/firefighters`, {
@@ -77,8 +77,8 @@ const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
     })
     .then((res) => {
       // TODO: Set success or error message
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
 
       // Refresh data
       loadFirefighters();
@@ -102,7 +102,7 @@ class FirefightersAddModal extends React.Component {
       email: '',
       open: false,
     };
-    console.log(this.state.row);
+    // console.log(this.state.row);
   }
 
   render() {

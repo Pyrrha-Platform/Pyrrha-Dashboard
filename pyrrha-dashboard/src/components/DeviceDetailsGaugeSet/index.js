@@ -41,7 +41,7 @@ function DeviceDetailsGaugeSet({
   nitrogen_dioxide_gauge_240min,
   nitrogen_dioxide_gauge_480min,
 }) {
-  console.log('DeviceDetailsGaugeSet', increment);
+  // console.log('DeviceDetailsGaugeSet', increment);
 
   /*
   console.log("temperature", temperature);
@@ -111,10 +111,10 @@ function DeviceDetailsGaugeSet({
   }
   */
 
-  console.log('Date now', utcCurrentDate.getTime());
-  console.log('Date timestamp', device_id, utcTimestampDate.getTime());
-  console.log('Date difference', utcTimeDifference);
-  console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
+  // console.log('Date now', utcCurrentDate.getTime());
+  // console.log('Date timestamp', device_id, utcTimestampDate.getTime());
+  // console.log('Date difference', utcTimeDifference);
+  // console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
 
   return (
     <>
@@ -240,9 +240,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 10min'
-                        );
+                        // console.log('Setting type to CO and increment to 10min');
                         setType('CO');
                         setIncrement('10min');
                       }}
@@ -267,9 +265,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 10min'
-                        );
+                        // console.log('Setting type to CO and increment to 10min');
                         setType('CO');
                         setIncrement('10min');
                       }}
@@ -284,9 +280,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 10min'
-                        );
+                        // console.log('Setting type to CO and increment to 10min');
                         setType('NO2');
                         setIncrement('10min');
                       }}
@@ -311,9 +305,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 10min'
-                        );
+                        // console.log('Setting type to CO and increment to 10min');
                         setType('NO2');
                         setIncrement('10min');
                       }}
@@ -372,9 +364,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 30min'
-                        );
+                        // console.log('Setting type to CO and increment to 30min');
                         setType('CO');
                         setIncrement('30min');
                       }}
@@ -399,9 +389,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 30min'
-                        );
+                        // console.log('Setting type to CO and increment to 30min');
                         setType('CO');
                         setIncrement('30min');
                       }}
@@ -416,9 +404,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 30min'
-                        );
+                        // console.log('Setting type to CO and increment to 30min');
                         setType('NO2');
                         setIncrement('30min');
                       }}
@@ -443,9 +429,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log(
-                          'Setting type to CO and increment to 30min'
-                        );
+                        // console.log('Setting type to CO and increment to 30min');
                         setType('NO2');
                         setIncrement('30min');
                       }}
@@ -504,7 +488,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 1hr');
+                        // console.log('Setting type to CO and increment to 1hr');
                         setType('CO');
                         setIncrement('1hr');
                       }}
@@ -529,7 +513,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 1hr');
+                        // console.log('Setting type to CO and increment to 1hr');
                         setType('CO');
                         setIncrement('1hr');
                       }}
@@ -544,7 +528,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 1hr');
+                        // console.log('Setting type to CO and increment to 1hr');
                         setType('NO2');
                         setIncrement('1hr');
                       }}
@@ -569,7 +553,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 1hr');
+                        // console.log('Setting type to CO and increment to 1hr');
                         setType('NO2');
                         setIncrement('1hr');
                       }}
@@ -628,7 +612,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 4hr');
+                        // console.log('Setting type to CO and increment to 4hr');
                         setType('CO');
                         setIncrement('4hr');
                       }}
@@ -653,7 +637,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 4hr');
+                        // console.log('Setting type to CO and increment to 4hr');
                         setType('CO');
                         setIncrement('4hr');
                       }}
@@ -668,7 +652,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 4hr');
+                        // console.log('Setting type to CO and increment to 4hr');
                         setType('NO2');
                         setIncrement('4hr');
                       }}
@@ -693,7 +677,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 4hr');
+                        // console.log('Setting type to CO and increment to 4hr');
                         setType('NO2');
                         setIncrement('4hr');
                       }}
@@ -752,7 +736,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 8hr');
+                        // console.log('Setting type to CO and increment to 8hr');
                         setType('CO');
                         setIncrement('8hr');
                       }}
@@ -777,7 +761,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 8hr');
+                        // console.log('Setting type to CO and increment to 8hr');
                         setType('CO');
                         setIncrement('8hr');
                       }}
@@ -792,7 +776,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 8hr');
+                        // console.log('Setting type to CO and increment to 8hr');
                         setType('NO2');
                         setIncrement('8hr');
                       }}
@@ -817,7 +801,7 @@ function DeviceDetailsGaugeSet({
                       href="javascript:void(0)"
                       className="bx--link label-legend-link"
                       onClick={() => {
-                        console.log('Setting type to CO and increment to 8hr');
+                        // console.log('Setting type to CO and increment to 8hr');
                         setType('NO2');
                         setIncrement('8hr');
                       }}

@@ -70,12 +70,12 @@ const handleSubmit = (
   loadEvents,
   setOpen
 ) => {
-  console.log('handleSubmit');
-  console.log('code ' + code);
-  console.log('type ' + type);
-  console.log('date ' + date);
-  console.log('firefighters ' + firefighters);
-  console.log('state ' + state);
+  // console.log('handleSubmit');
+  // console.log('code ' + code);
+  // console.log('type ' + type);
+  // console.log('date ' + date);
+  // console.log('firefighters ' + firefighters);
+  // console.log('state ' + state);
 
   axios
     .post(`/api-main/v1/events`, {
@@ -87,8 +87,8 @@ const handleSubmit = (
     })
     .then((res) => {
       // TODO: Set success or error message
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
 
       // Refresh data
       loadEvents();
@@ -113,7 +113,7 @@ class EventsAddModal extends React.Component {
       state: '',
       open: false,
     };
-    console.log(this.state.row);
+    // console.log(this.state.row);
   }
 
   render() {

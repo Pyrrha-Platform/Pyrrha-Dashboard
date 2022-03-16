@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDashboard = async () => {
   try {
     const data = await client(`/api-main/v1/dashboard-now`);
-    console.log(data);
+    // console.log(data);
     if (data.devices) {
       return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
     } else {
@@ -23,8 +23,8 @@ const fetchDashboard = async () => {
 };
 
 const updateDashboard = (dashboard, message) => {
-  console.log('dashboard', dashboard);
-  console.log('message', message);
+  // console.log('dashboard', dashboard);
+  // console.log('message', message);
 
   let newDashboard = { current: [] };
   if (
@@ -36,24 +36,21 @@ const updateDashboard = (dashboard, message) => {
     newDashboard = JSON.parse(JSON.stringify(dashboard));
   }
 
-  console.log('newDashboard', newDashboard);
+  // console.log('newDashboard', newDashboard);
 
   let newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
-  console.log(typeof newMessage, newMessage);
+  // console.log(typeof newMessage, newMessage);
   if (typeof newMessage === 'object') {
     if (newMessage instanceof Array) {
       // For each item in the newDashboard.current array, check to see if
       // there's a replacement in the newMessage array, then replace
-      console.log('array', newMessage);
+      // console.log('array', newMessage);
       newDashboard.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
           if (oldReading.device_id === newReading.device_id) {
-            console.log(
-              'Replacing an old reading with a new one in the array',
-              newMessage
-            );
+            // console.log( 'Replacing an old reading with a new one in the array', newMessage);
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
               oldReading
@@ -65,15 +62,12 @@ const updateDashboard = (dashboard, message) => {
     } else {
       // It's a single device update, replace the
       // latest reading for the device, or add it
-      console.log('object', newMessage);
+      // console.log('object', newMessage);
       let matchedOldReading = false;
       newDashboard.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
-          console.log(
-            'Replacing a single old reading with a new one',
-            newMessage
-          );
-          console.log('Merged new and old readings', newMessage);
+          // console.log('Replacing a single old reading with a new one', newMessage);
+          // console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
             oldReading
@@ -83,10 +77,10 @@ const updateDashboard = (dashboard, message) => {
         }
       });
       if (!matchedOldReading) {
-        console.log('Adding a new reading', newMessage);
+        // console.log('Adding a new reading', newMessage);
         newDashboard.current.push(newMessage);
       }
-      console.log(newDashboard);
+      // console.log(newDashboard);
     }
   }
   return newDashboard.current.sort((a, b) =>
@@ -95,7 +89,7 @@ const updateDashboard = (dashboard, message) => {
 };
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
-  console.log('setRiskLevels');
+  // console.log('setRiskLevels');
   var tmpNormal =
     dashboard !== undefined && dashboard.length !== 0 ? dashboard.length : 0;
   var tmpWarning = 0;
@@ -145,7 +139,7 @@ const useDashboard = () => {
   useEffect(() => {
     fetchDashboard().then((dashboard) => {
       setDashboard(dashboard);
-      console.log('Loaded from database.', dashboard);
+      // console.log('Loaded from database.', dashboard);
       setLoading('Loaded from database.');
       setRiskLevels(dashboard, setNormal, setWarning, setDanger);
     });
@@ -153,27 +147,27 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
-    console.log('web socket', Constants.WEBSOCKET_URL);
+    // console.log('web socket', Constants.WEBSOCKET_URL);
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
-      console.log('dashboardRef', dashboardRef);
+      // console.log('dashboardRef', dashboardRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
       } else {
-        console.log('Received update.', msg);
+        // console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
         let updatedDashboard = updateDashboard(dashboardRef, msg.data);
         setDashboard(updatedDashboard);
         setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }
-      console.log('dashboard', dashboard);
+      // console.log('dashboard', dashboard);
     };
     socket.onclose = (msg) => {
-      console.log('Connection closing.', msg);
+      // console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
-      console.log('Connection closed.');
+      // console.log('Connection closed.');
       setLoading('Connection closed.');
       socket.close(1000, 'Dashboard disconnecting.');
     };

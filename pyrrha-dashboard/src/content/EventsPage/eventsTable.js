@@ -41,7 +41,7 @@ const NewEventsTable = ({ eventId }) => {
   const loadEvents = React.useCallback(async () => {
     try {
       const data = await client(`/api-main/v1/events`);
-      console.log(data);
+      // console.log(data);
       setEvents(data.events);
     } catch (e) {
       console.log(e);

@@ -140,7 +140,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
 
     // Tooltip
     var mouseover = function (d) {
-      console.log('mouseover', d);
+      // console.log('mouseover', d);
       d3.select('#device-chart-tooltip')
         .html(
           `
@@ -170,7 +170,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
     };
 
     var mousemove = function (d) {
-      console.log('mousemove', d);
+      // console.log('mousemove', d);
       d3.select('#device-chart-tooltip')
         .html(
           `
@@ -199,7 +199,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
     };
 
     var mouseout = function (d) {
-      console.log('mouseout', d);
+      // console.log('mouseout', d);
       d3.select('#device-chart-tooltip')
         .transition()
         .duration(200)

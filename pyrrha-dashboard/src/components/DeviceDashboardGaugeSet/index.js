@@ -79,10 +79,10 @@ function DeviceDashboardGaugeSet({
     status = 'warning';
   }
 
-  console.log('Date now', utcCurrentDate.getTime());
-  console.log('Date timestamp', device_id, utcTimestampDate.getTime());
-  console.log('Date difference', utcTimeDifference);
-  console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
+  // console.log('Date now', utcCurrentDate.getTime());
+  // console.log('Date timestamp', device_id, utcTimestampDate.getTime());
+  // console.log('Date difference', utcTimeDifference);
+  // console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
 
   return (
     <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">

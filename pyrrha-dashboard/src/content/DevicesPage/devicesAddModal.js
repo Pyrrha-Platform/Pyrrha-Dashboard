@@ -62,10 +62,10 @@ const addProps = {
 
 // On submit we should be passed the values.
 const handleSubmit = (code, model, version, loadDevices, setOpen) => {
-  console.log('handleSubmit');
-  console.log('code ' + code);
-  console.log('model ' + model);
-  console.log('version ' + version);
+  // console.log('handleSubmit');
+  // console.log('code ' + code);
+  // console.log('model ' + model);
+  // console.log('version ' + version);
 
   axios
     .post(`/api-main/v1/devices`, {
@@ -75,8 +75,8 @@ const handleSubmit = (code, model, version, loadDevices, setOpen) => {
     })
     .then((res) => {
       // TODO: Set success or error message
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
 
       // Refresh data
       loadDevices();
@@ -99,7 +99,7 @@ class DevicesAddModal extends React.Component {
       version: '',
       open: false,
     };
-    console.log(this.state.row);
+    // console.log(this.state.row);
   }
 
   render() {

@@ -21,11 +21,12 @@ import {
 
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';
-import Tag from 'carbon-components-react/lib/components/Tag/Tag';
 
 import Utils from '../../utils/Utils';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
 import AppContext from '../../context/app';
+
+let timeAgo = Utils.timeAgo;
 
 const formatRows = (rows) =>
   rows.map((row) => {
@@ -35,18 +36,17 @@ const formatRows = (rows) =>
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
     rowCopy['connection_type'] = 'Wi-Fi';
     rowCopy['pos'] = rowCopy['latitude']
-      ? `${rowCopy['latitude']} ${rowCopy['longitude']}`
+      ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
-    rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['timestamp_mins']));
+    rowCopy['lastCheckin'] = timeAgo.format(
+      new Date(rowCopy['timestamp_mins'])
+    );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
     // rowCopy['peak_acc'] += ' gals'
     // console.log('formatRows rowCopy', rowCopy);
     return rowCopy;
   });
-
-let formatCoordinates = Utils.formatCoordinates;
-let timeAgo = Utils.timeAgo;
 
 const getDeviceStatus = (timeAgo) => {
   if (!timeAgo) {
@@ -91,9 +91,9 @@ const DeviceTable = ({
 }) => {
   const { t } = useContext(AppContext);
 
-  console.log('DeviceTable devices', devices);
-  console.log('DeviceTable currentlyVisibleDevices', currentlyVisibleDevices);
-  console.log('DeviceTable loading', loading);
+  // console.log('DeviceTable devices', devices);
+  // console.log('DeviceTable currentlyVisibleDevices', currentlyVisibleDevices);
+  // console.log('DeviceTable loading', loading);
 
   useEffect(() => {
     document.body.className = shouldShowSideMenu ? 'body-no-scroll' : '';
@@ -213,13 +213,11 @@ const DeviceTable = ({
                                     className={getRowClasses(cell, indexCells)}
                                     aria-label={`${headers[indexCells].header} is ${cell.value}`}
                                   >
-                                    {indexCells === 0 ? (
-                                      <code>{cell.value}</code>
-                                    ) : Array.isArray(cell.value) ? (
-                                      formatCoordinates(cell.value)
-                                    ) : (
-                                      cell.value
-                                    )}
+                                    {indexCells === 0
+                                      ? cell.value
+                                      : Array.isArray(cell.value)
+                                      ? Utils.formatCoordinates(cell.value)
+                                      : cell.value}
                                   </span>
                                   {/*indexCells === 0 &&
                                     devices[deviceIndex].isUserOwner && (

@@ -55,7 +55,7 @@ const DetailsGrid = (params) => {
 
       <ContentSwitcher
         onChange={(e) => {
-          console.log(e.name);
+          // console.log(e.name);
           setIncrement(e.name);
         }}
         selectedIndex={incrementMapping[increment]}
