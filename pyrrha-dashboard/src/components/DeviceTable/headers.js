@@ -24,6 +24,10 @@ const headers = [
     key: 'temperature',
   },
   {
+    header: 'Humidity',
+    key: 'humidity',
+  },
+  {
     header: 'Position',
     key: 'pos',
   },
