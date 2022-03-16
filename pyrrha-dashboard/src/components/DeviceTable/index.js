@@ -21,11 +21,12 @@ import {
 
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';
-import Tag from 'carbon-components-react/lib/components/Tag/Tag';
 
 import Utils from '../../utils/Utils';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
 import AppContext from '../../context/app';
+
+let timeAgo = Utils.timeAgo;
 
 const formatRows = (rows) =>
   rows.map((row) => {
@@ -35,7 +36,7 @@ const formatRows = (rows) =>
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
     rowCopy['connection_type'] = 'Wi-Fi';
     rowCopy['pos'] = rowCopy['latitude']
-      ? `${rowCopy['latitude']} ${rowCopy['longitude']}`
+      ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
     rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['timestamp_mins']));
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
@@ -44,9 +45,6 @@ const formatRows = (rows) =>
     // console.log('formatRows rowCopy', rowCopy);
     return rowCopy;
   });
-
-let formatCoordinates = Utils.formatCoordinates;
-let timeAgo = Utils.timeAgo;
 
 const getDeviceStatus = (timeAgo) => {
   if (!timeAgo) {
@@ -214,9 +212,9 @@ const DeviceTable = ({
                                     aria-label={`${headers[indexCells].header} is ${cell.value}`}
                                   >
                                     {indexCells === 0 ? (
-                                      <code>{cell.value}</code>
+                                      cell.value
                                     ) : Array.isArray(cell.value) ? (
-                                      formatCoordinates(cell.value)
+                                      Utils.formatCoordinates(cell.value)
                                     ) : (
                                       cell.value
                                     )}
