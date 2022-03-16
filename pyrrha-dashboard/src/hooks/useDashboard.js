@@ -24,6 +24,7 @@ const fetchDashboard = async () => {
 
 const updateDashboard = (dashboard, message) => {
   console.log('dashboard', dashboard);
+  console.log('message', message);
 
   let newDashboard = { current: [] };
   if (

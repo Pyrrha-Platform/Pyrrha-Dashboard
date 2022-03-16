@@ -3,30 +3,30 @@ import { ZoomIn16, ZoomOut16 } from '@carbon/icons-react';
 import mapboxgl from 'mapbox-gl';
 import Utils from '../../utils/Utils';
 
-const DEFAULT_LATITUDE = 28;
-const DEFAULT_LONGITUDE = -90;
-const DEFAULT_ZOOM = 2.3;
+const DEFAULT_LATITUDE = 40.4;
+const DEFAULT_LONGITUDE = -3.5;
+const DEFAULT_ZOOM = 3.3;
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-const transformToGeoJSON = (device) => {
-  return device
+const transformToGeoJSON = (devices) => {
+  return devices
     .filter((s) => s.latitude && s.longitude)
-    .map((sensor) => {
+    .map((device) => {
       return {
         type: 'Feature',
         properties: {
-          id: sensor.id,
+          id: device.id,
           highlighted: false,
-          pos: [parseFloat(sensor.longitude), parseFloat(sensor.latitude)],
-          isUserOwner: sensor.isUserOwner ? 1 : 0,
-          statusColor: sensor.statusColor,
+          pos: [parseFloat(device.longitude), parseFloat(device.latitude)],
+          isUserOwner: device.isUserOwner ? 1 : 0,
+          statusColor: device.statusColor,
           hover: false,
         },
         geometry: {
           type: 'Point',
           coordinates: [
-            parseFloat(sensor.longitude),
-            parseFloat(sensor.latitude),
+            parseFloat(device.longitude),
+            parseFloat(device.latitude),
           ],
         },
       };
@@ -34,169 +34,171 @@ const transformToGeoJSON = (device) => {
 };
 
 const DeviceMap = ({
-  device,
-  setDisplayedSensor,
+  devices,
+  setDisplayedDevice,
   setShouldShowSideMenu,
-  onSensorHover,
-  currentHoveredSensor,
+  onDeviceHover,
+  currentHoveredDevice,
 }) => {
   let mapWrapper = useRef();
   let map = useRef();
 
-  const deviceData = {
+  console.log('devices', devices);
+
+  const devicesData = {
     type: 'FeatureCollection',
-    features: transformToGeoJSON(device),
+    features: transformToGeoJSON(devices),
   };
 
   useEffect(() => {
-    if (!map.current || currentHoveredSensor === undefined) return;
+    if (!map.current || currentHoveredDevice === undefined) return;
 
-    const updateSensorHover = (index, hover) => {
-      let newDeviceFeatures = [...deviceData.features];
+    const updateDeviceHover = (index, hover) => {
+      let newDevicesFeatures = [...devicesData.features];
 
-      newDeviceFeatures[index].properties.hover = hover;
+      newDevicesFeatures[index].properties.hover = hover;
 
       map.current
-        .getSource('device')
-        .setData({ ...deviceData, features: newDeviceFeatures });
+        .getSource('devices')
+        .setData({ ...devicesData, features: newDevicesFeatures });
     };
 
-    updateSensorHover(currentHoveredSensor, true);
+    updateDeviceHover(currentHoveredDevice, true);
 
-    return () => updateSensorHover(currentHoveredSensor, false);
-  }, [currentHoveredSensor]);
+    return () => updateDeviceHover(currentHoveredDevice, false);
+  }, [currentHoveredDevice]);
 
   useEffect(() => {
-    //if (device.length > 0) {
-    map.current = new mapboxgl.Map({
-      container: mapWrapper,
-      style: 'mapbox://styles/mapbox/light-v10',
-      center: [DEFAULT_LONGITUDE, DEFAULT_LATITUDE],
-      zoom: DEFAULT_ZOOM,
-      attributionControl: false,
-      preserveDrawingBuffer: true,
-    }).addControl(
-      new mapboxgl.AttributionControl({
-        compact: true,
-      })
-    );
+    if (devices.length > 0) {
+      map.current = new mapboxgl.Map({
+        container: mapWrapper,
+        style: 'mapbox://styles/mapbox/dark-v10',
+        center: [DEFAULT_LONGITUDE, DEFAULT_LATITUDE],
+        zoom: DEFAULT_ZOOM,
+        attributionControl: false,
+        preserveDrawingBuffer: true,
+      }).addControl(
+        new mapboxgl.AttributionControl({
+          compact: true,
+        })
+      );
 
-    map.current.once('load', () => {
-      map.current.resize();
+      map.current.once('load', () => {
+        map.current.resize();
 
-      map.current.addSource('device', {
-        type: 'geojson',
-        data: deviceData,
-      });
+        map.current.addSource('devices', {
+          type: 'geojson',
+          data: devicesData,
+        });
 
-      map.current.addLayer({
-        id: 'device',
-        type: 'circle',
-        source: 'device',
-        paint: {
-          'circle-blur': 0,
-          'circle-opacity': {
-            base: 1,
-            stops: [
-              [DEFAULT_ZOOM, 1],
-              [8, 1],
-              [12, 0.7],
+        map.current.addLayer({
+          id: 'devices',
+          type: 'circle',
+          source: 'devices',
+          paint: {
+            'circle-blur': 0,
+            'circle-opacity': {
+              base: 1,
+              stops: [
+                [DEFAULT_ZOOM, 1],
+                [8, 1],
+                [12, 0.7],
+              ],
+            },
+            'circle-radius': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              5,
+              ['case', ['boolean', ['get', 'hover'], true], 10, 5],
+              10,
+              100,
+            ],
+            'circle-color': [
+              'match',
+              ['get', 'statusColor'],
+              'green',
+              '#3DC04E',
+              'yellow',
+              '#c9bc0d',
+              '#c9bc0d',
             ],
           },
-          'circle-radius': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            5,
-            ['case', ['boolean', ['get', 'hover'], true], 10, 5],
-            10,
-            100,
-          ],
-          'circle-color': [
-            'match',
-            ['get', 'statusColor'],
-            'green',
-            '#3DC04E',
-            'yellow',
-            '#c9bc0d',
-            '#c9bc0d',
-          ],
-        },
-      });
+        });
 
-      map.current.addLayer({
-        id: 'ownedDevice',
-        type: 'circle',
-        source: 'device',
-        paint: {
-          'circle-radius': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            5,
-            ['match', ['get', 'hover'], 'true', 65, 30],
-            12,
-            ['*', 5, ['zoom']],
-          ],
-          'circle-opacity': 0,
-          'circle-stroke-width': [
-            'match',
-            ['get', 'isUserOwner'],
-            1,
-            2,
-            0,
-            0,
-            0,
-          ],
-          'circle-stroke-color': '#e5dfdf',
-        },
-      });
-
-      map.current.on('mouseenter', 'device', function (e) {
-        if (e.features[0].properties.isUserOwner) {
-          map.current.getCanvas().style.cursor = 'pointer';
-        }
-
-        map.current.setFeatureState(
-          {
-            source: 'device',
-            id: e.features[0].properties.id,
+        map.current.addLayer({
+          id: 'ownedDevices',
+          type: 'circle',
+          source: 'devices',
+          paint: {
+            'circle-radius': [
+              'interpolate',
+              ['linear'],
+              ['zoom'],
+              5,
+              ['match', ['get', 'hover'], 'true', 65, 30],
+              12,
+              ['*', 5, ['zoom']],
+            ],
+            'circle-opacity': 0,
+            'circle-stroke-width': [
+              'match',
+              ['get', 'isUserOwner'],
+              1,
+              2,
+              0,
+              0,
+              0,
+            ],
+            'circle-stroke-color': '#e5dfdf',
           },
-          {
-            hover: true,
+        });
+
+        map.current.on('mouseenter', 'devices', function (e) {
+          if (e.features[0].properties.isUserOwner) {
+            map.current.getCanvas().style.cursor = 'pointer';
           }
-        );
-        const index = deviceData.features
-          .map((s) => s.properties.id)
-          .indexOf(e.features[0].properties.id);
 
-        onSensorHover(index);
-      });
-
-      map.current.on('mouseleave', 'device', function () {
-        map.current.getCanvas().style.cursor = '';
-
-        onSensorHover(undefined);
-      });
-
-      map.current.on('click', 'device', function (e) {
-        const clickedSensor = device.filter(
-          (sensor) => sensor.id === e.features[0].properties.id
-        )[0];
-
-        if (clickedSensor.isUserOwner) {
-          setDisplayedSensor(
-            device.filter(
-              (sensor) => sensor.id === e.features[0].properties.id
-            )[0]
+          map.current.setFeatureState(
+            {
+              source: 'devices',
+              id: e.features[0].properties.id,
+            },
+            {
+              hover: true,
+            }
           );
-          setShouldShowSideMenu(true);
-        }
+          const index = devicesData.features
+            .map((s) => s.properties.id)
+            .indexOf(e.features[0].properties.id);
+
+          onDeviceHover(index);
+        });
+
+        map.current.on('mouseleave', 'devices', function () {
+          map.current.getCanvas().style.cursor = '';
+
+          onDeviceHover(undefined);
+        });
+
+        map.current.on('click', 'devices', function (e) {
+          const clickedDevice = devices.filter(
+            (device) => device.id === e.features[0].properties.id
+          )[0];
+
+          if (clickedDevice.isUserOwner) {
+            setDisplayedDevice(
+              devices.filter(
+                (device) => device.id === e.features[0].properties.id
+              )[0]
+            );
+            setShouldShowSideMenu(true);
+          }
+        });
       });
-    });
-    //}
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [device]);
+  }, [devices]);
 
   const zoomIn = () => {
     map.current.flyTo({ zoom: map.current.getZoom() + 1 });
@@ -207,11 +209,11 @@ const DeviceMap = ({
 
   return (
     <>
-      <div className="device-map__header">
-        <h4 className="device-map__title" tabIndex={0}>
-          Sensor locations
+      <div className="devices-map__header">
+        <h4 className="devices-map__title" tabIndex={0}>
+          Device locations
         </h4>
-        <div className="device-map__controls">
+        <div className="devices-map__controls">
           <span
             tabIndex={0}
             onClick={zoomIn}

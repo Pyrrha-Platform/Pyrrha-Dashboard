@@ -88,7 +88,7 @@
     },
     "map": {
       "heading": "Map",
-      "subheading": "Ara esteu visualitzant les dades en temps real i els llindars d'exposició mitjana de 10 minuts. El nombre són les dades en temps real i l’indicador representa la mitjana de deu minuts dins d’un llindar.",
+      "subheading": "Aquestes són les ubicacions dels dispositius actives actualment.",
       "noDevices": "Sense dispositius",
       "tileHeadingNormal": "Abast normal",
       "tileSubheadingNormal": "Nivells normals",
@@ -139,7 +139,17 @@
       "code": "Codi",
       "model": "Model",
       "version": "Versió",
-      "actions": "Comportamiento"
+      "actions": "Comportamiento",
+      "deviceRemoveModal": {
+        "removeDevice": "Remove device",
+        "removeDeviceText": "Remove your device from the network.",
+        "removeDeviceAdditional": "Your device will no longer contribute data and be removed from the dashboard."
+      },
+      "myDevice": "My device",
+      "rowOverflow": {
+        "interact": "Interact",
+        "remove": "Remove"
+      }
     },
     "firefighters": {
       "heading": "Bombers",

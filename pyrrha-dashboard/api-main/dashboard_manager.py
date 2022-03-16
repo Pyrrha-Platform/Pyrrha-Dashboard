@@ -399,7 +399,7 @@ class dashboard_manager(object):
 
         # TODO: Store/get latitude and longitude from the database
 
-        devices = []
+        map = []
 
         try:
             self._logger.debug("get_map_now - trying")
@@ -445,8 +445,9 @@ class dashboard_manager(object):
                 for i in data:
                     # self._logger.debug(i)
 
+                    """
                     # TODO: Hardcoded to Barcelona's lat/long for now
-                    devices.append(
+                    map.append(
                         {
                             "device_id": i[0],
                             "temperature": i[1],
@@ -461,6 +462,68 @@ class dashboard_manager(object):
                             "longitude": "2.154007",
                         }
                     )
+                    """
+
+                # Hardcoded for now
+                map = {
+                    "devices": [
+                        {
+                            "carbon_monoxide": 10.0,
+                            "firefighter_code": "Graf 7",
+                            "firefighter_email": "graf0007@graf.cat",
+                            "firefighter_first": "Bombero",
+                            "device_id": "Prometeo:00:00:00:00:00:07",
+                            "firefighter_last": "Graf 7",
+                            "humidity": 46,
+                            "nitrogen_dioxide": 0.55,
+                            "temperature": 41,
+                            "latitude": "41.364031",
+                            "longitude": "1.831706",
+                            "timestamp_mins": "Tue, 11 Mar 2022 10:58:00 GMT",
+                            "id": "Prometeo:00:00:00:00:00:07",
+                            "device_version": 1,
+                            "lastCheckin": "Tue, 11 Mar 2022 10:58:00 GMT",
+                            "isUserOwner": True,
+                        },
+                        {
+                            "carbon_monoxide": 10.0,
+                            "firefighter_code": "Graf 3",
+                            "firefighter_email": "graf0003@graf.cat",
+                            "firefighter_first": "Bombero",
+                            "device_id": "Prometeo:00:00:00:00:00:03",
+                            "firefighter_last": "Graf 3",
+                            "humidity": 67,
+                            "nitrogen_dioxide": 0.5,
+                            "temperature": 33,
+                            "latitude": "40.486027649186646",
+                            "longitude": "0.2514942041995945",
+                            "timestamp_mins": "Tue, 11 Feb 2022 10:56:00 GMT",
+                            "id": "Prometeo:00:00:00:00:00:03",
+                            "device_version": 1,
+                            "lastCheckin": "Tue, 11 Feb 2022 10:58:00 GMT",
+                            "isUserOwner": True,
+                        },
+                        {
+                            "carbon_monoxide": 10.0,
+                            "firefighter_code": "Graf 5",
+                            "firefighter_email": "graf0003@graf.cat",
+                            "firefighter_first": "Bombero",
+                            "device_id": "Prometeo:00:00:00:00:00:05",
+                            "firefighter_last": "Graf 5",
+                            "humidity": 67,
+                            "nitrogen_dioxide": 0.5,
+                            "temperature": 33,
+                            "latitude": "39.552386966400555",
+                            "longitude": "-0.41370484730314183",
+                            "timestamp_mins": "Tue, 13 Mar 2022 10:56:00 GMT",
+                            "id": "Prometeo:00:00:00:00:00:05",
+                            "device_version": 1,
+                            "lastCheckin": "Tue, 13 Mar 2022 10:58:00 GMT",
+                            "isUserOwner": True,
+                        },
+                    ]
+                }
+
                 conn.close()
             else:
                 self._logger.debug("get_map_now - NO HAY INFORMACION")
@@ -472,4 +535,4 @@ class dashboard_manager(object):
             self._logger.debug(e)
             return None
 
-        return devices
+        return map

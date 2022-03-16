@@ -57,12 +57,13 @@ function ProfilePage(props) {
           renderIcon={ArrowRight32}
           iconDescription={t('content.profile.logout')}
           onKeyDown={(e) => Utils.keyboardOnlySubmit(e, onLogoutRequested)}
-          onClick={onLogoutRequested}>
+          onClick={onLogoutRequested}
+        >
           {t('content.profile.logout')}
         </Button>
       </div>
     </>
   );
-};
+}
 
 export default ProfilePage;

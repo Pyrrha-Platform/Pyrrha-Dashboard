@@ -38,11 +38,11 @@ const Map = () => {
 
       <div className="bx--row">
         <div className="bx--col bx--no-gutter">
-          <div class="bx--grid bx--grid--full-width">
+          <div className="bx--grid bx--grid--full-width">
             <div className="bx--row">
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 map-page__tile_number">
                         <span className="map-page__danger">{danger}</span>
@@ -61,7 +61,7 @@ const Map = () => {
               </div>
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 map-page__tile_number">
                         <span className="map-page__warning">{warning}</span>
@@ -80,7 +80,7 @@ const Map = () => {
               </div>
               <div className="bx--col">
                 <Tile>
-                  <div class="bx--grid bx--grid--full-width">
+                  <div className="bx--grid bx--grid--full-width">
                     <div className="bx--row">
                       <div className="bx--col-md-1 map-page__tile_number">
                         <span className="map-page__normal">{normal}</span>
@@ -114,6 +114,8 @@ const Map = () => {
               carbon_monoxide,
               nitrogen_dioxide,
               increment,
+              longitude,
+              latitude,
             }) => (
               <DeviceMap
                 device_id={device_id}
@@ -123,12 +125,16 @@ const Map = () => {
                 humidity={humidity}
                 carbon_monoxide={carbon_monoxide}
                 nitrogen_dioxide={nitrogen_dioxide}
+                longitude={longitude}
+                latitude={latitude}
                 increment={'now'}
               />
             )
           )}
         </div>
       )}
+
+      {console.log('Map', map)}
 
       {(map == undefined || map.length == 0 || map.map == undefined) && (
         <div className="bx--row">

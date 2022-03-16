@@ -88,7 +88,7 @@
     },
     "map": {
       "heading": "Map",
-      "subheading": "You are now viewing the real-time data and 10 minute average exposure thresholds. The number is the real-time data, and the gauge represents the ten minute average within a threshold.",
+      "subheading": "These are the currently active device locations.",
       "noDevices": "No devices",
       "tileHeadingNormal": "Normal range",
       "tileSubheadingNormal": "Normal levels",
@@ -139,7 +139,17 @@
       "code": "Code",
       "model": "Model",
       "version": "Version",
-      "actions": "Actions"
+      "actions": "Actions",
+      "deviceRemoveModal": {
+        "removeDevice": "Remove device",
+        "removeDeviceText": "Remove your device from the network.",
+        "removeDeviceAdditional": "Your device will no longer contribute data and be removed from the dashboard."
+      },
+      "myDevice": "My device",
+      "rowOverflow": {
+        "interact": "Interact",
+        "remove": "Remove"
+      }
     },
     "firefighters": {
       "heading": "Firefighters",

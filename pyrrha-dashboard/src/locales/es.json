@@ -88,7 +88,7 @@
     },
     "map": {
       "heading": "Map",
-      "subheading": "Ahora está viendo los datos en tiempo real y los umbrales de exposición promedio de 10 minutos. El número son los datos en tiempo real y el indicador representa el promedio de diez minutos dentro de un umbral.",
+      "subheading": "Estas son las ubicaciones de dispositivos activas actualmente.",
       "noDevices": "Sin dispositivos",
       "tileHeadingNormal": "Rango normal",
       "tileSubheadingNormal": "Niveles normales",
@@ -139,7 +139,17 @@
       "code": "Código",
       "model": "Modelo",
       "version": "Versión",
-      "actions": "Accions"
+      "actions": "Accions",
+      "deviceRemoveModal": {
+        "removeDevice": "Remove device",
+        "removeDeviceText": "Remove your device from the network.",
+        "removeDeviceAdditional": "Your device will no longer contribute data and be removed from the dashboard."
+      },
+      "myDevice": "My device",
+      "rowOverflow": {
+        "interact": "Interact",
+        "remove": "Remove"
+      }
     },
     "firefighters": {
       "heading": "Bomberos",

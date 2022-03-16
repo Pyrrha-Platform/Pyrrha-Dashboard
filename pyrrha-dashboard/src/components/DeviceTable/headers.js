@@ -1,36 +1,32 @@
 const headers = [
   {
-    header: 'Sensor ID',
+    header: 'Device',
     key: 'id',
   },
   {
-    header: 'Last report',
+    header: 'Last reading',
     key: 'lastCheckin',
   },
-  // {
-  //   header: 'Country',
-  //   key: 'country',
-  // },
   {
-    header: 'Connection type',
-    key: 'connection_type',
+    header: 'User',
+    key: 'firefighter_last',
   },
   {
-    header: 'Device version',
-    key: 'firmwareVer',
+    header: 'CO',
+    key: 'carbon_monoxide',
   },
-  // {
-  //   header: 'Peak acc.',
-  //   key: 'peak_acc',
-  // },
   {
-    header: 'Coordinates',
+    header: 'NO2',
+    key: 'nitrogen_dioxide',
+  },
+  {
+    header: 'Temperature',
+    key: 'temperature',
+  },
+  {
+    header: 'Position',
     key: 'pos',
   },
-  // {
-  //   header: 'Earthquakes detected',
-  //   key: 'earthquakes_detected',
-  // },
 ];
 
 export default headers;

@@ -2,8 +2,7 @@ import * as d3 from 'd3';
 
 class Constants {
   // WebSocket endpoint
-  // trying something different with the url
-  static WEBSOCKET_URL = `wss://prometeo-eu-gb-3-bx2-2x8-514bd37ab295f8aeaf548c9dacf39708-0000.eu-gb.containers.appdomain.cloud/ws`;
+  static WEBSOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 
   // Whether to validate against App ID. Important when developing locally.
   static AUTH_DISABLED = true;

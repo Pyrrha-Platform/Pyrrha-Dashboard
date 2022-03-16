@@ -29,6 +29,7 @@ import AppContext from '../../context/app';
 
 const formatRows = (rows) =>
   rows.map((row) => {
+    // console.log('formatRows row', row);
     let rowCopy = { ...row };
     rowCopy['id'] = '' + rowCopy['id'];
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
@@ -36,11 +37,11 @@ const formatRows = (rows) =>
     rowCopy['pos'] = rowCopy['latitude']
       ? `${rowCopy['latitude']} ${rowCopy['longitude']}`
       : 'Unavailable';
-    rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['lastCheckin']));
-    rowCopy['lastCheckinRaw'] = new Date(rowCopy['lastCheckin']);
-    rowCopy['isUserOwner'] = new Date(rowCopy['isUserOwner']);
+    rowCopy['lastCheckin'] = timeAgo.format(new Date(rowCopy['timestamp_mins']));
+    rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
     // rowCopy['peak_acc'] += ' gals'
+    // console.log('formatRows rowCopy', rowCopy);
     return rowCopy;
   });
 
@@ -69,17 +70,19 @@ const getRowClasses = (cell, indexCells) => {
 
 const DeviceTable = ({
   loading,
-  device,
+  navigate,
+  devices,
+  setDevices,
   page,
   pageSize,
   onPaginationChange,
-  currentlyVisibleDevice,
+  currentlyVisibleDevices,
   shouldShowSideMenu,
+  setShouldShowSideMenu,
   shouldShowRemoveMenu,
+  setShouldShowRemoveMenu,
   removeDeviceLoading,
   displayedDevice,
-  setShouldShowSideMenu,
-  setShouldShowRemoveMenu,
   removeDevice,
   onModify,
   onRemove,
@@ -87,6 +90,10 @@ const DeviceTable = ({
   currentHoveredDevice,
 }) => {
   const { t } = useContext(AppContext);
+
+  console.log('DeviceTable devices', devices);
+  console.log('DeviceTable currentlyVisibleDevices', currentlyVisibleDevices);
+  console.log('DeviceTable loading', loading);
 
   useEffect(() => {
     document.body.className = shouldShowSideMenu ? 'body-no-scroll' : '';
@@ -98,27 +105,27 @@ const DeviceTable = ({
     <>
       {shouldShowSideMenu && (
         <DeviceInformationSidePanel
-          sensor={displayedDevice}
+          device={displayedDevice}
           onRequestClose={onSideMenuClose}
         />
       )}
       <Modal
         open={shouldShowRemoveMenu}
-        modalHeading={t('content.device.sensorRemoveModal.removeDevice')}
+        modalHeading={t('content.devices.deviceRemoveModal.removeDevice')}
         size="xs"
-        secondaryButtonText={t('content.modal_basic.cancel')}
-        primaryButtonText={t('content.modal_basic.confirm')}
+        secondaryButtonText={t('content.common.cancel')}
+        primaryButtonText={t('content.common.confirm')}
         onRequestClose={() => setShouldShowRemoveMenu(false)}
         onRequestSubmit={removeDevice}
       >
         {removeDeviceLoading ? <Loading /> : null}
-        <p>{t('content.device.sensorRemoveModal.removeDeviceText')}</p>
+        <p>{t('content.devices.deviceRemoveModal.removeDeviceText')}</p>
         <p className="mart-1">
-          {t('content.device.sensorRemoveModal.removeDeviceAdditional')}
+          {t('content.devices.deviceRemoveModal.removeDeviceAdditional')}
         </p>
       </Modal>
       <DataTable
-        rows={formatRows(currentlyVisibleDevice)}
+        rows={formatRows(currentlyVisibleDevices)}
         headers={headers}
         className="device-table"
       >
@@ -142,7 +149,7 @@ const DeviceTable = ({
                 <TableToolbarSearch
                   expanded={true}
                   onChange={onInputChange}
-                  placeHolderText="Search by Device ID"
+                  placeholder="Search by Device ID"
                 />
               </TableToolbarContent>
             </TableToolbar>
@@ -177,17 +184,17 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < device.length
+                      (page - 1) * pageSize + rowIndex < devices.length
                   )
                   .map((row, rowIndex) => {
-                    const sensorIndex = (page - 1) * pageSize + rowIndex;
+                    const deviceIndex = (page - 1) * pageSize + rowIndex;
 
                     return (
                       <Fragment key={row.id}>
                         <TableExpandRow
                           {...getRowProps({ row })}
-                          data-hovered={currentHoveredDevice === sensorIndex}
-                          onMouseEnter={() => onDeviceHover(sensorIndex)}
+                          data-hovered={currentHoveredDevice === deviceIndex}
+                          onMouseEnter={() => onDeviceHover(deviceIndex)}
                           onMouseLeave={() => onDeviceHover(undefined)}
                         >
                           {loading
@@ -214,23 +221,23 @@ const DeviceTable = ({
                                       cell.value
                                     )}
                                   </span>
-                                  {indexCells === 0 &&
-                                    device[sensorIndex].isUserOwner && (
+                                  {/*indexCells === 0 &&
+                                    devices[deviceIndex].isUserOwner && (
                                       <Tag
                                         className="tag-owner"
                                         tabIndex={0}
-                                        aria-label="My sensor"
+                                        aria-label="My device"
                                       >
-                                        My sensor
+                                        My device
                                       </Tag>
-                                    )}
+                                    )*/}
                                 </TableCell>
                               ))}
-                          {device[sensorIndex].isUserOwner ? (
+                          {devices[deviceIndex].isUserOwner ? (
                             <DeviceOverflowMenu
                               id={row.id}
-                              sensor={
-                                formatRows(currentlyVisibleDevice)[rowIndex]
+                              device={
+                                formatRows(currentlyVisibleDevices)[rowIndex]
                               }
                               onModify={onModify}
                               onRemove={onRemove}
@@ -243,7 +250,7 @@ const DeviceTable = ({
                           colSpan={headers.length + 2}
                           className="device-expandable-row"
                         >
-                          <div className="sensor-chart" tabIndex={0}>
+                          <div className="device-chart" tabIndex={0}>
                             <p className="title dance" tabIndex={0} />
                           </div>
                         </TableExpandedRow>
@@ -261,7 +268,7 @@ const DeviceTable = ({
               pageSize={5}
               onChange={onPaginationChange}
               pageSizes={[5, 10, 15]}
-              totalItems={device.length}
+              totalItems={devices.length}
             />
           </TableContainer>
         )}

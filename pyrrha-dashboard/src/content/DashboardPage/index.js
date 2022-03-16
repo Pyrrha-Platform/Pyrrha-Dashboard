@@ -9,11 +9,7 @@ function DashboardPage(props) {
 
   const { currentUser } = useContext(AppContext);
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
-    return (
-      <>
-        <DashboardGrid />
-      </>
-    );
+    return <DashboardGrid />;
   } else {
     navigate('/login');
     return null;

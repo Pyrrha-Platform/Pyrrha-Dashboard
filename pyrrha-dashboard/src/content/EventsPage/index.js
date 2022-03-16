@@ -9,11 +9,7 @@ function EventsPage(props) {
   const { currentUser } = useContext(AppContext);
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
-    return (
-      <>
-        <EventsTable />
-      </>
-    );
+    return <EventsTable />;
   } else {
     navigate('/login');
     return null;

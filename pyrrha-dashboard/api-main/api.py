@@ -9,21 +9,24 @@ from logging.config import dictConfig
 logger = logging.getLogger("pyrrha.api")
 logger.setLevel(logging.DEBUG)
 
-dictConfig({
-    'version': 1,
-    'formatters': {'default': {
-        'format': '[%(asctime)s] %(levelname)s in %(module)s: %(message)s',
-    }},
-    'handlers': {'wsgi': {
-        'class': 'logging.StreamHandler',
-        'stream': 'ext://flask.logging.wsgi_errors_stream',
-        'formatter': 'default'
-    }},
-    'root': {
-        'level': 'INFO',
-        'handlers': ['wsgi']
+dictConfig(
+    {
+        "version": 1,
+        "formatters": {
+            "default": {
+                "format": "[%(asctime)s] %(levelname)s in %(module)s: %(message)s",
+            }
+        },
+        "handlers": {
+            "wsgi": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://flask.logging.wsgi_errors_stream",
+                "formatter": "default",
+            }
+        },
+        "root": {"level": "INFO", "handlers": ["wsgi"]},
     }
-})
+)
 
 app = Flask(__name__)
 
@@ -67,8 +70,7 @@ def firefighters():
 
     if request.method == "GET":
         firefighters = firefighter_manager().get_all_firefighters()
-        message = {"status": 200, "message": "OK",
-                   "firefighters": firefighters}
+        message = {"status": 200, "message": "OK", "firefighters": firefighters}
         body = json.dumps(message)
         logger.debug(body)
         resp = Response(body, status=200, mimetype="application/json")
@@ -217,8 +219,7 @@ def events():
                 created_values["firefighters"],
                 created_values["state"],
             )
-            message = {"status": 201,
-                       "message": "Created", "event": event["id"]}
+            message = {"status": 201, "message": "Created", "event": event["id"]}
             body = json.dumps(message)
             logger.debug(body)
             resp = Response(body, status=201, mimetype="application/json")
@@ -265,8 +266,7 @@ def event_by_id(id):
                 updated_values["firefighters"],
                 updated_values["state"],
             )
-            message = {"status": 200,
-                       "message": "Updated", "event": event["id"]}
+            message = {"status": 200, "message": "Updated", "event": event["id"]}
             body = json.dumps(message)
             logger.debug(body)
             resp = Response(body, status=200, mimetype="application/json")
@@ -321,8 +321,7 @@ def devices():
                 created_values["model"],
                 created_values["version"],
             )
-            message = {"status": 201, "message": "Created",
-                       "device": device["id"]}
+            message = {"status": 201, "message": "Created", "device": device["id"]}
             body = json.dumps(message)
             logger.debug(body)
             resp = Response(body, status=201, mimetype="application/json")
@@ -366,8 +365,7 @@ def device_by_id(id):
                 updated_values["model"],
                 updated_values["version"],
             )
-            message = {"status": 200, "message": "Updated",
-                       "device": device["id"]}
+            message = {"status": 200, "message": "Updated", "device": device["id"]}
             body = json.dumps(message)
             logger.debug(body)
             resp = Response(body, status=200, mimetype="application/json")
@@ -400,8 +398,8 @@ def dashboard_now():
 @app.route("/api-main/v1/map-now", methods=["GET"])
 def map_now():
 
-    devices = dashboard_manager().get_map_now()
-    message = {"status": 200, "message": "OK", "devices": devices}
+    map = dashboard_manager().get_map_now()
+    message = {"status": 200, "message": "OK", "map": map}
     body = json.dumps(message)
     logger.debug(body)
     resp = Response(body, status=200, mimetype="application/json")

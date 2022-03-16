@@ -12,11 +12,11 @@ const Router = () => {
   return (
     <BrowserRouter basename="/api-dash">
       <PyrrhaHeader
-          active={active}
-          page={page}
-          setActive={setActive}
-          setPage={setPage}
-        />
+        active={active}
+        page={page}
+        setActive={setActive}
+        setPage={setPage}
+      />
       <Routes>
         <Route
           path="/"

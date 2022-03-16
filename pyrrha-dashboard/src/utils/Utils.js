@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 import Constants from './Constants';
-// import TimeAgo from 'javascript-time-ago'
-// import en from 'javascript-time-ago/locale/en'
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
+
+TimeAgo.addDefaultLocale(en);
 
 class Utils {
-  // TimeAgo.addDefaultLocale(en)
-  // export const timeAgo = new TimeAgo('en-US')
+  static timeAgo = new TimeAgo('en-US');
 
   // Manages transitions of gauge angles
   static arcTween = (newAngle) => {

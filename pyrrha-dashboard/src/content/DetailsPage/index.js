@@ -11,9 +11,7 @@ function DetailsPage(props) {
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
     return (
-      <>
-       <DetailsGrid device_id={device_id} increment={increment} type={type} />
-      </>
+      <DetailsGrid device_id={device_id} increment={increment} type={type} />
     );
   } else {
     navigate('/login');

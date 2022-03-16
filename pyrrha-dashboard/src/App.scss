@@ -29,8 +29,11 @@ $small: 672px;
 @import 'content/DashboardPage/dashboard-page.scss';
 @import 'content/LoginPage/login-page.scss';
 @import 'content/ProfilePage/profile-page.scss';
+@import 'content/MapPage/map-page.scss';
 
 @import 'components/SideMenu/SideMenu.scss';
+@import 'components/DeviceInformationSidePanel/DeviceInformationSidePanel.scss';
+@import 'components/DeviceMap/DeviceMap.scss';
 @import 'components/Tile/Tile.scss';
 @import 'components/Field/Field.scss';
 
