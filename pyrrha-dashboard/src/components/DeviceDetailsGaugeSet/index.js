@@ -111,10 +111,10 @@ function DeviceDetailsGaugeSet({
   }
   */
 
-  console.log('Date now', utcCurrentDate.getTime());
-  console.log('Date timestamp', device_id, utcTimestampDate.getTime());
-  console.log('Date difference', utcTimeDifference);
-  console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
+  // console.log('Date now', utcCurrentDate.getTime());
+  // console.log('Date timestamp', device_id, utcTimestampDate.getTime());
+  // console.log('Date difference', utcTimeDifference);
+  // console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
 
   return (
     <>

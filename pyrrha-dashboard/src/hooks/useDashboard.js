@@ -62,15 +62,12 @@ const updateDashboard = (dashboard, message) => {
     } else {
       // It's a single device update, replace the
       // latest reading for the device, or add it
-      console.log('object', newMessage);
+      // console.log('object', newMessage);
       let matchedOldReading = false;
       newDashboard.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
-          console.log(
-            'Replacing a single old reading with a new one',
-            newMessage
-          );
-          console.log('Merged new and old readings', newMessage);
+          // console.log('Replacing a single old reading with a new one', newMessage);
+          // console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
             oldReading
@@ -80,10 +77,10 @@ const updateDashboard = (dashboard, message) => {
         }
       });
       if (!matchedOldReading) {
-        console.log('Adding a new reading', newMessage);
+        // console.log('Adding a new reading', newMessage);
         newDashboard.current.push(newMessage);
       }
-      console.log(newDashboard);
+      // console.log(newDashboard);
     }
   }
   return newDashboard.current.sort((a, b) =>
@@ -92,7 +89,7 @@ const updateDashboard = (dashboard, message) => {
 };
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
-  console.log('setRiskLevels');
+  // console.log('setRiskLevels');
   var tmpNormal =
     dashboard !== undefined && dashboard.length !== 0 ? dashboard.length : 0;
   var tmpWarning = 0;
@@ -142,7 +139,7 @@ const useDashboard = () => {
   useEffect(() => {
     fetchDashboard().then((dashboard) => {
       setDashboard(dashboard);
-      console.log('Loaded from database.', dashboard);
+      // console.log('Loaded from database.', dashboard);
       setLoading('Loaded from database.');
       setRiskLevels(dashboard, setNormal, setWarning, setDanger);
     });
@@ -150,27 +147,27 @@ const useDashboard = () => {
 
   // Updates based on new messages
   useEffect(() => {
-    console.log('web socket', Constants.WEBSOCKET_URL);
+    // console.log('web socket', Constants.WEBSOCKET_URL);
     const socket = new WebSocket(Constants.WEBSOCKET_URL);
     socket.onmessage = (msg) => {
-      console.log('dashboardRef', dashboardRef);
+      // console.log('dashboardRef', dashboardRef);
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
       } else {
-        console.log('Received update.', msg);
+        // console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
         let updatedDashboard = updateDashboard(dashboardRef, msg.data);
         setDashboard(updatedDashboard);
         setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }
-      console.log('dashboard', dashboard);
+      // console.log('dashboard', dashboard);
     };
     socket.onclose = (msg) => {
-      console.log('Connection closing.', msg);
+      // console.log('Connection closing.', msg);
       setLoading('Connection closing.');
     };
     return () => {
-      console.log('Connection closed.');
+      // console.log('Connection closed.');
       setLoading('Connection closed.');
       socket.close(1000, 'Dashboard disconnecting.');
     };
