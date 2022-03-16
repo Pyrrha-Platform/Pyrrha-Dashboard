@@ -87,12 +87,12 @@ const handleSubmit = (
   loadFirefighters,
   setOpen
 ) => {
-  console.log('handleSubmit');
-  console.log('id ' + id);
-  console.log('code ' + code);
-  console.log('first ' + first);
-  console.log('last ' + last);
-  console.log('email ' + email);
+  // console.log('handleSubmit');
+  // console.log('id ' + id);
+  // console.log('code ' + code);
+  // console.log('first ' + first);
+  // console.log('last ' + last);
+  // console.log('email ' + email);
 
   axios
     .put(`/api-main/v1/firefighters/` + id, {
@@ -104,8 +104,8 @@ const handleSubmit = (
     })
     .then((res) => {
       // TODO: Set success or error message
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
 
       // Refresh data
       loadFirefighters();
@@ -131,7 +131,7 @@ class FirefightersEditModal extends React.Component {
       email: this.props.row.cells[4].value,
       open: false,
     };
-    console.log(this.state.row);
+    // console.log(this.state.row);
   }
 
   render() {

@@ -10,8 +10,8 @@ class Utils {
 
   static formatCoordinates = (coordinates) => {
     return `${coordinates[0].toFixed(2)}°N, ${coordinates[1].toFixed(2)}°E`;
-  }
-    
+  };
+
   // Manages transitions of gauge angles
   static arcTween = (newAngle) => {
     return function (d) {

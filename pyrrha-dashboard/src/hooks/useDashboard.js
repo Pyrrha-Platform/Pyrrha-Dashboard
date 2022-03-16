@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDashboard = async () => {
   try {
     const data = await client(`/api-main/v1/dashboard-now`);
-    console.log(data);
+    // console.log(data);
     if (data.devices) {
       return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
     } else {
@@ -23,8 +23,8 @@ const fetchDashboard = async () => {
 };
 
 const updateDashboard = (dashboard, message) => {
-  console.log('dashboard', dashboard);
-  console.log('message', message);
+  // console.log('dashboard', dashboard);
+  // console.log('message', message);
 
   let newDashboard = { current: [] };
   if (
@@ -36,24 +36,21 @@ const updateDashboard = (dashboard, message) => {
     newDashboard = JSON.parse(JSON.stringify(dashboard));
   }
 
-  console.log('newDashboard', newDashboard);
+  // console.log('newDashboard', newDashboard);
 
   let newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
-  console.log(typeof newMessage, newMessage);
+  // console.log(typeof newMessage, newMessage);
   if (typeof newMessage === 'object') {
     if (newMessage instanceof Array) {
       // For each item in the newDashboard.current array, check to see if
       // there's a replacement in the newMessage array, then replace
-      console.log('array', newMessage);
+      // console.log('array', newMessage);
       newDashboard.current.forEach((oldReading) => {
         newMessage.forEach((newReading) => {
           if (oldReading.device_id === newReading.device_id) {
-            console.log(
-              'Replacing an old reading with a new one in the array',
-              newMessage
-            );
+            // console.log( 'Replacing an old reading with a new one in the array', newMessage);
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
               oldReading

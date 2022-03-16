@@ -32,7 +32,7 @@ function PyrrhaHeader(props) {
     i18n.changeLanguage(lng);
   };
 
-  console.log(currentUser);
+  // console.log(currentUser);
 
   return (
     <Header aria-label="Pyrrha">

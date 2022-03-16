@@ -36,7 +36,7 @@ const NewFirefightersTable = ({ device_id }) => {
   const loadFirefighters = React.useCallback(async () => {
     try {
       const data = await client(`/api-main/v1/firefighters`);
-      console.log(data);
+      // console.log(data);
       setFirefighters(data.firefighters);
     } catch (e) {
       console.log(e);

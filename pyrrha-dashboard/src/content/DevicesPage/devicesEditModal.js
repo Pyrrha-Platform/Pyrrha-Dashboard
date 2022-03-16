@@ -79,11 +79,11 @@ const editProps = {
 
 // On submit we should be passed the values.
 const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
-  console.log('handleSubmit');
-  console.log('id ' + id);
-  console.log('code ' + code);
-  console.log('model ' + model);
-  console.log('version ' + version);
+  // console.log('handleSubmit');
+  // console.log('id ' + id);
+  // console.log('code ' + code);
+  // console.log('model ' + model);
+  // console.log('version ' + version);
 
   axios
     .put(`/api-main/v1/devices/` + id, {
@@ -94,8 +94,8 @@ const handleSubmit = (id, code, model, version, loadDevices, setOpen) => {
     })
     .then((res) => {
       // TODO: Set success or error message
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
 
       // Refresh data
       loadDevices();
@@ -120,7 +120,7 @@ class DevicesEditModal extends React.Component {
       version: this.props.row.cells[3].value,
       open: false,
     };
-    console.log(this.state.row);
+    // console.log(this.state.row);
   }
 
   render() {

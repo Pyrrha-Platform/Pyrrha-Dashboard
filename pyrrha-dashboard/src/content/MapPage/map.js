@@ -134,7 +134,7 @@ const Map = () => {
         </div>
       )}
 
-      {console.log('Map', map)}
+      {/*console.log('Map', map)*/}
 
       {(map == undefined || map.length == 0 || map.map == undefined) && (
         <div className="bx--row">

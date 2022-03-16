@@ -44,7 +44,7 @@ const LoginPage = (props) => {
           lastName: user.lastName,
         });
 
-        console.log('Login successful ', user.email);
+        // console.log('Login successful ', user.email);
         return navigate('/');
       } catch (err) {
         setSubmitting(false);

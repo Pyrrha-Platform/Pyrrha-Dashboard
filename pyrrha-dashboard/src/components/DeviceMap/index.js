@@ -43,7 +43,7 @@ const DeviceMap = ({
   let mapWrapper = useRef();
   let map = useRef();
 
-  console.log('devices', devices);
+  // console.log('devices', devices);
 
   const devicesData = {
     type: 'FeatureCollection',
