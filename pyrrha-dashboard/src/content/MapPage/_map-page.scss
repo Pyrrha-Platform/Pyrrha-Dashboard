@@ -81,14 +81,21 @@
 .status-green {
   &[data-after]::after,
   &:not([data-after])::before {
-    background: #3dc04e;
+    background: #24a148;
   }
 }
 
 .status-yellow {
   &[data-after]::after,
   &:not([data-after])::before {
-    background: #c9bc0d;
+    background: #f1c21b;
+  }
+}
+
+.status-red {
+  &[data-after]::after,
+  &:not([data-after])::before {
+    background: #da1e28;
   }
 }
 

@@ -1,4 +1,6 @@
 import headers from './headers';
+import Constants from '../../utils/Constants';
+import Utils from '../../utils/Utils';
 import {
   DataTable,
   Table,
@@ -21,8 +23,6 @@ import {
 
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';
-
-import Utils from '../../utils/Utils';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
 import AppContext from '../../context/app';
 
@@ -62,9 +62,29 @@ const getDeviceStatus = (timeAgo) => {
   return 'with-circle status-green';
 };
 
+const getStatus = (type, value, increment) => {
+  let color = Utils.getStatusColor(type, value, increment, 0);
+  if (color == Constants.RED) {
+    return 'with-circle status-red';
+  } else if (color == Constants.YELLOW) {
+    return 'with-circle status-yellow';
+  } else {
+    return 'with-circle status-green';
+  }
+};
+
+// Index depends on what header position it's in
 const getRowClasses = (cell, indexCells) => {
   if (indexCells === 1) {
     return getDeviceStatus(cell.value);
+  } else if (indexCells === 3) {
+    return getStatus('CO', cell.value, 'now');
+  } else if (indexCells === 4) {
+    return getStatus('NO2', cell.value, 'now');
+  } else if (indexCells === 5) {
+    return getStatus('Tmp', cell.value, 'now');
+  } else if (indexCells === 6) {
+    return getStatus('Hum', cell.value, 'now');
   }
 };
 
