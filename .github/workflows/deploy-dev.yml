@@ -10,9 +10,9 @@ env:
   IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY_DEV }}
   IBM_CLOUD_REGION: ${{ secrets.IBM_CLOUD_REGION_DEV }}
   IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP_DEV }}
-  ICR_REGION: ${{ secrets.IBM_ICR_REGION_DEV }}
+  ICR_REGION: ${{ secrets.ICR_REGION_DEV }}
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE_DEV }}
-  REGISTRY_HOSTNAME: ${{ secrets.REGISTRY_HOSTNAME_DEV }}
+  REGISTRY_HOSTNAME: ${{ secrets.ICR_REGISTRY_HOSTNAME_DEV }}
   IKS_CLUSTER: ${{ secrets.IKS_CLUSTER_DEV }}
   K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE_DEV }}
   
@@ -60,7 +60,7 @@ jobs:
           cloud-region: $IBM_CLOUD_REGION
           icr-region: $ICR_REGION
           cloud-resource-group: $IBM_CLOUD_RESOURCE_GROUP
-          deployment-name: pyrrha-dash-dashboard-api-auth
+          deployment-name: api-auth
           container-name: api-auth
           github-sha: $GITHUB_SHA
           icr-namespace: $ICR_NAMESPACE
