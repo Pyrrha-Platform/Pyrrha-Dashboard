@@ -1,4 +1,4 @@
-name: Build and Deploy to IBM Kubernetes Service Cluster
+name: Build and Deploy Dev
 
 # Execute on every push to master
 on:
