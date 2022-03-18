@@ -2,22 +2,19 @@ name: Build and Deploy Dev
 
 # Execute on every push to master
 on:
-  release: # Execute when a release is created on the master branch
-    types:
-      - created
   workflow_dispatch:
 
 # Environment variables available to all jobs and steps in this workflow
 env:
   GITHUB_SHA: ${{ github.sha }}
-  IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY }}
-  IBM_CLOUD_REGION: ${{ secrets.IBM_CLOUD_REGION }}
-  IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP }}
-  ICR_REGION: ${{ secrets.IBM_ICR_REGION }}
-  ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE }}
-  REGISTRY_HOSTNAME: uk.icr.io
-  IKS_CLUSTER: ${{ secrets.IKS_CLUSTER }}
-  K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE }}
+  IBM_CLOUD_API_KEY: ${{ secrets.IBM_CLOUD_API_KEY_DEV }}
+  IBM_CLOUD_REGION: ${{ secrets.IBM_CLOUD_REGION_DEV }}
+  IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP_DEV }}
+  ICR_REGION: ${{ secrets.IBM_ICR_REGION_DEV }}
+  ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE_DEV }}
+  REGISTRY_HOSTNAME: ${{ secrets.REGISTRY_HOSTNAME_DEV }}
+  IKS_CLUSTER: ${{ secrets.IKS_CLUSTER_DEV }}
+  K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE_DEV }}
   
 
 jobs:
