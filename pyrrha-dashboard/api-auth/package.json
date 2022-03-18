@@ -2,8 +2,8 @@
   "name": "api-auth",
   "version": "0.0.1",
   "engines": {
-    "node": "^16.3.0",
-    "npm": "^8.1.2"
+    "node": "16.13.1",
+    "npm": "8.1.2"
   },
   "license": "Apache-2.0",
   "main": "src/index.js",
