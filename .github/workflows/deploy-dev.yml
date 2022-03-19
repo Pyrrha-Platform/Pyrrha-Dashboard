@@ -31,7 +31,7 @@ jobs:
         env:
           VCAP_LOCAL: ${{ secrets.VCAP_LOCAL_DEV }}
         run: |
-          echo "$VCAP_LOCAL_DEV" >> ./pyrrha-dashboard/api-auth/vcap-local.json
+          echo "$VCAP_LOCAL" >> ./pyrrha-dashboard/api-auth/vcap-local.json
       
       # A GitHub Action for serializing workflow runs
       - name: Turnstyle
