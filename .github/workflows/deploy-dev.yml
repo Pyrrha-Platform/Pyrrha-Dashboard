@@ -12,9 +12,12 @@ env:
   IBM_CLOUD_RESOURCE_GROUP: ${{ secrets.IBM_CLOUD_RESOURCE_GROUP_DEV }}
   ICR_REGION: ${{ secrets.ICR_REGION_DEV }}
   ICR_NAMESPACE: ${{ secrets.ICR_NAMESPACE_DEV }}
-  REGISTRY_HOSTNAME: ${{ secrets.ICR_REGISTRY_HOSTNAME_DEV }}
+  ICR_REGISTRY_HOSTNAME: ${{secrets.ICR_REGISTRY_HOSTNAME_DEV}}
   IKS_CLUSTER: ${{ secrets.IKS_CLUSTER_DEV }}
   K8S_CLUSTER_NAMESPACE: ${{ secrets.K8S_CLUSTER_NAMESPACE_DEV }}
+  IKS_DEPLOYMENT_NAME: ${{ secrets.IKS_DEPLOYMENT_NAME_DEV }}
+  CONTAINER_NAME: ${{ secrets.CONTAINER_NAME_DEV }}
+  IMAGE_NAME: ${{ secrets.IMAGE_NAME_DEV }}
   
 
 jobs:
@@ -50,7 +53,7 @@ jobs:
       #     image-name: api-main
       #     k8s-cluster-name: $IKS_CLUSTER
       #     k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-      #     registry-hostname: uk.icr.io
+      #     registry-hostname: $ICR_REGISTRY_HOSTNAME
       #     working-directory: "pyrrha-dashboard/api-main"
 
       - name: Deploy api-auth
@@ -67,7 +70,7 @@ jobs:
           image-name: api-auth
           k8s-cluster-name: $IKS_CLUSTER
           k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-          registry-hostname: uk.icr.io
+          registry-hostname: $ICR_REGISTRY_HOSTNAME
           working-directory: "pyrrha-dashboard/api-auth"
 
       # - name: Deploy api-dash
@@ -84,5 +87,5 @@ jobs:
       #     image-name: api-dash
       #     k8s-cluster-name: $IKS_CLUSTER
       #     k8s-cluster-namespace: $K8S_CLUSTER_NAMESPACE
-      #     registry-hostname: uk.icr.io
+      #     registry-hostname: $ICR_REGISTRY_HOSTNAME
       #     working-directory: "pyrrha-dashboard"
