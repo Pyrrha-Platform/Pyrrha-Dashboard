@@ -10,7 +10,7 @@ const Router = () => {
   const [page, setPage] = useState('Dashboard');
 
   return (
-    <BrowserRouter basename="/api-dash">
+    <BrowserRouter basename="/dash">
       <PyrrhaHeader
         active={active}
         page={page}
