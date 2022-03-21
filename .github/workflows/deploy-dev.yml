@@ -3,6 +3,9 @@ name: Build and Deploy Dev
 # Execute on every push to master
 on:
   workflow_dispatch:
+  push: # Execute on every push to the master branch. Merging a pull request counts as a push.
+    branches: 
+      - main
 
 # Environment variables available to all jobs and steps in this workflow
 env:
