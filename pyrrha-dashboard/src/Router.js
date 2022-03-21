@@ -10,7 +10,7 @@ const Router = () => {
   const [page, setPage] = useState('Dashboard');
 
   return (
-    <BrowserRouter basename="/api-dash">
+    <BrowserRouter basename="/dash">
       <PyrrhaHeader
         active={active}
         page={page}
@@ -74,6 +74,7 @@ const Router = () => {
           }
         />
         {/*
+        Routes are not active. Adding comment to kick off a build.
         <Route
           path="/login"
           element={
