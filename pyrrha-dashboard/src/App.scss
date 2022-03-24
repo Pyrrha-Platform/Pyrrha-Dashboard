@@ -22,14 +22,15 @@ $small: 672px;
 @import 'carbon-components/scss/globals/scss/typography.scss';
 @import 'carbon-components/scss/globals/scss/vars.scss';
 
-@import 'content/DetailsPage/details-page.scss';
-@import 'content/DevicesPage/devices-page.scss';
-@import 'content/EventsPage/events-page.scss';
-@import 'content/FirefightersPage/firefighters-page.scss';
 @import 'content/DashboardPage/dashboard-page.scss';
-@import 'content/LoginPage/login-page.scss';
-@import 'content/ProfilePage/profile-page.scss';
+@import 'content/DetailsPage/details-page.scss';
 @import 'content/MapPage/map-page.scss';
+
+/*@import 'content/EventsPage/events-page.scss';*/
+/*@import 'content/FirefightersPage/firefighters-page.scss';*/
+/*@import 'content/DevicesPage/devices-page.scss';*/
+/*@import 'content/LoginPage/login-page.scss';*/
+/*@import 'content/ProfilePage/profile-page.scss';*/
 
 @import 'components/SideMenu/SideMenu.scss';
 @import 'components/DeviceInformationSidePanel/DeviceInformationSidePanel.scss';

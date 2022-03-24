@@ -122,6 +122,7 @@ const DashboardGrid = () => {
                 increment,
               }) => (
                 <DeviceDashboardGaugeSet
+                  key={device_id}
                   device_id={device_id}
                   timestamp_mins={timestamp_mins}
                   device_timestamp={device_timestamp}

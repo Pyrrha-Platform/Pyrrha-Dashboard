@@ -40,8 +40,8 @@ const DeviceMap = ({
   onDeviceHover,
   currentHoveredDevice,
 }) => {
-  let mapWrapper = useRef();
-  let map = useRef();
+  let mapWrapper = useRef(null);
+  let map = useRef(null);
 
   // console.log('devices', devices);
 
@@ -69,7 +69,9 @@ const DeviceMap = ({
   }, [currentHoveredDevice]);
 
   useEffect(() => {
+    console.log('Drawing map');
     if (devices.length > 0) {
+      if (map.current) return; // initialize map only once
       map.current = new mapboxgl.Map({
         container: mapWrapper,
         style: 'mapbox://styles/mapbox/dark-v10',
@@ -82,6 +84,8 @@ const DeviceMap = ({
           compact: true,
         })
       );
+
+      console.log('Created map. Decorating now.');
 
       map.current.once('load', () => {
         map.current.resize();
@@ -117,15 +121,16 @@ const DeviceMap = ({
             'circle-color': [
               'match',
               ['get', 'statusColor'],
-              'green',
+              '#24a148',
               '#3DC04E',
-              'yellow',
+              '#f1c21b',
               '#c9bc0d',
               '#c9bc0d',
             ],
           },
         });
 
+        /*
         map.current.addLayer({
           id: 'ownedDevices',
           type: 'circle',
@@ -153,6 +158,7 @@ const DeviceMap = ({
             'circle-stroke-color': '#e5dfdf',
           },
         });
+        */
 
         map.current.on('mouseenter', 'devices', function (e) {
           if (e.features[0].properties.isUserOwner) {
@@ -195,6 +201,8 @@ const DeviceMap = ({
             setShouldShowSideMenu(true);
           }
         });
+
+        console.log('Done with map.');
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,10 +217,12 @@ const DeviceMap = ({
 
   return (
     <>
-      <div className="devices-map__header">
+      <div className="devices-map__header" tabIndex={0}>
+        {/*
         <h4 className="devices-map__title" tabIndex={0}>
           Device locations
         </h4>
+        */}
         <div className="devices-map__controls">
           <span
             tabIndex={0}
@@ -230,7 +240,11 @@ const DeviceMap = ({
           </span>
         </div>
       </div>
-      <div ref={(el) => (mapWrapper = el)} className="map-wrapper" />
+      <div
+        ref={(el) => (mapWrapper = el)}
+        className="map-wrapper"
+        style={{ height: '300px' }}
+      />
     </>
   );
 };
