@@ -38,7 +38,12 @@ jobs:
           VCAP_LOCAL: ${{ secrets.VCAP_LOCAL_DEV }}
         run: |
           echo "$VCAP_LOCAL" >> ./pyrrha-dashboard/api-auth/vcap-local.json
-      
+      - name: Update REACT_APP_WEBSOCKET_URL for Docker Build
+        env:
+          ARG REACT_APP_WEBSOCKET_URL: ${{secrets.REACT_APP_WEBSOCKET_URL_DEV}}
+        run:
+          sed -i "s|PYRRHA_WS_URL|$REACT_APP_WEBSOCKET_URL|" ./pyrrha-dashboard/Dockerfile
+          
       # A GitHub Action for serializing workflow runs
       - name: Turnstyle
         uses: softprops/turnstyle@v1
