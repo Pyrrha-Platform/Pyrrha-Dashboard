@@ -1,4 +1,7 @@
 FROM node:16-alpine as build
+
+ARG REACT_APP_WEBSOCKET_URL=PYRRHA_WS_URL
+
 WORKDIR /app
 COPY package.json .
 COPY nginx.conf .

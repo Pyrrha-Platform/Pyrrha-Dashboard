@@ -21,15 +21,12 @@ env:
   IKS_DEPLOYMENT_NAME: ${{ secrets.IKS_DEPLOYMENT_NAME_DEV }}
   CONTAINER_NAME: ${{ secrets.CONTAINER_NAME_DEV }}
   IMAGE_NAME: ${{ secrets.IMAGE_NAME_DEV }}
-  REACT_APP_WEBSOCKET_URL: ${{ secrets.REACT_APP_WEBSOCKET_URL }}
   
 
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy 
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_WEBSOCKET_URL: $REACT_APP_WEBSOCKET_URL
     
     steps:
       - uses: actions/checkout@v2      
@@ -44,6 +41,12 @@ jobs:
         uses: softprops/turnstyle@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update REACT_APP_WEBSOCKET_URL for Docker Build
+        env:
+          REACT_APP_WEBSOCKET_URL: ${{secrets.REACT_APP_WEBSOCKET_URL_DEV}}
+        run: |
+          sed -i "s|PYRRHA_WS_URL|$REACT_APP_WEBSOCKET_URL|" ./pyrrha-dashboard/Dockerfile
+          grep -i "REACT_APP" ./pyrrha-dashboard/Dockerfile
 
       - name: Deploy api-main
         uses: call-for-code/build-push-deploy@main
