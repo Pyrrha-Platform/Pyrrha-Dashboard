@@ -251,7 +251,7 @@ const DeviceTable = ({
                                     )*/}
                                 </TableCell>
                               ))}
-                          {devices[deviceIndex].isUserOwner ? (
+                          {/*devices[deviceIndex].isUserOwner ? (
                             <DeviceOverflowMenu
                               id={row.id}
                               device={
@@ -262,7 +262,8 @@ const DeviceTable = ({
                             />
                           ) : (
                             <TableCell className="sticky-column right" />
-                          )}
+                          )*/}
+                          <TableCell className="sticky-column right" />
                         </TableExpandRow>
                         <TableExpandedRow
                           colSpan={headers.length + 2}

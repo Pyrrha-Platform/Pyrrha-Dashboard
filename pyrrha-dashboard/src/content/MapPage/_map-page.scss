@@ -1,5 +1,6 @@
 @import './mixins.scss';
 @import './overrides.scss';
+@import 'mapbox-gl/dist/mapbox-gl.css';
 
 .map-page__illo {
   max-width: 100%;
