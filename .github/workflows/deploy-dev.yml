@@ -41,11 +41,13 @@ jobs:
         uses: softprops/turnstyle@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update REACT_APP_WEBSOCKET_URL for Docker Build
+      - name: Update environment args for Docker Build
         env:
           REACT_APP_WEBSOCKET_URL: ${{secrets.REACT_APP_WEBSOCKET_URL_DEV}}
+          REACT_APP_MAPBOX_ACCESS_TOKEN: ${{secrets.REACT_APP_MAPBOX_ACCESS_TOKEN_DEV}}
         run: |
           sed -i "s|PYRRHA_WS_URL|$REACT_APP_WEBSOCKET_URL|" ./pyrrha-dashboard/Dockerfile
+          sed -i "s|PYRRHA_MAPBOX_TOKEN|$REACT_APP_MAPBOX_ACCESS_TOKEN|" ./pyrrha-dashboard/Dockerfile
           grep -i "REACT_APP" ./pyrrha-dashboard/Dockerfile
 
       - name: Deploy api-main
