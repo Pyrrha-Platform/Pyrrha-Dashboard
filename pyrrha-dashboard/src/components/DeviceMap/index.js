@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { ZoomIn16, ZoomOut16 } from '@carbon/icons-react';
+/* eslint import/no-webpack-loader-syntax: off */
 import mapboxgl from '!mapbox-gl';
 import Utils from '../../utils/Utils';
 
