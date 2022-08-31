@@ -16,7 +16,7 @@
     "generate-password": "^1.6.0",
     "graphql-yoga": "^1.18.3",
     "helmet": "^4.2.0",
-    "ibmcloud-appid": "^6.1.1",
+    "ibmcloud-appid": "^6.2.6",
     "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "eslint": "^7.7.0",
     "eslint-config-ibm": "^1.15.0",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.19",
     "prettier": "^2.1.1"
   }
 }
