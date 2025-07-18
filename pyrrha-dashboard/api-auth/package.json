@@ -12,7 +12,7 @@
     "cookie-parser": "^1.4.5",
     "email-validator": "^2.0.4",
     "express-bearer-token": "^2.4.0",
-    "express-session": "^1.17.1",
+    "express-session": "^1.18.2",
     "generate-password": "^1.6.0",
     "graphql-yoga": "^4.0.5",
     "helmet": "^4.2.0",
