@@ -1,86 +1,101 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css">
-        <link rel="stylesheet" href="charts.css">
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/carbon-components/css/carbon-components.min.css"
+    />
+    <link rel="stylesheet" href="charts.css" />
+  </head>
+  <body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="charts.js"></script>
+    <script src="mock-chart-data.js"></script>
 
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="charts.js"></script>
-        <script src="mock-chart-data.js"></script>
-
-        <div class="bx--grid">
-            <div class="bx--row">
-                <div class="bx--col label-firefighter">GRAF7<br>10 min avg</div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <div id="graf7-co-chart"></div>
-                <div class="label-legend">CO</div>
-              </div>
-            </div>
-            <div class="bx--row">
-                <div class="bx--col">
-                  <div id="graf7-no2-chart"></div>
-                  <div class="label-legend">NO2</div>
-                </div>
-              </div>
+    <div class="bx--grid">
+      <div class="bx--row">
+        <div class="bx--col label-firefighter">GRAF7<br />10 min avg</div>
+      </div>
+      <div class="bx--row">
+        <div class="bx--col">
+          <div id="graf7-co-chart"></div>
+          <div class="label-legend">CO</div>
         </div>
+      </div>
+      <div class="bx--row">
+        <div class="bx--col">
+          <div id="graf7-no2-chart"></div>
+          <div class="label-legend">NO2</div>
+        </div>
+      </div>
+    </div>
 
-        <script>
+    <script>
+      var co7 = renderChart('#graf7-co-chart', 1, 'CO', 30, 'ppm');
+      var no27 = renderChart('#graf7-no2-chart', 1, 'NO2', 30, 'ppm');
 
-            var co7  = renderChart('#graf7-co-chart', 1, 'CO', 30, 'ppm');
-            var no27  = renderChart('#graf7-no2-chart', 1, 'NO2', 30, 'ppm');
+      d3.interval(function () {
+        // mockRealTimeData
+        currentRealTimeDataVal7 =
+          mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
 
-            d3.interval(
-                function() {
+        // mockOnceMinuteData
+        currentOnceMinuteDataVal7 =
+          mockOnceMinuteData[
+            Math.floor(Math.random() * mockOnceMinuteData.length)
+          ];
 
-                    // mockRealTimeData
-                    currentRealTimeDataVal7 = mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
+        // 7
+        co7.val = currentRealTimeDataVal7.carbon_monoxide;
+        no27.val = currentRealTimeDataVal7.nitrogen_dioxide;
+        tmp7.val = currentRealTimeDataVal7.temperature;
+        hum7.val = currentRealTimeDataVal7.humidity;
 
+        tmp7.lmt = getPercentage(currentRealTimeDataVal7.temperature, 'Tmp');
+        hum7.lmt = getPercentage(currentRealTimeDataVal7.humidity, 'Hum');
 
-                    // mockOnceMinuteData
-                    currentOnceMinuteDataVal7 = mockOnceMinuteData[Math.floor(Math.random() * mockOnceMinuteData.length)];
+        co7.lmt10 = currentOnceMinuteDataVal7.carbon_monoxide_chart_10min;
+        co7.lmt30 = currentOnceMinuteDataVal7.carbon_monoxide_chart_30min;
+        co7.lmt60 = currentOnceMinuteDataVal7.carbon_monoxide_chart_60min;
+        co7.lmt240 = currentOnceMinuteDataVal7.carbon_monoxide_chart_240min;
+        co7.lmt480 = currentOnceMinuteDataVal7.carbon_monoxide_chart_480min;
 
-                    // 7
-                    co7.val  = currentRealTimeDataVal7.carbon_monoxide;
-                    no27.val = currentRealTimeDataVal7.nitrogen_dioxide;
-                    tmp7.val = currentRealTimeDataVal7.temperature;
-                    hum7.val = currentRealTimeDataVal7.humidity;
+        no27.lmt10 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_10min;
+        no27.lmt30 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_30min;
+        no27.lmt60 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_60min;
+        no27.lmt240 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_240min;
+        no27.lmt480 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_480min;
 
-                    tmp7.lmt = getPercentage(currentRealTimeDataVal7.temperature, 'Tmp');
-                    hum7.lmt = getPercentage(currentRealTimeDataVal7.humidity, 'Hum');
+        // 7 chart
+        co7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('CO', co7.lmt10))
+          .attrTween('d', arcTween(co7.lmt10 * tau));
+        co7.num.text(co7.lmt10);
 
-                    co7.lmt10  = currentOnceMinuteDataVal7.carbon_monoxide_chart_10min;
-                    co7.lmt30  = currentOnceMinuteDataVal7.carbon_monoxide_chart_30min;
-                    co7.lmt60  = currentOnceMinuteDataVal7.carbon_monoxide_chart_60min;
-                    co7.lmt240  = currentOnceMinuteDataVal7.carbon_monoxide_chart_240min;
-                    co7.lmt480  = currentOnceMinuteDataVal7.carbon_monoxide_chart_480min;
+        no27.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('NO2', no27.lmt10))
+          .attrTween('d', arcTween(no27.lmt10 * tau));
+        no27.num.text(parseInt(no27.val));
 
-                    no27.lmt10 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_10min;
-                    no27.lmt30 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_30min;
-                    no27.lmt60 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_60min;
-                    no27.lmt240 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_240min;
-                    no27.lmt480 = currentOnceMinuteDataVal7.nitrogen_dioxide_chart_480min;
-                    
-                    // 7 chart
-                    co7.fg.transition().duration(750).style("fill", getStatusColor('CO', co7.lmt10)).attrTween("d", arcTween(co7.lmt10 * tau));
-                    co7.num.text(co7.lmt10);
-                    
-                    no27.fg.transition().duration(750).style("fill", getStatusColor('NO2', no27.lmt10)).attrTween("d", arcTween(no27.lmt10 * tau));
-                    no27.num.text(parseInt(no27.val));
-                    
-                    tmp7.fg.transition().duration(750).style("fill", getStatusColor('Tmp', tmp7.lmt)).attrTween("d", arcTween(tmp7.lmt * tau));
-                    tmp7.num.text(parseInt(tmp7.val));
+        tmp7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Tmp', tmp7.lmt))
+          .attrTween('d', arcTween(tmp7.lmt * tau));
+        tmp7.num.text(parseInt(tmp7.val));
 
-                    hum7.fg.transition().duration(750).style("fill", getStatusColor('Hum', hum7.lmt)).attrTween("d", arcTween(hum7.lmt * tau));
-                    hum7.num.text(parseInt(hum7.val));
-
-                }
-            , 1500);
-        </script>
-
-    </body>
+        hum7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Hum', hum7.lmt))
+          .attrTween('d', arcTween(hum7.lmt * tau));
+        hum7.num.text(parseInt(hum7.val));
+      }, 1500);
+    </script>
+  </body>
 </html>

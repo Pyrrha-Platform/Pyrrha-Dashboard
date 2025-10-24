@@ -1,34 +1,34 @@
 body {
-    background-color: #eee;
+  background-color: #eee;
 }
 
 .label-firefighter {
-    text-align: left !important;
-    font: bold 16px sans-serif;
-    padding: 15px 15px 15px 15px;
+  text-align: left !important;
+  font: bold 16px sans-serif;
+  padding: 15px 15px 15px 15px;
 }
 
 .label-num {
-    font: bold 14px sans-serif;
-    text-anchor: middle;
+  font: bold 14px sans-serif;
+  text-anchor: middle;
 }
 
 .label-unit {
-    font: 10px sans-serif;
-    text-anchor: middle;
+  font: 10px sans-serif;
+  text-anchor: middle;
 }
 
 .label-legend {
-    font: normal 10px sans-serif;
-    margin-top: 10px;
+  font: normal 10px sans-serif;
+  margin-top: 10px;
 }
 
 .bx--grid {
-    background-color: #fff;
-    padding: 15px 15px 15px 15px;
-    margin-bottom: 20px;
+  background-color: #fff;
+  padding: 15px 15px 15px 15px;
+  margin-bottom: 20px;
 }
 
 .bx--col {
-    text-align: center;
+  text-align: center;
 }
