@@ -11,9 +11,8 @@ import {
   Switcher,
   SwitcherItem,
   SkipToContent,
-} from 'carbon-components-react/lib/components/UIShell';
-import UserAvatar20 from '@carbon/icons-react/lib/user--avatar/20';
-import Translate20 from '@carbon/icons-react/lib/translate/20';
+} from '@carbon/react';
+import { UserAvatar, Translate } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
 
@@ -110,7 +109,7 @@ function PyrrhaHeader(props) {
           onClick={() => setActive(!active)}
           isActive={active}
         >
-          <Translate20 />
+                          <Translate size={20} />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
           <HeaderGlobalAction
@@ -120,7 +119,7 @@ function PyrrhaHeader(props) {
               setPage('Profile');
             }}
           >
-            <UserAvatar20 />
+            <UserAvatar size={20} />
           </HeaderGlobalAction>
         )}
       </HeaderGlobalBar>
