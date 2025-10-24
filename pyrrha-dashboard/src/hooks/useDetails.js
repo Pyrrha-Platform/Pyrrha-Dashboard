@@ -52,7 +52,7 @@ const updateDetails = (details, message) => {
     newDetails = JSON.parse(JSON.stringify(details));
   }
 
-  let newMessage = JSON.parse(message);
+  const newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
   // console.log(typeof newMessage, newMessage);

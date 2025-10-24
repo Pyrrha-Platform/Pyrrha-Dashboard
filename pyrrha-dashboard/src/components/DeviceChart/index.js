@@ -8,7 +8,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
   const ref = useRef();
   const { t } = useContext(AppContext);
 
-  var margin = { top: 10, right: 30, bottom: 30, left: 50 },
+  const margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -40,7 +40,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
     );
 
     // Add X axis --> it is a time format
-    var x = d3
+    const x = d3
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
@@ -66,7 +66,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .text(t('content.details.time'));
 
     // Add Y axis
-    var y = d3
+    const y = d3
       .scaleLinear()
       .domain([
         0,
@@ -139,7 +139,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       );
 
     // Tooltip
-    var mouseover = function (d) {
+    const mouseover = function (d) {
       // console.log('mouseover', d);
       d3.select('#device-chart-tooltip')
         .html(
@@ -169,7 +169,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         .duration(200);
     };
 
-    var mousemove = function (d) {
+    const mousemove = function (d) {
       // console.log('mousemove', d);
       d3.select('#device-chart-tooltip')
         .html(
@@ -198,7 +198,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         .style('top', d3.event.pageY + 10 + 'px');
     };
 
-    var mouseout = function (d) {
+    const mouseout = function (d) {
       // console.log('mouseout', d);
       d3.select('#device-chart-tooltip')
         .transition()

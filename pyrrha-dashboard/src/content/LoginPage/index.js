@@ -14,7 +14,7 @@ const LoginPage = (props) => {
   const [error, setError] = useState('');
   const [step, setStep] = useState(1);
   const [loginId, setLoginId] = useState('');
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const active = props.active;
   const language = props.language;
   const page = props.page;

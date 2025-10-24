@@ -7,7 +7,7 @@ import Constants from '../../utils/Constants';
 function DetailsPage(props) {
   const navigate = useNavigate();
   const { currentUser } = useContext(AppContext);
-  let { device_id, increment, type } = useParams();
+  const { device_id, increment, type } = useParams();
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
     return (

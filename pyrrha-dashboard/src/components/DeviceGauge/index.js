@@ -19,13 +19,13 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   console.log("----------------");
   */
 
-  var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+  const margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
     height = 80 - margin.top - margin.bottom;
 
   // On first load
   useEffect(() => {
-    let svg = d3
+    const svg = d3
       .select(ref.current)
       .attr('width', width)
       .attr('height', height);
@@ -62,7 +62,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    let g = svg
+    const g = svg
       .append('g')
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
     g.append('path')

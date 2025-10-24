@@ -34,9 +34,9 @@ function DeviceDashboardGaugeSet({
 
   Moment.globalTimezone = 'Etc/UTC';
 
-  let now = new Date();
-  let utcTimestampDate = new Date(Date.parse(device_timestamp));
-  let utcCurrentDate = new Date(
+  const now = new Date();
+  const utcTimestampDate = new Date(Date.parse(device_timestamp));
+  const utcCurrentDate = new Date(
     Date.UTC(
       now.getUTCFullYear(),
       now.getUTCMonth(),
@@ -47,7 +47,7 @@ function DeviceDashboardGaugeSet({
       now.getUTCMilliseconds()
     )
   );
-  let utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
+  const utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
 
   function toLocaleUTCDateString() {
     return (

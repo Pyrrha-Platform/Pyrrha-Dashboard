@@ -11,7 +11,7 @@ function ProfilePage(props) {
   const { t, currentUser, setCurrentUser } = useContext(AppContext);
   const navigate = useNavigate();
 
-  let onLogoutRequested = async () => {
+  const onLogoutRequested = async () => {
     try {
       await AuthClient.logout();
 

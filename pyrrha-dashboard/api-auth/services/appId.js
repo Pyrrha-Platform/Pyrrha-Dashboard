@@ -33,7 +33,7 @@ class AppIdManagement {
   async callAccessAPI() {
     const data = qs.stringify({
       apikey: this.apiKey,
-      // eslint-disable-next-line camelcase
+       
       grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
     });
 
@@ -42,7 +42,7 @@ class AppIdManagement {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // eslint-disable-next-line quote-props
+         
         Accept: 'application/json',
       },
     });
@@ -126,9 +126,9 @@ class AppIdManagement {
         body: data,
         headers: {
           'Content-Type': 'application/json',
-          // eslint-disable-next-line quote-props
+           
           Accept: 'application/json',
-          // eslint-disable-next-line quote-props
+           
           Authorization: `Bearer ${iam.token}`,
         },
       }

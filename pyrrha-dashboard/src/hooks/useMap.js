@@ -36,7 +36,7 @@ const updateMap = (map, message) => {
 
   console.log('newMap', newMap);
 
-  let newMessage = JSON.parse(message);
+  const newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
   console.log(typeof newMessage, newMessage);
@@ -86,10 +86,10 @@ const updateMap = (map, message) => {
 
 const setRiskLevels = (devices, setNormal, setWarning, setDanger) => {
   console.log('setRiskLevels');
-  var tmpNormal =
+  let tmpNormal =
     devices !== undefined && devices.length !== 0 ? devices.length : 0;
-  var tmpWarning = 0;
-  var tmpDanger = 0;
+  let tmpWarning = 0;
+  let tmpDanger = 0;
 
   if (devices !== undefined && devices.length !== 0) {
     devices.forEach((device) => {

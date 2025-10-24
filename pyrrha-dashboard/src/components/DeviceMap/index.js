@@ -42,7 +42,7 @@ const DeviceMap = ({
   currentHoveredDevice,
 }) => {
   let mapWrapper = useRef(null);
-  let map = useRef(null);
+  const map = useRef(null);
 
   // console.log('devices', devices);
 
@@ -55,7 +55,7 @@ const DeviceMap = ({
     if (!map.current || currentHoveredDevice === undefined) return;
 
     const updateDeviceHover = (index, hover) => {
-      let newDevicesFeatures = [...devicesData.features];
+      const newDevicesFeatures = [...devicesData.features];
 
       newDevicesFeatures[index].properties.hover = hover;
 

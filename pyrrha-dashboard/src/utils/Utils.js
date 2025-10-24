@@ -15,7 +15,7 @@ class Utils {
   // Manages transitions of gauge angles
   static arcTween = (newAngle) => {
     return function (d) {
-      var interpolate = d3.interpolate(d.endAngle, newAngle);
+      const interpolate = d3.interpolate(d.endAngle, newAngle);
       return function (t) {
         d.endAngle = interpolate(t);
         return Constants.ARC(d);
@@ -40,7 +40,7 @@ class Utils {
 
   // Get the percentage as a float between 0 and 1 to determine the angle
   static getPercentage = (type, value, increment) => {
-    var number = 0.0;
+    let number = 0.0;
 
     // Carbon monoxide
     if (type === 'CO') {
@@ -123,7 +123,7 @@ class Utils {
 
   // Get the percentage as a float between 0 and 1 to determine the angle
   static getChartLimit = (type, increment) => {
-    var limits = [0, 0];
+    let limits = [0, 0];
 
     // Carbon monoxide
     if (type === 'CO') {
@@ -183,7 +183,7 @@ class Utils {
   // TODO: Use something more clever than stacked if...else statements
   // TODO: Add Formaldehyde, Acrolein, and Benzene when implemented
   static getStatusColor = (type, value, increment, gauge) => {
-    var color = Constants.DEFAULT_COLOR;
+    let color = Constants.DEFAULT_COLOR;
 
     /*
     console.log('getStatusColor()');

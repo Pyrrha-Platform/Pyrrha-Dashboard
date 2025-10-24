@@ -1,4 +1,14 @@
-FROM python:3.7.7-slim
+FROM python:3.12-slim-trixie
+
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  gcc \
+  pkg-config \
+  python3-dev \
+  libmariadb3 \
+  libmariadb-dev \
+  libmariadb-dev-compat \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -7,9 +17,6 @@ ENV PYTHONUNBUFFERED=1
 
 RUN pip install --upgrade pip \
   && pip install --upgrade pipenv \
-  && apt-get update \
-  && apt install -y build-essential \
-  && apt install -y libmariadb3 libmariadb-dev \
   && pip install --upgrade -r /app/requirements.txt
 
 USER 1001

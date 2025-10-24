@@ -38,7 +38,7 @@ const updateDashboard = (dashboard, message) => {
 
   // console.log('newDashboard', newDashboard);
 
-  let newMessage = JSON.parse(message);
+  const newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
   // console.log(typeof newMessage, newMessage);
@@ -90,10 +90,10 @@ const updateDashboard = (dashboard, message) => {
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
   // console.log('setRiskLevels');
-  var tmpNormal =
+  let tmpNormal =
     dashboard !== undefined && dashboard.length !== 0 ? dashboard.length : 0;
-  var tmpWarning = 0;
-  var tmpDanger = 0;
+  let tmpWarning = 0;
+  let tmpDanger = 0;
 
   if (dashboard !== undefined && dashboard.length !== 0) {
     dashboard.forEach((device) => {
@@ -156,7 +156,7 @@ const useDashboard = () => {
       } else {
         // console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
-        let updatedDashboard = updateDashboard(dashboardRef, msg.data);
+        const updatedDashboard = updateDashboard(dashboardRef, msg.data);
         setDashboard(updatedDashboard);
         setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }

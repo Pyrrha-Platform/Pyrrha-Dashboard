@@ -26,12 +26,12 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
 import AppContext from '../../context/app';
 
-let timeAgo = Utils.timeAgo;
+const timeAgo = Utils.timeAgo;
 
 const formatRows = (rows) =>
   rows.map((row) => {
     // console.log('formatRows row', row);
-    let rowCopy = { ...row };
+    const rowCopy = { ...row };
     rowCopy['id'] = '' + rowCopy['id'];
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
     rowCopy['connection_type'] = 'Wi-Fi';
@@ -63,7 +63,7 @@ const getDeviceStatus = (timeAgo) => {
 };
 
 const getStatus = (type, value, increment) => {
-  let color = Utils.getStatusColor(type, value, increment, 0);
+  const color = Utils.getStatusColor(type, value, increment, 0);
   if (color == Constants.RED) {
     return 'with-circle status-red';
   } else if (color == Constants.YELLOW) {
