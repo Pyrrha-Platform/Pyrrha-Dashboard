@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
   libmariadb3 \
   libmariadb-dev \
   libmariadb-dev-compat \
+  curl \
   && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -23,10 +24,10 @@ USER 1001
 
 COPY . /app
 
-ENV PORT=5000
+ENV PORT=5001
 
-EXPOSE 5000
+EXPOSE 5001
 
 CMD ["flask", "run", "--host", "0.0.0.0"]
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl -f https://localhost:5000/api-main/v1/health
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl -f http://localhost:5001/api-main/v1/health || exit 1
