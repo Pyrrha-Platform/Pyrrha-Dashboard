@@ -8,19 +8,20 @@ $feature-flags: (
   grid-columns-16: true,
 );
 
-@import '@carbon/themes/scss/themes';
+@use '@carbon/react/scss/config' with (
+  $prefix: 'cds'
+);
+@use '@carbon/react/scss/themes';
+@use '@carbon/react/scss/theme' with (
+  $theme: themes.$g10
+);
+@use '@carbon/react';
 
-$carbon--theme: $carbon--theme--g10;
-@include carbon--theme();
-
-@import 'carbon-components/scss/globals/scss/styles.scss';
-@import 'carbon-components/scss/globals/grid/grid';
+// Grid and layout
+@use '@carbon/grid';
+@use '@carbon/layout';
+@use '@carbon/type';
 $small: 672px;
-
-@import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
-@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
-@import 'carbon-components/scss/globals/scss/typography.scss';
-@import 'carbon-components/scss/globals/scss/vars.scss';
 
 @import 'content/DashboardPage/dashboard-page.scss';
 @import 'content/DetailsPage/details-page.scss';
@@ -39,7 +40,7 @@ $small: 672px;
 @import 'components/Field/Field.scss';
 
 body {
-  background-color: $ui-background;
+  background-color: theme.$background;
 }
 
 .display-none {
@@ -47,15 +48,15 @@ body {
 }
 
 .space-t-2 {
-  margin-top: $spacing-02;
+  margin-top: layout.$spacing-02;
 }
 
 .space-b-2 {
-  margin-bottom: $spacing-02;
+  margin-bottom: layout.$spacing-02;
 }
 
 .space-b-3 {
-  margin-bottom: $spacing-03;
+  margin-bottom: layout.$spacing-03;
 }
 
 .marb-0 {
@@ -63,27 +64,27 @@ body {
 }
 
 .marb-1 {
-  margin-bottom: $layout-01;
+  margin-bottom: layout.$spacing-03;
 }
 
 .marb-2 {
-  margin-bottom: $layout-02;
+  margin-bottom: layout.$spacing-05;
 }
 
 .marb-3 {
-  margin-bottom: $layout-03;
+  margin-bottom: layout.$spacing-06;
 }
 
 .marb-4 {
-  margin-bottom: $layout-04;
+  margin-bottom: layout.$spacing-07;
 }
 
 .marb-5 {
-  margin-bottom: $layout-05;
+  margin-bottom: layout.$spacing-08;
 }
 
 .mart-1 {
-  margin-top: $layout-01;
+  margin-top: layout.$spacing-03;
 }
 
 .no-padding-left {
