@@ -25,7 +25,22 @@ const apiKeyAuth = (req, res, next) => {
   if (process.env.VCAP_APPLICATION) {
     apiKey = process.env.PYRRHA_API_KEY;
   } else {
-    apiKey = require('../vcap-local.json').user_vars.pyrrha_api_key;
+    // Try to get API key from vcap-local.json or use development default
+    try {
+      const fs = require('fs');
+      if (fs.existsSync('../vcap-local.json')) {
+        const vcapConfig = require('../vcap-local.json');
+        apiKey = vcapConfig.user_vars?.pyrrha_api_key;
+      }
+    } catch (error) {
+      console.warn('⚠️  Could not load vcap-local.json for API key');
+    }
+    
+    // Use development default if no API key found
+    if (!apiKey) {
+      apiKey = 'dev-api-key-' + Math.random().toString(36);
+      console.warn('⚠️  Using generated API key for development. Set up vcap-local.json for production.');
+    }
   }
 
   if (!req.token || req.token !== apiKey) {
@@ -35,14 +50,14 @@ const apiKeyAuth = (req, res, next) => {
   next();
 };
 
-module.exports = (server) => {
+module.exports = (app) => {
   /**
    * POST /verification
    * Calls AppID management API and verifies if email belongs to existing user
    * @param {email} The user's email
    * @returns {Object} User information and new account link (if new user)
    */
-  server.express.post(
+  app.post(
     '/api-auth/v1/verification',
     apiKeyAuth,
     async (req, res) => {
@@ -104,7 +119,7 @@ module.exports = (server) => {
    * @param {string} password
    * @returns {Object} User information
    */
-  server.express.post('/api-auth/v1/login', (req, res, next) => {
+  app.post('/api-auth/v1/login', (req, res, next) => {
     passportService.authenticate((err, user, info) => {
       if (err || info) {
         return res.status(info.statusCode).json({
@@ -129,7 +144,7 @@ module.exports = (server) => {
     })(req, res, next);
   });
 
-  server.express.post('/api-auth/v1/logout', (req, res) => {
+  app.post('/api-auth/v1/logout', (req, res) => {
     req.session.destroy((err) => {
       if (err) {
         res.status(500).json({
@@ -142,11 +157,11 @@ module.exports = (server) => {
     });
   });
 
-  server.express.post('/api-auth/v1/user', (req, res) => {
+  app.post('/api-auth/v1/user', (req, res) => {
     res.send('Success');
   });
 
-  server.express.get('/api-auth/v1/user', isAuth, (req, res) => {
+  app.get('/api-auth/v1/user', isAuth, (req, res) => {
     const user = {};
 
     if (req.user) {

@@ -1,5 +1,3 @@
-const { GraphQLServer } = require('graphql-yoga');
-const { Query } = require('./graphql/resolvers');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -13,41 +11,41 @@ const passportClient = require('./services/passport');
 
 const PORT = process.env.PORT || 4000;
 
-const resolvers = {
-  Query,
-};
+const app = express();
 
-const server = new GraphQLServer({
-  typeDefs: './schema.graphql',
-  resolvers,
-  context: (request) => {
-    return {
-      ...request,
-    };
-  },
-});
+app.use(helmet());
 
-server.express.use(helmet());
+app.use(bearerToken());
 
-server.express.use(bearerToken());
-
-server.express.use(
+app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-server.express.use(bodyParser.json());
+app.use(bodyParser.json());
 
 let secret = null;
 // If running on Cloud Foundry, set secret to env var
 if (process.env.VCAP_APPLICATION) {
   secret = process.env.SESSION_SECRET;
 } else {
-  // In dev, set to user-defined secret in vcap-local.json
-  secret = require('./vcap-local.json').user_vars.session_secret;
+  // In dev, try to get secret from vcap-local.json or use default
+  try {
+    const fs = require('fs');
+    if (fs.existsSync('./vcap-local.json')) {
+      const vcapConfig = require('./vcap-local.json');
+      secret = vcapConfig.user_vars?.session_secret || 'dev-session-secret-change-in-production';
+    } else {
+      secret = 'dev-session-secret-change-in-production';
+      console.warn('⚠️  Using default session secret for development. Set up vcap-local.json for production.');
+    }
+  } catch (error) {
+    secret = 'dev-session-secret-change-in-production';
+    console.warn('⚠️  Could not load vcap-local.json, using default session secret.');
+  }
 }
 
-server.express.use(
+app.use(
   session({
     secret,
     resave: false,
@@ -55,8 +53,8 @@ server.express.use(
   })
 );
 
-server.express.use(passportClient.initPassport());
-server.express.use(passportClient.initSession());
+app.use(passportClient.initPassport());
+app.use(passportClient.initSession());
 passportClient.connectStrategy();
 
 let allowedOrigin = null;
@@ -66,7 +64,7 @@ if (process.env.VCAP_APPLICATION) {
   allowedOrigin = 'http://localhost:3000';
 }
 
-server.express.use((req, res, next) => {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', allowedOrigin);
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -79,13 +77,13 @@ server.express.use((req, res, next) => {
 
 // USE_STATIC env var added by docker
 if (process.env.USE_STATIC) {
-  server.express.use(express.static(path.join(__dirname, './build')));
+  app.use(express.static(path.join(__dirname, './build')));
 
-  server.express.get('/', (req, res) => {
+  app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './build/index.html'));
   });
 }
 
-routes(server);
+routes(app);
 
-server.start(PORT, () => console.log(`Server is running on ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
