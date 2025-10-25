@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, Response, json, request
+from flask_cors import CORS
 from .firefighter_manager import firefighter_manager
 from .event_manager import event_manager
 from .device_manager import device_manager
@@ -29,6 +30,7 @@ dictConfig(
 )
 
 app = Flask(__name__)
+CORS(app, origins=['http://localhost:3000'])
 
 
 @app.errorhandler(404)

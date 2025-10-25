@@ -1,5 +1,42 @@
+// Import Carbon dependencies first
+@use '@carbon/styles/scss/spacing' as spacing;
+@use '@carbon/styles/scss/type' as type;
+@use '@carbon/styles/scss/breakpoint' as breakpoint;
+@use '@carbon/styles/scss/theme' as theme;
+
+// Import local files
 @import './mixins.scss';
 @import './overrides.scss';
+
+// Legacy variable compatibility
+$spacing-01: spacing.$spacing-01;
+$spacing-03: spacing.$spacing-03;
+$spacing-05: spacing.$spacing-05;
+$spacing-06: spacing.$spacing-06;
+$spacing-07: spacing.$spacing-07;
+$spacing-08: spacing.$spacing-08;
+$spacing-09: spacing.$spacing-09;
+$layout-03: spacing.$spacing-07; // Fallback to spacing since layout-03 doesn't exist
+$layout-05: spacing.$spacing-09; // Fallback to spacing since layout-05 doesn't exist
+$ui-01: theme.$background;
+$danger-02: #da1e28; // Red color for danger
+$support-02: #24a148; // Green color for success
+$support-03: #f1c21b; // Yellow color for warning
+
+// Legacy mixin compatibility
+@mixin carbon--type-style($style) {
+  @include type.type-style($style);
+}
+
+@mixin carbon--breakpoint-between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@function rem($px) {
+  @return #{$px / 16}rem;
+}
 
 .dashboard-page__illo {
   max-width: 100%;
@@ -185,7 +222,7 @@
 }
 
 .dashboard-gray {
-  /*background-color: #ddd;*/
+  background-color: transparent; /* Placeholder to avoid empty rule */
 }
 
 .label-firefighter {

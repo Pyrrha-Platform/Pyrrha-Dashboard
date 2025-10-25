@@ -1,4 +1,4 @@
-import { Close, ConnectionSignal32, Restart32 } from '@carbon/icons-react';
+import { Close, ConnectionSignal, Restart } from '@carbon/icons-react';
 import {
   Loading,
   Modal,

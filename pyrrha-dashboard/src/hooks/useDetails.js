@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`,
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.details) {
@@ -27,7 +27,7 @@ const fetchDetails = async (device_id, increment, type) => {
 const fetchChartDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`,
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.chart) {

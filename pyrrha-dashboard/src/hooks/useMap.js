@@ -10,7 +10,7 @@ const client = async (url, options) => {
 
 const fetchMap = async () => {
   try {
-    const data = await client(`/api-main/v1/map-now`);
+    const data = await client(`${Constants.API_BASE_URL}/api-main/v1/map-now`);
     console.log('fetchMap map', data.map);
     console.log('fetchMap map.devices', data.map.devices);
     if (data.map.devices) {

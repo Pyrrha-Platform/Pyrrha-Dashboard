@@ -1,0 +1,13 @@
+{
+  "public": "build",
+  "rewrites": [
+    {
+      "source": "/dash/static/**",
+      "destination": "/static/$1"
+    },
+    {
+      "source": "/dash/**",
+      "destination": "/index.html"
+    }
+  ]
+}

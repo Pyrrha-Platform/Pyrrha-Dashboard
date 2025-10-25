@@ -187,15 +187,15 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            self.logger.info("get_all_firefighters - llamada a sql")
+            self._logger.info("get_all_firefighters - llamada a sql")
             cursor.execute(
                 "SELECT device_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL"
             )
             data = cursor.fetchall()
             if len(data) > 0:
-                self.logger.info("get_all_firefighters - Hay informacion")
+                self._logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
-                    self.logger.info(i)
+                    self._logger.info(i)
                     # firefighter_code is actually what we're using as the id from this table
                     firefighters.append(
                         {
@@ -207,10 +207,10 @@ class firefighter_manager(object):
                         }
                     )
             else:
-                self.logger.info("get_all_firefighters - NO HAY INFORMACION")
+                self._logger.info("get_all_firefighters - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            self.logger.info("get_all_firefighters - Estoy en la excepcion")
+            self._logger.info("get_all_firefighters - Estoy en la excepcion")
             return None
 
         finally:

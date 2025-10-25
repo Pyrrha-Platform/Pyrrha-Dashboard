@@ -1,6 +1,9 @@
 import * as d3 from 'd3';
 
 class Constants {
+  // API endpoints
+  static API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
+  
   // WebSocket endpoint
   static WEBSOCKET_URL = process.env.REACT_APP_WEBSOCKET_URL;
 

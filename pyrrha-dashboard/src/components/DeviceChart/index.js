@@ -139,7 +139,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       );
 
     // Tooltip
-    const mouseover = function (d) {
+    const mouseover = function (event, d) {
       // console.log('mouseover', d);
       d3.select('#device-chart-tooltip')
         .html(
@@ -169,7 +169,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
         .duration(200);
     };
 
-    const mousemove = function (d) {
+    const mousemove = function (event, d) {
       // console.log('mousemove', d);
       d3.select('#device-chart-tooltip')
         .html(

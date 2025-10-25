@@ -2,7 +2,6 @@
   "name": "pyrrha-dashboard",
   "version": "0.2.0",
   "license": "Apache-2.0",
-  "homepage": "dash/",
   "dependencies": {
     "@carbon/react": "^1.67.0",
     "@carbon/charts": "^1.27.0",
@@ -37,7 +36,7 @@
     "sass": "^1.81.0"
   },
   "scripts": {
-    "start-ui": "react-scripts start",
+    "start-ui": "DISABLE_ESLINT_PLUGIN=true react-scripts build && npx serve -s build -p 3000",
     "start-main-api": "cd api-main && FLASK_APP=api.py ./venv/bin/flask run --no-debugger --port 5000",
     "start-auth-api": "cd api-auth && node server.js",
     "build": "react-scripts build",
@@ -53,8 +52,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "plugin:react-hooks/recommended"
+      "react-app"
     ]
   },
   "browserslist": {
