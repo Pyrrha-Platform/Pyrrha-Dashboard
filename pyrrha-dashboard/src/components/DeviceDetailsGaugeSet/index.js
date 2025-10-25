@@ -4,7 +4,7 @@ import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
-import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
+import { InlineNotification } from '@carbon/react';
 
 function DeviceDetailsGaugeSet({
   chart,
@@ -92,10 +92,11 @@ function DeviceDetailsGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
+      now.getUTCMilliseconds(),
+    ),
   );
-  const utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
+  const utcTimeDifference =
+    utcCurrentDate.getTime() - utcTimestampDate.getTime();
 
   function toLocaleUTCDateString() {
     return (
@@ -153,7 +154,7 @@ function DeviceDetailsGaugeSet({
                       gauge={Utils.getPercentage(
                         'NO2',
                         nitrogen_dioxide,
-                        'now'
+                        'now',
                       )}
                     />
                   </div>
@@ -254,7 +255,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide_twa_10min,
-                          '10min'
+                          '10min',
                         )}
                       />
                     </a>
@@ -294,7 +295,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide_twa_10min,
-                          '10min'
+                          '10min',
                         )}
                       />
                     </a>
@@ -378,7 +379,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide_twa_30min,
-                          '30min'
+                          '30min',
                         )}
                       />
                     </a>
@@ -418,7 +419,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide_twa_30min,
-                          '30min'
+                          '30min',
                         )}
                       />
                     </a>
@@ -502,7 +503,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide_twa_60min,
-                          '1hr'
+                          '1hr',
                         )}
                       />
                     </a>
@@ -542,7 +543,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide_twa_60min,
-                          '1hr'
+                          '1hr',
                         )}
                       />
                     </a>
@@ -626,7 +627,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide_twa_240min,
-                          '4hr'
+                          '4hr',
                         )}
                       />
                     </a>
@@ -666,7 +667,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide_twa_240min,
-                          '4hr'
+                          '4hr',
                         )}
                       />
                     </a>
@@ -750,7 +751,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide_twa_480min,
-                          '8hr'
+                          '8hr',
                         )}
                       />
                     </a>
@@ -790,7 +791,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide_twa_480min,
-                          '8hr'
+                          '8hr',
                         )}
                       />
                     </a>

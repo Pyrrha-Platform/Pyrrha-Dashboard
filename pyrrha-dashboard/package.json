@@ -38,7 +38,7 @@
   },
   "scripts": {
     "start-ui": "react-scripts start",
-    "start-main-api": "cd api-main && FLASK_APP=api.py ./venv/bin/flask run --no-debugger --port 5001",
+    "start-main-api": "cd api-main && FLASK_APP=api.py ./venv/bin/flask run --no-debugger --port 5000",
     "start-auth-api": "cd api-auth && node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",

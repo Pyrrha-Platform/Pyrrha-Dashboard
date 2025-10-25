@@ -132,7 +132,7 @@ const DashboardGrid = () => {
                   nitrogen_dioxide={nitrogen_dioxide}
                   increment={'now'}
                 />
-              )
+              ),
             )}
           </div>
         )}

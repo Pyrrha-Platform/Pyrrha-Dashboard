@@ -25,7 +25,7 @@ const ModalStateManager = ({
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
+            document.body,
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
@@ -181,7 +181,7 @@ class FirefightersAddModal extends React.Component {
                   this.state.last,
                   this.state.email,
                   this.state.loadFirefighters,
-                  setOpen
+                  setOpen,
                 );
               }}
             />

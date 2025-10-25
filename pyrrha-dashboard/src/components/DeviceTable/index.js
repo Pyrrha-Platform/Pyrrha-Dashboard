@@ -39,7 +39,7 @@ const formatRows = (rows) =>
       ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
     rowCopy['lastCheckin'] = timeAgo.format(
-      new Date(rowCopy['timestamp_mins'])
+      new Date(rowCopy['timestamp_mins']),
     );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
@@ -204,7 +204,7 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < devices.length
+                      (page - 1) * pageSize + rowIndex < devices.length,
                   )
                   .map((row, rowIndex) => {
                     const deviceIndex = (page - 1) * pageSize + rowIndex;
@@ -236,8 +236,8 @@ const DeviceTable = ({
                                     {indexCells === 0
                                       ? cell.value
                                       : Array.isArray(cell.value)
-                                      ? Utils.formatCoordinates(cell.value)
-                                      : cell.value}
+                                        ? Utils.formatCoordinates(cell.value)
+                                        : cell.value}
                                   </span>
                                   {/*indexCells === 0 &&
                                     devices[deviceIndex].isUserOwner && (

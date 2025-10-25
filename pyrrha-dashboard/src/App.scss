@@ -1,3 +1,14 @@
+// @use rules must be at the top
+@use '@carbon/react/scss/themes' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/grid';
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/layout' as *;
+@use '@carbon/react/scss/type' as type;
+@use '@carbon/type' as type-standalone;
+@use '@carbon/layout' as layout-standalone;
+
 $small: 320px;
 $medium: 672px;
 $large: 1056px;
@@ -8,20 +19,45 @@ $feature-flags: (
   grid-columns-16: true,
 );
 
-@use '@carbon/react/scss/config' with (
-  $prefix: 'cds'
-);
-@use '@carbon/react/scss/themes';
-@use '@carbon/react/scss/theme' with (
-  $theme: themes.$g10
-);
-@use '@carbon/react';
+$theme: $g10;
 
-// Grid and layout
-@use '@carbon/grid';
-@use '@carbon/layout';
-@use '@carbon/type';
-$small: 672px;
+:root {
+  @include theme($theme);
+}
+
+// Legacy variable compatibility layer
+$ui-01: $background;
+$ui-background: $background;
+$spacing-02: $spacing-03;
+$spacing-05: $spacing-07;
+$spacing-07: $spacing-09;
+$layout-01: $spacing-05;
+$layout-02: $spacing-06;
+$layout-03: $spacing-07;
+$layout-04: $spacing-08;
+$layout-05: $spacing-09;
+$danger-02: $red-60;
+$support-02: $green-50;
+$support-03: $yellow-50;
+
+// Legacy mixin compatibility
+@mixin carbon--type-style($style) {
+  @if $style == 'productive-heading-05' {
+    @include type.type-style('productive-heading-05');
+  }
+  // Add more mappings as needed
+}
+
+@mixin carbon--breakpoint-between($min, $max) {
+  @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {
+    @content;
+  }
+}
+
+// Carbon rem function compatibility - the modern version requires a base parameter
+@function rem($value, $base: 16px) {
+  @return ($value / $base) * 1rem;
+}
 
 @import 'content/DashboardPage/dashboard-page.scss';
 @import 'content/DetailsPage/details-page.scss';
@@ -40,7 +76,7 @@ $small: 672px;
 @import 'components/Field/Field.scss';
 
 body {
-  background-color: theme.$background;
+  background-color: $ui-background;
 }
 
 .display-none {
@@ -48,15 +84,15 @@ body {
 }
 
 .space-t-2 {
-  margin-top: layout.$spacing-02;
+  margin-top: $spacing-02;
 }
 
 .space-b-2 {
-  margin-bottom: layout.$spacing-02;
+  margin-bottom: $spacing-02;
 }
 
 .space-b-3 {
-  margin-bottom: layout.$spacing-03;
+  margin-bottom: $spacing-03;
 }
 
 .marb-0 {
@@ -64,27 +100,27 @@ body {
 }
 
 .marb-1 {
-  margin-bottom: layout.$spacing-03;
+  margin-bottom: $layout-01;
 }
 
 .marb-2 {
-  margin-bottom: layout.$spacing-05;
+  margin-bottom: $layout-02;
 }
 
 .marb-3 {
-  margin-bottom: layout.$spacing-06;
+  margin-bottom: $layout-03;
 }
 
 .marb-4 {
-  margin-bottom: layout.$spacing-07;
+  margin-bottom: $layout-04;
 }
 
 .marb-5 {
-  margin-bottom: layout.$spacing-08;
+  margin-bottom: $layout-05;
 }
 
 .mart-1 {
-  margin-top: layout.$spacing-03;
+  margin-top: $layout-01;
 }
 
 .no-padding-left {

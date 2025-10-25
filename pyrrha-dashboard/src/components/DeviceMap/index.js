@@ -83,7 +83,7 @@ const DeviceMap = ({
       }).addControl(
         new mapboxgl.AttributionControl({
           compact: true,
-        })
+        }),
       );
 
       console.log('Created map. Decorating now.');
@@ -173,7 +173,7 @@ const DeviceMap = ({
             },
             {
               hover: true,
-            }
+            },
           );
           const index = devicesData.features
             .map((s) => s.properties.id)
@@ -190,14 +190,14 @@ const DeviceMap = ({
 
         map.current.on('click', 'devices', function (e) {
           const clickedDevice = devices.filter(
-            (device) => device.id === e.features[0].properties.id
+            (device) => device.id === e.features[0].properties.id,
           )[0];
 
           if (clickedDevice.isUserOwner) {
             setDisplayedDevice(
               devices.filter(
-                (device) => device.id === e.features[0].properties.id
-              )[0]
+                (device) => device.id === e.features[0].properties.id,
+              )[0],
             );
             setShouldShowSideMenu(true);
           }
@@ -230,14 +230,14 @@ const DeviceMap = ({
             onClick={zoomIn}
             onKeyDown={(e) => Utils.keyboardOnlySubmit(e, zoomIn)}
           >
-            <ZoomIn16 />
+            <ZoomIn size={16} />
           </span>
           <span
             tabIndex={0}
             onClick={zoomOut}
             onKeyDown={(e) => Utils.keyboardOnlySubmit(e, zoomOut)}
           >
-            <ZoomOut16 />
+            <ZoomOut size={16} />
           </span>
         </div>
       </div>

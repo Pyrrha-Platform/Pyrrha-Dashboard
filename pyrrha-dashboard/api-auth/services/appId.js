@@ -19,10 +19,12 @@ if (process.env.VCAP_APPLICATION) {
   } catch (error) {
     console.warn('⚠️  Could not load vcap-local.json for AppID tenant ID');
   }
-  
+
   if (!TENET_ID) {
     TENET_ID = 'dev-tenant-id';
-    console.warn('⚠️  Using development tenant ID. Set up vcap-local.json for production.');
+    console.warn(
+      '⚠️  Using development tenant ID. Set up vcap-local.json for production.',
+    );
   }
 }
 
@@ -47,12 +49,16 @@ class AppIdManagement {
           this.apiKey = vcapConfig.ibm_cloud?.api_key;
         }
       } catch (error) {
-        console.warn('⚠️  Could not load vcap-local.json for IBM Cloud API key');
+        console.warn(
+          '⚠️  Could not load vcap-local.json for IBM Cloud API key',
+        );
       }
-      
+
       if (!this.apiKey) {
         this.apiKey = 'dev-ibm-api-key-' + Math.random().toString(36);
-        console.warn('⚠️  Using development IBM Cloud API key. Set up vcap-local.json for production.');
+        console.warn(
+          '⚠️  Using development IBM Cloud API key. Set up vcap-local.json for production.',
+        );
       }
     }
   }
@@ -60,7 +66,7 @@ class AppIdManagement {
   async callAccessAPI() {
     const data = qs.stringify({
       apikey: this.apiKey,
-       
+
       grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
     });
 
@@ -69,7 +75,7 @@ class AppIdManagement {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-         
+
         Accept: 'application/json',
       },
     });
@@ -115,7 +121,7 @@ class AppIdManagement {
         headers: {
           Authorization: `Bearer ${iam.token}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -153,12 +159,12 @@ class AppIdManagement {
         body: data,
         headers: {
           'Content-Type': 'application/json',
-           
+
           Accept: 'application/json',
-           
+
           Authorization: `Bearer ${iam.token}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {

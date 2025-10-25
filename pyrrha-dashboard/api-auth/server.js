@@ -20,7 +20,7 @@ app.use(bearerToken());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  })
+  }),
 );
 app.use(bodyParser.json());
 
@@ -34,14 +34,20 @@ if (process.env.VCAP_APPLICATION) {
     const fs = require('fs');
     if (fs.existsSync('./vcap-local.json')) {
       const vcapConfig = require('./vcap-local.json');
-      secret = vcapConfig.user_vars?.session_secret || 'dev-session-secret-change-in-production';
+      secret =
+        vcapConfig.user_vars?.session_secret ||
+        'dev-session-secret-change-in-production';
     } else {
       secret = 'dev-session-secret-change-in-production';
-      console.warn('⚠️  Using default session secret for development. Set up vcap-local.json for production.');
+      console.warn(
+        '⚠️  Using default session secret for development. Set up vcap-local.json for production.',
+      );
     }
   } catch (error) {
     secret = 'dev-session-secret-change-in-production';
-    console.warn('⚠️  Could not load vcap-local.json, using default session secret.');
+    console.warn(
+      '⚠️  Could not load vcap-local.json, using default session secret.',
+    );
   }
 }
 
@@ -50,7 +56,7 @@ app.use(
     secret,
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 
 app.use(passportClient.initPassport());
@@ -70,7 +76,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
+    'Origin, X-Requested-With, Content-Type, Accept',
   );
   next();
 });

@@ -25,7 +25,7 @@ const ModalStateManager = ({
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
+            document.body,
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
@@ -187,7 +187,7 @@ class DevicesEditModal extends React.Component {
                   this.state.model,
                   this.state.version,
                   this.state.loadDevices,
-                  setOpen
+                  setOpen,
                 );
               }}
             />

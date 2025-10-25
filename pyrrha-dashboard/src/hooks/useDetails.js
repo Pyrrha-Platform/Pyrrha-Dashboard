@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`
+      `/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.details) {
@@ -27,7 +27,7 @@ const fetchDetails = async (device_id, increment, type) => {
 const fetchChartDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`
+      `/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.chart) {
@@ -112,7 +112,7 @@ const updateDetails = (details, message) => {
 
             newDetails.current = Utils.arrayRemove(
               newDetails.current,
-              oldReading
+              oldReading,
             );
             newDetails.current.push(newReading);
           }
@@ -171,7 +171,7 @@ const updateDetails = (details, message) => {
             oldReading.nitrogen_dioxide_twa_480min;
           newDetails.current = Utils.arrayRemove(
             newDetails.current,
-            oldReading
+            oldReading,
           );
 
           newDetails.current.push(newMessage);

@@ -25,7 +25,7 @@ const ModalStateManager = ({
         ? null
         : ReactDOM.createPortal(
             <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
+            document.body,
           )}
       {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
     </>
@@ -86,7 +86,7 @@ const handleSubmit = (
   state,
   firefighters,
   loadEvents,
-  setOpen
+  setOpen,
 ) => {
   // console.log('handleSubmit');
   // console.log('id ' + id);
@@ -220,7 +220,7 @@ class EventsEditModal extends React.Component {
                   this.state.firefighters,
                   this.state.state,
                   this.state.loadEvents,
-                  setOpen
+                  setOpen,
                 );
               }}
             />

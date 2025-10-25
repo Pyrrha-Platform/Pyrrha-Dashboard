@@ -4,8 +4,8 @@ import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
-import WarningFilled20 from '@carbon/icons-react/lib/warning--filled/20';
-import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
+import { WarningFilled } from '@carbon/icons-react';
+import { InlineNotification } from '@carbon/react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/es';
@@ -44,10 +44,11 @@ function DeviceDashboardGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
+      now.getUTCMilliseconds(),
+    ),
   );
-  const utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
+  const utcTimeDifference =
+    utcCurrentDate.getTime() - utcTimestampDate.getTime();
 
   function toLocaleUTCDateString() {
     return (
@@ -104,8 +105,8 @@ function DeviceDashboardGaugeSet({
             <br />
           </div>
           <div className="bx--col-md-1 icon-firefighter-holder">
-            {status === 'danger' && <WarningFilled20 className="danger" />}
-            {status === 'warning' && <WarningFilled20 className="warning" />}
+            {status === 'danger' && <WarningFilled size={20} className="danger" />}
+            {status === 'warning' && <WarningFilled size={20} className="warning" />}
           </div>
         </div>
         <div className={'bx--row dashboard-tile background-' + background}>

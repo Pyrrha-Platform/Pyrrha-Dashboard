@@ -138,7 +138,7 @@ const DetailsGrid = (params) => {
               nitrogen_dioxide_gauge_240min={nitrogen_dioxide_gauge_240min}
               nitrogen_dioxide_gauge_480min={nitrogen_dioxide_gauge_480min}
             />
-          )
+          ),
         )}
     </div>
   );

@@ -15,7 +15,7 @@ const fetchMap = async () => {
     console.log('fetchMap map.devices', data.map.devices);
     if (data.map.devices) {
       data.map.devices = data.map.devices.sort((a, b) =>
-        a.device_id < b.device_id ? 1 : -1
+        a.device_id < b.device_id ? 1 : -1,
       );
       return data.map;
     } else {
@@ -50,7 +50,7 @@ const updateMap = (map, message) => {
           if (oldReading.device_id === newReading.device_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
-              newMessage
+              newMessage,
             );
             newMap.current = Utils.arrayRemove(newMap.current, oldReading);
             newMap.current.push(newReading);
@@ -66,7 +66,7 @@ const updateMap = (map, message) => {
         if (oldReading.device_id === newMessage.device_id) {
           console.log(
             'Replacing a single old reading with a new one',
-            newMessage
+            newMessage,
           );
           console.log('Merged new and old readings', newMessage);
           newMap.current = Utils.arrayRemove(newMap.current, oldReading);

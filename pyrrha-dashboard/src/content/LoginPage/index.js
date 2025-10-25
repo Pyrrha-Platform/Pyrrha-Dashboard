@@ -52,7 +52,7 @@ const LoginPage = (props) => {
         return setError(t(err));
       }
     },
-    [loginId, setCurrentUser, t, navigate]
+    [loginId, setCurrentUser, t, navigate],
   );
 
   return (

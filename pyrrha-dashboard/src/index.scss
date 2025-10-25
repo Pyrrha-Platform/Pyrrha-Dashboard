@@ -1,22 +1,4 @@
-$feature-flags: (
-  ui-shell: true,
-  grid-columns-16: true,
-);
-
-// Modern Carbon v11+ imports
-@use '@carbon/react/scss/config' with (
-  $prefix: 'cds'
-);
-@use '@carbon/react';
-@use '@carbon/grid';
-@use '@carbon/type';
-
-// Include all Carbon styles
-@include react.theme();
-@include grid.grid();
-@include type.font-face-mono();
-@include type.font-face-sans();
-@include type.font-face-serif();
+// @use rules must be at the top\n@use '@carbon/react/scss/grid';\n@use '@carbon/react/scss/type' as type;\n\n$feature-flags: (\n  ui-shell: true,\n  grid-columns-16: true,\n);\n\n// Include basic Carbon styles\n@include type.font-face-mono();\n@include type.font-face-sans();\n@include type.font-face-serif();
 
 // Remove overrides once Carbon bugs are fixed upstream.
 

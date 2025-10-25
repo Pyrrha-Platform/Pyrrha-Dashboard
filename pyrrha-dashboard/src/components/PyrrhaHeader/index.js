@@ -109,7 +109,7 @@ function PyrrhaHeader(props) {
           onClick={() => setActive(!active)}
           isActive={active}
         >
-                          <Translate size={20} />
+          <Translate size={20} />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
           <HeaderGlobalAction

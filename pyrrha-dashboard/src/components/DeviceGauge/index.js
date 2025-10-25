@@ -45,7 +45,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
     value,
     unit,
     increment,
-    gauge
+    gauge,
   ) => {
     /*
     console.log("draw()");
@@ -87,7 +87,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .attr('x', '0')
       .attr(
         'id',
-        'number-' + type + '-' + increment + '-' + url_safe_device_id
+        'number-' + type + '-' + increment + '-' + url_safe_device_id,
       );
     label
       .append('tspan')
@@ -129,7 +129,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .style('fill', Utils.getStatusColor(type, value, increment, gauge))
       .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
     d3.select(
-      '#number-' + type + '-' + increment + '-' + url_safe_device_id
+      '#number-' + type + '-' + increment + '-' + url_safe_device_id,
     ).text(Utils.formatFloat(value, 1));
   };
 

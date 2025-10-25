@@ -35,11 +35,13 @@ const apiKeyAuth = (req, res, next) => {
     } catch (error) {
       console.warn('⚠️  Could not load vcap-local.json for API key');
     }
-    
+
     // Use development default if no API key found
     if (!apiKey) {
       apiKey = 'dev-api-key-' + Math.random().toString(36);
-      console.warn('⚠️  Using generated API key for development. Set up vcap-local.json for production.');
+      console.warn(
+        '⚠️  Using generated API key for development. Set up vcap-local.json for production.',
+      );
     }
   }
 
@@ -57,60 +59,56 @@ module.exports = (app) => {
    * @param {email} The user's email
    * @returns {Object} User information and new account link (if new user)
    */
-  app.post(
-    '/api-auth/v1/verification',
-    apiKeyAuth,
-    async (req, res) => {
-      const { email } = req.body;
-      let results;
+  app.post('/api-auth/v1/verification', apiKeyAuth, async (req, res) => {
+    const { email } = req.body;
+    let results;
 
-      if (!email || !validator.validate(email)) {
-        return res.status(422).send('Email is missing or invalid');
-      }
+    if (!email || !validator.validate(email)) {
+      return res.status(422).send('Email is missing or invalid');
+    }
 
-      try {
-        results = await AppIdManagement.verifyUserByEmail(email);
+    try {
+      results = await AppIdManagement.verifyUserByEmail(email);
 
-        // If no user, create user
-        if (results.totalResults === 0) {
-          const user = await AppIdManagement.createUser(email);
+      // If no user, create user
+      if (results.totalResults === 0) {
+        const user = await AppIdManagement.createUser(email);
 
-          const token = await jwt.encode({ id: user.id });
+        const token = await jwt.encode({ id: user.id });
 
-          const link = `${dashboardURL}/onboard?${qs.stringify({
-            token,
-          })}`;
-
-          return res.json({
-            verified: false,
-            firstName: null,
-            lastName: null,
-            email,
-            userId: user.id,
-            link,
-          });
-        }
+        const link = `${dashboardURL}/onboard?${qs.stringify({
+          token,
+        })}`;
 
         return res.json({
-          verified: true,
-          firstName: results.Resources[0].name
-            ? results.Resources[0].name.givenName
-            : null,
-          lastName: results.Resources[0].name
-            ? results.Resources[0].name.familyName
-            : null,
-          userId: results.Resources[0].id,
+          verified: false,
+          firstName: null,
+          lastName: null,
           email,
-          link: null,
+          userId: user.id,
+          link,
         });
-      } catch (error) {
-        console.error(error);
-        return res
-          .status(503)
-          .send('There was an error verifying or creating a user.');
       }
+
+      return res.json({
+        verified: true,
+        firstName: results.Resources[0].name
+          ? results.Resources[0].name.givenName
+          : null,
+        lastName: results.Resources[0].name
+          ? results.Resources[0].name.familyName
+          : null,
+        userId: results.Resources[0].id,
+        email,
+        link: null,
+      });
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(503)
+        .send('There was an error verifying or creating a user.');
     }
-  );
+  });
 
   /**
    * POST /login

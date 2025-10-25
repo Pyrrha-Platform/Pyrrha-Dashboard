@@ -15,11 +15,14 @@ if (process.env.VCAP_APPLICATION) {
   } catch (error) {
     console.warn('⚠️  Could not load vcap-local.json for JWT secret');
   }
-  
+
   // Use development default if no secret found
   if (!secret) {
-    secret = 'dev-jwt-secret-change-in-production-' + Math.random().toString(36);
-    console.warn('⚠️  Using generated JWT secret for development. Set up vcap-local.json for production.');
+    secret =
+      'dev-jwt-secret-change-in-production-' + Math.random().toString(36);
+    console.warn(
+      '⚠️  Using generated JWT secret for development. Set up vcap-local.json for production.',
+    );
   }
 }
 
