@@ -90,17 +90,16 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.map')}
           </HeaderMenuItem>
-          {/*
           <HeaderMenuItem
             element={Link}
             to="/firefighters"
             isCurrentPage={page === 'Firefighters'}
             onClick={() => {
               setPage('Firefighters');
-            }}>
-            {t('components.header.firefighters')}b
+            }}
+          >
+            {t('components.header.firefighters')}
           </HeaderMenuItem>
-          */}
         </HeaderNavigation>
       )}
       <HeaderGlobalBar>

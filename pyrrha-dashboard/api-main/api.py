@@ -83,9 +83,9 @@ def firefighters():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
-            or created_values["first"].strip() == ""
-            or created_values["last"].strip() == ""
+            created_values["firefighter_code"].strip() == ""
+            or created_values["name"].strip() == ""
+            or created_values["surname"].strip() == ""
             or created_values["email"].strip() == ""
         ):
 
@@ -100,9 +100,9 @@ def firefighters():
 
         else:
             firefighter = firefighter_manager().insert_firefighter(
-                created_values["code"],
-                created_values["first"],
-                created_values["last"],
+                created_values["firefighter_code"],
+                created_values["name"],
+                created_values["surname"],
                 created_values["email"],
             )
             message = {
@@ -132,9 +132,9 @@ def firefighter_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["first"].strip() == ""
-            or updated_values["last"].strip() == ""
+            updated_values["firefighter_code"].strip() == ""
+            or updated_values["name"].strip() == ""
+            or updated_values["surname"].strip() == ""
             or updated_values["email"].strip() == ""
         ):
             message = {
@@ -148,10 +148,10 @@ def firefighter_by_id(id):
 
         else:
             firefighter = firefighter_manager().update_firefighter(
-                updated_values["id"],
-                updated_values["code"],
-                updated_values["first"],
-                updated_values["last"],
+                updated_values["firefighter_id"],
+                updated_values["firefighter_code"],
+                updated_values["name"],
+                updated_values["surname"],
                 updated_values["email"],
             )
             message = {

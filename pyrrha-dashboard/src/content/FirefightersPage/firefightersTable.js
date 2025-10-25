@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect, useCallback } from 'react';
 import {
   DataTable,
   TableContainer,
@@ -10,11 +10,14 @@ import {
   TableCell,
   TableToolbar,
   TableToolbarContent,
-} from 'carbon-components-react';
+  Grid,
+  Column,
+} from '@carbon/react';
 import FirefightersAddModal from './firefightersAddModal';
 import FirefightersEditModal from './firefightersEditModal';
 import FirefightersDeleteModal from './firefightersDeleteModal';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
 // Utility to access the backend API
 const client = async (url, options) => {
@@ -24,24 +27,30 @@ const client = async (url, options) => {
 };
 
 // Table and data
-const NewFirefightersTable = ({ device_id }) => {
-  const [firefighters, setFirefighters] = React.useState([]);
-  const [fetched, setFetched] = React.useState(false);
+const NewFirefightersTable = () => {
+  const [firefighters, setFirefighters] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { t } = useContext(AppContext);
 
-  React.useEffect(() => {
-    loadFirefighters();
-  }, [fetched]);
-
-  const loadFirefighters = React.useCallback(async () => {
+  const loadFirefighters = useCallback(async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const data = await client(`/api-main/v1/firefighters`);
-      // console.log(data);
-      setFirefighters(data.firefighters);
+      const data = await client(`${Constants.API_BASE_URL}/api-main/v1/firefighters`);
+      setFirefighters(data.firefighters || []);
     } catch (e) {
-      console.log(e);
+      console.error('Error loading firefighters:', e);
+      setError('Failed to load firefighters');
+      setFirefighters([]);
+    } finally {
+      setLoading(false);
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    loadFirefighters();
+  }, [loadFirefighters]);
 
   // Form header data
   const headerData = [
@@ -68,25 +77,20 @@ const NewFirefightersTable = ({ device_id }) => {
   ];
 
   return (
-    <div className="cds--grid cds--grid--full-width firefighters-content">
-      <div className="cds--row">
-        <div className="cds--col-md-16">
-          <h1 className="firefighters-page__heading">
-            {t('content.firefighters.heading')}
-          </h1>
-        </div>
-      </div>
+    <Grid className="firefighters-content main-container" fullWidth>
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="firefighters-page__heading">
+          {t('content.firefighters.heading')}
+        </h1>
+      </Column>
 
-      <div className="cds--row">
-        <div className="cds--col-md-16">
-          <h2 className="firefighters-page__subheading">
-            {t('content.firefighters.subheading')}
-          </h2>
-        </div>
-      </div>
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="firefighters-page__subheading">
+          {t('content.firefighters.subheading')}
+        </h2>
+      </Column>
 
-      <div className="cds--row firefighters-page__r2">
-        <div className="cds--col-lg-16 fullwidth">
+      <Column sm={4} md={8} lg={16}>
           <DataTable
             isSortable
             headers={headerData}
@@ -105,7 +109,6 @@ const NewFirefightersTable = ({ device_id }) => {
                 <TableToolbar aria-label="data table toolbar">
                   <TableToolbarContent>
                     <FirefightersAddModal
-                      rows={rows}
                       loadFirefighters={loadFirefighters}
                     />
                   </TableToolbarContent>
@@ -146,9 +149,8 @@ const NewFirefightersTable = ({ device_id }) => {
               </TableContainer>
             )}
           />
-        </div>
-      </div>
-    </div>
+      </Column>
+    </Grid>
   );
 };
 

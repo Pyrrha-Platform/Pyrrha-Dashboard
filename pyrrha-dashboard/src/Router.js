@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import MapPage from './content/MapPage';
+import FirefightersPage from './content/FirefightersPage';
 import PyrrhaHeader from './components/PyrrhaHeader';
 
 const Router = () => {
@@ -73,6 +74,17 @@ const Router = () => {
             />
           }
         />
+        <Route
+          path="/firefighters"
+          element={
+            <FirefightersPage
+              active={active}
+              page={page}
+              setActive={setActive}
+              setPage={setPage}
+            />
+          }
+        />
         {/*
         Routes are not active. Adding comment to kick off a build.
         <Route
@@ -101,17 +113,6 @@ const Router = () => {
           path="/devices"
           element={
             <DevicesPage
-              active={active}
-              page={page}
-              setActive={setActive}
-              setPage={setPage}
-            />
-          }
-        />
-        <Route
-          path="/firefighters"
-          element={
-            <FirefightersPage
               active={active}
               page={page}
               setActive={setActive}
