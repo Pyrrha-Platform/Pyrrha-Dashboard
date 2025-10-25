@@ -1,14 +1,11 @@
 import React, { useContext } from 'react';
 import DeviceGauge from '../DeviceGauge';
-import DeviceChartHolder from '../DeviceChartHolder';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
 import { InlineNotification, Grid, Column } from '@carbon/react';
 
 function DeviceDetailsGaugeSet({
-  chart,
-  setChart,
   type,
   setType,
   increment,
@@ -125,7 +122,11 @@ function DeviceDetailsGaugeSet({
                         value={carbon_monoxide}
                         unit={'ppm'}
                         increment={'now'}
-                        gauge={Utils.getPercentage('CO', carbon_monoxide, 'now')}
+                        gauge={Utils.getPercentage(
+                          'CO',
+                          carbon_monoxide,
+                          'now',
+                        )}
                       />
                     </div>
                     <div className="label-legend">CO</div>
@@ -813,23 +814,6 @@ function DeviceDetailsGaugeSet({
             </Column>
           </Grid>
         </Column>
-      )}
-
-      {increment != 'all' && (
-        <Grid narrow fullWidth>
-          <Column sm={4} md={8} lg={16}>
-            <DeviceChartHolder
-              device_id={device_id}
-              type={!type ? 'CO' : type}
-              data={chart}
-              unit={'ppm'}
-              gauge={''}
-              increment={
-                increment === 'all' ? t('content.details.10min') : increment
-              }
-            />
-          </Column>
-        </Grid>
       )}
     </>
   );

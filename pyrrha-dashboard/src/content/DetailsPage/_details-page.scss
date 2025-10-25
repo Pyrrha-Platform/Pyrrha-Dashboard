@@ -53,6 +53,7 @@ $support-03: #f1c21b; // Yellow color for warning
   @include carbon--type-style('productive-heading-05');
   padding: $spacing-05;
   padding-top: $spacing-09;
+  padding-left: 0;
   margin-top: $spacing-05;
 }
 
@@ -61,6 +62,7 @@ $support-03: #f1c21b; // Yellow color for warning
   /*@include carbon--font-weight('semibold');*/
   padding: $spacing-05;
   padding-top: $spacing-03;
+  padding-left: 0;
 }
 
 .details-page__p {
@@ -107,7 +109,7 @@ $support-03: #f1c21b; // Yellow color for warning
 .details-content {
   padding: $spacing-03 $spacing-05;
   max-width: 1600px;
-  
+
   &.main-container {
     padding: $spacing-03;
   }
@@ -183,14 +185,14 @@ $support-03: #f1c21b; // Yellow color for warning
 .dashboard-tile {
   background-color: $ui-01;
   margin-top: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   text-align: center;
 }
 
 .details-tile {
   background-color: $ui-01;
   margin-top: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
   text-align: center;
 }
 
@@ -223,11 +225,11 @@ $support-03: #f1c21b; // Yellow color for warning
   display: inline !important;
   text-decoration: underline;
   color: #0f62fe;
-  
+
   &:hover {
     text-decoration: underline;
   }
-  
+
   &:visited {
     color: #0f62fe;
   }
@@ -273,11 +275,11 @@ $support-03: #f1c21b; // Yellow color for warning
   text-decoration: underline;
   color: #0f62fe;
   font: bold 0.625rem sans-serif;
-  
+
   &:hover {
     text-decoration: underline;
   }
-  
+
   &:visited {
     color: #0f62fe;
   }
@@ -294,16 +296,11 @@ $support-03: #f1c21b; // Yellow color for warning
 // Details page card-based layout matching dashboard
 .device-details-gauge-set {
   margin-bottom: $spacing-03;
-  
+
   .cds--grid {
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dashboard-tile {
-    padding: $spacing-03;
-    margin-bottom: 0;
   }
 }
 
@@ -317,11 +314,6 @@ $support-03: #f1c21b; // Yellow color for warning
   gap: 0;
 }
 
-// Align gauges section with device name section - match label-firefighter padding
-.device-details-gauge-set .dashboard-tile:last-child .cds--grid {
-  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
-}
-
 // Horizontal gauge layout for details page
 .horizontal-gauges {
   display: flex !important;
@@ -330,7 +322,7 @@ $support-03: #f1c21b; // Yellow color for warning
   justify-content: space-around;
   align-items: flex-start;
   gap: 0.5rem;
-  
+
   .cds--col {
     flex: 1 1 auto !important;
     min-width: 120px !important;

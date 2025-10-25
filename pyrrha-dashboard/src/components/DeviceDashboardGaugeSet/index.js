@@ -110,8 +110,12 @@ function DeviceDashboardGaugeSet({
               </Column>
               <Column sm={1} md={1} lg={2}>
                 <div className="icon-firefighter-holder">
-                  {status === 'danger' && <WarningFilled size={20} className="danger" />}
-                  {status === 'warning' && <WarningFilled size={20} className="warning" />}
+                  {status === 'danger' && (
+                    <WarningFilled size={20} className="danger" />
+                  )}
+                  {status === 'warning' && (
+                    <WarningFilled size={20} className="warning" />
+                  )}
                 </div>
               </Column>
             </Grid>
@@ -128,7 +132,11 @@ function DeviceDashboardGaugeSet({
                     value={carbon_monoxide}
                     increment={increment}
                     unit={'ppm'}
-                    gauge={Utils.getPercentage('CO', carbon_monoxide, increment)}
+                    gauge={Utils.getPercentage(
+                      'CO',
+                      carbon_monoxide,
+                      increment,
+                    )}
                   />
                 </div>
                 <div className="label-legend">CO</div>
@@ -141,7 +149,11 @@ function DeviceDashboardGaugeSet({
                     value={nitrogen_dioxide}
                     increment={increment}
                     unit={'ppm'}
-                    gauge={Utils.getPercentage('NO2', nitrogen_dioxide, increment)}
+                    gauge={Utils.getPercentage(
+                      'NO2',
+                      nitrogen_dioxide,
+                      increment,
+                    )}
                   />
                 </div>
                 <div className="label-legend">
@@ -174,7 +186,9 @@ function DeviceDashboardGaugeSet({
                     gauge={Utils.getPercentage('Hum', humidity, increment)}
                   />
                 </div>
-                <div className="label-legend">{t('content.common.humidity')}</div>
+                <div className="label-legend">
+                  {t('content.common.humidity')}
+                </div>
               </Column>
             </Grid>
           </div>

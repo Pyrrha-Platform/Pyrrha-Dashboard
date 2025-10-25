@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ContentSwitcher, Switch } from 'carbon-components-react';
 import '@carbon/charts/styles.css';
 import DeviceDetailsGaugeSet from '../../components/DeviceDetailsGaugeSet';
+import DeviceChartHolder from '../../components/DeviceChartHolder';
 import useDetails from '../../hooks/useDetails';
 import AppContext from '../../context/app';
 import { InlineNotification, Grid, Column } from '@carbon/react';
@@ -41,13 +42,13 @@ const DetailsGrid = (params) => {
   return (
     <Grid className="details-content main-container" fullWidth>
       <Column sm={4} md={8} lg={16}>
-         <h1 className="details-page__heading">{params.device_id}</h1>
+        <h1 className="details-page__heading">{params.device_id}</h1>
       </Column>
 
       <Column sm={4} md={8} lg={16}>
         <h2 className="details-page__subheading">
-            {t('content.details.subheading')}
-          </h2>
+          {t('content.details.subheading')}
+        </h2>
       </Column>
 
       <Column sm={4} md={8} lg={16}>
@@ -103,8 +104,6 @@ const DetailsGrid = (params) => {
             nitrogen_dioxide_gauge_480min,
           }) => (
             <DeviceDetailsGaugeSet
-              chart={chart}
-              setChart={setChart}
               type={type}
               setType={setType}
               increment={increment}
@@ -139,6 +138,22 @@ const DetailsGrid = (params) => {
             />
           ),
         )}
+
+      {/* Chart section rendered separately below gauge sets */}
+      {increment != 'all' && details && details.length > 0 && (
+        <Column sm={4} md={8} lg={16}>
+          <DeviceChartHolder
+            device_id={details[0].device_id}
+            type={!type ? 'CO' : type}
+            data={chart}
+            unit={'ppm'}
+            gauge={''}
+            increment={
+              increment === 'all' ? t('content.details.10min') : increment
+            }
+          />
+        </Column>
+      )}
     </Grid>
   );
 };

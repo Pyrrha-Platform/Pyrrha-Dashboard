@@ -10,7 +10,9 @@ const client = async (url, options) => {
 
 const fetchDashboard = async () => {
   try {
-    const data = await client(`${Constants.API_BASE_URL}/api-main/v1/dashboard-now`);
+    const data = await client(
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-now`,
+    );
     // console.log(data);
     if (data.devices) {
       return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
