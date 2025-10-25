@@ -4,6 +4,7 @@ import '@carbon/charts/styles.css';
 import DeviceDetailsGaugeSet from '../../components/DeviceDetailsGaugeSet';
 import useDetails from '../../hooks/useDetails';
 import AppContext from '../../context/app';
+import { InlineNotification, Grid, Column } from '@carbon/react';
 
 // Table and data
 const DetailsGrid = (params) => {
@@ -38,37 +39,35 @@ const DetailsGrid = (params) => {
   };
 
   return (
-    <div className="bx--grid bx--grid--full-width details-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h1 className="details-page__heading">{params.device_id}</h1>
-        </div>
-      </div>
+    <Grid className="details-content main-container" fullWidth>
+      <Column sm={4} md={8} lg={16}>
+         <h1 className="details-page__heading">{params.device_id}</h1>
+      </Column>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h2 className="details-page__subheading">
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="details-page__subheading">
             {t('content.details.subheading')}
           </h2>
-        </div>
-      </div>
+      </Column>
 
-      <ContentSwitcher
-        onChange={(e) => {
-          // console.log(e.name);
-          setIncrement(e.name);
-        }}
-        selectedIndex={incrementMapping[increment]}
-        className="details-page__switcher"
-      >
-        <Switch name="all" text={t('content.details.all')} />
-        <Switch name="latest" text={t('content.details.latest')} />
-        <Switch name="10min" text={t('content.details.10min')} />
-        <Switch name="30min" text={t('content.details.30min')} />
-        <Switch name="1hr" text={t('content.details.1hr')} />
-        <Switch name="4hr" text={t('content.details.4hr')} />
-        <Switch name="8hr" text={t('content.details.8hr')} />
-      </ContentSwitcher>
+      <Column sm={4} md={8} lg={16}>
+        <ContentSwitcher
+          onChange={(e) => {
+            // console.log(e.name);
+            setIncrement(e.name);
+          }}
+          selectedIndex={incrementMapping[increment]}
+          className="details-page__switcher"
+        >
+          <Switch name="all" text={t('content.details.all')} />
+          <Switch name="latest" text={t('content.details.latest')} />
+          <Switch name="10min" text={t('content.details.10min')} />
+          <Switch name="30min" text={t('content.details.30min')} />
+          <Switch name="1hr" text={t('content.details.1hr')} />
+          <Switch name="4hr" text={t('content.details.4hr')} />
+          <Switch name="8hr" text={t('content.details.8hr')} />
+        </ContentSwitcher>
+      </Column>
 
       {details !== undefined &&
         details.length !== 0 &&
@@ -140,7 +139,7 @@ const DetailsGrid = (params) => {
             />
           ),
         )}
-    </div>
+    </Grid>
   );
 };
 

@@ -115,7 +115,7 @@
   td {
     white-space: nowrap;
   }
-  .bx--table-expand {
+  .cds--table-expand {
     position: sticky;
     left: 0;
   }
@@ -125,7 +125,7 @@
     }
     height: 250px;
   }
-  .bx--data-table-content {
+  .cds--data-table-content {
     position: relative;
   }
 }
@@ -168,7 +168,7 @@
   margin-bottom: $spacing-05;
 }
 
-.bx--data-table-container {
+.cds--data-table-container {
   margin-bottom: $layout-03;
 }
 
@@ -195,11 +195,11 @@
   }
 }
 
-.bx--modal-container .bx--loading {
+.cds--modal-container .cds--loading {
   width: 5rem;
   height: 5rem;
 }
 
-.bx--data-table tbody tr[data-hovered='true'] td {
+.cds--data-table tbody tr[data-hovered='true'] td {
   background: #353535;
 }

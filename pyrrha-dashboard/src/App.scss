@@ -131,15 +131,15 @@ body {
   padding-right: 0;
 }
 
-.bx--inline-notification--info,
-.bx--inline-notification--error,
-.bx--inline-notification--warning {
+.cds--inline-notification--info,
+.cds--inline-notification--error,
+.cds--inline-notification--warning {
   background: #393939;
   color: #fff;
 }
 
 @media (min-width: 82rem) {
-  .bx--modal-container--xs {
+  .cds--modal-container--xs {
     width: 30%;
   }
 }

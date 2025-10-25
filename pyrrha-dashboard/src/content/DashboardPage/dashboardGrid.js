@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
-import { Tile } from 'carbon-components-react';
+import { Tile, Grid, Column } from '@carbon/react';
 import DeviceDashboardGaugeSet from '../../components/DeviceDashboardGaugeSet';
 import useDashboard from '../../hooks/useDashboard';
 import AppContext from '../../context/app';
@@ -21,138 +21,121 @@ const DashboardGrid = () => {
   const { t } = useContext(AppContext);
 
   return (
-    <div className="bx--grid bx--grid--full-width dashboard-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h1 className="dashboard-page__heading">
-            {t('content.dashboard.heading')}
-          </h1>
-        </div>
-      </div>
+    <Grid className="dashboard-content main-container" fullWidth>
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="dashboard-page__heading">
+          {t('content.dashboard.heading')}
+        </h1>
+      </Column>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h2 className="dashboard-page__subheading">
-            {t('content.dashboard.subheading')}
-          </h2>
-        </div>
-      </div>
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="dashboard-page__subheading">
+          {t('content.dashboard.subheading')}
+        </h2>
+      </Column>
 
-      <div className="bx--row">
-        <div className="bx--col bx--no-gutter">
-          <div className="bx--grid bx--grid--full-width">
-            <div className="bx--row">
-              <div className="bx--col">
-                <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 dashboard-page__tile_number">
-                        <span className="dashboard-page__danger">{danger}</span>
-                      </div>
-                      <div className="bx--col-md-7">
-                        <div className="dashboard-page__tile_heading">
-                          {t('content.dashboard.tileHeadingDanger')}
-                        </div>
-                        <div className="dashboard-page__tile_subheading">
-                          {t('content.dashboard.tileSubheadingDanger')}
-                        </div>
-                      </div>
-                    </div>
+      <Column sm={4} md={8} lg={16} className="dashboard-summary-tiles">
+        <Grid narrow fullWidth>
+          <Column sm={4} md={8} lg={5}>
+            <Tile>
+              <Grid narrow fullWidth>
+                <Column sm={1} md={1} lg={2}>
+                  <div className="dashboard-page__tile_number">
+                    <span className="dashboard-page__danger">{danger}</span>
                   </div>
-                </Tile>
-              </div>
-              <div className="bx--col">
-                <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 dashboard-page__tile_number">
-                        <span className="dashboard-page__warning">
-                          {warning}
-                        </span>
-                      </div>
-                      <div className="bx--col-md-7">
-                        <div className="dashboard-page__tile_heading">
-                          {t('content.dashboard.tileHeadingWarning')}
-                        </div>
-                        <div className="dashboard-page__tile_subheading">
-                          {t('content.dashboard.tileSubheadingWarning')}
-                        </div>
-                      </div>
-                    </div>
+                </Column>
+                <Column sm={3} md={7} lg={3}>
+                  <div className="dashboard-page__tile_heading">
+                    {t('content.dashboard.tileHeadingDanger')}
                   </div>
-                </Tile>
-              </div>
-              <div className="bx--col">
-                <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 dashboard-page__tile_number">
-                        <span className="dashboard-page__normal">{normal}</span>
-                      </div>
-                      <div className="bx--col-md-7">
-                        <div className="dashboard-page__tile_heading">
-                          {t('content.dashboard.tileHeadingNormal')}
-                        </div>
-                        <div className="dashboard-page__tile_subheading">
-                          {t('content.dashboard.tileSubheadingNormal')}
-                        </div>
-                      </div>
-                    </div>
+                  <div className="dashboard-page__tile_subheading">
+                    {t('content.dashboard.tileSubheadingDanger')}
                   </div>
-                </Tile>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                </Column>
+              </Grid>
+            </Tile>
+          </Column>
+          <Column sm={4} md={8} lg={5}>
+            <Tile>
+              <Grid narrow fullWidth>
+                <Column sm={1} md={1} lg={2}>
+                  <div className="dashboard-page__tile_number">
+                    <span className="dashboard-page__warning">{warning}</span>
+                  </div>
+                </Column>
+                <Column sm={3} md={7} lg={3}>
+                  <div className="dashboard-page__tile_heading">
+                    {t('content.dashboard.tileHeadingWarning')}
+                  </div>
+                  <div className="dashboard-page__tile_subheading">
+                    {t('content.dashboard.tileSubheadingWarning')}
+                  </div>
+                </Column>
+              </Grid>
+            </Tile>
+          </Column>
+          <Column sm={4} md={8} lg={6}>
+            <Tile>
+              <Grid narrow fullWidth>
+                <Column sm={1} md={1} lg={2}>
+                  <div className="dashboard-page__tile_number">
+                    <span className="dashboard-page__normal">{normal}</span>
+                  </div>
+                </Column>
+                <Column sm={3} md={7} lg={4}>
+                  <div className="dashboard-page__tile_heading">
+                    {t('content.dashboard.tileHeadingNormal')}
+                  </div>
+                  <div className="dashboard-page__tile_subheading">
+                    {t('content.dashboard.tileSubheadingNormal')}
+                  </div>
+                </Column>
+              </Grid>
+            </Tile>
+          </Column>
+        </Grid>
+      </Column>
 
       {dashboard !== undefined &&
         dashboard.length !== 0 &&
-        dashboard.map !== undefined && (
-          <div className="bx--row">
-            {dashboard.map(
-              ({
-                device_id,
-                timestamp_mins,
-                device_timestamp,
-                temperature,
-                humidity,
-                carbon_monoxide,
-                nitrogen_dioxide,
-                increment,
-              }) => (
-                <DeviceDashboardGaugeSet
-                  key={device_id}
-                  device_id={device_id}
-                  timestamp_mins={timestamp_mins}
-                  device_timestamp={device_timestamp}
-                  temperature={temperature}
-                  humidity={humidity}
-                  carbon_monoxide={carbon_monoxide}
-                  nitrogen_dioxide={nitrogen_dioxide}
-                  increment={'now'}
-                />
-              ),
-            )}
-          </div>
+        dashboard.map !== undefined &&
+        dashboard.map(
+          ({
+            device_id,
+            timestamp_mins,
+            device_timestamp,
+            temperature,
+            humidity,
+            carbon_monoxide,
+            nitrogen_dioxide,
+            increment,
+          }) => (
+            <DeviceDashboardGaugeSet
+              key={device_id}
+              device_id={device_id}
+              timestamp_mins={timestamp_mins}
+              device_timestamp={device_timestamp}
+              temperature={temperature}
+              humidity={humidity}
+              carbon_monoxide={carbon_monoxide}
+              nitrogen_dioxide={nitrogen_dioxide}
+              increment={'now'}
+            />
+          ),
         )}
 
       {(dashboard == undefined ||
         dashboard.length == 0 ||
         dashboard.map == undefined) && (
-        <div className="bx--row">
-          <div className="bx--grid bx--grid--full-width bx--col-lg-16 bx--col-md-4 bx--col-sm-2">
-            <div className="bx--grid bx--grid--full-width dashboard-content">
-              <div className={'bx--row dashboard-tile background-'}>
-                <div className="bx--grid bx--grid--full-width label-firefighter">
-                  {t('content.dashboard.noDevices')}
-                </div>
-              </div>
+        <Column sm={4} md={8} lg={16}>
+          <div className="dashboard-tile background-">
+            <div className="label-firefighter">
+              {t('content.dashboard.noDevices')}
             </div>
           </div>
-        </div>
+        </Column>
       )}
-    </div>
+    </Grid>
   );
 };
 

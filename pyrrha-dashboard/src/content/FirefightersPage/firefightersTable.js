@@ -68,25 +68,25 @@ const NewFirefightersTable = ({ device_id }) => {
   ];
 
   return (
-    <div className="bx--grid bx--grid--full-width firefighters-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+    <div className="cds--grid cds--grid--full-width firefighters-content">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h1 className="firefighters-page__heading">
             {t('content.firefighters.heading')}
           </h1>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h2 className="firefighters-page__subheading">
             {t('content.firefighters.subheading')}
           </h2>
         </div>
       </div>
 
-      <div className="bx--row firefighters-page__r2">
-        <div className="bx--col-lg-16 fullwidth">
+      <div className="cds--row firefighters-page__r2">
+        <div className="cds--col-lg-16 fullwidth">
           <DataTable
             isSortable
             headers={headerData}

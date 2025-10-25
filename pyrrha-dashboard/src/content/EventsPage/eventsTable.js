@@ -73,25 +73,25 @@ const NewEventsTable = ({ eventId }) => {
   ];
 
   return (
-    <div className="bx--grid bx--grid--full-width events-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+    <div className="cds--grid cds--grid--full-width events-content">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h1 className="events-page__heading">
             {t('content.events.heading')}
           </h1>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h2 className="events-page__subheading">
             {t('content.events.subheading')}
           </h2>
         </div>
       </div>
 
-      <div className="bx--row events-page__r2">
-        <div className="bx--col-lg-16 fullwidth">
+      <div className="cds--row events-page__r2">
+        <div className="cds--col-lg-16 fullwidth">
           <DataTable
             isSortable
             headers={headerData}

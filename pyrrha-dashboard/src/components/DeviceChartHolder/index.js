@@ -3,17 +3,17 @@ import DeviceChart from '../DeviceChart';
 
 function DeviceChartHolder({ device_id, type, data, unit, limit, increment }) {
   return (
-    <div className="bx--grid bx--grid--full-width details-content">
-      <div className="bx--row details-tile">
-        <div className="bx--col-md-16 label-firefighter">
+    <div className="cds--grid cds--grid--full-width details-content">
+      <div className="cds--row details-tile">
+        <div className="cds--col-md-16 label-firefighter">
           {type}
           <br />
           {increment}
         </div>
       </div>
-      <div className="bx--row details-tile">
-        <div id="device-chart-tooltip" className="bx--cc--tooltip" />
-        <div className="bx--col bx--col-md-16">
+      <div className="cds--row details-tile">
+        <div id="device-chart-tooltip" className="cds--cc--tooltip" />
+        <div className="cds--col cds--col-md-16">
           <DeviceChart
             device_id={device_id}
             type={type}

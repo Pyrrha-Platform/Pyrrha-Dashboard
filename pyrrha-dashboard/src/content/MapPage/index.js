@@ -84,15 +84,15 @@ const MapPage = (props) => {
   };
 
   return (
-    <div className="bx--grid bx--grid--full-width map-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+    <div className="cds--grid cds--grid--full-width map-content">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h1 className="map-page__heading">{t('content.map.heading')}</h1>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h2 className="map-page__subheading">
             {t('content.map.subheading')}
           </h2>

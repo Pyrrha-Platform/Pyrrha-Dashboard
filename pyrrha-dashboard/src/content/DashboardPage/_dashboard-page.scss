@@ -52,6 +52,7 @@ $support-03: #f1c21b; // Yellow color for warning
   @include carbon--type-style('productive-heading-05');
   padding: $spacing-05;
   padding-top: $spacing-09;
+  padding-left: 0;
   margin-top: $spacing-05;
 }
 
@@ -60,6 +61,7 @@ $support-03: #f1c21b; // Yellow color for warning
   /*@include carbon--font-weight('semibold');*/
   padding: $spacing-05;
   padding-top: $spacing-03;
+  padding-left: 0;
 }
 
 .dashboard-page__tile_number {
@@ -134,10 +136,12 @@ $support-03: #f1c21b; // Yellow color for warning
 }
 
 .dashboard-content {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 3rem;
+  padding: $spacing-03 $spacing-05;
   max-width: 1600px;
+  
+  &.main-container {
+    padding: $spacing-03;
+  }
 }
 
 .background-database {
@@ -185,7 +189,7 @@ $support-03: #f1c21b; // Yellow color for warning
   }
 }
 
-.bx--row {
+.cds--row {
   /* margin-top: $layout-03; */
   margin-top: 0;
 }
@@ -210,7 +214,8 @@ $support-03: #f1c21b; // Yellow color for warning
 .dashboard-tile {
   background-color: $ui-01;
   margin-top: 0;
-  padding-bottom: 15px;
+  padding-bottom: 1rem;
+  text-align: center;
 }
 
 .dashboard-label {
@@ -218,7 +223,7 @@ $support-03: #f1c21b; // Yellow color for warning
   font-weight: bold;
 }
 .margin-right-firefighter {
-  border: 5px solid #fff;
+  border: 0.3125rem solid #fff;
 }
 
 .dashboard-gray {
@@ -227,19 +232,34 @@ $support-03: #f1c21b; // Yellow color for warning
 
 .label-firefighter {
   text-align: left !important;
-  font: bold 16px sans-serif;
-  padding: 15px 15px 15px 15px;
+  font: bold 1rem sans-serif;
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
 }
 
 .label-firefighter a {
   text-align: left !important;
-  font: bold 16px sans-serif;
+  font: bold 1rem sans-serif;
   padding-left: 0;
+}
+
+// Ensure cds--link maintains proper line break behavior
+.cds--link.label-firefighter {
+  display: inline !important;
+  text-decoration: underline;
+  color: #0f62fe;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+  
+  &:visited {
+    color: #0f62fe;
+  }
 }
 
 .icon-firefighter-holder {
   text-align: right !important;
-  padding: 15px 15px 15px 15px;
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
 }
 
 .icon-firefighter-holder svg.warning {
@@ -263,14 +283,60 @@ $support-03: #f1c21b; // Yellow color for warning
 }
 
 .label-legend {
-  font: normal 10px sans-serif;
-  margin-top: 10px;
+  font: normal 0.625rem sans-serif;
+  margin-top: 0.625rem;
 }
 
-.bx--grid {
-  padding: 15px 15px 15px 15px;
+.cds--grid {
+  padding: 0.9375rem 0.9375rem 0.9375rem 0.9375rem;
 }
 
-.bx--col {
+.cds--col {
   text-align: center !important;
 }
+
+// Carbon v11 Grid spacing
+.cds--grid {
+  margin-bottom: $spacing-05;
+}
+
+.device-dashboard-gauge-set {
+  margin-bottom: $spacing-03;
+  
+  .cds--grid {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-tile {
+    padding: $spacing-03;
+    margin-bottom: 0;
+  }
+}
+
+.dashboard-summary-tiles {
+  margin-bottom: $spacing-07;
+  
+  .cds--tile {
+    margin-bottom: $spacing-03;
+    height: 100%;
+  }
+}
+
+// Remove gaps between connected dashboard tile sections
+.device-dashboard-gauge-set .cds--col {
+  margin-bottom: 0;
+}
+
+.device-dashboard-gauge-set .cds--grid.cds--grid--narrow {
+  margin-bottom: 0;
+  gap: 0;
+}
+
+// Align gauges section with device name section - match label-firefighter padding
+.device-dashboard-gauge-set .dashboard-tile:last-child .cds--grid {
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+}
+
+

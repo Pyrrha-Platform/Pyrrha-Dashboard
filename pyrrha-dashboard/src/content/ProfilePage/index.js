@@ -30,17 +30,17 @@ function ProfilePage(props) {
 
   return (
     <>
-      <div className="bx--grid bx--grid--full-width events-content">
-        <div className="bx--row">
-          <div className="bx--col-md-16">
+      <div className="cds--grid cds--grid--full-width events-content">
+        <div className="cds--row">
+          <div className="cds--col-md-16">
             <h1 className="profile-page__heading">
               {t('content.profile.heading')}
             </h1>
           </div>
         </div>
 
-        <div className="bx--row">
-          <div className="bx--col-md-16">
+        <div className="cds--row">
+          <div className="cds--col-md-16">
             <h2 className="profile-page__subheading">
               {t('content.profile.subheading')}
             </h2>

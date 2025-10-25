@@ -64,25 +64,25 @@ const NewDevicesTable = ({ device_id }) => {
   ];
 
   return (
-    <div className="bx--grid bx--grid--full-width devices-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+    <div className="cds--grid cds--grid--full-width devices-content">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h1 className="devices-page__heading">
             {t('content.devices.heading')}
           </h1>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h2 className="devices-page__subheading">
             {t('content.devices.subheading')}
           </h2>
         </div>
       </div>
 
-      <div className="bx--row devices-page__r2">
-        <div className="bx--col-lg-16 fullwidth">
+      <div className="cds--row devices-page__r2">
+        <div className="cds--col-lg-16 fullwidth">
           <DataTable
             isSortable
             headers={headerData}

@@ -34,7 +34,7 @@ function PyrrhaHeader(props) {
   // console.log(currentUser);
 
   return (
-    <Header aria-label="Pyrrha">
+    <Header aria-label="Pyrrha" className="cds--g100">
       <SkipToContent />
       <HeaderName
         element={Link}
