@@ -30,7 +30,9 @@ const NewEventsTable = () => {
 
   const loadEvents = useCallback(async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/events`);
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/events`,
+      );
       const data = await response.json();
       setEvents(data.events || []);
     } catch (e) {

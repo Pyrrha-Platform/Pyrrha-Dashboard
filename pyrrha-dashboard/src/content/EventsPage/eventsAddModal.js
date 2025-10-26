@@ -53,7 +53,9 @@ const EventsAddModal = ({ loadEvents }) => {
       setFuelTypes(fuelTypesData.fuel_types || []);
 
       // Load status options
-      const statusResponse = await fetch(`${Constants.API_BASE_URL}/api-main/v1/status`);
+      const statusResponse = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/status`,
+      );
       const statusData = await statusResponse.json();
       setStatusOptions(statusData.status || []);
     } catch (error) {
@@ -63,22 +65,25 @@ const EventsAddModal = ({ loadEvents }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/events`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/events`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            event_type: eventType,
+            fuel_type: fuelType,
+            status,
+            event_date: eventDate,
+            init_time: initTime,
+            end_time: endTime,
+            extra_info: extraInfo,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          event_type: eventType,
-          fuel_type: fuelType,
-          status,
-          event_date: eventDate,
-          init_time: initTime,
-          end_time: endTime,
-          extra_info: extraInfo,
-        }),
-      });
+      );
 
       if (response.ok) {
         loadEvents();

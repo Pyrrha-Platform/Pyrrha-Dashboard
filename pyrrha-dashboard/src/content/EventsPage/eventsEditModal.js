@@ -56,7 +56,9 @@ const EventsEditModal = ({ row, loadEvents }) => {
       setFuelTypes(fuelTypesData.fuel_types || []);
 
       // Load status options
-      const statusResponse = await fetch(`${Constants.API_BASE_URL}/api-main/v1/status`);
+      const statusResponse = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/status`,
+      );
       const statusData = await statusResponse.json();
       setStatusOptions(statusData.status || []);
     } catch (error) {
