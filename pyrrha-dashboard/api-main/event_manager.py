@@ -16,8 +16,7 @@ class event_manager(object):
         self._port = int(os.getenv("MARIADB_PORT"))
         self._database = os.getenv("MARIADB_DATABASE")
 
-    def insert_event(self, code, type, firefighters, state):
-
+    def insert_event(self, name, event_type, fuel_type, status, event_date, init_time, end_time, extra_info):
         event = None
 
         try:
@@ -32,10 +31,9 @@ class event_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "INSERT INTO events (event_code, name, surname, email) VALUES (?, ?, ?, ?)",
-                (code, first, last, email),
+                "INSERT INTO events (name, event_type, fuel_type, status, event_date, init_time, end_time, extra_info) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (name, event_type, fuel_type, status, event_date, init_time, end_time, extra_info),
             )
-            # cursor.callproc('sp_create_event', (data))
 
             conn.commit()
 
@@ -47,6 +45,7 @@ class event_manager(object):
                 return False
 
         except Exception as e:
+            self._logger.error(f"Error inserting event: {e}")
             return None
 
         finally:
@@ -55,8 +54,7 @@ class event_manager(object):
 
         return event
 
-    def update_event(self, id, code, first, last, email):
-
+    def update_event(self, id, name, event_type, fuel_type, status, event_date, init_time, end_time, extra_info):
         event = None
 
         try:
@@ -70,8 +68,10 @@ class event_manager(object):
 
             cursor = conn.cursor()
 
-            # cursor.execute('UPDATE events SET event_code = ?, name = ?, surname = ?, email = ? WHERE event_id = ?', (code, first, last, email, id))
-            cursor.callproc("sp_update_event", (data))
+            cursor.execute(
+                'UPDATE events SET name = ?, event_type = ?, fuel_type = ?, status = ?, event_date = ?, init_time = ?, end_time = ?, extra_info = ? WHERE event_id = ?', 
+                (name, event_type, fuel_type, status, event_date, init_time, end_time, extra_info, id)
+            )
 
             if cursor.rowcount == 1:
                 conn.commit()
@@ -80,6 +80,7 @@ class event_manager(object):
                 return False
 
         except Exception as e:
+            self._logger.error(f"Error updating event: {e}")
             return None
 
         finally:
@@ -104,7 +105,7 @@ class event_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "UPDATE events SET deleted_at = NOW() WHERE event_internal_id =  ?",
+                "UPDATE events SET deleted_at = NOW() WHERE event_id = ?",
                 (id,),
             )
 
@@ -140,7 +141,7 @@ class event_manager(object):
 
             cursor = conn.cursor()
 
-            # cursor.execute('SELECT event_id, event_code, name, surname, email FROM events WHERE deleted_at IS NULL AND event_id = ?', (id,))
+            # cursor.execute('SELECT event_id, name, surname, email FROM events WHERE deleted_at IS NULL AND event_id = ?', (id,))
             cursor.callproc("sp_select_event", (id,))
 
             data = cursor.fetchone()
@@ -187,7 +188,7 @@ class event_manager(object):
 
             self._logger.debug("get_all_events - after cursor")
             sql = """
-                SELECT event_internal_id, event_code, status, event_type, event_date, extra_info 
+                SELECT event_id, name, status, event_type, event_date, extra_info 
                 FROM events 
                 WHERE deleted_at IS NULL
             """
@@ -262,6 +263,105 @@ class event_manager(object):
         except Exception as e:
             self._logger.debug("get_event_firefighters_devices - estoy en la excepcion")
             return None
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    def get_event_types(self):
+        """Get all event types for dropdown"""
+        try:
+            conn = mariadb.connect(
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
+            )
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT event_id, event_description FROM event_types WHERE deleted_at IS NULL")
+            data = cursor.fetchall()
+
+            event_types = []
+            if data:
+                for row in data:
+                    event_types.append({
+                        "event_id": row[0],
+                        "event_description": row[1]
+                    })
+
+            return event_types
+
+        except Exception as e:
+            self._logger.error(f"Error getting event types: {e}")
+            return []
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    def get_fuel_types(self):
+        """Get all fuel types for dropdown"""
+        try:
+            conn = mariadb.connect(
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
+            )
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT fuel_id, fuel_description FROM fuel_types WHERE deleted_at IS NULL")
+            data = cursor.fetchall()
+
+            fuel_types = []
+            if data:
+                for row in data:
+                    fuel_types.append({
+                        "fuel_id": row[0],
+                        "fuel_description": row[1]
+                    })
+
+            return fuel_types
+
+        except Exception as e:
+            self._logger.error(f"Error getting fuel types: {e}")
+            return []
+
+        finally:
+            cursor.close()
+            conn.close()
+
+    def get_status_options(self):
+        """Get all status options for dropdown"""
+        try:
+            conn = mariadb.connect(
+                user=self._user,
+                password=self._password,
+                host=self._host,
+                database=self._database,
+                port=self._port,
+            )
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT status_id, status_description FROM status WHERE deleted_at IS NULL")
+            data = cursor.fetchall()
+
+            status_options = []
+            if data:
+                for row in data:
+                    status_options.append({
+                        "status_id": row[0],
+                        "status_description": row[1]
+                    })
+
+            return status_options
+
+        except Exception as e:
+            self._logger.error(f"Error getting status options: {e}")
+            return []
 
         finally:
             cursor.close()

@@ -1,234 +1,210 @@
-import React, { useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   TextInput,
-  ComposedModal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Icon,
-} from 'carbon-components-react';
-import { iconEdit } from 'carbon-icons';
+  DatePicker,
+  DatePickerInput,
+  TimePicker,
+  Modal,
+  Button,
+  Dropdown,
+  TextArea,
+} from '@carbon/react';
+import { Edit } from '@carbon/icons-react';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
-// This defines a modal controlled by a launcher button. We have one per DataTable row.
-const ModalStateManager = ({
-  renderLauncher: LauncherContent,
-  children: ModalContent,
-}) => {
+const EventsEditModal = ({ row, loadEvents }) => {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [fuelType, setFuelType] = useState('');
+  const [status, setStatus] = useState('');
+  const [eventDate, setEventDate] = useState('');
+  const [initTime, setInitTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [extraInfo, setExtraInfo] = useState('');
+  
+  // Dropdown options
+  const [eventTypes, setEventTypes] = useState([]);
+  const [fuelTypes, setFuelTypes] = useState([]);
+  const [statusOptions, setStatusOptions] = useState([]);
+  
   const { t } = useContext(AppContext);
+
+  // Load dropdown options and populate form when modal opens
+  useEffect(() => {
+    if (open) {
+      loadDropdownOptions();
+      populateForm();
+    }
+  }, [open, row]);
+
+  const loadDropdownOptions = async () => {
+    try {
+      // Load event types
+      const eventTypesResponse = await fetch(`${Constants.API_BASE_URL}/event-types`);
+      const eventTypesData = await eventTypesResponse.json();
+      setEventTypes(eventTypesData.event_types || []);
+
+      // Load fuel types
+      const fuelTypesResponse = await fetch(`${Constants.API_BASE_URL}/fuel-types`);
+      const fuelTypesData = await fuelTypesResponse.json();
+      setFuelTypes(fuelTypesData.fuel_types || []);
+
+      // Load status options
+      const statusResponse = await fetch(`${Constants.API_BASE_URL}/status`);
+      const statusData = await statusResponse.json();
+      setStatusOptions(statusData.status || []);
+    } catch (error) {
+      console.error('Error loading dropdown options:', error);
+    }
+  };
+
+  const populateForm = () => {
+    if (row && row.cells) {
+      setName(row.cells.find(cell => cell.id.includes('name'))?.value || '');
+      setEventType(row.cells.find(cell => cell.id.includes('type'))?.value || '');
+      setStatus(row.cells.find(cell => cell.id.includes('status'))?.value || '');
+      setEventDate(row.cells.find(cell => cell.id.includes('date'))?.value || '');
+      // Additional fields can be populated here when available
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const eventId = row.cells.find(cell => cell.id.includes('id'))?.value;
+      const response = await fetch(`${Constants.API_BASE_URL}/events/${eventId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          event_type: eventType,
+          fuel_type: fuelType,
+          status,
+          event_date: eventDate,
+          init_time: initTime,
+          end_time: endTime,
+          extra_info: extraInfo,
+        }),
+      });
+
+      if (response.ok) {
+        loadEvents();
+        setOpen(false);
+      }
+    } catch (error) {
+      console.error('Error updating event:', error);
+    }
+  };
+
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
-        ? null
-        : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body,
-          )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+      <Button
+        hasIconOnly
+        renderIcon={Edit}
+        iconDescription="Edit event"
+        kind="ghost"
+        size="sm"
+        onClick={() => setOpen(true)}
+      />
+      <Modal
+        open={open}
+        onRequestClose={() => setOpen(false)}
+        modalHeading="Edit event"
+        modalLabel="Events"
+        primaryButtonText="Save"
+        secondaryButtonText="Cancel"
+        onRequestSubmit={handleSubmit}
+      >
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="event-name-edit"
+            value={name}
+            placeholder="Wildfire Response 2024"
+            labelText={t('content.events.name') + ':'}
+            onChange={(e) => setName(e.target.value.trim())}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <Dropdown
+            id="event-type-edit"
+            titleText={t('content.events.type') + ':'}
+            label="Select event type"
+            items={eventTypes}
+            itemToString={(item) => item ? item.event_description : ''}
+            selectedItem={eventTypes.find(item => item.event_id === eventType)}
+            onChange={({ selectedItem }) => setEventType(selectedItem ? selectedItem.event_id : '')}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <Dropdown
+            id="fuel-type-edit"
+            titleText={t('content.events.fuel_type') + ':'}
+            label="Select fuel type"
+            items={fuelTypes}
+            itemToString={(item) => item ? item.fuel_description : ''}
+            selectedItem={fuelTypes.find(item => item.fuel_id === fuelType)}
+            onChange={({ selectedItem }) => setFuelType(selectedItem ? selectedItem.fuel_id : '')}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <Dropdown
+            id="status-edit"
+            titleText={t('content.events.status') + ':'}
+            label="Select status"
+            items={statusOptions}
+            itemToString={(item) => item ? item.status_description : ''}
+            selectedItem={statusOptions.find(item => item.status_id === status)}
+            onChange={({ selectedItem }) => setStatus(selectedItem ? selectedItem.status_id : '')}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <DatePicker datePickerType="single" value={eventDate} onChange={(dates) => {
+            if (dates && dates.length > 0) {
+              const date = dates[0];
+              const year = date.getFullYear();
+              const month = String(date.getMonth() + 1).padStart(2, '0');
+              const day = String(date.getDate()).padStart(2, '0');
+              setEventDate(`${year}-${month}-${day}`);
+            }
+          }}>
+            <DatePickerInput
+              placeholder="mm/dd/yyyy"
+              labelText={t('content.events.date') + ':'}
+              id="event-date-edit"
+            />
+          </DatePicker>
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <TimePicker
+            id="init-time-edit"
+            labelText={t('content.events.init_time') + ':'}
+            value={initTime}
+            onChange={(e) => setInitTime(e.target.value)}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <TimePicker
+            id="end-time-edit"
+            labelText={t('content.events.end_time') + ':'}
+            value={endTime}
+            onChange={(e) => setEndTime(e.target.value)}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <TextArea
+            id="extra-info-edit"
+            value={extraInfo}
+            placeholder="Additional event information..."
+            labelText={t('content.events.extra_info') + ':'}
+            onChange={(e) => setExtraInfo(e.target.value)}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
-
-// Modal properties
-const editProps = {
-  composedModal: ({ titleOnly } = {}) => ({
-    open: true,
-    danger: false,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
-  }),
-  modalHeader: ({ titleOnly } = {}) => ({
-    label: 'Events',
-    title: 'Edit event',
-    iconDescription: 'Close',
-  }),
-  modalBody: () => ({
-    hasScrollingContent: false,
-    'aria-label': 'Edit event',
-  }),
-  modalFooter: () => ({
-    primaryButtonText: 'Save',
-    primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
-    shouldCloseAfterSubmit: true,
-  }),
-  menuItem: () => ({
-    closeMenu: (event) => {
-      handleSubmit(event);
-    },
-  }),
-  editIcon: () => ({
-    style: {
-      margin: '5px',
-    },
-    icon: iconEdit,
-    name: iconEdit,
-    role: 'img',
-    fill: 'grey',
-    fillRule: '',
-    width: '',
-    height: '',
-    description:
-      'This is a description of the icon and what it does in context',
-    iconTitle: '',
-    className: 'extra-class',
-  }),
-};
-
-// On submit we should be passed the values.
-const handleSubmit = (
-  id,
-  code,
-  type,
-  date,
-  state,
-  firefighters,
-  loadEvents,
-  setOpen,
-) => {
-  // console.log('handleSubmit');
-  // console.log('id ' + id);
-  // console.log('code ' + code);
-  // console.log('type ' + type);
-  // console.log('date ' + date);
-  // console.log('firefighters ' + firefighters);
-  // console.log('state ' + state);
-
-  axios
-    .put(`/api-main/v1/events/` + id, {
-      id: id,
-      code: code,
-      type: type,
-      date: date,
-      firefighters: firefighters,
-      state: state,
-    })
-    .then((res) => {
-      // TODO: Set success or error message
-      // console.log(res);
-      // console.log(res.data);
-
-      // Refresh data
-      loadEvents();
-
-      // TODO: Check for error or success
-      setOpen(false);
-    });
-
-  return true;
-};
-
-// The implementation of the Modal
-class EventsEditModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: props.row,
-      loadEvents: props.loadEvents,
-      id: this.props.row.cells[0].value,
-      code: this.props.row.cells[1].value,
-      type: this.props.row.cells[2].value,
-      date: this.props.row.cells[3].value,
-      firefighters: 10,
-      state: this.props.row.cells[4].value,
-      open: false,
-    };
-    // console.log(this.state.row);
-  }
-
-  render() {
-    // const { open } = this.state.open;
-    const { size, ...rest } = editProps.composedModal();
-    const { hasScrollingContent, ...bodyProps } = editProps.modalBody();
-
-    return (
-      <ModalStateManager
-        renderLauncher={({ setOpen }) => (
-          <Icon
-            {...editProps.editIcon()}
-            onClick={() => setOpen(true)}
-            title={this.state.id}
-          />
-        )}
-      >
-        {({ open, setOpen, t }) => (
-          <ComposedModal
-            {...rest}
-            open={open}
-            t={t}
-            row={this.props.row}
-            loadEvents={this.props.loadEvents}
-            size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
-            <ModalHeader {...editProps.modalHeader()} />
-            <ModalBody
-              {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}
-            >
-              <br />
-              <TextInput
-                id={this.state.code}
-                value={this.state.code}
-                labelText={t('content.events.code') + ':'}
-                onChange={(e) => (this.state.code = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.code + '-' + this.state.type}
-                value={this.state.type}
-                labelText={t('content.events.type') + ':'}
-                onChange={(e) => (this.state.type = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.code + '-' + this.state.date}
-                value={this.state.date}
-                labelText={t('content.events.date') + ':'}
-                onChange={(e) => (this.state.date = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.code + '-' + this.state.firefighters}
-                value={this.state.firefighters}
-                labelText={t('content.events.firefighters') + ':'}
-                onChange={(e) =>
-                  (this.state.firefighters = e.target.value.trim())
-                }
-              />
-              <br />
-              <TextInput
-                id={this.state.code + '-' + this.state.state}
-                value={this.state.state}
-                labelText={t('content.events.state') + ':'}
-                onChange={(e) => (this.state.state = e.target.value.trim())}
-              />
-              <br />
-              <br />
-            </ModalBody>
-            <ModalFooter
-              {...editProps.modalFooter()}
-              shouldCloseAfterSubmit={true}
-              onRequestSubmit={() => {
-                handleSubmit(
-                  this.state.id,
-                  this.state.code,
-                  this.state.type,
-                  this.state.date,
-                  this.state.firefighters,
-                  this.state.state,
-                  this.state.loadEvents,
-                  setOpen,
-                );
-              }}
-            />
-          </ComposedModal>
-        )}
-      </ModalStateManager>
-    );
-  }
-}
 
 export default EventsEditModal;

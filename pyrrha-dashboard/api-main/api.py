@@ -201,11 +201,11 @@ def events():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
-            or created_values["type"].strip() == ""
-            or created_values["date"].strip() == ""
-            or created_values["firefighters"].strip() == ""
-            or created_values["state"].strip() == ""
+            created_values["name"].strip() == ""
+            or created_values["event_type"] == ""
+            or created_values["fuel_type"] == ""
+            or created_values["status"] == ""
+            or created_values["event_date"].strip() == ""
         ):
 
             message = {
@@ -219,11 +219,14 @@ def events():
 
         else:
             event = event_manager().insert_event(
-                created_values["code"],
-                created_values["type"],
-                created_values["date"],
-                created_values["firefighters"],
-                created_values["state"],
+                created_values["name"],
+                created_values["event_type"],
+                created_values["fuel_type"],
+                created_values["status"],
+                created_values["event_date"],
+                created_values.get("init_time", ""),
+                created_values.get("end_time", ""),
+                created_values.get("extra_info", "")
             )
             message = {"status": 201, "message": "Created", "event": event["id"]}
             body = json.dumps(message)
@@ -248,11 +251,11 @@ def event_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["type"].strip() == ""
-            or updated_values["date"].strip() == ""
-            or updated_values["firefighters"].strip() == ""
-            or updated_values["state"].strip() == ""
+            updated_values["name"].strip() == ""
+            or updated_values["event_type"] == ""
+            or updated_values["fuel_type"] == ""
+            or updated_values["status"] == ""
+            or updated_values["event_date"].strip() == ""
         ):
             message = {
                 "status": 400,
@@ -265,12 +268,15 @@ def event_by_id(id):
 
         else:
             event = event_manager().update_event(
-                updated_values["id"],
-                updated_values["code"],
-                updated_values["type"],
-                updated_values["date"],
-                updated_values["firefighters"],
-                updated_values["state"],
+                updated_values["event_id"],
+                updated_values["name"],
+                updated_values["event_type"],
+                updated_values["fuel_type"],
+                updated_values["status"],
+                updated_values["event_date"],
+                updated_values.get("init_time", ""),
+                updated_values.get("end_time", ""),
+                updated_values.get("extra_info", "")
             )
             message = {"status": 200, "message": "Updated", "event": event["id"]}
             body = json.dumps(message)
@@ -289,6 +295,36 @@ def event_by_id(id):
 
     else:
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
+
+
+@app.route("/api-main/v1/event-types", methods=["GET"])
+def event_types():
+    event_types = event_manager().get_event_types()
+    message = {"status": 200, "message": "OK", "event_types": event_types}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
+@app.route("/api-main/v1/fuel-types", methods=["GET"])
+def fuel_types():
+    fuel_types = event_manager().get_fuel_types()
+    message = {"status": 200, "message": "OK", "fuel_types": fuel_types}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
+@app.route("/api-main/v1/status", methods=["GET"])
+def status_options():
+    status_options = event_manager().get_status_options()
+    message = {"status": 200, "message": "OK", "status_options": status_options}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
 
 
 @app.route("/api-main/v1/devices", methods=["GET", "POST"])
