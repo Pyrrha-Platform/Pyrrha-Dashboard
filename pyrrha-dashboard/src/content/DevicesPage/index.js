@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DevicesTable from './devicesTable';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import './_devices-page.scss';
 
 function DevicesPage(props) {
   const navigate = useNavigate();

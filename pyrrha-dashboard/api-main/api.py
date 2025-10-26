@@ -33,7 +33,8 @@ app = Flask(__name__)
 CORS(app, 
      origins=['http://localhost:3000'],
      methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-     allow_headers=['Content-Type', 'Authorization'])
+     allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
+     supports_credentials=False)
 
 
 @app.errorhandler(404)
@@ -306,7 +307,7 @@ def devices():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
+            created_values["name"].strip() == ""
             or created_values["model"].strip() == ""
             or created_values["version"].strip() == ""
         ):
@@ -322,7 +323,7 @@ def devices():
 
         else:
             device = device_manager().insert_device(
-                created_values["code"],
+                created_values["name"],
                 created_values["model"],
                 created_values["version"],
             )
@@ -333,7 +334,7 @@ def devices():
             return resp
 
 
-@app.route("/api-main/v1/devices/<int:id>", methods=["GET", "PUT", "DELETE"])
+@app.route("/api-main/v1/devices/<string:id>", methods=["GET", "PUT", "DELETE"])
 def device_by_id(id):
 
     if request.method == "GET":
@@ -349,8 +350,7 @@ def device_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["type"].strip() == ""
+            updated_values["name"].strip() == ""
             or updated_values["model"].strip() == ""
             or updated_values["version"].strip() == ""
         ):
@@ -366,7 +366,7 @@ def device_by_id(id):
         else:
             device = device_manager().update_device(
                 updated_values["id"],
-                updated_values["code"],
+                updated_values["name"],
                 updated_values["model"],
                 updated_values["version"],
             )

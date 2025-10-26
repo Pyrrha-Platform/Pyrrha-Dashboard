@@ -16,7 +16,7 @@ class device_manager(object):
         self._port = int(os.getenv("MARIADB_PORT"))
         self._database = os.getenv("MARIADB_DATABASE")
 
-    def insert_device(self, code, first, last, email):
+    def insert_device(self, name, model, version):
 
         device = None
 
@@ -32,8 +32,8 @@ class device_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "INSERT INTO devices (device_code, name, surname, email) VALUES (?, ?, ?, ?)",
-                (code, first, last, email),
+                "INSERT INTO devices (name, model, version) VALUES (?, ?, ?)",
+                (name, model, version),
             )
 
             conn.commit()
@@ -54,7 +54,7 @@ class device_manager(object):
 
         return device
 
-    def update_device(self, id, code, first, last, email):
+    def update_device(self, id, name, model, version):
 
         device = None
 
@@ -70,8 +70,8 @@ class device_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "UPDATE devices SET device_code = ?, name = ?, surname = ?, email = ? WHERE device_id = ?",
-                (code, first, last, email, id),
+                "UPDATE devices SET name = ?, model = ?, version = ? WHERE device_id = ?",
+                (name, model, version, id),
             )
 
             if cursor.rowcount == 1:
@@ -141,7 +141,7 @@ class device_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "SELECT IntSensorId, SensorID, model, version FROM sensors WHERE deleted_at IS NULL AND IntSensorId = ?",
+                "SELECT device_id, name, model, version FROM devices WHERE deleted_at IS NULL AND device_id = ?",
                 (id,),
             )
 
@@ -150,7 +150,7 @@ class device_manager(object):
             if len(data) > 0:
                 device = {
                     "id": data[0],
-                    "code": data[1],
+                    "name": data[1],
                     "model": data[2],
                     "version": data[3],
                 }
@@ -187,9 +187,8 @@ class device_manager(object):
             self._logger.debug("get_all_devices - after cursor")
 
             self._logger.debug("get_all_devices - llamada a sql")
-            # cursor.execute('SELECT device_id, device_code, name, surname, email FROM devices WHERE deleted_at IS NULL')
-            cursor.callproc("sp_select_all_devices")
-            self._logger.debug("get_all_devices - sp_select_all_devices")
+            cursor.execute('SELECT device_id, name, model, version FROM devices WHERE deleted_at IS NULL')
+            self._logger.debug("get_all_devices - executed query")
             data = cursor.fetchall()
             self._logger.debug("get_all_devices - fetchall")
             self._logger.debug(data)
@@ -198,7 +197,7 @@ class device_manager(object):
                 for i in data:
                     self._logger.debug(i)
                     devices.append(
-                        {"id": i[0], "code": i[1], "model": i[2], "version": i[3]}
+                        {"id": i[0], "name": i[1], "model": i[2], "version": i[3]}
                     )
             else:
                 self._logger.debug("get_all_devices - NO HAY INFORMACION")

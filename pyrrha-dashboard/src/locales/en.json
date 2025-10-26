@@ -136,6 +136,7 @@
       "edit": "Edit device",
       "delete": "Delete device",
       "id": "Device ID",
+      "name": "Name",
       "code": "Code",
       "model": "Model",
       "version": "Version",

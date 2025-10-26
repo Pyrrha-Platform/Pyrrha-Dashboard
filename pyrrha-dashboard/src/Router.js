@@ -4,6 +4,7 @@ import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import MapPage from './content/MapPage';
 import FirefightersPage from './content/FirefightersPage';
+import DevicesPage from './content/DevicesPage';
 import PyrrhaHeader from './components/PyrrhaHeader';
 
 const Router = () => {
@@ -85,6 +86,17 @@ const Router = () => {
             />
           }
         />
+        <Route
+          path="/devices"
+          element={
+            <DevicesPage
+              active={active}
+              page={page}
+              setActive={setActive}
+              setPage={setPage}
+            />
+          }
+        />
         {/*
         Routes are not active. Adding comment to kick off a build.
         <Route
@@ -102,17 +114,6 @@ const Router = () => {
           path="/events"
           element={
             <EventsPage
-              active={active}
-              page={page}
-              setActive={setActive}
-              setPage={setPage}
-            />
-          }
-        />
-        <Route
-          path="/devices"
-          element={
-            <DevicesPage
               active={active}
               page={page}
               setActive={setActive}
