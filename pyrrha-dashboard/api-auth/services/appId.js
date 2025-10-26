@@ -9,7 +9,23 @@ if (process.env.VCAP_APPLICATION) {
   services = JSON.parse(process.env.VCAP_SERVICES);
   TENET_ID = services.AppID[0].credentials.tenantId;
 } else {
-  TENET_ID = require('../vcap-local.json').services.AppID.credentials.tenantId;
+  // Try to get tenant ID from vcap-local.json or use development default
+  try {
+    const fs = require('fs');
+    if (fs.existsSync('../vcap-local.json')) {
+      const vcapConfig = require('../vcap-local.json');
+      TENET_ID = vcapConfig.services?.AppID?.credentials?.tenantId;
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not load vcap-local.json for AppID tenant ID');
+  }
+
+  if (!TENET_ID) {
+    TENET_ID = 'dev-tenant-id';
+    console.warn(
+      '⚠️  Using development tenant ID. Set up vcap-local.json for production.',
+    );
+  }
 }
 
 /**
@@ -25,15 +41,32 @@ class AppIdManagement {
     if (process.env.VCAP_APPLICATION) {
       this.apiKey = process.env.IAM_API_KEY;
     } else {
-      // Otherwise, use vcap-local
-      this.apiKey = require('../vcap-local.json').ibm_cloud.api_key;
+      // Try to get API key from vcap-local.json or use development default
+      try {
+        const fs = require('fs');
+        if (fs.existsSync('../vcap-local.json')) {
+          const vcapConfig = require('../vcap-local.json');
+          this.apiKey = vcapConfig.ibm_cloud?.api_key;
+        }
+      } catch (error) {
+        console.warn(
+          '⚠️  Could not load vcap-local.json for IBM Cloud API key',
+        );
+      }
+
+      if (!this.apiKey) {
+        this.apiKey = 'dev-ibm-api-key-' + Math.random().toString(36);
+        console.warn(
+          '⚠️  Using development IBM Cloud API key. Set up vcap-local.json for production.',
+        );
+      }
     }
   }
 
   async callAccessAPI() {
     const data = qs.stringify({
       apikey: this.apiKey,
-      // eslint-disable-next-line camelcase
+
       grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
     });
 
@@ -42,7 +75,7 @@ class AppIdManagement {
       body: data,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        // eslint-disable-next-line quote-props
+
         Accept: 'application/json',
       },
     });
@@ -88,7 +121,7 @@ class AppIdManagement {
         headers: {
           Authorization: `Bearer ${iam.token}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -126,12 +159,12 @@ class AppIdManagement {
         body: data,
         headers: {
           'Content-Type': 'application/json',
-          // eslint-disable-next-line quote-props
+
           Accept: 'application/json',
-          // eslint-disable-next-line quote-props
+
           Authorization: `Bearer ${iam.token}`,
         },
-      }
+      },
     );
 
     if (!response.ok) {

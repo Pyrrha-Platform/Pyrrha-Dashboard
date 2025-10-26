@@ -9,14 +9,14 @@
   border-left: 1px solid #515151;
   z-index: 8500; // header is at 8000, keep above 8000
 
-  .bx--toast-notification {
+  .cds--toast-notification {
     width: 100%;
     color: #fff;
     background-color: #393939;
 
     border-left: 3px solid #70a4ff;
 
-    .bx--toast-notification__icon {
+    .cds--toast-notification__icon {
       fill: #70a4ff;
     }
 
@@ -88,22 +88,22 @@
 .device-side-panel__updatingToast {
   position: relative;
 
-  .bx--toast-notification__icon {
+  .cds--toast-notification__icon {
     visibility: hidden;
   }
 
-  .bx--loading {
+  .cds--loading {
     position: absolute;
     top: 4px;
     left: 7px;
   }
 
-  .bx--loading--small {
+  .cds--loading--small {
     width: 2.5rem;
     height: 2.5rem;
   }
 
-  .bx--toast-notification__subtitle {
+  .cds--toast-notification__subtitle {
     margin-top: 0.5rem;
     color: #d0d0d0;
   }
@@ -145,7 +145,7 @@
   }
 }
 
-.bx--pagination {
+.cds--pagination {
   overflow-x: hidden;
 }
 

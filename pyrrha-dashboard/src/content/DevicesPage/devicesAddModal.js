@@ -1,184 +1,91 @@
 import React, { useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import {
-  TextInput,
-  ComposedModal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Button,
-} from 'carbon-components-react';
-import { Add16 } from '@carbon/icons-react';
+import { TextInput, Modal, Button } from '@carbon/react';
+import { Add } from '@carbon/icons-react';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
-// This defines a modal controlled by a launcher button.
-const ModalStateManager = ({
-  renderLauncher: LauncherContent,
-  children: ModalContent,
-}) => {
+const DevicesAddModal = ({ loadDevices }) => {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [model, setModel] = useState('');
+  const [version, setVersion] = useState('');
   const { t } = useContext(AppContext);
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/devices`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          model,
+          version,
+        }),
+      });
+
+      if (response.ok) {
+        loadDevices();
+        setOpen(false);
+        // Reset form
+        setName('');
+        setModel('');
+        setVersion('');
+      }
+    } catch (error) {
+      console.error('Error adding device:', error);
+    }
+  };
+
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
-        ? null
-        : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
-          )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+      <Button
+        onClick={() => setOpen(true)}
+        renderIcon={Add}
+        iconDescription="Add device"
+      >
+        Add device
+      </Button>
+      <Modal
+        open={open}
+        onRequestClose={() => setOpen(false)}
+        modalHeading="Add device"
+        modalLabel="Devices"
+        primaryButtonText="Save"
+        secondaryButtonText="Cancel"
+        onRequestSubmit={handleSubmit}
+      >
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="device-name"
+            value={name}
+            placeholder="Device-001"
+            labelText={t('content.devices.name') + ':'}
+            onChange={(e) => setName(e.target.value.trim())}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="device-model"
+            value={model}
+            placeholder="Model A"
+            labelText={t('content.devices.model') + ':'}
+            onChange={(e) => setModel(e.target.value.trim())}
+          />
+        </div>
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="device-version"
+            value={version}
+            placeholder="1.0"
+            labelText={t('content.devices.version') + ':'}
+            onChange={(e) => setVersion(e.target.value.trim())}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
-
-// const { prefix } = settings;
-
-const addProps = {
-  composedModal: ({ titleOnly } = {}) => ({
-    open: true,
-    danger: false,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
-  }),
-  modalHeader: ({ titleOnly } = {}) => ({
-    label: 'Devices',
-    title: 'Add device',
-    iconDescription: 'Close',
-  }),
-  modalBody: () => ({
-    hasScrollingContent: false,
-    'aria-label': 'Add device',
-  }),
-  modalFooter: () => ({
-    primaryButtonText: 'Save',
-    primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
-    shouldCloseAfterSubmit: true,
-    onRequestSubmit: (event) => {
-      handleSubmit(event);
-    },
-  }),
-};
-
-// On submit we should be passed the values.
-const handleSubmit = (code, model, version, loadDevices, setOpen) => {
-  // console.log('handleSubmit');
-  // console.log('code ' + code);
-  // console.log('model ' + model);
-  // console.log('version ' + version);
-
-  axios
-    .post(`/api-main/v1/devices`, {
-      code: code,
-      model: model,
-      version: version,
-    })
-    .then((res) => {
-      // TODO: Set success or error message
-      // console.log(res);
-      // console.log(res.data);
-
-      // Refresh data
-      loadDevices();
-
-      // TODO: Check for error or success
-      setOpen(false);
-    });
-
-  return true;
-};
-
-class DevicesAddModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: props.row,
-      loadDevices: props.loadDevices,
-      code: '',
-      model: '',
-      version: '',
-      open: false,
-    };
-    // console.log(this.state.row);
-  }
-
-  render() {
-    // const { open } = this.state.open;
-    const { size, ...rest } = addProps.composedModal();
-    const { hasScrollingContent, ...bodyProps } = addProps.modalBody();
-
-    return (
-      <ModalStateManager
-        renderLauncher={({ setOpen }) => (
-          <Button
-            onClick={() => setOpen(true)}
-            renderIcon={Add16}
-            iconDescription="Add device"
-          >
-            Add device
-          </Button>
-        )}
-      >
-        {({ open, setOpen, t }) => (
-          <ComposedModal
-            {...rest}
-            open={open}
-            t={t}
-            loadDevices={this.props.loadDevices}
-            size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
-            <ModalHeader {...addProps.modalHeader()} />
-            <ModalBody
-              {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}
-            >
-              <br />
-              <TextInput
-                id={this.state.code}
-                value={this.state.code}
-                placeholder="0001"
-                labelText={t('content.devices.code') + ':'}
-                onChange={(e) => (this.state.code = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.model}
-                value={this.state.model}
-                placeholder="model 1"
-                labelText={t('content.devices.model') + ':'}
-                onChange={(e) => (this.state.model = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.version}
-                value={this.state.version}
-                placeholder="1.0"
-                labelText={t('content.devices.version') + ':'}
-                onChange={(e) => (this.state.version = e.target.value.trim())}
-              />
-              <br />
-              <br />
-            </ModalBody>
-            <ModalFooter
-              {...addProps.modalFooter()}
-              shouldCloseAfterSubmit={true}
-              onRequestSubmit={() => {
-                handleSubmit(
-                  this.state.code,
-                  this.state.first,
-                  this.state.last,
-                  this.state.email,
-                  this.state.loadDevices,
-                  setOpen
-                );
-              }}
-            />
-          </ComposedModal>
-        )}
-      </ModalStateManager>
-    );
-  }
-}
 
 export default DevicesAddModal;

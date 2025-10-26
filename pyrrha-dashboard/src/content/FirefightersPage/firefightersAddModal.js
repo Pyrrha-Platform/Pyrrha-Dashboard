@@ -1,195 +1,187 @@
 import React, { useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import {
-  TextInput,
-  ComposedModal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Button,
-} from 'carbon-components-react';
-import { Add16 } from '@carbon/icons-react';
+import { Modal, TextInput, Button, InlineNotification } from '@carbon/react';
+import { Add } from '@carbon/icons-react';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
-// This defines a modal controlled by a launcher button.
-const ModalStateManager = ({
-  renderLauncher: LauncherContent,
-  children: ModalContent,
-}) => {
-  const [open, setOpen] = useState(false);
+const FirefightersAddModal = ({ loadFirefighters }) => {
   const { t } = useContext(AppContext);
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [formData, setFormData] = useState({
+    firefighter_code: '',
+    name: '',
+    surname: '',
+    email: '',
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value.trim(),
+    }));
+    // Clear error when user starts typing
+    if (error) setError(null);
+  };
+
+  const validateForm = () => {
+    const { firefighter_code, name, surname, email } = formData;
+
+    if (!firefighter_code || !name || !surname || !email) {
+      setError('All fields are required');
+      return false;
+    }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to add firefighter');
+      }
+
+      const result = await response.json();
+
+      // Reset form and close modal
+      setFormData({ firefighter_code: '', name: '', surname: '', email: '' });
+      setIsOpen(false);
+
+      // Notify parent component to refresh data
+      if (loadFirefighters) {
+        loadFirefighters();
+      }
+    } catch (err) {
+      console.error('Error adding firefighter:', err);
+      setError(err.message || 'Failed to add firefighter');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setError(null);
+    setFormData({ firefighter_code: '', name: '', surname: '', email: '' });
+  };
+
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
-        ? null
-        : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
-          )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+      <Button renderIcon={Add} onClick={() => setIsOpen(true)} size="md">
+        {t('content.firefighters.add')}
+      </Button>
+
+      <Modal
+        open={isOpen}
+        onRequestClose={handleClose}
+        onRequestSubmit={handleSubmit}
+        modalHeading={t('content.firefighters.addTitle')}
+        modalLabel={t('content.firefighters.heading')}
+        primaryButtonText={t('content.firefighters.save')}
+        secondaryButtonText={t('content.firefighters.cancel')}
+        primaryButtonDisabled={loading}
+        size="sm"
+      >
+        {error && (
+          <InlineNotification
+            kind="error"
+            title="Error"
+            subtitle={error}
+            lowContrast
+            hideCloseButton
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="firefighter-code"
+            labelText={t('content.firefighters.code')}
+            placeholder="GRAF001"
+            value={formData.firefighter_code}
+            onChange={(e) =>
+              handleInputChange('firefighter_code', e.target.value)
+            }
+            invalid={error && !formData.firefighter_code}
+            invalidText={!formData.firefighter_code ? 'Code is required' : ''}
+            disabled={loading}
+          />
+        </div>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="firefighter-first"
+            labelText={t('content.firefighters.first')}
+            placeholder="Joan"
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            invalid={error && !formData.name}
+            invalidText={!formData.name ? 'First name is required' : ''}
+            disabled={loading}
+          />
+        </div>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="firefighter-last"
+            labelText={t('content.firefighters.last')}
+            placeholder="Pep"
+            value={formData.surname}
+            onChange={(e) => handleInputChange('surname', e.target.value)}
+            invalid={error && !formData.surname}
+            invalidText={!formData.surname ? 'Last name is required' : ''}
+            disabled={loading}
+          />
+        </div>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <TextInput
+            id="firefighter-email"
+            labelText={t('content.firefighters.email')}
+            placeholder="graf004@graf.cat"
+            value={formData.email}
+            onChange={(e) => handleInputChange('email', e.target.value)}
+            invalid={
+              error &&
+              (!formData.email ||
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+            }
+            invalidText={
+              !formData.email
+                ? 'Email is required'
+                : 'Please enter a valid email address'
+            }
+            disabled={loading}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
-
-// const { prefix } = settings;
-
-const addProps = {
-  composedModal: ({ titleOnly } = {}) => ({
-    open: true,
-    danger: false,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
-  }),
-  modalHeader: ({ titleOnly } = {}) => ({
-    label: 'Firefighters',
-    title: 'Add firefighter',
-    iconDescription: 'Close',
-  }),
-  modalBody: () => ({
-    hasScrollingContent: false,
-    'aria-label': 'Add firefighter',
-  }),
-  modalFooter: () => ({
-    primaryButtonText: 'Save',
-    primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
-    shouldCloseAfterSubmit: true,
-    onRequestSubmit: (event) => {
-      handleSubmit(event);
-    },
-  }),
-};
-
-// On submit we should be passed the values.
-const handleSubmit = (code, first, last, email, loadFirefighters, setOpen) => {
-  // console.log('handleSubmit');
-  // console.log('code ' + code);
-  // console.log('first ' + first);
-  // console.log('last ' + last);
-  // console.log('email ' + email);
-
-  axios
-    .post(`/api-main/v1/firefighters`, {
-      code: code,
-      first: first,
-      last: last,
-      email: email,
-    })
-    .then((res) => {
-      // TODO: Set success or error message
-      // console.log(res);
-      // console.log(res.data);
-
-      // Refresh data
-      loadFirefighters();
-
-      // TODO: Check for error or success
-      setOpen(false);
-    });
-
-  return true;
-};
-
-class FirefightersAddModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: props.row,
-      loadFirefighters: props.loadFirefighters,
-      code: '',
-      first: '',
-      last: '',
-      email: '',
-      open: false,
-    };
-    // console.log(this.state.row);
-  }
-
-  render() {
-    // const { open } = this.state.open;
-    const { size, ...rest } = addProps.composedModal();
-    const { hasScrollingContent, ...bodyProps } = addProps.modalBody();
-
-    return (
-      <ModalStateManager
-        renderLauncher={({ setOpen }) => (
-          <Button
-            onClick={() => setOpen(true)}
-            renderIcon={Add16}
-            iconDescription="Add firefighter"
-          >
-            Add firefighter
-          </Button>
-        )}
-      >
-        {({ open, setOpen, t }) => (
-          <ComposedModal
-            {...rest}
-            open={open}
-            t={t}
-            loadFirefighters={this.props.loadFirefighters}
-            size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
-            <ModalHeader {...addProps.modalHeader()} />
-            <ModalBody
-              {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}
-            >
-              <br />
-              <TextInput
-                id={this.state.code}
-                value={this.state.code}
-                placeholder="GRAF001"
-                labelText={t('content.firefighters.code') + ':'}
-                onChange={(e) => (this.state.code = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.first}
-                value={this.state.first}
-                placeholder="Joan"
-                labelText={t('content.firefighters.first') + ':'}
-                onChange={(e) => (this.state.first = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.last}
-                value={this.state.last}
-                placeholder="Herrera"
-                labelText={t('content.firefighters.last') + ':'}
-                onChange={(e) => (this.state.last = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.email}
-                value={this.state.email}
-                placeholder="graf004@graf.cat"
-                labelText={t('content.firefighters.email') + ':'}
-                onChange={(e) => (this.state.email = e.target.value.trim())}
-              />
-              <br />
-              <br />
-            </ModalBody>
-            <ModalFooter
-              {...addProps.modalFooter()}
-              shouldCloseAfterSubmit={true}
-              onRequestSubmit={() => {
-                handleSubmit(
-                  this.state.code,
-                  this.state.first,
-                  this.state.last,
-                  this.state.email,
-                  this.state.loadFirefighters,
-                  setOpen
-                );
-              }}
-            />
-          </ComposedModal>
-        )}
-      </ModalStateManager>
-    );
-  }
-}
 
 export default FirefightersAddModal;

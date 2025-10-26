@@ -19,8 +19,8 @@ COPY graphql /app/graphql
 COPY _mockData /app/_mockData
 COPY schema.graphql /app
 
-ENV NODE_ENV production
-ENV PORT 4000
+ENV NODE_ENV=production
+ENV PORT=4000
 
 EXPOSE 4000
 

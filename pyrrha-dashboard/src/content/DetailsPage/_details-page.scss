@@ -1,5 +1,43 @@
+// Import Carbon dependencies first
+@use '@carbon/styles/scss/spacing' as spacing;
+@use '@carbon/styles/scss/type' as type;
+@use '@carbon/styles/scss/breakpoint' as breakpoint;
+@use '@carbon/styles/scss/theme' as theme;
+
+// Import local files
 @import './mixins.scss';
 @import './overrides.scss';
+
+// Legacy variable compatibility
+$spacing-01: spacing.$spacing-01;
+$spacing-03: spacing.$spacing-03;
+$spacing-04: spacing.$spacing-04;
+$spacing-05: spacing.$spacing-05;
+$spacing-06: spacing.$spacing-06;
+$spacing-07: spacing.$spacing-07;
+$spacing-08: spacing.$spacing-08;
+$spacing-09: spacing.$spacing-09;
+$layout-03: spacing.$spacing-07; // Fallback to spacing since layout-03 doesn't exist
+$layout-05: spacing.$spacing-09; // Fallback to spacing since layout-05 doesn't exist
+$ui-01: theme.$background;
+$danger-02: #da1e28; // Red color for danger
+$support-02: #24a148; // Green color for success
+$support-03: #f1c21b; // Yellow color for warning
+
+// Legacy mixin compatibility
+@mixin carbon--type-style($style) {
+  @include type.type-style($style);
+}
+
+@mixin carbon--breakpoint-between($min, $max) {
+  @media (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+@function rem($px) {
+  @return #{$px / 16}rem;
+}
 
 .details-page__illo {
   max-width: 100%;
@@ -15,6 +53,7 @@
   @include carbon--type-style('productive-heading-05');
   padding: $spacing-05;
   padding-top: $spacing-09;
+  padding-left: 0;
   margin-top: $spacing-05;
 }
 
@@ -23,6 +62,7 @@
   /*@include carbon--font-weight('semibold');*/
   padding: $spacing-05;
   padding-top: $spacing-03;
+  padding-left: 0;
 }
 
 .details-page__p {
@@ -67,13 +107,60 @@
 }
 
 .details-content {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-left: 3rem;
+  padding: $spacing-03 $spacing-05;
   max-width: 1600px;
+
+  &.main-container {
+    padding: $spacing-03;
+  }
 }
 
-.bx--row {
+.background-database {
+  background-color: #fff !important;
+}
+
+.background-websocket {
+  background-color: #fff !important;
+  animation-name: onmessage;
+  animation-duration: 10s;
+  animation-iteration-count: 1;
+}
+
+.border-no-bottom-normal,
+.border-no-top-normal {
+  border: 2px solid #fff;
+}
+
+.border-no-bottom-warning {
+  border: 2px solid $support-03;
+  border-bottom: 2px solid #fff;
+}
+
+.border-no-top-warning {
+  border: 2px solid $support-03;
+  border-top: 2px solid #fff;
+}
+
+.border-no-bottom-danger {
+  border: 2px solid $danger-02;
+  border-bottom: 2px solid #fff;
+}
+
+.border-no-top-danger {
+  border: 2px solid $danger-02;
+  border-top: 2px solid #fff;
+}
+
+@keyframes onmessage {
+  0% {
+    background-color: #ddd !important;
+  }
+  100% {
+    background-color: #fff !important;
+  }
+}
+
+.cds--row {
   /* margin-top: $layout-03; */
   margin-top: 0;
 }
@@ -95,10 +182,18 @@
   margin-bottom: 15px;
 }
 
+.dashboard-tile {
+  background-color: $ui-01;
+  margin-top: 0;
+  padding-bottom: 1.5rem;
+  text-align: center;
+}
+
 .details-tile {
   background-color: $ui-01;
   margin-top: 0;
-  padding-bottom: 15px;
+  padding-bottom: 1.5rem;
+  text-align: center;
 }
 
 .details-label {
@@ -110,19 +205,49 @@
 }
 
 .details-gray {
-  /*background-color: #ddd;*/
+  background-color: transparent; /* Placeholder to avoid empty rule */
 }
 
 .label-firefighter {
   text-align: left !important;
-  font: bold 16px sans-serif;
-  padding: 15px 15px 15px 15px;
+  font: bold 1rem sans-serif;
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
 }
 
 .label-firefighter a {
   text-align: left !important;
-  font: bold 16px sans-serif;
+  font: bold 1rem sans-serif;
   padding-left: 0;
+}
+
+// Ensure cds--link maintains proper line break behavior
+.cds--link.label-firefighter {
+  display: inline !important;
+  text-decoration: underline;
+  color: #0f62fe;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: #0f62fe;
+  }
+}
+
+.icon-firefighter-holder {
+  text-align: right !important;
+  padding: 0.625rem 0.75rem 0.625rem 0.75rem;
+}
+
+.icon-firefighter-holder svg.warning {
+  fill: $support-03;
+  opacity: 1;
+}
+
+.icon-firefighter-holder svg.danger {
+  fill: $danger-02;
+  opacity: 1;
 }
 
 .label-num {
@@ -136,23 +261,83 @@
 }
 
 .label-legend {
-  font: normal 10px sans-serif;
-  margin-top: 10px;
+  font: normal 0.625rem sans-serif;
+  margin-top: 0.625rem;
 }
 
 .label-legend-link {
-  font: bold 10px sans-serif;
+  font: bold 0.625rem sans-serif;
 }
 
-.bx--grid {
-  padding: 15px 15px 15px 15px;
+// Ensure cds--link maintains proper behavior for legend links
+.cds--link.label-legend-link {
+  display: inline !important;
+  text-decoration: underline;
+  color: #0f62fe;
+  font: bold 0.625rem sans-serif;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: #0f62fe;
+  }
 }
 
-.bx--col {
+.cds--grid {
+  padding: 0.9375rem 0.9375rem 0.9375rem 0.9375rem;
+}
+
+.cds--col {
   text-align: center !important;
 }
 
-.bx--cc--tooltip {
+// Details page card-based layout matching dashboard
+.device-details-gauge-set {
+  margin-bottom: $spacing-03;
+
+  .cds--grid {
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Remove gaps between connected dashboard tile sections
+.device-details-gauge-set .cds--col {
+  margin-bottom: 0;
+}
+
+.device-details-gauge-set .cds--grid.cds--grid--narrow {
+  margin-bottom: 0;
+  gap: 0;
+}
+
+// Horizontal gauge layout for details page
+.horizontal-gauges {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 0.5rem;
+
+  .cds--col {
+    flex: 1 1 auto !important;
+    min-width: 120px !important;
+    max-width: 200px !important;
+    text-align: center;
+  }
+}
+
+// Details page specific styling
+.details-content {
+  padding: $spacing-03 $spacing-05;
+  max-width: 1600px;
+}
+
+.cds--cc--tooltip {
   background-color: #fff;
   pointer-events: none;
   display: inline;
@@ -161,15 +346,19 @@
   position: absolute;
   word-wrap: break-word;
   z-index: 1059;
-  font-family: IBM Plex Sans Condensed, Helvetica Neue, Arial, sans-serif;
+  font-family:
+    IBM Plex Sans Condensed,
+    Helvetica Neue,
+    Arial,
+    sans-serif;
 }
 
-.bx--cc--tooltip {
+.cds--cc--tooltip {
   transition: opacity 0.1s;
   transition-timing-function: cubic-bezier(0.4, 0.14, 0.3, 1);
 }
 
-.bx--cc--tooltip .datapoint-tooltip {
+.cds--cc--tooltip .datapoint-tooltip {
   display: flex;
   padding: 4px;
   flex-flow: row nowrap;
@@ -179,7 +368,7 @@
   align-items: center;
 }
 
-.bx--cc--tooltip ul.multi-tooltip {
+.cds--cc--tooltip ul.multi-tooltip {
   margin: 0;
   padding: 0;
 }

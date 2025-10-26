@@ -4,8 +4,8 @@ import DeviceGauge from '../DeviceGauge';
 import AppContext from '../../context/app';
 import Utils from '../../utils/Utils';
 import Constants from '../../utils/Constants';
-import WarningFilled20 from '@carbon/icons-react/lib/warning--filled/20';
-import { InlineNotification } from 'carbon-components-react/lib/components/Notification';
+import { WarningFilled } from '@carbon/icons-react';
+import { InlineNotification, Grid, Column } from '@carbon/react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/es';
@@ -13,6 +13,7 @@ import 'moment/locale/ca';
 
 function DeviceDashboardGaugeSet({
   device_id,
+  device_name,
   timestamp_mins,
   device_timestamp,
   temperature,
@@ -34,9 +35,9 @@ function DeviceDashboardGaugeSet({
 
   Moment.globalTimezone = 'Etc/UTC';
 
-  let now = new Date();
-  let utcTimestampDate = new Date(Date.parse(device_timestamp));
-  let utcCurrentDate = new Date(
+  const now = new Date();
+  const utcTimestampDate = new Date(Date.parse(device_timestamp));
+  const utcCurrentDate = new Date(
     Date.UTC(
       now.getUTCFullYear(),
       now.getUTCMonth(),
@@ -44,10 +45,11 @@ function DeviceDashboardGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
+      now.getUTCMilliseconds(),
+    ),
   );
-  let utcTimeDifference = utcCurrentDate.getTime() - utcTimestampDate.getTime();
+  const utcTimeDifference =
+    utcCurrentDate.getTime() - utcTimestampDate.getTime();
 
   function toLocaleUTCDateString() {
     return (
@@ -85,97 +87,115 @@ function DeviceDashboardGaugeSet({
   // console.log(Constants.RECENT_NOTIFICATION_THRESHOLD);
 
   return (
-    <div className="bx--col-lg-8 bx--col-md-4 bx--col-sm-2">
-      <div className="bx--grid bx--grid--full-width dashboard-content">
-        <div className={'bx--row dashboard-tile background-' + background}>
-          <div className="bx--col-md-7 label-firefighter">
-            <Link
-              to={'/details/' + device_id}
-              className="bx--link label-firefighter"
-              title={device_id}
-            >
-              {device_id}
-              <br />
-            </Link>
-            {t('content.dashboard.lastUpdate')}:{' '}
-            <Moment fromNow locale={locale}>
-              {device_timestamp}
-            </Moment>{' '}
-            <br />
+    <Column sm={4} md={4} lg={8} className="device-dashboard-gauge-set">
+      <Grid narrow fullWidth>
+        <Column sm={4} md={4} lg={8}>
+          <div className={'dashboard-tile background-' + background}>
+            <Grid narrow fullWidth>
+              <Column sm={3} md={3} lg={6}>
+                <div className="label-firefighter">
+                  <Link
+                    to={'/details/' + device_id}
+                    className="cds--link label-firefighter"
+                    title={device_name || device_id}
+                  >
+                    {device_name || `Device ${device_id}`}
+                    <br />
+                  </Link>
+                  {t('content.dashboard.lastUpdate')}:{' '}
+                  <Moment fromNow locale={locale}>
+                    {device_timestamp}
+                  </Moment>{' '}
+                  <br />
+                </div>
+              </Column>
+              <Column sm={1} md={1} lg={2}>
+                <div className="icon-firefighter-holder">
+                  {status === 'danger' && (
+                    <WarningFilled size={20} className="danger" />
+                  )}
+                  {status === 'warning' && (
+                    <WarningFilled size={20} className="warning" />
+                  )}
+                </div>
+              </Column>
+            </Grid>
           </div>
-          <div className="bx--col-md-1 icon-firefighter-holder">
-            {status === 'danger' && <WarningFilled20 className="danger" />}
-            {status === 'warning' && <WarningFilled20 className="warning" />}
+        </Column>
+        <Column sm={4} md={4} lg={8}>
+          <div className={'dashboard-tile background-' + background}>
+            <Grid narrow fullWidth>
+              <Column sm={1} md={1} lg={2}>
+                <div>
+                  <DeviceGauge
+                    device_id={device_id}
+                    type={'CO'}
+                    value={carbon_monoxide}
+                    increment={increment}
+                    unit={'ppm'}
+                    gauge={Utils.getPercentage(
+                      'CO',
+                      carbon_monoxide,
+                      increment,
+                    )}
+                  />
+                </div>
+                <div className="label-legend">CO</div>
+              </Column>
+              <Column sm={1} md={1} lg={2}>
+                <div>
+                  <DeviceGauge
+                    device_id={device_id}
+                    type={'NO2'}
+                    value={nitrogen_dioxide}
+                    increment={increment}
+                    unit={'ppm'}
+                    gauge={Utils.getPercentage(
+                      'NO2',
+                      nitrogen_dioxide,
+                      increment,
+                    )}
+                  />
+                </div>
+                <div className="label-legend">
+                  NO<sub>2</sub>
+                </div>
+              </Column>
+              <Column sm={1} md={1} lg={2}>
+                <div>
+                  <DeviceGauge
+                    device_id={device_id}
+                    type={'Tmp'}
+                    value={temperature}
+                    increment={increment}
+                    unit={'°C'}
+                    gauge={Utils.getPercentage('Tmp', temperature, increment)}
+                  />
+                </div>
+                <div className="label-legend">
+                  {t('content.common.temperature')}
+                </div>
+              </Column>
+              <Column sm={1} md={1} lg={2}>
+                <div>
+                  <DeviceGauge
+                    device_id={device_id}
+                    type={'Hum'}
+                    value={humidity}
+                    increment={increment}
+                    unit={'%'}
+                    gauge={Utils.getPercentage('Hum', humidity, increment)}
+                  />
+                </div>
+                <div className="label-legend">
+                  {t('content.common.humidity')}
+                </div>
+              </Column>
+            </Grid>
           </div>
-        </div>
-        <div className={'bx--row dashboard-tile background-' + background}>
-          <div className="bx--col bx--col-md-2">
-            <div>
-              <DeviceGauge
-                device_id={device_id}
-                type={'CO'}
-                value={carbon_monoxide}
-                increment={increment}
-                unit={'ppm'}
-                gauge={Utils.getPercentage('CO', carbon_monoxide, increment)}
-              />
-            </div>
-            <div className="label-legend">CO</div>
-          </div>
-          <div className="bx--col bx--col-md-2">
-            <div>
-              <DeviceGauge
-                device_id={device_id}
-                type={'NO2'}
-                value={nitrogen_dioxide}
-                increment={increment}
-                unit={'ppm'}
-                gauge={Utils.getPercentage('NO2', nitrogen_dioxide, increment)}
-              />
-            </div>
-            <div className="label-legend">
-              NO<sub>2</sub>
-            </div>
-          </div>
-          <div className="bx--col bx--col-md-2">
-            <div>
-              <DeviceGauge
-                device_id={device_id}
-                type={'Tmp'}
-                value={temperature}
-                increment={increment}
-                unit={'°C'}
-                gauge={Utils.getPercentage('Tmp', temperature, increment)}
-              />
-            </div>
-            <div className="label-legend">
-              {t('content.common.temperature')}
-            </div>
-          </div>
-          <div className="bx--col bx--col-md-2">
-            <div>
-              <DeviceGauge
-                device_id={device_id}
-                type={'Hum'}
-                value={humidity}
-                increment={increment}
-                unit={'%'}
-                gauge={Utils.getPercentage('Hum', humidity, increment)}
-              />
-            </div>
-            <div className="label-legend">{t('content.common.humidity')}</div>
-          </div>
-        </div>
+        </Column>
         {utcTimeDifference < Constants.RECENT_NOTIFICATION_THRESHOLD && (
-          <div
-            className="bx--row"
-            style={{
-              paddingTop: 0,
-              marginTop: 0,
-              paddingBottom: 0,
-              marginBottom: 0,
-            }}
-          >
+          <Column sm={4} md={4} lg={8}>
             <InlineNotification
               lowContrast
               kind="info"
@@ -191,10 +211,10 @@ function DeviceDashboardGaugeSet({
               }
               title={t('content.dashboard.newReadingTitle')}
             />
-          </div>
+          </Column>
         )}
-      </div>
-    </div>
+      </Grid>
+    </Column>
   );
 }
 

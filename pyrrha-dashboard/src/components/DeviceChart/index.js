@@ -8,7 +8,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
   const ref = useRef();
   const { t } = useContext(AppContext);
 
-  var margin = { top: 10, right: 30, bottom: 30, left: 50 },
+  const margin = { top: 10, right: 30, bottom: 30, left: 50 },
     width = 1200 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -36,18 +36,18 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
 
     const [yellowThreshold, redThreshold] = Utils.getChartLimit(
       type,
-      increment
+      increment,
     );
 
     // Add X axis --> it is a time format
-    var x = d3
+    const x = d3
       .scaleTime()
       .domain(
         d3.extent(data, function (d) {
           // console.log("d.device_timestamp", d.device_timestamp);
           // console.log("d.device_timestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.device_timestamp));
           return d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp);
-        })
+        }),
       )
       .range([0, width]);
 
@@ -60,13 +60,13 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .append('text')
       .attr(
         'transform',
-        'translate(' + width / 2 + ', ' + (height + margin.top + 20) + ')'
+        'translate(' + width / 2 + ', ' + (height + margin.top + 20) + ')',
       )
       .style('text-anchor', 'middle')
       .text(t('content.details.time'));
 
     // Add Y axis
-    var y = d3
+    const y = d3
       .scaleLinear()
       .domain([
         0,
@@ -129,17 +129,17 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
           .line()
           .x(function (d) {
             return x(
-              d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp)
+              d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp),
             );
           })
           .y(function (d) {
             return y(d.value);
           })
-          .curve(d3.curveLinear)
+          .curve(d3.curveLinear),
       );
 
     // Tooltip
-    var mouseover = function (d) {
+    const mouseover = function (event, d) {
       // console.log('mouseover', d);
       d3.select('#device-chart-tooltip')
         .html(
@@ -162,14 +162,14 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
             </li>
           </ul>
         </div>    
-      `
+      `,
         )
         .style('opacity', 1)
         .transition()
         .duration(200);
     };
 
-    var mousemove = function (d) {
+    const mousemove = function (event, d) {
       // console.log('mousemove', d);
       d3.select('#device-chart-tooltip')
         .html(
@@ -192,13 +192,13 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
               </li>
             </ul>
           </div>    
-        `
+        `,
         )
-        .style('left', d3.event.pageX + 10 + 'px')
-        .style('top', d3.event.pageY + 10 + 'px');
+        .style('left', event.pageX + 10 + 'px')
+        .style('top', event.pageY + 10 + 'px');
     };
 
-    var mouseout = function (d) {
+    const mouseout = function (event, d) {
       // console.log('mouseout', d);
       d3.select('#device-chart-tooltip')
         .transition()

@@ -4,6 +4,7 @@ import {
   Header,
   HeaderName,
   HeaderNavigation,
+  HeaderMenu,
   HeaderMenuItem,
   HeaderGlobalBar,
   HeaderGlobalAction,
@@ -11,9 +12,8 @@ import {
   Switcher,
   SwitcherItem,
   SkipToContent,
-} from 'carbon-components-react/lib/components/UIShell';
-import UserAvatar20 from '@carbon/icons-react/lib/user--avatar/20';
-import Translate20 from '@carbon/icons-react/lib/translate/20';
+} from '@carbon/react';
+import { UserAvatar, Translate } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
 
@@ -35,7 +35,7 @@ function PyrrhaHeader(props) {
   // console.log(currentUser);
 
   return (
-    <Header aria-label="Pyrrha">
+    <Header aria-label="Pyrrha" className="cds--g100">
       <SkipToContent />
       <HeaderName
         element={Link}
@@ -59,28 +59,6 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.dashboard')}
           </HeaderMenuItem>
-          {/*
-          <HeaderMenuItem
-            element={Link}
-            to="/events"
-            isCurrentPage={page === 'Events'}
-            onClick={() => {
-              setPage('Events');
-            }}
-          >
-            {t('components.header.events')}
-          </HeaderMenuItem>
-          <HeaderMenuItem
-            element={Link}
-            to="/devices"
-            isCurrentPage={page === 'Devices'}
-            onClick={() => {
-              setPage('Devices');
-            }}
-          >
-            {t('components.header.devices')}
-          </HeaderMenuItem>
-          */}
           <HeaderMenuItem
             element={Link}
             to="/map"
@@ -91,17 +69,44 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.map')}
           </HeaderMenuItem>
-          {/*
-          <HeaderMenuItem
-            element={Link}
-            to="/firefighters"
-            isCurrentPage={page === 'Firefighters'}
-            onClick={() => {
-              setPage('Firefighters');
-            }}>
-            {t('components.header.firefighters')}b
-          </HeaderMenuItem>
-          */}
+          <HeaderMenu
+            aria-label="Manage"
+            menuLinkName={t('components.header.manage')}
+            isActive={
+              page === 'Devices' || page === 'Firefighters' || page === 'Events'
+            }
+          >
+            <HeaderMenuItem
+              element={Link}
+              to="/devices"
+              isCurrentPage={page === 'Devices'}
+              onClick={() => {
+                setPage('Devices');
+              }}
+            >
+              {t('components.header.devices')}
+            </HeaderMenuItem>
+            <HeaderMenuItem
+              element={Link}
+              to="/firefighters"
+              isCurrentPage={page === 'Firefighters'}
+              onClick={() => {
+                setPage('Firefighters');
+              }}
+            >
+              {t('components.header.firefighters')}
+            </HeaderMenuItem>
+            <HeaderMenuItem
+              element={Link}
+              to="/events"
+              isCurrentPage={page === 'Events'}
+              onClick={() => {
+                setPage('Events');
+              }}
+            >
+              {t('components.header.events')}
+            </HeaderMenuItem>
+          </HeaderMenu>
         </HeaderNavigation>
       )}
       <HeaderGlobalBar>
@@ -110,7 +115,7 @@ function PyrrhaHeader(props) {
           onClick={() => setActive(!active)}
           isActive={active}
         >
-          <Translate20 />
+          <Translate size={20} />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
           <HeaderGlobalAction
@@ -120,7 +125,7 @@ function PyrrhaHeader(props) {
               setPage('Profile');
             }}
           >
-            <UserAvatar20 />
+            <UserAvatar size={20} />
           </HeaderGlobalAction>
         )}
       </HeaderGlobalBar>

@@ -10,7 +10,9 @@ const client = async (url, options) => {
 
 const fetchDashboard = async () => {
   try {
-    const data = await client(`/api-main/v1/dashboard-now`);
+    const data = await client(
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-now`,
+    );
     // console.log(data);
     if (data.devices) {
       return data.devices.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
@@ -38,7 +40,7 @@ const updateDashboard = (dashboard, message) => {
 
   // console.log('newDashboard', newDashboard);
 
-  let newMessage = JSON.parse(message);
+  const newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
   // console.log(typeof newMessage, newMessage);
@@ -53,7 +55,7 @@ const updateDashboard = (dashboard, message) => {
             // console.log( 'Replacing an old reading with a new one in the array', newMessage);
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
-              oldReading
+              oldReading,
             );
             newDashboard.current.push(newReading);
           }
@@ -70,7 +72,7 @@ const updateDashboard = (dashboard, message) => {
           // console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
-            oldReading
+            oldReading,
           );
           newDashboard.current.push(newMessage);
           matchedOldReading = true;
@@ -84,16 +86,16 @@ const updateDashboard = (dashboard, message) => {
     }
   }
   return newDashboard.current.sort((a, b) =>
-    a.device_id < b.device_id ? 1 : -1
+    a.device_id < b.device_id ? 1 : -1,
   );
 };
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
   // console.log('setRiskLevels');
-  var tmpNormal =
+  let tmpNormal =
     dashboard !== undefined && dashboard.length !== 0 ? dashboard.length : 0;
-  var tmpWarning = 0;
-  var tmpDanger = 0;
+  let tmpWarning = 0;
+  let tmpDanger = 0;
 
   if (dashboard !== undefined && dashboard.length !== 0) {
     dashboard.forEach((device) => {
@@ -156,7 +158,7 @@ const useDashboard = () => {
       } else {
         // console.log('Received update.', msg);
         setLoading('Received update at ' + new Date() + '.');
-        let updatedDashboard = updateDashboard(dashboardRef, msg.data);
+        const updatedDashboard = updateDashboard(dashboardRef, msg.data);
         setDashboard(updatedDashboard);
         setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }

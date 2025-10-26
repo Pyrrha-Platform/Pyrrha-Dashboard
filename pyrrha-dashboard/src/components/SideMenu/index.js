@@ -5,14 +5,14 @@ import {
   SideNavItems,
   SideNavMenu,
   SideNavMenuItem,
-} from 'carbon-components-react/lib/components/UIShell';
-import { Settings32 } from '@carbon/icons-react';
+} from '@carbon/react';
+import { Settings } from '@carbon/icons-react';
 
 function SideMenu() {
   return (
     <SideNav isRail isChildOfHeader={false} aria-label="Side navigation">
       <SideNavItems>
-        <SideNavMenu renderIcon={Settings32} title="Settings" large>
+        <SideNavMenu renderIcon={Settings} title="Settings" large>
           <SideNavMenuItem element={Link} to="/language">
             Language
           </SideNavMenuItem>

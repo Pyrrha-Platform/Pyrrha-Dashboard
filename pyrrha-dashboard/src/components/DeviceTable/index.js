@@ -24,14 +24,15 @@ import {
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
+import DeviceDetailMap from '../DeviceDetailMap';
 import AppContext from '../../context/app';
 
-let timeAgo = Utils.timeAgo;
+const timeAgo = Utils.timeAgo;
 
 const formatRows = (rows) =>
   rows.map((row) => {
     // console.log('formatRows row', row);
-    let rowCopy = { ...row };
+    const rowCopy = { ...row };
     rowCopy['id'] = '' + rowCopy['id'];
     rowCopy['device_version'] = 'V' + rowCopy['device_version'];
     rowCopy['connection_type'] = 'Wi-Fi';
@@ -39,7 +40,7 @@ const formatRows = (rows) =>
       ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
     rowCopy['lastCheckin'] = timeAgo.format(
-      new Date(rowCopy['timestamp_mins'])
+      new Date(rowCopy['timestamp_mins']),
     );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
@@ -63,7 +64,7 @@ const getDeviceStatus = (timeAgo) => {
 };
 
 const getStatus = (type, value, increment) => {
-  let color = Utils.getStatusColor(type, value, increment, 0);
+  const color = Utils.getStatusColor(type, value, increment, 0);
   if (color == Constants.RED) {
     return 'with-circle status-red';
   } else if (color == Constants.YELLOW) {
@@ -204,7 +205,7 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < devices.length
+                      (page - 1) * pageSize + rowIndex < devices.length,
                   )
                   .map((row, rowIndex) => {
                     const deviceIndex = (page - 1) * pageSize + rowIndex;
@@ -236,8 +237,8 @@ const DeviceTable = ({
                                     {indexCells === 0
                                       ? cell.value
                                       : Array.isArray(cell.value)
-                                      ? Utils.formatCoordinates(cell.value)
-                                      : cell.value}
+                                        ? Utils.formatCoordinates(cell.value)
+                                        : cell.value}
                                   </span>
                                   {/*indexCells === 0 &&
                                     devices[deviceIndex].isUserOwner && (
@@ -270,7 +271,7 @@ const DeviceTable = ({
                           className="device-expandable-row"
                         >
                           <div className="device-chart" tabIndex={0}>
-                            <p className="title dance" tabIndex={0} />
+                            <DeviceDetailMap device={devices[deviceIndex]} />
                           </div>
                         </TableExpandedRow>
                       </Fragment>

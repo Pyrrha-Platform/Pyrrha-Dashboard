@@ -1,3 +1,14 @@
+// @use rules must be at the top
+@use '@carbon/react/scss/themes' as *;
+@use '@carbon/react/scss/theme' as *;
+@use '@carbon/react/scss/grid';
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/colors' as *;
+@use '@carbon/react/scss/layout' as *;
+@use '@carbon/react/scss/type' as type;
+@use '@carbon/type' as type-standalone;
+@use '@carbon/layout' as layout-standalone;
+
 $small: 320px;
 $medium: 672px;
 $large: 1056px;
@@ -8,19 +19,45 @@ $feature-flags: (
   grid-columns-16: true,
 );
 
-@import '@carbon/themes/scss/themes';
+$theme: $g10;
 
-$carbon--theme: $carbon--theme--g10;
-@include carbon--theme();
+:root {
+  @include theme($theme);
+}
 
-@import 'carbon-components/scss/globals/scss/styles.scss';
-@import 'carbon-components/scss/globals/grid/grid';
-$small: 672px;
+// Legacy variable compatibility layer
+$ui-01: $background;
+$ui-background: $background;
+$spacing-02: $spacing-03;
+$spacing-05: $spacing-07;
+$spacing-07: $spacing-09;
+$layout-01: $spacing-05;
+$layout-02: $spacing-06;
+$layout-03: $spacing-07;
+$layout-04: $spacing-08;
+$layout-05: $spacing-09;
+$danger-02: $red-60;
+$support-02: $green-50;
+$support-03: $yellow-50;
 
-@import 'carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss';
-@import 'carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss';
-@import 'carbon-components/scss/globals/scss/typography.scss';
-@import 'carbon-components/scss/globals/scss/vars.scss';
+// Legacy mixin compatibility
+@mixin carbon--type-style($style) {
+  @if $style == 'productive-heading-05' {
+    @include type.type-style('productive-heading-05');
+  }
+  // Add more mappings as needed
+}
+
+@mixin carbon--breakpoint-between($min, $max) {
+  @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {
+    @content;
+  }
+}
+
+// Carbon rem function compatibility - the modern version requires a base parameter
+@function rem($value, $base: 16px) {
+  @return ($value / $base) * 1rem;
+}
 
 @import 'content/DashboardPage/dashboard-page.scss';
 @import 'content/DetailsPage/details-page.scss';
@@ -94,15 +131,15 @@ body {
   padding-right: 0;
 }
 
-.bx--inline-notification--info,
-.bx--inline-notification--error,
-.bx--inline-notification--warning {
+.cds--inline-notification--info,
+.cds--inline-notification--error,
+.cds--inline-notification--warning {
   background: #393939;
   color: #fff;
 }
 
 @media (min-width: 82rem) {
-  .bx--modal-container--xs {
+  .cds--modal-container--xs {
     width: 30%;
   }
 }

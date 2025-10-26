@@ -1,97 +1,94 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css">
-        <link rel="stylesheet" href="gauges.css">
-    </head>
-    <body>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/carbon-components/css/carbon-components.min.css"
+    />
+    <link rel="stylesheet" href="gauges.css" />
+  </head>
+  <body>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="gauges.js"></script>
+    <script src="mock-gauge-data.js"></script>
 
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="gauges.js"></script>
-        <script src="mock-gauge-data.js"></script>
-
-        <div class="bx--grid">
-            <div class="bx--row">
-                <div class="bx--col label-firefighter">GRAF7<br>10 min avg</div>
-                <div class="bx--col label-firefighter"></div>
-                <div class="bx--col label-firefighter"></div>
-                <div class="bx--col label-firefighter"></div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <div id="graf7-co-gauge"></div>
-                <div class="label-legend">CO</div>
-              </div>
-              <div class="bx--col">
-                <div id="graf7-no2-gauge"></div>
-                <div class="label-legend">NO<sub>2</sub></div>
-              </div>
-              <div class="bx--col">
-                <div id="graf7-tmp-gauge"></div>
-                <div class="label-legend">Temperature</div>
-              </div>
-              <div class="bx--col">
-                <div id="graf7-hum-gauge"></div>
-                <div class="label-legend">Humidity</div>
-              </div>
-            </div>
+    <div class="cds--grid">
+      <div class="cds--row">
+        <div class="cds--col label-firefighter">GRAF7<br />10 min avg</div>
+        <div class="cds--col label-firefighter"></div>
+        <div class="cds--col label-firefighter"></div>
+        <div class="cds--col label-firefighter"></div>
+      </div>
+      <div class="cds--row">
+        <div class="cds--col">
+          <div id="graf7-co-gauge"></div>
+          <div class="label-legend">CO</div>
         </div>
-
-        <div class="bx--grid">
-          <div class="bx--row">
-            <div class="bx--col label-firefighter">GRAF8<br>10 min avg</div>
-            <div class="bx--col label-firefighter"></div>
-            <div class="bx--col label-firefighter"></div>
-            <div class="bx--col label-firefighter"></div>
-          </div>
-          <div class="bx--row">
-            <div class="bx--col">
-              <div id="graf8-co-gauge"></div>
-              <div class="label-legend">CO</div>
-            </div>
-            <div class="bx--col">
-              <div id="graf8-no2-gauge"></div>
-              <div class="label-legend">NO<sub>2</sub></div>
-            </div>
-            <div class="bx--col">
-              <div id="graf8-tmp-gauge"></div>
-              <div class="label-legend">Temperature</div>
-            </div>
-            <div class="bx--col">
-              <div id="graf8-hum-gauge"></div>
-              <div class="label-legend">Humidity</div>
-            </div>
-          </div>
-
+        <div class="cds--col">
+          <div id="graf7-no2-gauge"></div>
+          <div class="label-legend">NO<sub>2</sub></div>
         </div>
+        <div class="cds--col">
+          <div id="graf7-tmp-gauge"></div>
+          <div class="label-legend">Temperature</div>
+        </div>
+        <div class="cds--col">
+          <div id="graf7-hum-gauge"></div>
+          <div class="label-legend">Humidity</div>
+        </div>
+      </div>
+    </div>
 
-        <script>
+    <div class="cds--grid">
+      <div class="cds--row">
+        <div class="cds--col label-firefighter">GRAF8<br />10 min avg</div>
+        <div class="cds--col label-firefighter"></div>
+        <div class="cds--col label-firefighter"></div>
+        <div class="cds--col label-firefighter"></div>
+      </div>
+      <div class="cds--row">
+        <div class="cds--col">
+          <div id="graf8-co-gauge"></div>
+          <div class="label-legend">CO</div>
+        </div>
+        <div class="cds--col">
+          <div id="graf8-no2-gauge"></div>
+          <div class="label-legend">NO<sub>2</sub></div>
+        </div>
+        <div class="cds--col">
+          <div id="graf8-tmp-gauge"></div>
+          <div class="label-legend">Temperature</div>
+        </div>
+        <div class="cds--col">
+          <div id="graf8-hum-gauge"></div>
+          <div class="label-legend">Humidity</div>
+        </div>
+      </div>
+    </div>
 
-            // After getting initial value from web socket, render one of these
-            var co7  = renderGauge('#graf7-co-gauge', 1, 'CO', 30, 'ppm');
-            var no27 = renderGauge('#graf7-no2-gauge', 1, 'NO2', 20, 'ppm');
-            var tmp7 = renderGauge('#graf7-tmp-gauge', 1, 'Tmp', 38, '°C');
-            var hum7 = renderGauge('#graf7-hum-gauge', 1, 'Hum', 72, '%');
+    <script>
+      // After getting initial value from web socket, render one of these
+      var co7 = renderGauge('#graf7-co-gauge', 1, 'CO', 30, 'ppm');
+      var no27 = renderGauge('#graf7-no2-gauge', 1, 'NO2', 20, 'ppm');
+      var tmp7 = renderGauge('#graf7-tmp-gauge', 1, 'Tmp', 38, '°C');
+      var hum7 = renderGauge('#graf7-hum-gauge', 1, 'Hum', 72, '%');
 
-            var co8  = renderGauge('#graf8-co-gauge', 1, 'CO', 30, 'ppm');
-            var no28 = renderGauge('#graf8-no2-gauge', 1, 'NO2', 20, 'ppm');
-            var tmp8 = renderGauge('#graf8-tmp-gauge', 1, 'Tmp', 38, '°C');
-            var hum8 = renderGauge('#graf8-hum-gauge', 1, 'Hum', 72, '%');
+      var co8 = renderGauge('#graf8-co-gauge', 1, 'CO', 30, 'ppm');
+      var no28 = renderGauge('#graf8-no2-gauge', 1, 'NO2', 20, 'ppm');
+      var tmp8 = renderGauge('#graf8-tmp-gauge', 1, 'Tmp', 38, '°C');
+      var hum8 = renderGauge('#graf8-hum-gauge', 1, 'Hum', 72, '%');
 
+      // This would instead be triggered by the websocket updates
 
-            // This would instead be triggered by the websocket updates
+      // Real-time websocket data drives the inner piece of the pie
 
-            // Real-time websocket data drives the inner piece of the pie
+      // Once a minute values drive the outer threshold (one value per picked average)
 
-            // Once a minute values drive the outer threshold (one value per picked average)
+      // Do I need, can I use, two interval functions?
 
-            // Do I need, can I use, two interval functions?
-
-            d3.interval(
-                function() {
-
-                    /*
+      d3.interval(function () {
+        /*
                     var co  = [15, 20, 25, 30, 35, 40];
                     var no2 = [0.05, 0.10, 0.15, 0.20, 0.25];
                     var tmp = [30, 31, 32, 33, 34, 35];
@@ -103,13 +100,15 @@
                     hum.val = Math.random() * tau;
                     */
 
-                    // mockRealTimeData
-                    currentRealTimeDataVal7 = mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
-                    currentRealTimeDataVal8 = mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
-                    //console.log(currentRealTimeDataVal7);
-                    //console.log(currentRealTimeDataVal8);
+        // mockRealTimeData
+        currentRealTimeDataVal7 =
+          mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
+        currentRealTimeDataVal8 =
+          mockRealTimeData[Math.floor(Math.random() * mockRealTimeData.length)];
+        //console.log(currentRealTimeDataVal7);
+        //console.log(currentRealTimeDataVal8);
 
-                    /*
+        /*
                         {
                             "timestamp_mins": "2020-09-10 09:32:00",
                             "firefighter_id": 36,
@@ -126,16 +125,22 @@
                         }
                     */
 
-                    // mockOnceMinuteData
-                    currentOnceMinuteDataVal7 = mockOnceMinuteData[Math.floor(Math.random() * mockOnceMinuteData.length)];
-                    currentOnceMinuteDataVal8 = mockOnceMinuteData[Math.floor(Math.random() * mockOnceMinuteData.length)];
-                    //console.log(currentOnceMinuteDataVal7);
-                    //console.log(currentOnceMinuteDataVal8);
+        // mockOnceMinuteData
+        currentOnceMinuteDataVal7 =
+          mockOnceMinuteData[
+            Math.floor(Math.random() * mockOnceMinuteData.length)
+          ];
+        currentOnceMinuteDataVal8 =
+          mockOnceMinuteData[
+            Math.floor(Math.random() * mockOnceMinuteData.length)
+          ];
+        //console.log(currentOnceMinuteDataVal7);
+        //console.log(currentOnceMinuteDataVal8);
 
-                    /*
+        /*
                         {
                           "timestamp_mins": "2000-01-01T10:32:00.000Z",
-                          "analytics_status_LED": 1,
+                          "analytics_status_led": 1,
                           "carbon_monoxide": 2.0,
                           "carbon_monoxide_gauge_10min": 0.0,
                           "carbon_monoxide_gauge_240min": 1.0,
@@ -163,80 +168,108 @@
                           "nitrogen_dioxide_twa_60min": 0.04,
                           "temperature": 26.0
                       }
-                    */                    
+                    */
 
-                    // 7
-                    co7.val  = currentRealTimeDataVal7.carbon_monoxide;
-                    no27.val = currentRealTimeDataVal7.nitrogen_dioxide;
-                    tmp7.val = currentRealTimeDataVal7.temperature;
-                    hum7.val = currentRealTimeDataVal7.humidity;
+        // 7
+        co7.val = currentRealTimeDataVal7.carbon_monoxide;
+        no27.val = currentRealTimeDataVal7.nitrogen_dioxide;
+        tmp7.val = currentRealTimeDataVal7.temperature;
+        hum7.val = currentRealTimeDataVal7.humidity;
 
-                    tmp7.lmt = getPercentage(currentRealTimeDataVal7.temperature, 'Tmp');
-                    hum7.lmt = getPercentage(currentRealTimeDataVal7.humidity, 'Hum');
+        tmp7.lmt = getPercentage(currentRealTimeDataVal7.temperature, 'Tmp');
+        hum7.lmt = getPercentage(currentRealTimeDataVal7.humidity, 'Hum');
 
-                    co7.lmt10  = currentOnceMinuteDataVal7.carbon_monoxide_gauge_10min;
-                    co7.lmt30  = currentOnceMinuteDataVal7.carbon_monoxide_gauge_30min;
-                    co7.lmt60  = currentOnceMinuteDataVal7.carbon_monoxide_gauge_60min;
-                    co7.lmt240  = currentOnceMinuteDataVal7.carbon_monoxide_gauge_240min;
-                    co7.lmt480  = currentOnceMinuteDataVal7.carbon_monoxide_gauge_480min;
+        co7.lmt10 = currentOnceMinuteDataVal7.carbon_monoxide_gauge_10min;
+        co7.lmt30 = currentOnceMinuteDataVal7.carbon_monoxide_gauge_30min;
+        co7.lmt60 = currentOnceMinuteDataVal7.carbon_monoxide_gauge_60min;
+        co7.lmt240 = currentOnceMinuteDataVal7.carbon_monoxide_gauge_240min;
+        co7.lmt480 = currentOnceMinuteDataVal7.carbon_monoxide_gauge_480min;
 
-                    no27.lmt10 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_10min;
-                    no27.lmt30 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_30min;
-                    no27.lmt60 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_60min;
-                    no27.lmt240 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_240min;
-                    no27.lmt480 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_480min;
+        no27.lmt10 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_10min;
+        no27.lmt30 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_30min;
+        no27.lmt60 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_60min;
+        no27.lmt240 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_240min;
+        no27.lmt480 = currentOnceMinuteDataVal7.nitrogen_dioxide_gauge_480min;
 
-                    // 8
-                    co8.val  = currentRealTimeDataVal8.carbon_monoxide;
-                    no28.val = currentRealTimeDataVal8.nitrogen_dioxide;
-                    tmp8.val = currentRealTimeDataVal8.temperature;
-                    hum8.val = currentRealTimeDataVal8.humidity;
+        // 8
+        co8.val = currentRealTimeDataVal8.carbon_monoxide;
+        no28.val = currentRealTimeDataVal8.nitrogen_dioxide;
+        tmp8.val = currentRealTimeDataVal8.temperature;
+        hum8.val = currentRealTimeDataVal8.humidity;
 
-                    tmp8.lmt = getPercentage(currentRealTimeDataVal8.temperature, 'Tmp');
-                    hum8.lmt = getPercentage(currentRealTimeDataVal8.humidity, 'Hum');
+        tmp8.lmt = getPercentage(currentRealTimeDataVal8.temperature, 'Tmp');
+        hum8.lmt = getPercentage(currentRealTimeDataVal8.humidity, 'Hum');
 
-                    co8.lmt10  = currentOnceMinuteDataVal8.carbon_monoxide_gauge_10min;
-                    co8.lmt30  = currentOnceMinuteDataVal8.carbon_monoxide_gauge_30min;
-                    co8.lmt60  = currentOnceMinuteDataVal8.carbon_monoxide_gauge_60min;
-                    co8.lmt240  = currentOnceMinuteDataVal8.carbon_monoxide_gauge_240min;
-                    co8.lmt480  = currentOnceMinuteDataVal8.carbon_monoxide_gauge_480min;
+        co8.lmt10 = currentOnceMinuteDataVal8.carbon_monoxide_gauge_10min;
+        co8.lmt30 = currentOnceMinuteDataVal8.carbon_monoxide_gauge_30min;
+        co8.lmt60 = currentOnceMinuteDataVal8.carbon_monoxide_gauge_60min;
+        co8.lmt240 = currentOnceMinuteDataVal8.carbon_monoxide_gauge_240min;
+        co8.lmt480 = currentOnceMinuteDataVal8.carbon_monoxide_gauge_480min;
 
-                    no28.lmt10 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_10min;
-                    no28.lmt30 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_30min;
-                    no28.lmt60 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_60min;
-                    no28.lmt240 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_240min;
-                    no28.lmt480 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_480min;
+        no28.lmt10 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_10min;
+        no28.lmt30 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_30min;
+        no28.lmt60 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_60min;
+        no28.lmt240 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_240min;
+        no28.lmt480 = currentOnceMinuteDataVal8.nitrogen_dioxide_gauge_480min;
 
-                    
-                    // 7 gauge
-                    co7.fg.transition().duration(750).style("fill", getStatusColor('CO', co7.lmt10)).attrTween("d", arcTween(co7.lmt10 * tau));
-                    co7.num.text(co7.lmt10);
-                    
-                    no27.fg.transition().duration(750).style("fill", getStatusColor('NO2', no27.lmt10)).attrTween("d", arcTween(no27.lmt10 * tau));
-                    no27.num.text(parseInt(no27.val));
-                    
-                    tmp7.fg.transition().duration(750).style("fill", getStatusColor('Tmp', tmp7.lmt)).attrTween("d", arcTween(tmp7.lmt * tau));
-                    tmp7.num.text(parseInt(tmp7.val));
+        // 7 gauge
+        co7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('CO', co7.lmt10))
+          .attrTween('d', arcTween(co7.lmt10 * tau));
+        co7.num.text(co7.lmt10);
 
-                    hum7.fg.transition().duration(750).style("fill", getStatusColor('Hum', hum7.lmt)).attrTween("d", arcTween(hum7.lmt * tau));
-                    hum7.num.text(parseInt(hum7.val));
+        no27.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('NO2', no27.lmt10))
+          .attrTween('d', arcTween(no27.lmt10 * tau));
+        no27.num.text(parseInt(no27.val));
 
-                    // 8 gauge
-                    co8.fg.transition().duration(750).style("fill", getStatusColor('CO', co8.lmt10)).attrTween("d", arcTween(co8.lmt10 * tau));
-                    co8.num.text(co8.lmt10);
-                    
-                    no28.fg.transition().duration(750).style("fill", getStatusColor('NO2', no28.lmt10)).attrTween("d", arcTween(no28.lmt10 * tau));
-                    no28.num.text(parseInt(no28.val));
-                    
-                    tmp8.fg.transition().duration(750).style("fill", getStatusColor('Tmp', tmp8.lmt)).attrTween("d", arcTween(tmp8.lmt * tau));
-                    tmp8.num.text(parseInt(tmp8.val));
+        tmp7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Tmp', tmp7.lmt))
+          .attrTween('d', arcTween(tmp7.lmt * tau));
+        tmp7.num.text(parseInt(tmp7.val));
 
-                    hum8.fg.transition().duration(750).style("fill", getStatusColor('Hum', hum8.lmt)).attrTween("d", arcTween(hum8.lmt * tau));
-                    hum8.num.text(parseInt(hum8.val));
+        hum7.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Hum', hum7.lmt))
+          .attrTween('d', arcTween(hum7.lmt * tau));
+        hum7.num.text(parseInt(hum7.val));
 
-                }
-            , 1500);
-        </script>
+        // 8 gauge
+        co8.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('CO', co8.lmt10))
+          .attrTween('d', arcTween(co8.lmt10 * tau));
+        co8.num.text(co8.lmt10);
 
-    </body>
+        no28.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('NO2', no28.lmt10))
+          .attrTween('d', arcTween(no28.lmt10 * tau));
+        no28.num.text(parseInt(no28.val));
+
+        tmp8.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Tmp', tmp8.lmt))
+          .attrTween('d', arcTween(tmp8.lmt * tau));
+        tmp8.num.text(parseInt(tmp8.val));
+
+        hum8.fg
+          .transition()
+          .duration(750)
+          .style('fill', getStatusColor('Hum', hum8.lmt))
+          .attrTween('d', arcTween(hum8.lmt * tau));
+        hum8.num.text(parseInt(hum8.val));
+      }, 1500);
+    </script>
+  </body>
 </html>

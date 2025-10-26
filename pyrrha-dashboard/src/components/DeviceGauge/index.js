@@ -6,7 +6,7 @@ import Utils from '../../utils/Utils';
 function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   const ref = useRef();
 
-  const url_safe_device_id = device_id.replaceAll(':', '_');
+  const url_safe_device_id = device_id;
 
   /*
   console.log("DeviceGauge");
@@ -19,13 +19,13 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   console.log("----------------");
   */
 
-  var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+  const margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 80 - margin.left - margin.right,
     height = 80 - margin.top - margin.bottom;
 
   // On first load
   useEffect(() => {
-    let svg = d3
+    const svg = d3
       .select(ref.current)
       .attr('width', width)
       .attr('height', height);
@@ -45,7 +45,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
     value,
     unit,
     increment,
-    gauge
+    gauge,
   ) => {
     /*
     console.log("draw()");
@@ -62,7 +62,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    let g = svg
+    const g = svg
       .append('g')
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
     g.append('path')
@@ -87,7 +87,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .attr('x', '0')
       .attr(
         'id',
-        'number-' + type + '-' + increment + '-' + url_safe_device_id
+        'number-' + type + '-' + increment + '-' + url_safe_device_id,
       );
     label
       .append('tspan')
@@ -129,7 +129,7 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .style('fill', Utils.getStatusColor(type, value, increment, gauge))
       .attrTween('d', Utils.arcTween(valueToUse * Constants.TAU));
     d3.select(
-      '#number-' + type + '-' + increment + '-' + url_safe_device_id
+      '#number-' + type + '-' + increment + '-' + url_safe_device_id,
     ).text(Utils.formatFloat(value, 1));
   };
 

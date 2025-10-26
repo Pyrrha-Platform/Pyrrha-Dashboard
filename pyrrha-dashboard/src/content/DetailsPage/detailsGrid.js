@@ -2,8 +2,10 @@ import React, { useContext } from 'react';
 import { ContentSwitcher, Switch } from 'carbon-components-react';
 import '@carbon/charts/styles.css';
 import DeviceDetailsGaugeSet from '../../components/DeviceDetailsGaugeSet';
+import DeviceChartHolder from '../../components/DeviceChartHolder';
 import useDetails from '../../hooks/useDetails';
 import AppContext from '../../context/app';
+import { InlineNotification, Grid, Column } from '@carbon/react';
 
 // Table and data
 const DetailsGrid = (params) => {
@@ -38,37 +40,40 @@ const DetailsGrid = (params) => {
   };
 
   return (
-    <div className="bx--grid bx--grid--full-width details-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h1 className="details-page__heading">{params.device_id}</h1>
-        </div>
-      </div>
+    <Grid className="details-content main-container" fullWidth>
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="details-page__heading">
+          {details && details.length > 0 && details[0].device_name 
+            ? details[0].device_name 
+            : `Device ${params.device_id}`
+          }
+        </h1>
+      </Column>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h2 className="details-page__subheading">
-            {t('content.details.subheading')}
-          </h2>
-        </div>
-      </div>
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="details-page__subheading">
+          {t('content.details.subheading')}
+        </h2>
+      </Column>
 
-      <ContentSwitcher
-        onChange={(e) => {
-          // console.log(e.name);
-          setIncrement(e.name);
-        }}
-        selectedIndex={incrementMapping[increment]}
-        className="details-page__switcher"
-      >
-        <Switch name="all" text={t('content.details.all')} />
-        <Switch name="latest" text={t('content.details.latest')} />
-        <Switch name="10min" text={t('content.details.10min')} />
-        <Switch name="30min" text={t('content.details.30min')} />
-        <Switch name="1hr" text={t('content.details.1hr')} />
-        <Switch name="4hr" text={t('content.details.4hr')} />
-        <Switch name="8hr" text={t('content.details.8hr')} />
-      </ContentSwitcher>
+      <Column sm={4} md={8} lg={16}>
+        <ContentSwitcher
+          onChange={(e) => {
+            // console.log(e.name);
+            setIncrement(e.name);
+          }}
+          selectedIndex={incrementMapping[increment]}
+          className="details-page__switcher"
+        >
+          <Switch name="all" text={t('content.details.all')} />
+          <Switch name="latest" text={t('content.details.latest')} />
+          <Switch name="10min" text={t('content.details.10min')} />
+          <Switch name="30min" text={t('content.details.30min')} />
+          <Switch name="1hr" text={t('content.details.1hr')} />
+          <Switch name="4hr" text={t('content.details.4hr')} />
+          <Switch name="8hr" text={t('content.details.8hr')} />
+        </ContentSwitcher>
+      </Column>
 
       {details !== undefined &&
         details.length !== 0 &&
@@ -76,6 +81,7 @@ const DetailsGrid = (params) => {
         details.map(
           ({
             device_id,
+            device_name,
             temperature,
             humidity,
             carbon_monoxide,
@@ -104,13 +110,12 @@ const DetailsGrid = (params) => {
             nitrogen_dioxide_gauge_480min,
           }) => (
             <DeviceDetailsGaugeSet
-              chart={chart}
-              setChart={setChart}
               type={type}
               setType={setType}
               increment={increment}
               setIncrement={setIncrement}
               device_id={device_id}
+              device_name={device_name}
               timestamp_mins={timestamp_mins}
               temperature={temperature}
               humidity={humidity}
@@ -138,9 +143,25 @@ const DetailsGrid = (params) => {
               nitrogen_dioxide_gauge_240min={nitrogen_dioxide_gauge_240min}
               nitrogen_dioxide_gauge_480min={nitrogen_dioxide_gauge_480min}
             />
-          )
+          ),
         )}
-    </div>
+
+      {/* Chart section rendered separately below gauge sets */}
+      {increment != 'all' && details && details.length > 0 && (
+        <Column sm={4} md={8} lg={16}>
+          <DeviceChartHolder
+            device_id={details[0].device_id}
+            type={!type ? 'CO' : type}
+            data={chart}
+            unit={'ppm'}
+            gauge={''}
+            increment={
+              increment === 'all' ? t('content.details.10min') : increment
+            }
+          />
+        </Column>
+      )}
+    </Grid>
   );
 };
 

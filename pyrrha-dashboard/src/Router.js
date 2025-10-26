@@ -3,6 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DashboardPage from './content/DashboardPage';
 import DetailsPage from './content/DetailsPage';
 import MapPage from './content/MapPage';
+import FirefightersPage from './content/FirefightersPage';
+import DevicesPage from './content/DevicesPage';
+import EventsPage from './content/EventsPage';
 import PyrrhaHeader from './components/PyrrhaHeader';
 
 const Router = () => {
@@ -10,7 +13,7 @@ const Router = () => {
   const [page, setPage] = useState('Dashboard');
 
   return (
-    <BrowserRouter basename="/dash">
+    <BrowserRouter basename="/">
       <PyrrhaHeader
         active={active}
         page={page}
@@ -73,23 +76,10 @@ const Router = () => {
             />
           }
         />
-        {/*
-        Routes are not active. Adding comment to kick off a build.
         <Route
-          path="/login"
+          path="/firefighters"
           element={
-            <LoginPage
-              active={active}
-              page={page}
-              setActive={setActive}
-              setPage={setPage}
-            />
-          }
-        />
-        <Route
-          path="/events"
-          element={
-            <EventsPage
+            <FirefightersPage
               active={active}
               page={page}
               setActive={setActive}
@@ -109,9 +99,22 @@ const Router = () => {
           }
         />
         <Route
-          path="/firefighters"
+          path="/events"
           element={
-            <FirefightersPage
+            <EventsPage
+              active={active}
+              page={page}
+              setActive={setActive}
+              setPage={setPage}
+            />
+          }
+        />
+        {/*
+        Routes are not active. Adding comment to kick off a build.
+        <Route
+          path="/login"
+          element={
+            <LoginPage
               active={active}
               page={page}
               setActive={setActive}

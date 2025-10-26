@@ -1,220 +1,185 @@
 import React, { useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
-import axios from 'axios';
-import {
-  TextInput,
-  ComposedModal,
-  ModalBody,
-  ModalHeader,
-  ModalFooter,
-  Icon,
-} from 'carbon-components-react';
-import { iconEdit } from 'carbon-icons';
+import { TextInput, Modal, InlineNotification, Button } from '@carbon/react';
+import { Edit } from '@carbon/icons-react';
 import AppContext from '../../context/app';
+import Constants from '../../utils/Constants';
 
-// This defines a modal controlled by a launcher button. We have one per DataTable row.
-const ModalStateManager = ({
-  renderLauncher: LauncherContent,
-  children: ModalContent,
-}) => {
-  const [open, setOpen] = useState(false);
+const FirefightersEditModal = ({ row, loadFirefighters }) => {
   const { t } = useContext(AppContext);
+  const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Initialize form data from row
+  const [formData, setFormData] = useState({
+    firefighter_id: row.cells[0].value,
+    firefighter_code: row.cells[1].value,
+    name: row.cells[2].value,
+    surname: row.cells[3].value,
+    email: row.cells[4].value,
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+    setError(''); // Clear error when user starts typing
+  };
+
+  const validateForm = () => {
+    if (!formData.firefighter_code.trim()) {
+      setError('Firefighter code is required');
+      return false;
+    }
+    if (!formData.name.trim()) {
+      setError('Name is required');
+      return false;
+    }
+    if (!formData.surname.trim()) {
+      setError('Surname is required');
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setError('Email is required');
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setError('Please enter a valid email address');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters/${formData.firefighter_id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        },
+      );
+
+      if (response.ok) {
+        loadFirefighters(); // Refresh the table
+        setOpen(false);
+        // Reset form for next time
+        setFormData({
+          firefighter_id: '',
+          firefighter_code: '',
+          name: '',
+          surname: '',
+          email: '',
+        });
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Failed to update firefighter');
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    // Reset form to original values when closing
+    setFormData({
+      firefighter_id: row.cells[0].value,
+      firefighter_code: row.cells[1].value,
+      name: row.cells[2].value,
+      surname: row.cells[3].value,
+      email: row.cells[4].value,
+    });
+    setError('');
+    setOpen(false);
+  };
+
   return (
     <>
-      {!ModalContent || typeof document === 'undefined'
-        ? null
-        : ReactDOM.createPortal(
-            <ModalContent open={open} setOpen={setOpen} t={t} />,
-            document.body
-          )}
-      {LauncherContent && <LauncherContent open={open} setOpen={setOpen} />}
+      <Button
+        hasIconOnly
+        renderIcon={Edit}
+        iconDescription={t('content.firefighters.edit')}
+        kind="ghost"
+        size="sm"
+        onClick={() => setOpen(true)}
+      />
+
+      <Modal
+        open={open}
+        onRequestClose={handleClose}
+        onRequestSubmit={handleSubmit}
+        modalHeading={t('content.firefighters.edit')}
+        modalLabel={t('content.firefighters.heading')}
+        primaryButtonText={isLoading ? 'Saving...' : t('content.firefighters.save')}
+        primaryButtonDisabled={isLoading}
+        secondaryButtonText={t('content.firefighters.cancel')}
+        shouldSubmitOnEnter
+      >
+        {error && (
+          <InlineNotification
+            kind="error"
+            title="Error"
+            subtitle={error}
+            hideCloseButton
+            lowContrast
+            style={{ marginBottom: '1rem' }}
+          />
+        )}
+
+        <TextInput
+          id="edit-firefighter-code"
+          labelText={t('content.firefighters.code')}
+          placeholder="Enter firefighter code"
+          value={formData.firefighter_code}
+          onChange={(e) =>
+            handleInputChange('firefighter_code', e.target.value)
+          }
+          disabled={isLoading}
+          style={{ marginBottom: '1rem' }}
+        />
+
+        <TextInput
+          id="edit-name"
+          labelText={t('content.firefighters.first')}
+          placeholder="Enter first name"
+          value={formData.name}
+          onChange={(e) => handleInputChange('name', e.target.value)}
+          disabled={isLoading}
+          style={{ marginBottom: '1rem' }}
+        />
+
+        <TextInput
+          id="edit-surname"
+          labelText={t('content.firefighters.last')}
+          placeholder="Enter last name"
+          value={formData.surname}
+          onChange={(e) => handleInputChange('surname', e.target.value)}
+          disabled={isLoading}
+          style={{ marginBottom: '1rem' }}
+        />
+
+        <TextInput
+          id="edit-email"
+          labelText={t('content.firefighters.email')}
+          placeholder="Enter email address"
+          value={formData.email}
+          onChange={(e) => handleInputChange('email', e.target.value)}
+          disabled={isLoading}
+        />
+      </Modal>
     </>
   );
 };
-
-// Modal properties
-const editProps = {
-  composedModal: ({ titleOnly } = {}) => ({
-    open: true,
-    danger: false,
-    selectorPrimaryFocus: '[data-modal-primary-focus]',
-  }),
-  modalHeader: ({ titleOnly } = {}) => ({
-    label: 'Firefighters',
-    title: 'Edit firefighter',
-    iconDescription: 'Close',
-  }),
-  modalBody: () => ({
-    hasScrollingContent: false,
-    'aria-label': 'Edit firefighter',
-  }),
-  modalFooter: () => ({
-    primaryButtonText: 'Save',
-    primaryButtonDisabled: false,
-    secondaryButtonText: 'Cancel',
-    shouldCloseAfterSubmit: true,
-  }),
-  menuItem: () => ({
-    closeMenu: (event) => {
-      handleSubmit(event);
-    },
-  }),
-  editIcon: () => ({
-    style: {
-      margin: '5px',
-    },
-    icon: iconEdit,
-    name: iconEdit,
-    role: 'img',
-    fill: 'grey',
-    fillRule: '',
-    width: '',
-    height: '',
-    description:
-      'This is a description of the icon and what it does in context',
-    iconTitle: '',
-    className: 'extra-class',
-  }),
-};
-
-// On submit we should be passed the values.
-const handleSubmit = (
-  id,
-  code,
-  first,
-  last,
-  email,
-  loadFirefighters,
-  setOpen
-) => {
-  // console.log('handleSubmit');
-  // console.log('id ' + id);
-  // console.log('code ' + code);
-  // console.log('first ' + first);
-  // console.log('last ' + last);
-  // console.log('email ' + email);
-
-  axios
-    .put(`/api-main/v1/firefighters/` + id, {
-      id: id,
-      code: code,
-      first: first,
-      last: last,
-      email: email,
-    })
-    .then((res) => {
-      // TODO: Set success or error message
-      // console.log(res);
-      // console.log(res.data);
-
-      // Refresh data
-      loadFirefighters();
-
-      // TODO: Check for error or success
-      setOpen(false);
-    });
-
-  return true;
-};
-
-// The implementation of the Modal
-class FirefightersEditModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      row: props.row,
-      loadFirefighters: props.loadFirefighters,
-      id: this.props.row.cells[0].value,
-      code: this.props.row.cells[1].value,
-      first: this.props.row.cells[2].value,
-      last: this.props.row.cells[3].value,
-      email: this.props.row.cells[4].value,
-      open: false,
-    };
-    // console.log(this.state.row);
-  }
-
-  render() {
-    // const { open } = this.state.open;
-    const { size, ...rest } = editProps.composedModal();
-    const { hasScrollingContent, ...bodyProps } = editProps.modalBody();
-
-    return (
-      <ModalStateManager
-        renderLauncher={({ setOpen }) => (
-          <Icon
-            {...editProps.editIcon()}
-            onClick={() => setOpen(true)}
-            title={this.state.id}
-          />
-        )}
-      >
-        {({ open, setOpen, t }) => (
-          <ComposedModal
-            {...rest}
-            open={open}
-            t={t}
-            row={this.props.row}
-            loadFirefighters={this.props.loadFirefighters}
-            size={size || undefined}
-            onClose={() => setOpen(false)}
-          >
-            <ModalHeader {...editProps.modalHeader()} />
-            <ModalBody
-              {...bodyProps}
-              aria-label={hasScrollingContent ? 'Modal content' : undefined}
-            >
-              <br />
-              <TextInput
-                id={this.state.code}
-                value={this.state.code}
-                labelText={t('content.firefighters.code') + ':'}
-                onChange={(e) => (this.state.code = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.first}
-                value={this.state.first}
-                labelText={t('content.firefighters.first') + ':'}
-                onChange={(e) => (this.state.first = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.last}
-                value={this.state.last}
-                labelText={t('content.firefighters.last') + ':'}
-                onChange={(e) => (this.state.last = e.target.value.trim())}
-              />
-              <br />
-              <TextInput
-                id={this.state.email}
-                value={this.state.email}
-                labelText={t('content.firefighters.email') + ':'}
-                onChange={(e) => (this.state.email = e.target.value.trim())}
-              />
-              <br />
-              <br />
-            </ModalBody>
-            <ModalFooter
-              {...editProps.modalFooter()}
-              shouldCloseAfterSubmit={true}
-              onRequestSubmit={() => {
-                handleSubmit(
-                  this.state.id,
-                  this.state.code,
-                  this.state.first,
-                  this.state.last,
-                  this.state.email,
-                  this.state.loadFirefighters,
-                  setOpen
-                );
-              }}
-            />
-          </ComposedModal>
-        )}
-      </ModalStateManager>
-    );
-  }
-}
 
 export default FirefightersEditModal;

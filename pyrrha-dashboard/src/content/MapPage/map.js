@@ -21,33 +21,33 @@ const Map = () => {
   const { t } = useContext(AppContext);
 
   return (
-    <div className="bx--grid bx--grid--full-width map-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+    <div className="cds--grid cds--grid--full-width map-content">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h1 className="map-page__heading">{t('content.map.heading')}</h1>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
+      <div className="cds--row">
+        <div className="cds--col-md-16">
           <h2 className="map-page__subheading">
             {t('content.map.subheading')}
           </h2>
         </div>
       </div>
 
-      <div className="bx--row">
-        <div className="bx--col bx--no-gutter">
-          <div className="bx--grid bx--grid--full-width">
-            <div className="bx--row">
-              <div className="bx--col">
+      <div className="cds--row">
+        <div className="cds--col cds--no-gutter">
+          <div className="cds--grid cds--grid--full-width">
+            <div className="cds--row">
+              <div className="cds--col">
                 <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 map-page__tile_number">
+                  <div className="cds--grid cds--grid--full-width">
+                    <div className="cds--row">
+                      <div className="cds--col-md-1 map-page__tile_number">
                         <span className="map-page__danger">{danger}</span>
                       </div>
-                      <div className="bx--col-md-7">
+                      <div className="cds--col-md-7">
                         <div className="map-page__tile_heading">
                           {t('content.map.tileHeadingDanger')}
                         </div>
@@ -59,14 +59,14 @@ const Map = () => {
                   </div>
                 </Tile>
               </div>
-              <div className="bx--col">
+              <div className="cds--col">
                 <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 map-page__tile_number">
+                  <div className="cds--grid cds--grid--full-width">
+                    <div className="cds--row">
+                      <div className="cds--col-md-1 map-page__tile_number">
                         <span className="map-page__warning">{warning}</span>
                       </div>
-                      <div className="bx--col-md-7">
+                      <div className="cds--col-md-7">
                         <div className="map-page__tile_heading">
                           {t('content.map.tileHeadingWarning')}
                         </div>
@@ -78,14 +78,14 @@ const Map = () => {
                   </div>
                 </Tile>
               </div>
-              <div className="bx--col">
+              <div className="cds--col">
                 <Tile>
-                  <div className="bx--grid bx--grid--full-width">
-                    <div className="bx--row">
-                      <div className="bx--col-md-1 map-page__tile_number">
+                  <div className="cds--grid cds--grid--full-width">
+                    <div className="cds--row">
+                      <div className="cds--col-md-1 map-page__tile_number">
                         <span className="map-page__normal">{normal}</span>
                       </div>
-                      <div className="bx--col-md-7">
+                      <div className="cds--col-md-7">
                         <div className="map-page__tile_heading">
                           {t('content.map.tileHeadingNormal')}
                         </div>
@@ -103,7 +103,7 @@ const Map = () => {
       </div>
 
       {map !== undefined && map.length !== 0 && map.map !== undefined && (
-        <div className="bx--row">
+        <div className="cds--row">
           {map.map(
             ({
               device_id,
@@ -129,7 +129,7 @@ const Map = () => {
                 latitude={latitude}
                 increment={'now'}
               />
-            )
+            ),
           )}
         </div>
       )}
@@ -137,11 +137,11 @@ const Map = () => {
       {/*console.log('Map', map)*/}
 
       {(map == undefined || map.length == 0 || map.map == undefined) && (
-        <div className="bx--row">
-          <div className="bx--grid bx--grid--full-width bx--col-lg-16 bx--col-md-4 bx--col-sm-2">
-            <div className="bx--grid bx--grid--full-width map-content">
-              <div className={'bx--row map-tile background-'}>
-                <div className="bx--grid bx--grid--full-width label-firefighter">
+        <div className="cds--row">
+          <div className="cds--grid cds--grid--full-width cds--col-lg-16 cds--col-md-4 cds--col-sm-2">
+            <div className="cds--grid cds--grid--full-width map-content">
+              <div className={'cds--row map-tile background-'}>
+                <div className="cds--grid cds--grid--full-width label-firefighter">
                   {t('content.map.noDevices')}
                 </div>
               </div>

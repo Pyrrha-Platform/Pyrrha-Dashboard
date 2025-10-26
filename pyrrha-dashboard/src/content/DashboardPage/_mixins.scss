@@ -1,3 +1,11 @@
+// Import Carbon dependencies
+@use '@carbon/styles/scss/spacing' as spacing;
+@use '@carbon/styles/scss/theme' as theme;
+
+// Legacy variable compatibility
+$spacing-05: spacing.$spacing-05;
+$ui-01: theme.$background;
+
 @mixin dashboard-page-background() {
   background-color: $ui-01;
   position: relative;

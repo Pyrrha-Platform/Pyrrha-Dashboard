@@ -1,17 +1,29 @@
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 let secret;
 
 if (process.env.VCAP_APPLICATION) {
   secret = process.env.JWT_SECRET;
 } else {
-  secret = require('../vcap-local.json').user_vars.jwt_secret;
-}
+  // Try to get secret from vcap-local.json or use default for development
+  try {
+    if (fs.existsSync('../vcap-local.json')) {
+      const vcapConfig = require('../vcap-local.json');
+      secret = vcapConfig.user_vars?.jwt_secret;
+    }
+  } catch (error) {
+    console.warn('⚠️  Could not load vcap-local.json for JWT secret');
+  }
 
-if (!secret) {
-  throw new Error(
-    'No JWT secret found. If this is a dev environment, add required secrets to a copy of vcap-local.template.json named vcap-local.json.'
-  );
+  // Use development default if no secret found
+  if (!secret) {
+    secret =
+      'dev-jwt-secret-change-in-production-' + Math.random().toString(36);
+    console.warn(
+      '⚠️  Using generated JWT secret for development. Set up vcap-local.json for production.',
+    );
+  }
 }
 
 const encode = (payload) =>

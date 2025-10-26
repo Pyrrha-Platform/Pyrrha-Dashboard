@@ -3,11 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DetailsGrid from './detailsGrid';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import './_details-page.scss';
 
 function DetailsPage(props) {
   const navigate = useNavigate();
   const { currentUser } = useContext(AppContext);
-  let { device_id, increment, type } = useParams();
+  const { device_id, increment, type } = useParams();
 
   if (Constants.AUTH_DISABLED || currentUser.isAuth) {
     return (

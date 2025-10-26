@@ -10,12 +10,12 @@ const client = async (url, options) => {
 
 const fetchMap = async () => {
   try {
-    const data = await client(`/api-main/v1/map-now`);
+    const data = await client(`${Constants.API_BASE_URL}/api-main/v1/map-now`);
     console.log('fetchMap map', data.map);
     console.log('fetchMap map.devices', data.map.devices);
     if (data.map.devices) {
       data.map.devices = data.map.devices.sort((a, b) =>
-        a.device_id < b.device_id ? 1 : -1
+        a.device_id < b.device_id ? 1 : -1,
       );
       return data.map;
     } else {
@@ -36,7 +36,7 @@ const updateMap = (map, message) => {
 
   console.log('newMap', newMap);
 
-  let newMessage = JSON.parse(message);
+  const newMessage = JSON.parse(message);
   newMessage.device_timestamp += '+00:00';
 
   console.log(typeof newMessage, newMessage);
@@ -50,7 +50,7 @@ const updateMap = (map, message) => {
           if (oldReading.device_id === newReading.device_id) {
             console.log(
               'Replacing an old reading with a new one in the array',
-              newMessage
+              newMessage,
             );
             newMap.current = Utils.arrayRemove(newMap.current, oldReading);
             newMap.current.push(newReading);
@@ -66,7 +66,7 @@ const updateMap = (map, message) => {
         if (oldReading.device_id === newMessage.device_id) {
           console.log(
             'Replacing a single old reading with a new one',
-            newMessage
+            newMessage,
           );
           console.log('Merged new and old readings', newMessage);
           newMap.current = Utils.arrayRemove(newMap.current, oldReading);
@@ -86,10 +86,10 @@ const updateMap = (map, message) => {
 
 const setRiskLevels = (devices, setNormal, setWarning, setDanger) => {
   console.log('setRiskLevels');
-  var tmpNormal =
+  let tmpNormal =
     devices !== undefined && devices.length !== 0 ? devices.length : 0;
-  var tmpWarning = 0;
-  var tmpDanger = 0;
+  let tmpWarning = 0;
+  let tmpDanger = 0;
 
   if (devices !== undefined && devices.length !== 0) {
     devices.forEach((device) => {

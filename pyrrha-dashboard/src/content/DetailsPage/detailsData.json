@@ -12,7 +12,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 09:32:38",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "",
@@ -27,7 +27,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -42,7 +42,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:51:59",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -57,7 +57,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -72,7 +72,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:51:47",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -87,7 +87,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:51:37",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -102,7 +102,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:51:23",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:51:00",
@@ -117,7 +117,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:51:12",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:50:00",
@@ -132,7 +132,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:50:51",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:50:00",
@@ -147,7 +147,7 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:50:49",
-		"device_status_LED": null
+		"device_status_led": null
 	},
 	{
 		"timestamp_mins": "2000-01-01 11:50:00",
@@ -162,6 +162,6 @@
 		"acrolein": null,
 		"benzene": null,
 		"device_timestamp": "2000-01-01 11:50:44",
-		"device_status_LED": null
+		"device_status_led": null
 	}
 ]

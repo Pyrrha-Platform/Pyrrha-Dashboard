@@ -1,5 +1,6 @@
 import logging
 from flask import Flask, Response, json, request
+from flask_cors import CORS
 from .firefighter_manager import firefighter_manager
 from .event_manager import event_manager
 from .device_manager import device_manager
@@ -29,6 +30,11 @@ dictConfig(
 )
 
 app = Flask(__name__)
+CORS(app, 
+     origins=['http://localhost:3000'],
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+     allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
+     supports_credentials=False)
 
 
 @app.errorhandler(404)
@@ -81,9 +87,9 @@ def firefighters():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
-            or created_values["first"].strip() == ""
-            or created_values["last"].strip() == ""
+            created_values["firefighter_code"].strip() == ""
+            or created_values["name"].strip() == ""
+            or created_values["surname"].strip() == ""
             or created_values["email"].strip() == ""
         ):
 
@@ -98,9 +104,9 @@ def firefighters():
 
         else:
             firefighter = firefighter_manager().insert_firefighter(
-                created_values["code"],
-                created_values["first"],
-                created_values["last"],
+                created_values["firefighter_code"],
+                created_values["name"],
+                created_values["surname"],
                 created_values["email"],
             )
             message = {
@@ -114,7 +120,7 @@ def firefighters():
             return resp
 
 
-@app.route("/api-main/v1/firefighters/<int:id>", methods=["GET", "PUT", "DELETE"])
+@app.route("/api-main/v1/firefighters/<string:id>", methods=["GET", "PUT", "DELETE"])
 def firefighter_by_id(id):
 
     if request.method == "GET":
@@ -130,9 +136,9 @@ def firefighter_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["first"].strip() == ""
-            or updated_values["last"].strip() == ""
+            updated_values["firefighter_code"].strip() == ""
+            or updated_values["name"].strip() == ""
+            or updated_values["surname"].strip() == ""
             or updated_values["email"].strip() == ""
         ):
             message = {
@@ -146,10 +152,10 @@ def firefighter_by_id(id):
 
         else:
             firefighter = firefighter_manager().update_firefighter(
-                updated_values["id"],
-                updated_values["code"],
-                updated_values["first"],
-                updated_values["last"],
+                updated_values["firefighter_id"],
+                updated_values["firefighter_code"],
+                updated_values["name"],
+                updated_values["surname"],
                 updated_values["email"],
             )
             message = {
@@ -195,11 +201,11 @@ def events():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
-            or created_values["type"].strip() == ""
-            or created_values["date"].strip() == ""
-            or created_values["firefighters"].strip() == ""
-            or created_values["state"].strip() == ""
+            created_values["name"].strip() == ""
+            or created_values["event_type"] == ""
+            or created_values["fuel_type"] == ""
+            or created_values["status"] == ""
+            or created_values["event_date"].strip() == ""
         ):
 
             message = {
@@ -213,11 +219,14 @@ def events():
 
         else:
             event = event_manager().insert_event(
-                created_values["code"],
-                created_values["type"],
-                created_values["date"],
-                created_values["firefighters"],
-                created_values["state"],
+                created_values["name"],
+                created_values["event_type"],
+                created_values["fuel_type"],
+                created_values["status"],
+                created_values["event_date"],
+                created_values.get("init_time", ""),
+                created_values.get("end_time", ""),
+                created_values.get("extra_info", "")
             )
             message = {"status": 201, "message": "Created", "event": event["id"]}
             body = json.dumps(message)
@@ -242,11 +251,11 @@ def event_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["type"].strip() == ""
-            or updated_values["date"].strip() == ""
-            or updated_values["firefighters"].strip() == ""
-            or updated_values["state"].strip() == ""
+            updated_values["name"].strip() == ""
+            or updated_values["event_type"] == ""
+            or updated_values["fuel_type"] == ""
+            or updated_values["status"] == ""
+            or updated_values["event_date"].strip() == ""
         ):
             message = {
                 "status": 400,
@@ -259,12 +268,15 @@ def event_by_id(id):
 
         else:
             event = event_manager().update_event(
-                updated_values["id"],
-                updated_values["code"],
-                updated_values["type"],
-                updated_values["date"],
-                updated_values["firefighters"],
-                updated_values["state"],
+                updated_values["event_id"],
+                updated_values["name"],
+                updated_values["event_type"],
+                updated_values["fuel_type"],
+                updated_values["status"],
+                updated_values["event_date"],
+                updated_values.get("init_time", ""),
+                updated_values.get("end_time", ""),
+                updated_values.get("extra_info", "")
             )
             message = {"status": 200, "message": "Updated", "event": event["id"]}
             body = json.dumps(message)
@@ -285,6 +297,36 @@ def event_by_id(id):
         return "{ 'message': 'Error: No id field provided. Please specify an id.' }"
 
 
+@app.route("/api-main/v1/event-types", methods=["GET"])
+def event_types():
+    event_types = event_manager().get_event_types()
+    message = {"status": 200, "message": "OK", "event_types": event_types}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
+@app.route("/api-main/v1/fuel-types", methods=["GET"])
+def fuel_types():
+    fuel_types = event_manager().get_fuel_types()
+    message = {"status": 200, "message": "OK", "fuel_types": fuel_types}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
+@app.route("/api-main/v1/status", methods=["GET"])
+def status_options():
+    status_options = event_manager().get_status_options()
+    message = {"status": 200, "message": "OK", "status_options": status_options}
+    body = json.dumps(message)
+    logger.debug(body)
+    resp = Response(body, status=200, mimetype="application/json")
+    return resp
+
+
 @app.route("/api-main/v1/devices", methods=["GET", "POST"])
 def devices():
 
@@ -301,7 +343,7 @@ def devices():
 
         # TODO: Better validation
         if (
-            created_values["code"].strip() == ""
+            created_values["name"].strip() == ""
             or created_values["model"].strip() == ""
             or created_values["version"].strip() == ""
         ):
@@ -317,7 +359,7 @@ def devices():
 
         else:
             device = device_manager().insert_device(
-                created_values["code"],
+                created_values["name"],
                 created_values["model"],
                 created_values["version"],
             )
@@ -328,7 +370,7 @@ def devices():
             return resp
 
 
-@app.route("/api-main/v1/devices/<int:id>", methods=["GET", "PUT", "DELETE"])
+@app.route("/api-main/v1/devices/<string:id>", methods=["GET", "PUT", "DELETE"])
 def device_by_id(id):
 
     if request.method == "GET":
@@ -344,8 +386,7 @@ def device_by_id(id):
 
         # TODO: Better validation
         if (
-            updated_values["code"].strip() == ""
-            or updated_values["type"].strip() == ""
+            updated_values["name"].strip() == ""
             or updated_values["model"].strip() == ""
             or updated_values["version"].strip() == ""
         ):
@@ -361,7 +402,7 @@ def device_by_id(id):
         else:
             device = device_manager().update_device(
                 updated_values["id"],
-                updated_values["code"],
+                updated_values["name"],
                 updated_values["model"],
                 updated_values["version"],
             )

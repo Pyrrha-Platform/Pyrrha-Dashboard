@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
+import { Grid, Column } from '@carbon/react';
 import {
   DataTable,
   TableContainer,
@@ -8,23 +9,19 @@ import {
   TableHeader,
   TableBody,
   TableCell,
+  TableExpandedRow,
   TableToolbar,
   TableToolbarContent,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import DevicesAddModal from './devicesAddModal';
 import DevicesEditModal from './devicesEditModal';
 import DevicesDeleteModal from './devicesDeleteModal';
+import DeviceDetailMap from '../../components/DeviceDetailMap';
 import AppContext from '../../context/app';
-
-// Utility to access the backend API
-const client = async (url, options) => {
-  const response = await fetch(url, options);
-  const data = await response.json();
-  return data;
-};
+import Constants from '../../utils/Constants';
 
 // Table and data
-const NewDevicesTable = ({ device_id }) => {
+const NewDevicesTable = () => {
   const [devices, setDevices] = React.useState([]);
   const [fetched, setFetched] = React.useState(false);
   const { t } = useContext(AppContext);
@@ -33,15 +30,17 @@ const NewDevicesTable = ({ device_id }) => {
     loadDevices();
   }, [fetched]);
 
-  const loadDevices = React.useCallback(async () => {
+  const loadDevices = useCallback(async () => {
     try {
-      const data = await client(`/api-main/v1/devices`);
-      // console.log(data);
-      setDevices(data.devices);
-    } catch (e) {
-      console.log(e);
+      const apiUrl = `${Constants.API_BASE_URL}/api-main/v1/devices`;
+      console.log('DevicesTable: Fetching from URL:', apiUrl);
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      setDevices(data.devices || []);
+    } catch (error) {
+      console.log('DevicesTable error:', error);
     }
-  });
+  }, []);
 
   // Form header data
   const headerData = [
@@ -50,8 +49,8 @@ const NewDevicesTable = ({ device_id }) => {
       key: 'id',
     },
     {
-      header: t('content.devices.code'),
-      key: 'code',
+      header: t('content.devices.name'),
+      key: 'name',
     },
     {
       header: t('content.devices.model'),
@@ -61,62 +60,69 @@ const NewDevicesTable = ({ device_id }) => {
       header: t('content.devices.version'),
       key: 'version',
     },
+    {
+      header: t('content.devices.latitude'),
+      key: 'latitude',
+    },
+    {
+      header: t('content.devices.longitude'),
+      key: 'longitude',
+    },
   ];
 
   return (
-    <div className="bx--grid bx--grid--full-width devices-content">
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h1 className="devices-page__heading">
-            {t('content.devices.heading')}
-          </h1>
-        </div>
-      </div>
+    <Grid className="devices-content main-container">
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="devices-page__heading">
+          {t('content.devices.heading')}
+        </h1>
+      </Column>
 
-      <div className="bx--row">
-        <div className="bx--col-md-16">
-          <h2 className="devices-page__subheading">
-            {t('content.devices.subheading')}
-          </h2>
-        </div>
-      </div>
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="devices-page__subheading">
+          {t('content.devices.subheading')}
+        </h2>
+      </Column>
 
-      <div className="bx--row devices-page__r2">
-        <div className="bx--col-lg-16 fullwidth">
-          <DataTable
-            isSortable
-            headers={headerData}
-            rows={devices}
-            render={({
-              rows,
-              headers,
-              getHeaderProps,
-              getRowProps,
-              getTableProps,
-              getToolbarProps,
-              onInputChange,
-              getTableContainerProps,
-            }) => (
-              <TableContainer>
-                <TableToolbar aria-label="data table toolbar">
-                  <TableToolbarContent>
-                    <DevicesAddModal rows={rows} loadDevices={loadDevices} />
-                  </TableToolbarContent>
-                </TableToolbar>
-                <Table size="normal" {...getTableProps()}>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map((header) => (
-                        <TableHeader {...getHeaderProps({ header })}>
-                          {header.header}
-                        </TableHeader>
-                      ))}
-                      <TableHeader>{t('content.devices.actions')}</TableHeader>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.id}>
+      <Column sm={4} md={8} lg={16} className="devices-page__r2 fullwidth">
+        <DataTable
+          isSortable
+          headers={headerData}
+          rows={devices}
+          render={({
+            rows,
+            headers,
+            getHeaderProps,
+            getRowProps,
+            getTableProps,
+            getToolbarProps,
+            onInputChange,
+            getTableContainerProps,
+          }) => (
+            <TableContainer>
+              <TableToolbar aria-label="data table toolbar">
+                <TableToolbarContent>
+                  <DevicesAddModal loadDevices={loadDevices} />
+                </TableToolbarContent>
+              </TableToolbar>
+              <Table size="normal" {...getTableProps()}>
+                <TableHead>
+                  <TableRow>
+                    {headers.map((header) => (
+                      <TableHeader
+                        key={header.key}
+                        {...getHeaderProps({ header })}
+                      >
+                        {header.header}
+                      </TableHeader>
+                    ))}
+                    <TableHeader>{t('content.devices.actions')}</TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <React.Fragment key={row.id}>
+                      <TableRow {...getRowProps({ row })}>
                         {row.cells.map((cell) => (
                           <TableCell key={cell.id}>{cell.value}</TableCell>
                         ))}
@@ -131,15 +137,35 @@ const NewDevicesTable = ({ device_id }) => {
                           />
                         </TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          />
-        </div>
-      </div>
-    </div>
+                      {row.isExpanded && (
+                        <TableExpandedRow
+                          colSpan={headers.length + 1}
+                          className="device-chart"
+                        >
+                          <DeviceDetailMap
+                            device={{
+                              name: row.cells.find(
+                                (cell) => cell.info.header === 'name',
+                              )?.value,
+                              latitude: row.cells.find(
+                                (cell) => cell.info.header === 'latitude',
+                              )?.value,
+                              longitude: row.cells.find(
+                                (cell) => cell.info.header === 'longitude',
+                              )?.value,
+                            }}
+                          />
+                        </TableExpandedRow>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        />
+      </Column>
+    </Grid>
   );
 };
 

@@ -71,7 +71,7 @@ class firefighter_manager(object):
 
             # firefighter_code is actually what we're using as the id from this table
             cursor.execute(
-                "UPDATE firefighters SET name = ?, surname = ?, email = ? WHERE firefighter_code = ?",
+                "UPDATE firefighters SET firefighter_code = ?, name = ?, surname = ?, email = ? WHERE firefighter_code = ?",
                 (code, first, last, email, id),
             )
 
@@ -118,6 +118,7 @@ class firefighter_manager(object):
                 return False
 
         except Exception as e:
+            self._logger.error(f"Error deleting firefighter: {str(e)}")
             return None
 
         finally:
@@ -144,14 +145,14 @@ class firefighter_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "SELECT device_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND device_id = ?",
+                "SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL AND firefighter_code = ?",
                 (id,),
             )
 
             data = cursor.fetchone()
 
             # firefighter_code is actually what we're using as the id from this table
-            if len(data) > 0:
+            if data and len(data) > 0:
                 firefighter = {
                     "id": data[1],
                     "code": data[1],
@@ -163,6 +164,7 @@ class firefighter_manager(object):
                 return None
 
         except Exception as e:
+            self._logger.error(f"Error getting firefighter: {str(e)}")
             return None
 
         finally:
@@ -187,15 +189,15 @@ class firefighter_manager(object):
 
             cursor = conn.cursor()
 
-            self.logger.info("get_all_firefighters - llamada a sql")
+            self._logger.info("get_all_firefighters - llamada a sql")
             cursor.execute(
-                "SELECT device_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL"
+                "SELECT firefighter_id, firefighter_code, name, surname, email FROM firefighters WHERE deleted_at IS NULL"
             )
             data = cursor.fetchall()
             if len(data) > 0:
-                self.logger.info("get_all_firefighters - Hay informacion")
+                self._logger.info("get_all_firefighters - Hay informacion")
                 for i in data:
-                    self.logger.info(i)
+                    self._logger.info(i)
                     # firefighter_code is actually what we're using as the id from this table
                     firefighters.append(
                         {
@@ -207,10 +209,10 @@ class firefighter_manager(object):
                         }
                     )
             else:
-                self.logger.info("get_all_firefighters - NO HAY INFORMACION")
+                self._logger.info("get_all_firefighters - NO HAY INFORMACION")
                 return None
         except Exception as e:
-            self.logger.info("get_all_firefighters - Estoy en la excepcion")
+            self._logger.error(f"Error getting all firefighters: {str(e)}")
             return None
 
         finally:

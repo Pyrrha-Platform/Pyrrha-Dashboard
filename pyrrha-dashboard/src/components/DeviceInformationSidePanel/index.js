@@ -1,11 +1,11 @@
-import { Close24, ConnectionSignal32, Restart32 } from '@carbon/icons-react';
-import Tag from 'carbon-components-react/lib/components/Tag/Tag';
+import { Close, ConnectionSignal, Restart } from '@carbon/icons-react';
 import {
   Loading,
   Modal,
   InlineNotification,
   ToastNotification,
-} from 'carbon-components-react';
+  Tag,
+} from '@carbon/react';
 
 import React, { useContext, useState } from 'react';
 import AppContext from '../../context/app';
@@ -40,7 +40,7 @@ const DeviceInformationSidePanel = ({ device, onRequestClose }) => {
           </Tag>
         )}
         <button className="device-side-panel__close" onClick={onRequestClose}>
-          <Close24 />
+          <Close size={24} />
         </button>
       </div>
       <div className="device-side-panel__content">

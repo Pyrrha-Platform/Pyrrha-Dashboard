@@ -5,6 +5,7 @@
       "notifications": "Notificaciones",
       "avatar": "Avatar de usuario",
       "dashboard": "Tablero",
+      "manage": "Gestionar",
       "map": "Map",
       "events": "Eventos",
       "devices": "Dispositivos",
@@ -121,13 +122,18 @@
       "edit": "Editar evento",
       "delete": "Eliminar evento",
       "id": "ID de evento",
+      "name": "Nombre del evento",
       "code": "Código",
       "type": "Tipo",
+      "fuel_type": "Tipo de combustible",
       "date": "Fecha",
+      "init_time": "Hora de inicio",
+      "end_time": "Hora de finalización",
+      "extra_info": "Información adicional",
       "firefighters": "Bomberos",
       "status": "Estado",
       "state": "Estado",
-      "actions": "Accions"
+      "actions": "Acciones"
     },
     "devices": {
       "heading": "Dispositivos",
@@ -136,10 +142,13 @@
       "edit": "Editar dispositivo",
       "delete": "Eliminar dispositivo",
       "id": "ID del dispositivo",
+      "name": "Nombre del dispositivo",
       "code": "Código",
       "model": "Modelo",
       "version": "Versión",
-      "actions": "Accions",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "actions": "Acciones",
       "deviceRemoveModal": {
         "removeDevice": "Remove device",
         "removeDeviceText": "Remove your device from the network.",
@@ -155,15 +164,18 @@
       "heading": "Bomberos",
       "subheading": "Estos son todos los bomberos registrados en el sistema.",
       "add": "Agregar bombero",
+      "addTitle": "Agregar nuevo bombero",
       "edit": "Editar bombero",
       "delete": "Eliminar bombero",
+      "save": "Guardar",
+      "cancel": "Cancelar",
       "id": "Identificación del bombero",
       "code": "Código",
       "first": "Nombre de pila",
       "last": "Apellido",
       "email": "Email",
       "status": "Estado",
-      "actions": "Accions"
+      "actions": "Acciones"
     }
   }
 }

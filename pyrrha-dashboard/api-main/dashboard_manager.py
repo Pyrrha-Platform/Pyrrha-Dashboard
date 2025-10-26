@@ -36,10 +36,10 @@ class dashboard_manager(object):
             cursor = conn.cursor()
             self._logger.debug("get_dashboard - after cursor")
 
-            self._logger.debug("get_dashboard - llamada a sql")
+            self._logger.debug("get_dashboard_for - llamada a sql")
 
             cursor.execute(
-                "SELECT * FROM firefighter_sensor_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1",
+                "SELECT * FROM firefighter_device_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1",
                 (device_id,),
             )
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
@@ -66,7 +66,7 @@ class dashboard_manager(object):
                             "device_timestamp": i[11].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),
-                            "device_status_LED": i[12],
+                            "device_status_led": i[12],
                         }
                     )
                 # firefighters = data
@@ -102,7 +102,10 @@ class dashboard_manager(object):
 
             self._logger.debug("get_dashboard_now - llamada a sql")
             sql = """
-                SELECT * FROM (
+                SELECT 
+                    device_readings.*,
+                    d.name as device_name
+                FROM (
                     SELECT 
                         device_id,
                         temperature,
@@ -113,10 +116,10 @@ class dashboard_manager(object):
                         device_timestamp,
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
-                        firefighter_sensor_log
-                    WHERE device_id LIKE '%Prometeo%'
+                        firefighter_device_log
                     ORDER BY timestamp_mins DESC
                 ) device_readings
+                LEFT JOIN devices d ON d.device_id = device_readings.device_id
                 WHERE device_readings.latest_reading_for_device = 1
             """
 
@@ -141,6 +144,7 @@ class dashboard_manager(object):
                             "device_timestamp": i[6].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),
+                            "device_name": i[8] if i[8] else f"Device {i[0]}",
                         }
                     )
                 conn.close()
@@ -177,9 +181,11 @@ class dashboard_manager(object):
             self._logger.debug("get_dashboard_details - llamada a sql")
             sql = """
                 SELECT 
-                    *
+                    fsa.*,
+                    COALESCE(d.name, CONCAT('Device ', fsa.device_id)) as device_name
                 FROM
                     firefighter_status_analytics fsa
+                LEFT JOIN devices d ON d.device_id = fsa.device_id
                 WHERE
                     fsa.device_id = %s 
                 ORDER BY device_timestamp DESC
@@ -189,7 +195,7 @@ class dashboard_manager(object):
             self._logger.debug(
                 "get_dashboard_details - get latest reading for the device"
             )
-            cursor.execute(sql, (device_id,))
+            cursor.execute(sql, (int(device_id),))
 
             self._logger.debug("get_dashboard_details - fetchall")
             data = cursor.fetchall()
@@ -200,12 +206,13 @@ class dashboard_manager(object):
                     # self._logger.debug(i)
                     details.append(
                         {
-                            "device_id": i[2],
+                            "device_id": device_id,  # Use the actual device_id parameter passed to the function
+                            "device_name": i[66] if len(i) > 66 and i[66] else i[65],  # Use device_name from JOIN, fallback to device string
                             "temperature": i[4],
                             "humidity": i[5],
                             "carbon_monoxide": i[6],
                             "nitrogen_dioxide": i[7],
-                            "timestamp_mins": i[0].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                            "timestamp_mins": i[1].strftime("%Y-%m-%dT%H:%M:%S+00:00"),  # timestamp_mins is index 1
                             "device_timestamp": i[11].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),
@@ -416,7 +423,11 @@ class dashboard_manager(object):
 
             self._logger.debug("get_map_now - llamada a sql")
             sql = """
-                SELECT * FROM (
+                SELECT 
+                    device_readings.*,
+                    d.latitude,
+                    d.longitude
+                FROM (
                     SELECT 
                         device_id,
                         temperature,
@@ -427,10 +438,10 @@ class dashboard_manager(object):
                         device_timestamp,
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
-                        firefighter_sensor_log
-                    WHERE device_id LIKE '%Prometeo%'
+                        firefighter_device_log
                     ORDER BY timestamp_mins DESC
                 ) device_readings
+                LEFT JOIN devices d ON d.device_id = device_readings.device_id
                 WHERE device_readings.latest_reading_for_device = 1
             """
 
@@ -442,87 +453,35 @@ class dashboard_manager(object):
 
             if len(data) > 0:
                 self._logger.debug("get_map_now - Hay informacion")
+                devices = []
                 for i in data:
-                    # self._logger.debug(i)
-
-                    """
-                    # TODO: Hardcoded to Barcelona's lat/long for now
-                    map.append(
-                        {
-                            "device_id": i[0],
-                            "temperature": i[1],
-                            "humidity": i[2],
-                            "carbon_monoxide": i[3],
-                            "nitrogen_dioxide": i[4],
-                            "timestamp_mins": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
-                            "device_timestamp": i[6].strftime(
-                                "%Y-%m-%dT%H:%M:%S+00:00"
-                            ),
-                            "latitude": "41.390205",
-                            "longitude": "2.154007",
-                        }
-                    )
-                    """
-
-                # Hardcoded for now
-                map = {
-                    "devices": [
-                        {
-                            "carbon_monoxide": 10.0,
-                            "firefighter_code": "Graf 7",
-                            "firefighter_email": "graf0007@graf.cat",
-                            "firefighter_first": "Bombero",
-                            "device_id": "Prometeo:00:00:00:00:00:07",
-                            "firefighter_last": "Graf 7",
-                            "humidity": 46,
-                            "nitrogen_dioxide": 0.55,
-                            "temperature": 41,
-                            "latitude": 41.364031,
-                            "longitude": 1.831706,
-                            "timestamp_mins": "Tue, 11 Mar 2022 10:58:00 GMT",
-                            "id": "Prometeo:00:00:00:00:00:07",
-                            "device_version": 1,
-                            "lastCheckin": "Tue, 11 Mar 2022 10:58:00 GMT",
-                            "isUserOwner": True,
-                        },
-                        {
-                            "carbon_monoxide": 10.0,
-                            "firefighter_code": "Graf 3",
-                            "firefighter_email": "graf0003@graf.cat",
-                            "firefighter_first": "Bombero",
-                            "device_id": "Prometeo:00:00:00:00:00:03",
-                            "firefighter_last": "Graf 3",
-                            "humidity": 67,
-                            "nitrogen_dioxide": 0.5,
-                            "temperature": 33,
-                            "latitude": 40.486027649186646,
-                            "longitude": 0.2514942041995945,
-                            "timestamp_mins": "Tue, 11 Feb 2022 10:56:00 GMT",
-                            "id": "Prometeo:00:00:00:00:00:03",
-                            "device_version": 1,
-                            "lastCheckin": "Tue, 11 Feb 2022 10:58:00 GMT",
-                            "isUserOwner": True,
-                        },
-                        {
-                            "carbon_monoxide": 10.0,
-                            "firefighter_code": "Graf 5",
-                            "firefighter_email": "graf0003@graf.cat",
-                            "firefighter_first": "Bombero",
-                            "device_id": "Prometeo:00:00:00:00:00:05",
-                            "firefighter_last": "Graf 5",
-                            "humidity": 67,
-                            "nitrogen_dioxide": 0.5,
-                            "temperature": 33,
-                            "latitude": 39.552386966400555,
-                            "longitude": -0.41370484730314183,
-                            "timestamp_mins": "Tue, 13 Mar 2022 10:56:00 GMT",
-                            "id": "Prometeo:00:00:00:00:00:05",
-                            "device_version": 1,
-                            "lastCheckin": "Tue, 13 Mar 2022 10:58:00 GMT",
-                            "isUserOwner": True,
-                        },
-                    ]
-                }
+                    self._logger.debug(f"Processing device data: {i}")
+                    
+                    # Extract data from query result
+                    # Query returns: device_id, temperature, humidity, carbon_monoxide, nitrogen_dioxide, 
+                    # timestamp_mins, device_timestamp, latest_reading_for_device, latitude, longitude
+                    device_data = {
+                        "device_id": str(i[0]),
+                        "id": str(i[0]),
+                        "temperature": float(i[1]) if i[1] is not None else 0.0,
+                        "humidity": float(i[2]) if i[2] is not None else 0.0,
+                        "carbon_monoxide": float(i[3]) if i[3] is not None else 0.0,
+                        "nitrogen_dioxide": float(i[4]) if i[4] is not None else 0.0,
+                        "timestamp_mins": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[5] else None,
+                        "device_timestamp": i[6].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[6] else None,
+                        "lastCheckin": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[5] else None,
+                        "latitude": float(i[8]) if i[8] is not None else None,
+                        "longitude": float(i[9]) if i[9] is not None else None,
+                        "device_version": 1,
+                        "isUserOwner": True,
+                        "firefighter_code": f"Device {str(i[0])[-2:]}",
+                        "firefighter_email": f"device{str(i[0])[-2:]}@pyrrha.com",
+                        "firefighter_first": "Device",
+                        "firefighter_last": f"User {str(i[0])[-2:]}"
+                    }
+                    devices.append(device_data)
+                
+                map = {"devices": devices}
 
                 conn.close()
             else:
