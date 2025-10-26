@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import EventsTable from './eventsTable';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import './_events-page.scss';
 
 function EventsPage(props) {
   const navigate = useNavigate();

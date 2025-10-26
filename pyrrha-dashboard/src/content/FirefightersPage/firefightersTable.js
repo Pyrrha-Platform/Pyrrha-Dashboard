@@ -79,7 +79,7 @@ const NewFirefightersTable = () => {
   ];
 
   return (
-    <Grid className="firefighters-content main-container" fullWidth>
+    <Grid className="firefighters-content main-container">
       <Column sm={4} md={8} lg={16}>
         <h1 className="firefighters-page__heading">
           {t('content.firefighters.heading')}
@@ -92,7 +92,7 @@ const NewFirefightersTable = () => {
         </h2>
       </Column>
 
-      <Column sm={4} md={8} lg={16}>
+      <Column sm={4} md={8} lg={16} className="firefighters-page__r2 fullwidth">
         <DataTable
           isSortable
           headers={headerData}

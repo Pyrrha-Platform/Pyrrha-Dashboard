@@ -4,6 +4,7 @@ import {
   Header,
   HeaderName,
   HeaderNavigation,
+  HeaderMenu,
   HeaderMenuItem,
   HeaderGlobalBar,
   HeaderGlobalAction,
@@ -58,28 +59,42 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.dashboard')}
           </HeaderMenuItem>
-          <HeaderMenuItem
-            element={Link}
-            to="/devices"
-            isCurrentPage={page === 'Devices'}
-            onClick={() => {
-              setPage('Devices');
-            }}
+          <HeaderMenu
+            aria-label="Manage"
+            menuLinkName={t('components.header.manage')}
+            isActive={page === 'Devices' || page === 'Firefighters' || page === 'Events'}
           >
-            {t('components.header.devices')}
-          </HeaderMenuItem>
-          {/*
-          <HeaderMenuItem
-            element={Link}
-            to="/events"
-            isCurrentPage={page === 'Events'}
-            onClick={() => {
-              setPage('Events');
-            }}
-          >
-            {t('components.header.events')}
-          </HeaderMenuItem>
-          */}
+            <HeaderMenuItem
+              element={Link}
+              to="/devices"
+              isCurrentPage={page === 'Devices'}
+              onClick={() => {
+                setPage('Devices');
+              }}
+            >
+              {t('components.header.devices')}
+            </HeaderMenuItem>
+            <HeaderMenuItem
+              element={Link}
+              to="/firefighters"
+              isCurrentPage={page === 'Firefighters'}
+              onClick={() => {
+                setPage('Firefighters');
+              }}
+            >
+              {t('components.header.firefighters')}
+            </HeaderMenuItem>
+            <HeaderMenuItem
+              element={Link}
+              to="/events"
+              isCurrentPage={page === 'Events'}
+              onClick={() => {
+                setPage('Events');
+              }}
+            >
+              {t('components.header.events')}
+            </HeaderMenuItem>
+          </HeaderMenu>
           <HeaderMenuItem
             element={Link}
             to="/map"
@@ -89,16 +104,6 @@ function PyrrhaHeader(props) {
             }}
           >
             {t('components.header.map')}
-          </HeaderMenuItem>
-          <HeaderMenuItem
-            element={Link}
-            to="/firefighters"
-            isCurrentPage={page === 'Firefighters'}
-            onClick={() => {
-              setPage('Firefighters');
-            }}
-          >
-            {t('components.header.firefighters')}
           </HeaderMenuItem>
         </HeaderNavigation>
       )}

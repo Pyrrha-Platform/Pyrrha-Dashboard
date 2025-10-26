@@ -5,6 +5,7 @@ import DetailsPage from './content/DetailsPage';
 import MapPage from './content/MapPage';
 import FirefightersPage from './content/FirefightersPage';
 import DevicesPage from './content/DevicesPage';
+import EventsPage from './content/EventsPage';
 import PyrrhaHeader from './components/PyrrhaHeader';
 
 const Router = () => {
@@ -97,12 +98,10 @@ const Router = () => {
             />
           }
         />
-        {/*
-        Routes are not active. Adding comment to kick off a build.
         <Route
-          path="/login"
+          path="/events"
           element={
-            <LoginPage
+            <EventsPage
               active={active}
               page={page}
               setActive={setActive}
@@ -110,10 +109,12 @@ const Router = () => {
             />
           }
         />
+        {/*
+        Routes are not active. Adding comment to kick off a build.
         <Route
-          path="/events"
+          path="/login"
           element={
-            <EventsPage
+            <LoginPage
               active={active}
               page={page}
               setActive={setActive}

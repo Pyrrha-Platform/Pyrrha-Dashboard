@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import FirefightersTable from './firefightersTable';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import './_firefighters-page.scss';
 
 function FirefightersPage(props) {
   const navigate = useNavigate();
