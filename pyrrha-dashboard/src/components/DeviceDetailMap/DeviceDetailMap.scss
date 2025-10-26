@@ -1,0 +1,62 @@
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+.device-detail-map {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #161616;
+  
+  &__info {
+    padding: 1rem;
+    background: #262626;
+    border-bottom: 1px solid #393939;
+    
+    h4 {
+      margin: 0 0 0.5rem 0;
+      color: #ffffff;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    p {
+      margin: 0;
+      color: #c6c6c6;
+      font-size: 0.75rem;
+    }
+  }
+  
+  &__container {
+    flex: 1;
+    min-height: 200px;
+    
+    .mapboxgl-map {
+      height: 100% !important;
+      width: 100% !important;
+    }
+  }
+  
+  &__no-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+    background: #161616;
+    color: #c6c6c6;
+    
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      text-align: center;
+    }
+  }
+}
+
+// Override mapbox styles for dark theme
+.device-detail-map .mapboxgl-ctrl-attrib {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  
+  a {
+    color: #c6c6c6 !important;
+  }
+}

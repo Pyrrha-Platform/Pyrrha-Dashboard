@@ -167,30 +167,13 @@ $ui-01: theme.$background;
   }
 }
 
-@keyframes animation-dance {
-  0% {
-    content: '♪┏(・o･)┛♪';
-    color: red;
-  }
-  25% {
-    content: '(~^.^)~';
-    color: cyan;
-  }
-  50% {
-    content: '（〜^∇^)〜';
-    color: lime;
-  }
-  75% {
-    content: '~(o.o)~';
-    color: orange;
-  }
-}
-
-.dance::after {
-  content: '♪┏(・o･)┛♪';
-  color: red;
-  animation: animation-dance 4s infinite;
-  animation-delay: 0s;
+.device-chart {
+  background: #161616;
+  place-content: stretch;
+  display: flex;
+  width: 100%;
+  height: 250px;
+  align-items: stretch;
 }
 
 .tag-owner {
@@ -209,15 +192,7 @@ $ui-01: theme.$background;
   margin-bottom: $layout-03;
 }
 
-.device-chart {
-  background: #161616;
-  //margin: $layout-02 0;
-  place-content: center;
-  display: inline-flex;
-  width: 100%;
-  height: 250px;
-  align-items: center;
-}
+
 
 .device-map__header {
   display: inline-flex;

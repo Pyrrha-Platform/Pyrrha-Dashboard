@@ -24,6 +24,7 @@ import {
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';
 import DeviceInformationSidePanel from '../DeviceInformationSidePanel';
+import DeviceDetailMap from '../DeviceDetailMap';
 import AppContext from '../../context/app';
 
 const timeAgo = Utils.timeAgo;
@@ -270,7 +271,7 @@ const DeviceTable = ({
                           className="device-expandable-row"
                         >
                           <div className="device-chart" tabIndex={0}>
-                            <p className="title dance" tabIndex={0} />
+                            <DeviceDetailMap device={devices[deviceIndex]} />
                           </div>
                         </TableExpandedRow>
                       </Fragment>
