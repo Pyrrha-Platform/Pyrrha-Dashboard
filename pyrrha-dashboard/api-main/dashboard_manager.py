@@ -66,7 +66,7 @@ class dashboard_manager(object):
                             "device_timestamp": i[11].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),
-                            "device_status_LED": i[12],
+                            "device_status_led": i[12],
                         }
                     )
                 # firefighters = data

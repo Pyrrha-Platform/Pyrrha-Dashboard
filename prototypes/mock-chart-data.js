@@ -130,7 +130,7 @@ var mockRealTimeData = [
 var mockOnceMinuteData = [
   {
     timestamp_mins: '2000-01-01T10:32:00.000Z',
-    analytics_status_LED: 1,
+    analytics_status_led: 1,
     carbon_monoxide: 2.0,
     carbon_monoxide_gauge_10min: 0.5,
     carbon_monoxide_gauge_240min: 1.0,
@@ -160,7 +160,7 @@ var mockOnceMinuteData = [
   },
   {
     timestamp_mins: '2000-01-01T10:32:00.000Z',
-    analytics_status_LED: 1,
+    analytics_status_led: 1,
     carbon_monoxide: null,
     carbon_monoxide_gauge_10min: 0.9,
     carbon_monoxide_gauge_240min: 1.0,
