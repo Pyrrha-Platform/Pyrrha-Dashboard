@@ -57,7 +57,7 @@ const EventsAddModal = ({ loadEvents }) => {
         `${Constants.API_BASE_URL}/api-main/v1/status`,
       );
       const statusData = await statusResponse.json();
-      setStatusOptions(statusData.status || []);
+      setStatusOptions(statusData.status_options || []);
     } catch (error) {
       console.error('Error loading dropdown options:', error);
     }

@@ -13,7 +13,7 @@ const DevicesAddModal = ({ loadDevices }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/devices`, {
+      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/devices`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

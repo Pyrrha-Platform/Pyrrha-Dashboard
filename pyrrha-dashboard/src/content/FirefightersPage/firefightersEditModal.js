@@ -109,7 +109,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
       <Button
         hasIconOnly
         renderIcon={Edit}
-        iconDescription="Edit firefighter"
+        iconDescription={t('content.firefighters.edit')}
         kind="ghost"
         size="sm"
         onClick={() => setOpen(true)}
@@ -119,11 +119,11 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
         open={open}
         onRequestClose={handleClose}
         onRequestSubmit={handleSubmit}
-        modalHeading="Edit Firefighter"
-        modalLabel="Firefighters"
-        primaryButtonText={isLoading ? 'Saving...' : 'Save'}
+        modalHeading={t('content.firefighters.edit')}
+        modalLabel={t('content.firefighters.heading')}
+        primaryButtonText={isLoading ? 'Saving...' : t('content.firefighters.save')}
         primaryButtonDisabled={isLoading}
-        secondaryButtonText="Cancel"
+        secondaryButtonText={t('content.firefighters.cancel')}
         shouldSubmitOnEnter
       >
         {error && (
@@ -139,7 +139,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
 
         <TextInput
           id="edit-firefighter-code"
-          labelText="Firefighter Code"
+          labelText={t('content.firefighters.code')}
           placeholder="Enter firefighter code"
           value={formData.firefighter_code}
           onChange={(e) =>
@@ -151,7 +151,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
 
         <TextInput
           id="edit-name"
-          labelText="Name"
+          labelText={t('content.firefighters.first')}
           placeholder="Enter first name"
           value={formData.name}
           onChange={(e) => handleInputChange('name', e.target.value)}
@@ -161,7 +161,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
 
         <TextInput
           id="edit-surname"
-          labelText="Surname"
+          labelText={t('content.firefighters.last')}
           placeholder="Enter last name"
           value={formData.surname}
           onChange={(e) => handleInputChange('surname', e.target.value)}
@@ -171,7 +171,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
 
         <TextInput
           id="edit-email"
-          labelText="Email"
+          labelText={t('content.firefighters.email')}
           placeholder="Enter email address"
           value={formData.email}
           onChange={(e) => handleInputChange('email', e.target.value)}

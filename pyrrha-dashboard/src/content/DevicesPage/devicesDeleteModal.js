@@ -15,7 +15,7 @@ const DevicesDeleteModal = ({ row, loadDevices }) => {
   const onRequestSubmit = async () => {
     try {
       const response = await fetch(
-        `${Constants.API_BASE_URL}/devices/${deviceId}`,
+        `${Constants.API_BASE_URL}/api-main/v1/devices/${deviceId}`,
         {
           method: 'DELETE',
         },
