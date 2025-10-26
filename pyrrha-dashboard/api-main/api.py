@@ -30,7 +30,10 @@ dictConfig(
 )
 
 app = Flask(__name__)
-CORS(app, origins=['http://localhost:3000'])
+CORS(app, 
+     origins=['http://localhost:3000'],
+     methods=['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+     allow_headers=['Content-Type', 'Authorization'])
 
 
 @app.errorhandler(404)
@@ -116,7 +119,7 @@ def firefighters():
             return resp
 
 
-@app.route("/api-main/v1/firefighters/<int:id>", methods=["GET", "PUT", "DELETE"])
+@app.route("/api-main/v1/firefighters/<string:id>", methods=["GET", "PUT", "DELETE"])
 def firefighter_by_id(id):
 
     if request.method == "GET":
