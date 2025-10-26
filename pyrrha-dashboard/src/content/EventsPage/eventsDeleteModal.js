@@ -14,7 +14,7 @@ const EventsDeleteModal = ({ row, loadEvents }) => {
   const onRequestSubmit = async () => {
     try {
       const response = await fetch(
-        `${Constants.API_BASE_URL}/events/${eventId}`,
+        `${Constants.API_BASE_URL}/api-main/v1/events/${eventId}`,
         {
           method: 'DELETE',
         },

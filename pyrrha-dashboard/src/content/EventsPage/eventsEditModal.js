@@ -43,20 +43,20 @@ const EventsEditModal = ({ row, loadEvents }) => {
     try {
       // Load event types
       const eventTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/event-types`,
+        `${Constants.API_BASE_URL}/api-main/v1/event-types`,
       );
       const eventTypesData = await eventTypesResponse.json();
       setEventTypes(eventTypesData.event_types || []);
 
       // Load fuel types
       const fuelTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/fuel-types`,
+        `${Constants.API_BASE_URL}/api-main/v1/fuel-types`,
       );
       const fuelTypesData = await fuelTypesResponse.json();
       setFuelTypes(fuelTypesData.fuel_types || []);
 
       // Load status options
-      const statusResponse = await fetch(`${Constants.API_BASE_URL}/status`);
+      const statusResponse = await fetch(`${Constants.API_BASE_URL}/api-main/v1/status`);
       const statusData = await statusResponse.json();
       setStatusOptions(statusData.status || []);
     } catch (error) {
@@ -84,7 +84,7 @@ const EventsEditModal = ({ row, loadEvents }) => {
     try {
       const eventId = row.cells.find((cell) => cell.id.includes('id'))?.value;
       const response = await fetch(
-        `${Constants.API_BASE_URL}/events/${eventId}`,
+        `${Constants.API_BASE_URL}/api-main/v1/events/${eventId}`,
         {
           method: 'PUT',
           headers: {

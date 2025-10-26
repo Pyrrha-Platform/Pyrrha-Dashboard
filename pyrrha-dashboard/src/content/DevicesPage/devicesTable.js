@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { Grid, Column } from '@carbon/react';
 import {
   DataTable,

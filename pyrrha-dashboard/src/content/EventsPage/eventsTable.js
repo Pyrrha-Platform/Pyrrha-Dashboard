@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import { Grid, Column } from '@carbon/react';
 import {
   DataTable,
@@ -28,15 +28,15 @@ const NewEventsTable = () => {
     loadEvents();
   }, [fetched]);
 
-  const loadEvents = React.useCallback(async () => {
+  const loadEvents = useCallback(async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/events`);
+      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/events`);
       const data = await response.json();
       setEvents(data.events || []);
     } catch (e) {
       console.log(e);
     }
-  });
+  }, []);
 
   // Form header data
   const headerData = [
