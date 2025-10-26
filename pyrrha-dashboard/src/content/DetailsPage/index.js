@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DetailsGrid from './detailsGrid';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
+import './_details-page.scss';
 
 function DetailsPage(props) {
   const navigate = useNavigate();

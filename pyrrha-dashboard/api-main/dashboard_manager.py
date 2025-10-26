@@ -36,10 +36,10 @@ class dashboard_manager(object):
             cursor = conn.cursor()
             self._logger.debug("get_dashboard - after cursor")
 
-            self._logger.debug("get_dashboard - llamada a sql")
+            self._logger.debug("get_dashboard_for - llamada a sql")
 
             cursor.execute(
-                "SELECT * FROM firefighter_sensor_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1",
+                "SELECT * FROM firefighter_device_log WHERE device_id = ? ORDER BY device_timestamp DESC LIMIT 1",
                 (device_id,),
             )
             # cursor.callproc('sp_select_firefighter_status_analytics', ('0007', '2000-01-01 04:32:38', 1,))
@@ -113,7 +113,7 @@ class dashboard_manager(object):
                         device_timestamp,
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
-                        firefighter_sensor_log
+                        firefighter_device_log
                     WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
