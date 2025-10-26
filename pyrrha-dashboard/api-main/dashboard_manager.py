@@ -439,10 +439,9 @@ class dashboard_manager(object):
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
                         firefighter_device_log
-                    WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
-                LEFT JOIN devices d ON d.name = device_readings.device_id
+                LEFT JOIN devices d ON d.device_id = device_readings.device_id
                 WHERE device_readings.latest_reading_for_device = 1
             """
 
