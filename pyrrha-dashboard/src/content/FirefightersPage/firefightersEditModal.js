@@ -1,10 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-  TextInput,
-  Modal,
-  InlineNotification,
-  Button,
-} from '@carbon/react';
+import { TextInput, Modal, InlineNotification, Button } from '@carbon/react';
 import { Edit } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
@@ -14,7 +9,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   // Initialize form data from row
   const [formData, setFormData] = useState({
     firefighter_id: row.cells[0].value,
@@ -25,9 +20,9 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
   });
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
     setError(''); // Clear error when user starts typing
   };
@@ -63,13 +58,16 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
     setError('');
 
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/firefighters/${formData.firefighter_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters/${formData.firefighter_id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       if (response.ok) {
         loadFirefighters(); // Refresh the table
@@ -116,14 +114,14 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
         size="sm"
         onClick={() => setOpen(true)}
       />
-      
+
       <Modal
         open={open}
         onRequestClose={handleClose}
         onRequestSubmit={handleSubmit}
         modalHeading="Edit Firefighter"
         modalLabel="Firefighters"
-        primaryButtonText={isLoading ? "Saving..." : "Save"}
+        primaryButtonText={isLoading ? 'Saving...' : 'Save'}
         primaryButtonDisabled={isLoading}
         secondaryButtonText="Cancel"
         shouldSubmitOnEnter
@@ -138,17 +136,19 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
             style={{ marginBottom: '1rem' }}
           />
         )}
-        
+
         <TextInput
           id="edit-firefighter-code"
           labelText="Firefighter Code"
           placeholder="Enter firefighter code"
           value={formData.firefighter_code}
-          onChange={(e) => handleInputChange('firefighter_code', e.target.value)}
+          onChange={(e) =>
+            handleInputChange('firefighter_code', e.target.value)
+          }
           disabled={isLoading}
           style={{ marginBottom: '1rem' }}
         />
-        
+
         <TextInput
           id="edit-name"
           labelText="Name"
@@ -158,7 +158,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
           disabled={isLoading}
           style={{ marginBottom: '1rem' }}
         />
-        
+
         <TextInput
           id="edit-surname"
           labelText="Surname"
@@ -168,7 +168,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
           disabled={isLoading}
           style={{ marginBottom: '1rem' }}
         />
-        
+
         <TextInput
           id="edit-email"
           labelText="Email"

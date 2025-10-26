@@ -1,10 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-  Modal,
-  TextInput,
-  Button,
-  InlineNotification,
-} from '@carbon/react';
+import { Modal, TextInput, Button, InlineNotification } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
@@ -22,9 +17,9 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
   });
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value.trim()
+      [field]: value.trim(),
     }));
     // Clear error when user starts typing
     if (error) setError(null);
@@ -32,7 +27,7 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
 
   const validateForm = () => {
     const { firefighter_code, name, surname, email } = formData;
-    
+
     if (!firefighter_code || !name || !surname || !email) {
       setError('All fields are required');
       return false;
@@ -55,13 +50,16 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
     setError(null);
 
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/firefighters`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -69,16 +67,15 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
       }
 
       const result = await response.json();
-      
+
       // Reset form and close modal
       setFormData({ firefighter_code: '', name: '', surname: '', email: '' });
       setIsOpen(false);
-      
+
       // Notify parent component to refresh data
       if (loadFirefighters) {
         loadFirefighters();
       }
-
     } catch (err) {
       console.error('Error adding firefighter:', err);
       setError(err.message || 'Failed to add firefighter');
@@ -95,11 +92,7 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
 
   return (
     <>
-      <Button
-        renderIcon={Add}
-        onClick={() => setIsOpen(true)}
-        size="md"
-      >
+      <Button renderIcon={Add} onClick={() => setIsOpen(true)} size="md">
         {t('content.firefighters.add')}
       </Button>
 
@@ -131,7 +124,9 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
             labelText={t('content.firefighters.code')}
             placeholder="GRAF001"
             value={formData.firefighter_code}
-            onChange={(e) => handleInputChange('firefighter_code', e.target.value)}
+            onChange={(e) =>
+              handleInputChange('firefighter_code', e.target.value)
+            }
             invalid={error && !formData.firefighter_code}
             invalidText={!formData.firefighter_code ? 'Code is required' : ''}
             disabled={loading}
@@ -171,8 +166,16 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
             placeholder="graf004@graf.cat"
             value={formData.email}
             onChange={(e) => handleInputChange('email', e.target.value)}
-            invalid={error && (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))}
-            invalidText={!formData.email ? 'Email is required' : 'Please enter a valid email address'}
+            invalid={
+              error &&
+              (!formData.email ||
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+            }
+            invalidText={
+              !formData.email
+                ? 'Email is required'
+                : 'Please enter a valid email address'
+            }
             disabled={loading}
           />
         </div>

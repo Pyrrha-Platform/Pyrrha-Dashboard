@@ -37,7 +37,9 @@ const NewFirefightersTable = () => {
     setLoading(true);
     setError(null);
     try {
-      const data = await client(`${Constants.API_BASE_URL}/api-main/v1/firefighters`);
+      const data = await client(
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters`,
+      );
       setFirefighters(data.firefighters || []);
     } catch (e) {
       console.error('Error loading firefighters:', e);
@@ -91,64 +93,62 @@ const NewFirefightersTable = () => {
       </Column>
 
       <Column sm={4} md={8} lg={16}>
-          <DataTable
-            isSortable
-            headers={headerData}
-            rows={firefighters}
-            render={({
-              rows,
-              headers,
-              getHeaderProps,
-              getRowProps,
-              getTableProps,
-              getToolbarProps,
-              onInputChange,
-              getTableContainerProps,
-            }) => (
-              <TableContainer>
-                <TableToolbar aria-label="data table toolbar">
-                  <TableToolbarContent>
-                    <FirefightersAddModal
-                      loadFirefighters={loadFirefighters}
-                    />
-                  </TableToolbarContent>
-                </TableToolbar>
-                <Table size="normal" {...getTableProps()}>
-                  <TableHead>
-                    <TableRow>
-                      {headers.map((header) => (
-                        <TableHeader {...getHeaderProps({ header })}>
-                          {header.header}
-                        </TableHeader>
-                      ))}
-                      <TableHeader>
-                        {t('content.firefighters.actions')}
+        <DataTable
+          isSortable
+          headers={headerData}
+          rows={firefighters}
+          render={({
+            rows,
+            headers,
+            getHeaderProps,
+            getRowProps,
+            getTableProps,
+            getToolbarProps,
+            onInputChange,
+            getTableContainerProps,
+          }) => (
+            <TableContainer>
+              <TableToolbar aria-label="data table toolbar">
+                <TableToolbarContent>
+                  <FirefightersAddModal loadFirefighters={loadFirefighters} />
+                </TableToolbarContent>
+              </TableToolbar>
+              <Table size="normal" {...getTableProps()}>
+                <TableHead>
+                  <TableRow>
+                    {headers.map((header) => (
+                      <TableHeader {...getHeaderProps({ header })}>
+                        {header.header}
                       </TableHeader>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.id}>
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                        <TableCell>
-                          <FirefightersEditModal
-                            row={row}
-                            loadFirefighters={loadFirefighters}
-                          />
-                          <FirefightersDeleteModal
-                            row={row}
-                            loadFirefighters={loadFirefighters}
-                          />
-                        </TableCell>
-                      </TableRow>
                     ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            )}
-          />
+                    <TableHeader>
+                      {t('content.firefighters.actions')}
+                    </TableHeader>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow key={row.id}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                      <TableCell>
+                        <FirefightersEditModal
+                          row={row}
+                          loadFirefighters={loadFirefighters}
+                        />
+                        <FirefightersDeleteModal
+                          row={row}
+                          loadFirefighters={loadFirefighters}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        />
       </Column>
     </Grid>
   );
