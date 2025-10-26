@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Grid, Column } from '@carbon/react';
 import DeviceTable from '../../components/DeviceTable';
 import DeviceMap from '../../components/DeviceMap';
 import useMap from '../../hooks/useMap';
 import AppContext from '../../context/app';
+import './_map-page.scss';
 
 const processDeviceData = (devices) => {
   return devices.slice().map((s) => ({
@@ -84,50 +86,50 @@ const MapPage = (props) => {
   };
 
   return (
-    <div className="cds--grid cds--grid--full-width map-content">
-      <div className="cds--row">
-        <div className="cds--col-md-16">
-          <h1 className="map-page__heading">{t('content.map.heading')}</h1>
+    <Grid className="map-content main-container">
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="map-page__heading">{t('content.map.heading')}</h1>
+      </Column>
+      
+      <Column sm={4} md={8} lg={16}>
+        <h2 className="map-page__subheading">
+          {t('content.map.subheading')}
+        </h2>
+      </Column>
+
+      <Column sm={4} md={8} lg={16} className="map-page__r2 fullwidth">
+        <div className="device-map__container">
+          <DeviceMap
+            devices={devices}
+            setDisplayedDevice={setDisplayedDevice}
+            setShouldShowSideMenu={setShouldShowSideMenu}
+            onDeviceHover={onDeviceHover}
+            currentHoveredDevice={currentHoveredDevice}
+          />
         </div>
-      </div>
+      </Column>
 
-      <div className="cds--row">
-        <div className="cds--col-md-16">
-          <h2 className="map-page__subheading">
-            {t('content.map.subheading')}
-          </h2>
+      <Column sm={4} md={8} lg={16} className="fullwidth">
+        <div className="device-table__container">
+          <DeviceTable
+            loading={loading}
+            navigate={navigate}
+            devices={devices}
+            setDevices={setDevices}
+            page={page}
+            pageSize={pageSize}
+            onPaginationChange={onPaginationChange}
+            currentlyVisibleDevices={currentlyVisibleDevices}
+            shouldShowSideMenu={shouldShowSideMenu}
+            setShouldShowSideMenu={setShouldShowSideMenu}
+            displayedDevice={displayedDevice}
+            setDisplayedDevice={setDisplayedDevice}
+            onDeviceHover={onDeviceHover}
+            currentHoveredDevice={currentHoveredDevice}
+          />
         </div>
-      </div>
-
-      <div className="device-map__container">
-        <DeviceMap
-          devices={devices}
-          setDisplayedDevice={setDisplayedDevice}
-          setShouldShowSideMenu={setShouldShowSideMenu}
-          onDeviceHover={onDeviceHover}
-          currentHoveredDevice={currentHoveredDevice}
-        />
-      </div>
-
-      <div className="device-table__container">
-        <DeviceTable
-          loading={loading}
-          navigate={navigate}
-          devices={devices}
-          setDevices={setDevices}
-          page={page}
-          pageSize={pageSize}
-          onPaginationChange={onPaginationChange}
-          currentlyVisibleDevices={currentlyVisibleDevices}
-          shouldShowSideMenu={shouldShowSideMenu}
-          setShouldShowSideMenu={setShouldShowSideMenu}
-          displayedDevice={displayedDevice}
-          setDisplayedDevice={setDisplayedDevice}
-          onDeviceHover={onDeviceHover}
-          currentHoveredDevice={currentHoveredDevice}
-        />
-      </div>
-    </div>
+      </Column>
+    </Grid>
   );
 };
 

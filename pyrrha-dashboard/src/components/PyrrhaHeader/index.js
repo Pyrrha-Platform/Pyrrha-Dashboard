@@ -59,6 +59,16 @@ function PyrrhaHeader(props) {
           >
             {t('components.header.dashboard')}
           </HeaderMenuItem>
+          <HeaderMenuItem
+            element={Link}
+            to="/map"
+            isCurrentPage={page === 'Map'}
+            onClick={() => {
+              setPage('Map');
+            }}
+          >
+            {t('components.header.map')}
+          </HeaderMenuItem>
           <HeaderMenu
             aria-label="Manage"
             menuLinkName={t('components.header.manage')}
@@ -95,16 +105,6 @@ function PyrrhaHeader(props) {
               {t('components.header.events')}
             </HeaderMenuItem>
           </HeaderMenu>
-          <HeaderMenuItem
-            element={Link}
-            to="/map"
-            isCurrentPage={page === 'Map'}
-            onClick={() => {
-              setPage('Map');
-            }}
-          >
-            {t('components.header.map')}
-          </HeaderMenuItem>
         </HeaderNavigation>
       )}
       <HeaderGlobalBar>
