@@ -141,6 +141,8 @@
       "code": "Code",
       "model": "Model",
       "version": "Version",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
       "actions": "Actions",
       "deviceRemoveModal": {
         "removeDevice": "Remove device",

@@ -72,7 +72,9 @@ function PyrrhaHeader(props) {
           <HeaderMenu
             aria-label="Manage"
             menuLinkName={t('components.header.manage')}
-            isActive={page === 'Devices' || page === 'Firefighters' || page === 'Events'}
+            isActive={
+              page === 'Devices' || page === 'Firefighters' || page === 'Events'
+            }
           >
             <HeaderMenuItem
               element={Link}

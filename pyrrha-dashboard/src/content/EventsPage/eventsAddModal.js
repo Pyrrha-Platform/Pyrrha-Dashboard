@@ -23,12 +23,12 @@ const EventsAddModal = ({ loadEvents }) => {
   const [initTime, setInitTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [extraInfo, setExtraInfo] = useState('');
-  
+
   // Dropdown options
   const [eventTypes, setEventTypes] = useState([]);
   const [fuelTypes, setFuelTypes] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
-  
+
   const { t } = useContext(AppContext);
 
   // Load dropdown options
@@ -39,12 +39,16 @@ const EventsAddModal = ({ loadEvents }) => {
   const loadDropdownOptions = async () => {
     try {
       // Load event types
-      const eventTypesResponse = await fetch(`${Constants.API_BASE_URL}/event-types`);
+      const eventTypesResponse = await fetch(
+        `${Constants.API_BASE_URL}/event-types`,
+      );
       const eventTypesData = await eventTypesResponse.json();
       setEventTypes(eventTypesData.event_types || []);
 
       // Load fuel types
-      const fuelTypesResponse = await fetch(`${Constants.API_BASE_URL}/fuel-types`);
+      const fuelTypesResponse = await fetch(
+        `${Constants.API_BASE_URL}/fuel-types`,
+      );
       const fuelTypesData = await fuelTypesResponse.json();
       setFuelTypes(fuelTypesData.fuel_types || []);
 
@@ -127,9 +131,13 @@ const EventsAddModal = ({ loadEvents }) => {
             titleText={t('content.events.type') + ':'}
             label="Select event type"
             items={eventTypes}
-            itemToString={(item) => item ? item.event_description : ''}
-            selectedItem={eventTypes.find(item => item.event_id === eventType)}
-            onChange={({ selectedItem }) => setEventType(selectedItem ? selectedItem.event_id : '')}
+            itemToString={(item) => (item ? item.event_description : '')}
+            selectedItem={eventTypes.find(
+              (item) => item.event_id === eventType,
+            )}
+            onChange={({ selectedItem }) =>
+              setEventType(selectedItem ? selectedItem.event_id : '')
+            }
           />
         </div>
         <div style={{ marginBottom: '1rem' }}>
@@ -138,9 +146,11 @@ const EventsAddModal = ({ loadEvents }) => {
             titleText={t('content.events.fuel_type') + ':'}
             label="Select fuel type"
             items={fuelTypes}
-            itemToString={(item) => item ? item.fuel_description : ''}
-            selectedItem={fuelTypes.find(item => item.fuel_id === fuelType)}
-            onChange={({ selectedItem }) => setFuelType(selectedItem ? selectedItem.fuel_id : '')}
+            itemToString={(item) => (item ? item.fuel_description : '')}
+            selectedItem={fuelTypes.find((item) => item.fuel_id === fuelType)}
+            onChange={({ selectedItem }) =>
+              setFuelType(selectedItem ? selectedItem.fuel_id : '')
+            }
           />
         </div>
         <div style={{ marginBottom: '1rem' }}>
@@ -149,21 +159,28 @@ const EventsAddModal = ({ loadEvents }) => {
             titleText={t('content.events.status') + ':'}
             label="Select status"
             items={statusOptions}
-            itemToString={(item) => item ? item.status_description : ''}
-            selectedItem={statusOptions.find(item => item.status_id === status)}
-            onChange={({ selectedItem }) => setStatus(selectedItem ? selectedItem.status_id : '')}
+            itemToString={(item) => (item ? item.status_description : '')}
+            selectedItem={statusOptions.find(
+              (item) => item.status_id === status,
+            )}
+            onChange={({ selectedItem }) =>
+              setStatus(selectedItem ? selectedItem.status_id : '')
+            }
           />
         </div>
         <div style={{ marginBottom: '1rem' }}>
-          <DatePicker datePickerType="single" onChange={(dates) => {
-            if (dates && dates.length > 0) {
-              const date = dates[0];
-              const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, '0');
-              const day = String(date.getDate()).padStart(2, '0');
-              setEventDate(`${year}-${month}-${day}`);
-            }
-          }}>
+          <DatePicker
+            datePickerType="single"
+            onChange={(dates) => {
+              if (dates && dates.length > 0) {
+                const date = dates[0];
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                setEventDate(`${year}-${month}-${day}`);
+              }
+            }}
+          >
             <DatePickerInput
               placeholder="mm/dd/yyyy"
               labelText={t('content.events.date') + ':'}

@@ -1,8 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-  Modal,
-  Button,
-} from '@carbon/react';
+import { Modal, Button } from '@carbon/react';
 import { TrashCan } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
@@ -16,9 +13,12 @@ const EventsDeleteModal = ({ row, loadEvents }) => {
 
   const onRequestSubmit = async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/events/${eventId}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/events/${eventId}`,
+        {
+          method: 'DELETE',
+        },
+      );
 
       if (response.ok) {
         loadEvents();

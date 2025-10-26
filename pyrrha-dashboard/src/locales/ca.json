@@ -140,7 +140,9 @@
       "code": "Codi",
       "model": "Model",
       "version": "Versió",
-      "actions": "Comportamiento",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "actions": "Accions",
       "deviceRemoveModal": {
         "removeDevice": "Remove device",
         "removeDeviceText": "Remove your device from the network.",

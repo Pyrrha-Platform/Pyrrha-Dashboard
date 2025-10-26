@@ -65,9 +65,7 @@ const NewEventsTable = () => {
   return (
     <Grid className="events-content main-container">
       <Column sm={4} md={8} lg={16}>
-        <h1 className="events-page__heading">
-          {t('content.events.heading')}
-        </h1>
+        <h1 className="events-page__heading">{t('content.events.heading')}</h1>
       </Column>
 
       <Column sm={4} md={8} lg={16}>
@@ -101,7 +99,10 @@ const NewEventsTable = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      <TableHeader key={header.key} {...getHeaderProps({ header })}>
+                      <TableHeader
+                        key={header.key}
+                        {...getHeaderProps({ header })}
+                      >
                         {header.header}
                       </TableHeader>
                     ))}
@@ -115,14 +116,8 @@ const NewEventsTable = () => {
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
                       <TableCell>
-                        <EventsEditModal
-                          row={row}
-                          loadEvents={loadEvents}
-                        />
-                        <EventsDeleteModal
-                          row={row}
-                          loadEvents={loadEvents}
-                        />
+                        <EventsEditModal row={row} loadEvents={loadEvents} />
+                        <EventsDeleteModal row={row} loadEvents={loadEvents} />
                       </TableCell>
                     </TableRow>
                   ))}

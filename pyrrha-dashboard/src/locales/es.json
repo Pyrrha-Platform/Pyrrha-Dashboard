@@ -140,7 +140,9 @@
       "code": "Código",
       "model": "Modelo",
       "version": "Versión",
-      "actions": "Accions",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "actions": "Acciones",
       "deviceRemoveModal": {
         "removeDevice": "Remove device",
         "removeDeviceText": "Remove your device from the network.",

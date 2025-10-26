@@ -48,7 +48,10 @@ const DeviceDetailMap = ({ device }) => {
           },
           geometry: {
             type: 'Point',
-            coordinates: [parseFloat(device.longitude), parseFloat(device.latitude)],
+            coordinates: [
+              parseFloat(device.longitude),
+              parseFloat(device.latitude),
+            ],
           },
         },
       });
@@ -118,7 +121,8 @@ const DeviceDetailMap = ({ device }) => {
       <div className="device-detail-map__info">
         <h4>Device Location: {device.device_id || device.id}</h4>
         <p>
-          Coordinates: {parseFloat(device.latitude).toFixed(6)}, {parseFloat(device.longitude).toFixed(6)}
+          Coordinates: {parseFloat(device.latitude).toFixed(6)},{' '}
+          {parseFloat(device.longitude).toFixed(6)}
         </p>
       </div>
       <div

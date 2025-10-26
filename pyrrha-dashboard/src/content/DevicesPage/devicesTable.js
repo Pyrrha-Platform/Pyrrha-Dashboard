@@ -9,12 +9,14 @@ import {
   TableHeader,
   TableBody,
   TableCell,
+  TableExpandedRow,
   TableToolbar,
   TableToolbarContent,
 } from '@carbon/react';
 import DevicesAddModal from './devicesAddModal';
 import DevicesEditModal from './devicesEditModal';
 import DevicesDeleteModal from './devicesDeleteModal';
+import DeviceDetailMap from '../../components/DeviceDetailMap';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
 
@@ -36,7 +38,7 @@ const NewDevicesTable = () => {
     } catch (e) {
       console.log(e);
     }
-  });
+  }, []);
 
   // Form header data
   const headerData = [
@@ -55,6 +57,14 @@ const NewDevicesTable = () => {
     {
       header: t('content.devices.version'),
       key: 'version',
+    },
+    {
+      header: t('content.devices.latitude'),
+      key: 'latitude',
+    },
+    {
+      header: t('content.devices.longitude'),
+      key: 'longitude',
     },
   ];
 
@@ -97,7 +107,10 @@ const NewDevicesTable = () => {
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
-                      <TableHeader key={header.key} {...getHeaderProps({ header })}>
+                      <TableHeader
+                        key={header.key}
+                        {...getHeaderProps({ header })}
+                      >
                         {header.header}
                       </TableHeader>
                     ))}
@@ -106,21 +119,43 @@ const NewDevicesTable = () => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow key={row.id} {...getRowProps({ row })}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                      <TableCell>
-                        <DevicesEditModal
-                          row={row}
-                          loadDevices={loadDevices}
-                        />
-                        <DevicesDeleteModal
-                          row={row}
-                          loadDevices={loadDevices}
-                        />
-                      </TableCell>
-                    </TableRow>
+                    <React.Fragment key={row.id}>
+                      <TableRow {...getRowProps({ row })}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
+                        <TableCell>
+                          <DevicesEditModal
+                            row={row}
+                            loadDevices={loadDevices}
+                          />
+                          <DevicesDeleteModal
+                            row={row}
+                            loadDevices={loadDevices}
+                          />
+                        </TableCell>
+                      </TableRow>
+                      {row.isExpanded && (
+                        <TableExpandedRow
+                          colSpan={headers.length + 1}
+                          className="device-chart"
+                        >
+                          <DeviceDetailMap
+                            device={{
+                              name: row.cells.find(
+                                (cell) => cell.info.header === 'name',
+                              )?.value,
+                              latitude: row.cells.find(
+                                (cell) => cell.info.header === 'latitude',
+                              )?.value,
+                              longitude: row.cells.find(
+                                (cell) => cell.info.header === 'longitude',
+                              )?.value,
+                            }}
+                          />
+                        </TableExpandedRow>
+                      )}
+                    </React.Fragment>
                   ))}
                 </TableBody>
               </Table>

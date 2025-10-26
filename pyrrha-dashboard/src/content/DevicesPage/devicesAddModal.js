@@ -1,9 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-  TextInput,
-  Modal,
-  Button,
-} from '@carbon/react';
+import { TextInput, Modal, Button } from '@carbon/react';
 import { Add } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';

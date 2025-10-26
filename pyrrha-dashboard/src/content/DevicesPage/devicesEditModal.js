@@ -1,9 +1,5 @@
 import React, { useState, useContext } from 'react';
-import {
-  TextInput,
-  Modal,
-  Button,
-} from '@carbon/react';
+import { TextInput, Modal, Button } from '@carbon/react';
 import { Edit } from '@carbon/icons-react';
 import AppContext from '../../context/app';
 import Constants from '../../utils/Constants';
@@ -19,18 +15,21 @@ const DevicesEditModal = ({ row, loadDevices }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/devices/${deviceId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/devices/${deviceId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: deviceId,
+            name,
+            model,
+            version,
+          }),
         },
-        body: JSON.stringify({
-          id: deviceId,
-          name,
-          model,
-          version,
-        }),
-      });
+      );
 
       if (response.ok) {
         loadDevices();

@@ -90,11 +90,9 @@ const MapPage = (props) => {
       <Column sm={4} md={8} lg={16}>
         <h1 className="map-page__heading">{t('content.map.heading')}</h1>
       </Column>
-      
+
       <Column sm={4} md={8} lg={16}>
-        <h2 className="map-page__subheading">
-          {t('content.map.subheading')}
-        </h2>
+        <h2 className="map-page__subheading">{t('content.map.subheading')}</h2>
       </Column>
 
       <Column sm={4} md={8} lg={16} className="map-page__r2 fullwidth">

@@ -141,7 +141,7 @@ class device_manager(object):
             cursor = conn.cursor()
 
             cursor.execute(
-                "SELECT device_id, name, model, version FROM devices WHERE deleted_at IS NULL AND device_id = ?",
+                "SELECT device_id, name, model, version, latitude, longitude FROM devices WHERE deleted_at IS NULL AND device_id = ?",
                 (id,),
             )
 
@@ -153,6 +153,8 @@ class device_manager(object):
                     "name": data[1],
                     "model": data[2],
                     "version": data[3],
+                    "latitude": float(data[4]) if data[4] is not None else None,
+                    "longitude": float(data[5]) if data[5] is not None else None,
                 }
             else:
                 return None
@@ -187,7 +189,7 @@ class device_manager(object):
             self._logger.debug("get_all_devices - after cursor")
 
             self._logger.debug("get_all_devices - llamada a sql")
-            cursor.execute('SELECT device_id, name, model, version FROM devices WHERE deleted_at IS NULL')
+            cursor.execute('SELECT device_id, name, model, version, latitude, longitude FROM devices WHERE deleted_at IS NULL')
             self._logger.debug("get_all_devices - executed query")
             data = cursor.fetchall()
             self._logger.debug("get_all_devices - fetchall")
@@ -197,7 +199,14 @@ class device_manager(object):
                 for i in data:
                     self._logger.debug(i)
                     devices.append(
-                        {"id": i[0], "name": i[1], "model": i[2], "version": i[3]}
+                        {
+                            "id": i[0], 
+                            "name": i[1], 
+                            "model": i[2], 
+                            "version": i[3],
+                            "latitude": float(i[4]) if i[4] is not None else None,
+                            "longitude": float(i[5]) if i[5] is not None else None,
+                        }
                     )
             else:
                 self._logger.debug("get_all_devices - NO HAY INFORMACION")
