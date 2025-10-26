@@ -30,13 +30,15 @@ const NewDevicesTable = () => {
     loadDevices();
   }, [fetched]);
 
-  const loadDevices = React.useCallback(async () => {
+  const loadDevices = useCallback(async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/devices`);
+      const apiUrl = `${Constants.API_BASE_URL}/devices`;
+      console.log('DevicesTable: Fetching from URL:', apiUrl);
+      const response = await fetch(apiUrl);
       const data = await response.json();
       setDevices(data.devices || []);
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log('DevicesTable error:', error);
     }
   }, []);
 
