@@ -6,7 +6,7 @@ import Utils from '../../utils/Utils';
 function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   const ref = useRef();
 
-  const url_safe_device_id = device_id.replaceAll(':', '_');
+  const url_safe_device_id = device_id;
 
   /*
   console.log("DeviceGauge");

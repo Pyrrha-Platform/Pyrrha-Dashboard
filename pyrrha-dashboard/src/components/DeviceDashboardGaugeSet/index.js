@@ -13,6 +13,7 @@ import 'moment/locale/ca';
 
 function DeviceDashboardGaugeSet({
   device_id,
+  device_name,
   timestamp_mins,
   device_timestamp,
   temperature,
@@ -96,9 +97,9 @@ function DeviceDashboardGaugeSet({
                   <Link
                     to={'/details/' + device_id}
                     className="cds--link label-firefighter"
-                    title={device_id}
+                    title={device_name || device_id}
                   >
-                    {device_id}
+                    {device_name || `Device ${device_id}`}
                     <br />
                   </Link>
                   {t('content.dashboard.lastUpdate')}:{' '}

@@ -32,7 +32,7 @@ const NewDevicesTable = () => {
 
   const loadDevices = useCallback(async () => {
     try {
-      const apiUrl = `${Constants.API_BASE_URL}/devices`;
+      const apiUrl = `${Constants.API_BASE_URL}/api-main/v1/devices`;
       console.log('DevicesTable: Fetching from URL:', apiUrl);
       const response = await fetch(apiUrl);
       const data = await response.json();

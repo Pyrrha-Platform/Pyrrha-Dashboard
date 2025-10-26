@@ -42,7 +42,12 @@ const DetailsGrid = (params) => {
   return (
     <Grid className="details-content main-container" fullWidth>
       <Column sm={4} md={8} lg={16}>
-        <h1 className="details-page__heading">{params.device_id}</h1>
+        <h1 className="details-page__heading">
+          {details && details.length > 0 && details[0].device_name 
+            ? details[0].device_name 
+            : `Device ${params.device_id}`
+          }
+        </h1>
       </Column>
 
       <Column sm={4} md={8} lg={16}>
@@ -76,6 +81,7 @@ const DetailsGrid = (params) => {
         details.map(
           ({
             device_id,
+            device_name,
             temperature,
             humidity,
             carbon_monoxide,
@@ -109,6 +115,7 @@ const DetailsGrid = (params) => {
               increment={increment}
               setIncrement={setIncrement}
               device_id={device_id}
+              device_name={device_name}
               timestamp_mins={timestamp_mins}
               temperature={temperature}
               humidity={humidity}

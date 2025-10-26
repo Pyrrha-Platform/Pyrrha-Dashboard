@@ -102,7 +102,10 @@ class dashboard_manager(object):
 
             self._logger.debug("get_dashboard_now - llamada a sql")
             sql = """
-                SELECT * FROM (
+                SELECT 
+                    device_readings.*,
+                    d.name as device_name
+                FROM (
                     SELECT 
                         device_id,
                         temperature,
@@ -114,9 +117,9 @@ class dashboard_manager(object):
                         row_number() OVER(PARTITION BY device_id ORDER BY timestamp_mins DESC) AS latest_reading_for_device
                     FROM
                         firefighter_device_log
-                    WHERE device_id LIKE '%Prometeo%'
                     ORDER BY timestamp_mins DESC
                 ) device_readings
+                LEFT JOIN devices d ON d.device_id = device_readings.device_id
                 WHERE device_readings.latest_reading_for_device = 1
             """
 
@@ -141,6 +144,7 @@ class dashboard_manager(object):
                             "device_timestamp": i[6].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),
+                            "device_name": i[8] if i[8] else f"Device {i[0]}",
                         }
                     )
                 conn.close()
@@ -177,9 +181,11 @@ class dashboard_manager(object):
             self._logger.debug("get_dashboard_details - llamada a sql")
             sql = """
                 SELECT 
-                    *
+                    fsa.*,
+                    COALESCE(d.name, CONCAT('Device ', fsa.device_id)) as device_name
                 FROM
                     firefighter_status_analytics fsa
+                LEFT JOIN devices d ON d.device_id = fsa.device_id
                 WHERE
                     fsa.device_id = %s 
                 ORDER BY device_timestamp DESC
@@ -189,7 +195,7 @@ class dashboard_manager(object):
             self._logger.debug(
                 "get_dashboard_details - get latest reading for the device"
             )
-            cursor.execute(sql, (device_id,))
+            cursor.execute(sql, (int(device_id),))
 
             self._logger.debug("get_dashboard_details - fetchall")
             data = cursor.fetchall()
@@ -200,12 +206,13 @@ class dashboard_manager(object):
                     # self._logger.debug(i)
                     details.append(
                         {
-                            "device_id": i[2],
+                            "device_id": device_id,  # Use the actual device_id parameter passed to the function
+                            "device_name": i[66] if len(i) > 66 and i[66] else i[65],  # Use device_name from JOIN, fallback to device string
                             "temperature": i[4],
                             "humidity": i[5],
                             "carbon_monoxide": i[6],
                             "nitrogen_dioxide": i[7],
-                            "timestamp_mins": i[0].strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                            "timestamp_mins": i[1].strftime("%Y-%m-%dT%H:%M:%S+00:00"),  # timestamp_mins is index 1
                             "device_timestamp": i[11].strftime(
                                 "%Y-%m-%dT%H:%M:%S+00:00"
                             ),

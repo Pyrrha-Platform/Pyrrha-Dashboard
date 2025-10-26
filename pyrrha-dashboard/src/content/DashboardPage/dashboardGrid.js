@@ -102,6 +102,7 @@ const DashboardGrid = () => {
         dashboard.map(
           ({
             device_id,
+            device_name,
             timestamp_mins,
             device_timestamp,
             temperature,
@@ -113,6 +114,7 @@ const DashboardGrid = () => {
             <DeviceDashboardGaugeSet
               key={device_id}
               device_id={device_id}
+              device_name={device_name}
               timestamp_mins={timestamp_mins}
               device_timestamp={device_timestamp}
               temperature={temperature}
