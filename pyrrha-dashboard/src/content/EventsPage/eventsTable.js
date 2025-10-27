@@ -34,16 +34,16 @@ const NewEventsTable = () => {
         `${Constants.API_BASE_URL}/api-main/v1/events`,
       );
       const data = await response.json();
-      
+
       // Transform API response to match frontend expectations
-      const transformedEvents = (data.events || []).map(event => ({
+      const transformedEvents = (data.events || []).map((event) => ({
         id: event.id,
         name: event.code, // API uses 'code' field for event name
         type: event.type, // Keep as number for now, could map to descriptive text
-        status: event.status, // Keep as number for now, could map to descriptive text  
+        status: event.status, // Keep as number for now, could map to descriptive text
         date: new Date(event.date).toLocaleDateString(), // Format date for display
       }));
-      
+
       setEvents(transformedEvents);
     } catch (e) {
       console.log(e);

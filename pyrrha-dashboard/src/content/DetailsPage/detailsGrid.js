@@ -43,10 +43,9 @@ const DetailsGrid = (params) => {
     <Grid className="details-content main-container" fullWidth>
       <Column sm={4} md={8} lg={16}>
         <h1 className="details-page__heading">
-          {details && details.length > 0 && details[0].device_name 
-            ? details[0].device_name 
-            : `Device ${params.device_id}`
-          }
+          {details && details.length > 0 && details[0].device_name
+            ? details[0].device_name
+            : `Device ${params.device_id}`}
         </h1>
       </Column>
 
