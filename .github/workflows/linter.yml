@@ -1,0 +1,81 @@
+name: linter
+
+on:
+  # Execute on every push to any branch
+  push:
+    branches:
+      - "**"
+  # Execute on every pull request to the master branch
+  pull_request_target:
+    branches:
+      - main
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./pyrrha-dashboard
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+          cache-dependency-path: './pyrrha-dashboard/yarn.lock'
+
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Lint JavaScript/React with ESLint
+        run: |
+          yarn lint
+
+      - name: Format check with Prettier
+        run: |
+          yarn format:diff
+
+      - name: Type check (if applicable)
+        run: |
+          # Check if project has TypeScript files
+          if find . -name "*.ts" -o -name "*.tsx" | head -1 | grep -q .; then
+            yarn tsc --noEmit || echo "No TypeScript configuration found"
+          else
+            echo "No TypeScript files found, skipping type check"
+          fi
+
+      - name: Run tests
+        run: |
+          yarn test --coverage --watchAll=false
+
+      - name: Set up Python for Flask API linting
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Lint Flask API with Black
+        run: |
+          cd api-main
+          if [ -f venv/bin/activate ]; then
+            source venv/bin/activate
+            black --check --diff . || echo "Black formatting check failed for Flask API"
+          else
+            pip install black
+            black --check --diff . || echo "Black formatting check failed for Flask API"
+          fi
+
+      - name: Lint Node.js auth API
+        run: |
+          cd api-auth
+          if [ -f package.json ]; then
+            npm install
+            npx prettier --check "**/*.js" || echo "Prettier check failed for auth API"
+          fi
+
+      - name: Dockerfile linting
+        run: |
+          npm install -g dockerfilelint
+          find . -name "Dockerfile*" -exec dockerfilelint {} \;

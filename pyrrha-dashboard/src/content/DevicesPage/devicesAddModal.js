@@ -13,17 +13,20 @@ const DevicesAddModal = ({ loadDevices }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${Constants.API_BASE_URL}/api-main/v1/devices`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${Constants.API_BASE_URL}/api-main/v1/devices`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name,
+            model,
+            version,
+          }),
         },
-        body: JSON.stringify({
-          name,
-          model,
-          version,
-        }),
-      });
+      );
 
       if (response.ok) {
         loadDevices();

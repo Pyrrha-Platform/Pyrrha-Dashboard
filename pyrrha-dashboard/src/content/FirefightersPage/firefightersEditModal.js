@@ -121,7 +121,9 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
         onRequestSubmit={handleSubmit}
         modalHeading={t('content.firefighters.edit')}
         modalLabel={t('content.firefighters.heading')}
-        primaryButtonText={isLoading ? 'Saving...' : t('content.firefighters.save')}
+        primaryButtonText={
+          isLoading ? 'Saving...' : t('content.firefighters.save')
+        }
         primaryButtonDisabled={isLoading}
         secondaryButtonText={t('content.firefighters.cancel')}
         shouldSubmitOnEnter
