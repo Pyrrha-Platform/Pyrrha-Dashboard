@@ -18,7 +18,7 @@ const DevicesDeleteModal = ({ row, loadDevices }) => {
         `${Constants.API_BASE_URL}/api-main/v1/devices/${deviceId}`,
         {
           method: 'DELETE',
-        },
+        }
       );
 
       if (response.ok) {
@@ -48,8 +48,7 @@ const DevicesDeleteModal = ({ row, loadDevices }) => {
         modalLabel="Devices"
         primaryButtonText="Delete"
         secondaryButtonText="Cancel"
-        onRequestSubmit={onRequestSubmit}
-      >
+        onRequestSubmit={onRequestSubmit}>
         <p>This action cannot be undone.</p>
       </Modal>
     </>

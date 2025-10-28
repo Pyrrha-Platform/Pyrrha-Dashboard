@@ -26,7 +26,7 @@ const FirefightersDeleteModal = ({ row, loadFirefighters }) => {
         `${Constants.API_BASE_URL}/api-main/v1/firefighters/${firefighterId}`,
         {
           method: 'DELETE',
-        },
+        }
       );
 
       if (response.ok) {
@@ -68,8 +68,7 @@ const FirefightersDeleteModal = ({ row, loadFirefighters }) => {
         primaryButtonText={isLoading ? 'Deleting...' : 'Delete'}
         primaryButtonDisabled={isLoading}
         secondaryButtonText="Cancel"
-        danger
-      >
+        danger>
         {error && (
           <InlineNotification
             kind="error"

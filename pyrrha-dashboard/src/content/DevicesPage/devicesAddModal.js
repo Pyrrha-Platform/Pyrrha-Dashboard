@@ -25,7 +25,7 @@ const DevicesAddModal = ({ loadDevices }) => {
             model,
             version,
           }),
-        },
+        }
       );
 
       if (response.ok) {
@@ -46,8 +46,7 @@ const DevicesAddModal = ({ loadDevices }) => {
       <Button
         onClick={() => setOpen(true)}
         renderIcon={Add}
-        iconDescription="Add device"
-      >
+        iconDescription="Add device">
         Add device
       </Button>
       <Modal
@@ -57,8 +56,7 @@ const DevicesAddModal = ({ loadDevices }) => {
         modalLabel="Devices"
         primaryButtonText="Save"
         secondaryButtonText="Cancel"
-        onRequestSubmit={handleSubmit}
-      >
+        onRequestSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <TextInput
             id="device-name"

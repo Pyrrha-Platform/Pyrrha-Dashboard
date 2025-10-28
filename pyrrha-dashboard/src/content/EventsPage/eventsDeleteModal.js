@@ -17,7 +17,7 @@ const EventsDeleteModal = ({ row, loadEvents }) => {
         `${Constants.API_BASE_URL}/api-main/v1/events/${eventId}`,
         {
           method: 'DELETE',
-        },
+        }
       );
 
       if (response.ok) {
@@ -47,8 +47,7 @@ const EventsDeleteModal = ({ row, loadEvents }) => {
         modalLabel="Events"
         primaryButtonText="Delete"
         secondaryButtonText="Cancel"
-        onRequestSubmit={onRequestSubmit}
-      >
+        onRequestSubmit={onRequestSubmit}>
         <p>This action cannot be undone.</p>
       </Modal>
     </>

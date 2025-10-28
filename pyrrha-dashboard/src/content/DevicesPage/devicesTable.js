@@ -111,8 +111,7 @@ const NewDevicesTable = () => {
                     {headers.map((header) => (
                       <TableHeader
                         key={header.key}
-                        {...getHeaderProps({ header })}
-                      >
+                        {...getHeaderProps({ header })}>
                         {header.header}
                       </TableHeader>
                     ))}
@@ -140,18 +139,17 @@ const NewDevicesTable = () => {
                       {row.isExpanded && (
                         <TableExpandedRow
                           colSpan={headers.length + 1}
-                          className="device-chart"
-                        >
+                          className="device-chart">
                           <DeviceDetailMap
                             device={{
                               name: row.cells.find(
-                                (cell) => cell.info.header === 'name',
+                                (cell) => cell.info.header === 'name'
                               )?.value,
                               latitude: row.cells.find(
-                                (cell) => cell.info.header === 'latitude',
+                                (cell) => cell.info.header === 'latitude'
                               )?.value,
                               longitude: row.cells.find(
-                                (cell) => cell.info.header === 'longitude',
+                                (cell) => cell.info.header === 'longitude'
                               )?.value,
                             }}
                           />

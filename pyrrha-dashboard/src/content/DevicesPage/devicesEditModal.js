@@ -28,7 +28,7 @@ const DevicesEditModal = ({ row, loadDevices }) => {
             model,
             version,
           }),
-        },
+        }
       );
 
       if (response.ok) {
@@ -57,8 +57,7 @@ const DevicesEditModal = ({ row, loadDevices }) => {
         modalLabel="Devices"
         primaryButtonText="Save"
         secondaryButtonText="Cancel"
-        onRequestSubmit={handleSubmit}
-      >
+        onRequestSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <TextInput
             id="device-name-edit"

@@ -59,8 +59,8 @@ function DeviceDetailsGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds(),
-    ),
+      now.getUTCMilliseconds()
+    )
   );
   const utcTimeDifference =
     utcCurrentDate.getTime() - utcTimestampDate.getTime();
@@ -125,7 +125,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'CO',
                           carbon_monoxide,
-                          'now',
+                          'now'
                         )}
                       />
                     </div>
@@ -142,7 +142,7 @@ function DeviceDetailsGaugeSet({
                         gauge={Utils.getPercentage(
                           'NO2',
                           nitrogen_dioxide,
-                          'now',
+                          'now'
                         )}
                       />
                     </div>
@@ -227,8 +227,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('10min');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'CO'}
@@ -238,7 +237,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'CO',
                             carbon_monoxide_twa_10min,
-                            '10min',
+                            '10min'
                           )}
                         />
                       </a>
@@ -250,8 +249,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('10min');
-                        }}
-                      >
+                        }}>
                         CO
                       </a>
                     </div>
@@ -264,8 +262,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('10min');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'NO2'}
@@ -275,7 +272,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'NO2',
                             nitrogen_dioxide_twa_10min,
-                            '10min',
+                            '10min'
                           )}
                         />
                       </a>
@@ -287,8 +284,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('10min');
-                        }}
-                      >
+                        }}>
                         NO<sub>2</sub>
                       </a>
                     </div>
@@ -349,8 +345,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('30min');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'CO'}
@@ -360,7 +355,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'CO',
                             carbon_monoxide_twa_30min,
-                            '30min',
+                            '30min'
                           )}
                         />
                       </a>
@@ -372,8 +367,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('30min');
-                        }}
-                      >
+                        }}>
                         CO
                       </a>
                     </div>
@@ -386,8 +380,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('30min');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'NO2'}
@@ -397,7 +390,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'NO2',
                             nitrogen_dioxide_twa_30min,
-                            '30min',
+                            '30min'
                           )}
                         />
                       </a>
@@ -409,8 +402,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('30min');
-                        }}
-                      >
+                        }}>
                         NO<sub>2</sub>
                       </a>
                     </div>
@@ -471,8 +463,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('1hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'CO'}
@@ -482,7 +473,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'CO',
                             carbon_monoxide_twa_60min,
-                            '1hr',
+                            '1hr'
                           )}
                         />
                       </a>
@@ -494,8 +485,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('1hr');
-                        }}
-                      >
+                        }}>
                         CO
                       </a>
                     </div>
@@ -508,8 +498,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('1hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'NO2'}
@@ -519,7 +508,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'NO2',
                             nitrogen_dioxide_twa_60min,
-                            '1hr',
+                            '1hr'
                           )}
                         />
                       </a>
@@ -531,8 +520,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('1hr');
-                        }}
-                      >
+                        }}>
                         NO<sub>2</sub>
                       </a>
                     </div>
@@ -593,8 +581,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('4hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'CO'}
@@ -604,7 +591,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'CO',
                             carbon_monoxide_twa_240min,
-                            '4hr',
+                            '4hr'
                           )}
                         />
                       </a>
@@ -616,8 +603,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('4hr');
-                        }}
-                      >
+                        }}>
                         CO
                       </a>
                     </div>
@@ -630,8 +616,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('4hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'NO2'}
@@ -641,7 +626,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'NO2',
                             nitrogen_dioxide_twa_240min,
-                            '4hr',
+                            '4hr'
                           )}
                         />
                       </a>
@@ -653,8 +638,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('4hr');
-                        }}
-                      >
+                        }}>
                         NO<sub>2</sub>
                       </a>
                     </div>
@@ -715,8 +699,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('8hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'CO'}
@@ -726,7 +709,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'CO',
                             carbon_monoxide_twa_480min,
-                            '8hr',
+                            '8hr'
                           )}
                         />
                       </a>
@@ -738,8 +721,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('CO');
                           setIncrement('8hr');
-                        }}
-                      >
+                        }}>
                         CO
                       </a>
                     </div>
@@ -752,8 +734,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('8hr');
-                        }}
-                      >
+                        }}>
                         <DeviceGauge
                           device_id={device_id}
                           type={'NO2'}
@@ -763,7 +744,7 @@ function DeviceDetailsGaugeSet({
                           gauge={Utils.getPercentage(
                             'NO2',
                             nitrogen_dioxide_twa_480min,
-                            '8hr',
+                            '8hr'
                           )}
                         />
                       </a>
@@ -775,8 +756,7 @@ function DeviceDetailsGaugeSet({
                         onClick={() => {
                           setType('NO2');
                           setIncrement('8hr');
-                        }}
-                      >
+                        }}>
                         NO<sub>2</sub>
                       </a>
                     </div>

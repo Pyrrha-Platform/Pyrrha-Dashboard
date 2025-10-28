@@ -1,4 +1,4 @@
-// eslint.config.js
+// Shared ESLint configuration for all Pyrrha JavaScript/React projects
 import js from '@eslint/js';
 import globals from 'globals';
 import prettier from 'eslint-config-prettier';
@@ -18,29 +18,44 @@ export default [
       '**/build/**',
       '**/dist/**',
       '**/coverage/**',
+      '**/venv/**',
+      '**/.git/**',
     ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
     rules: {
+      // Core JavaScript rules
       'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      'no-console': 'off',
-      'prefer-const': 'warn',
-      eqeqeq: 'warn',
-      'no-var': 'warn',
-      'no-undef': 'off', // Disable for mixed Node.js/browser environments
+      'no-console': 'off', // Allow console for server-side logging
+      'prefer-const': 'error',
+      eqeqeq: 'error',
+      'no-var': 'error',
+      'no-duplicate-imports': 'error',
+      'no-unreachable': 'error',
     },
   },
 
+  // Node.js server files (API backends, MQTT client, WebSocket server)
   {
-    files: ['api-auth/**/*.js', 'server.js', 'src/setupProxy.js', 'src/serviceWorker.js'],
+    files: [
+      '**/server.js',
+      '**/api.py', // Flask entry points
+      '**/mqttclient.js',
+      '**/logger.js',
+      'api-auth/**/*.js',
+      'api-main/**/*.py',
+    ],
     languageOptions: {
-      globals: { ...globals.node, module: 'readonly', require: 'readonly', process: 'readonly' },
-      sourceType: 'script', // CJS files
+      globals: { ...globals.node },
+    },
+    rules: {
+      'no-process-exit': 'warn',
     },
   },
 
+  // React frontend files
   {
     files: ['src/**/*.{js,jsx,ts,tsx}'],
     plugins: {
@@ -48,7 +63,7 @@ export default [
       'react-hooks': reactHooks,
     },
     languageOptions: {
-      globals: { ...globals.browser, process: 'readonly' },
+      globals: { ...globals.browser },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
     settings: {
@@ -58,16 +73,16 @@ export default [
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'warn', // Downgrade to warning
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/jsx-key': 'warn',
+      'react/prop-types': 'warn',
     },
   },
 
+  // Test files
   {
     files: [
       '**/__tests__/**/*.{js,jsx,ts,tsx}',
       '**/*.{test,spec}.{js,jsx,ts,tsx}',
+      '**/test/**/*.js',
     ],
     plugins: {
       jest,
