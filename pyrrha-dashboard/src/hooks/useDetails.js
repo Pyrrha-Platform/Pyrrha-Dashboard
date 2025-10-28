@@ -125,8 +125,11 @@ const updateDetails = (details, message) => {
       // It's a single device update, replace the
       // latest reading for the device, or add it
       // console.log('object', newMessage);
+      let foundExistingReading = false;
+      
       newDetails.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
+          foundExistingReading = true;
           // console.log('Replacing a single old reading with a new one', newMessage);
 
           // Preserve device_name from database
@@ -184,6 +187,16 @@ const updateDetails = (details, message) => {
         }
       });
 
+      // If no existing reading was found, add the new message as-is
+      // The device_name should already be included from MQTT Client
+      if (!foundExistingReading) {
+        // Fallback device name if not provided by WebSocket message
+        if (!newMessage.device_name) {
+          newMessage.device_name = `Device ${newMessage.device_id}`;
+        }
+        newDetails.current.push(newMessage);
+      }
+
       // console.log(newDetails);
     }
   }
@@ -238,9 +251,20 @@ const useDetails = (device_id, inc, ty) => {
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
       } else {
-        // console.log('Received update.', msg);
-        setLoading('Received update at ' + new Date() + '.');
-        setDetails(updateDetails(detailsRef, msg.data));
+        // Filter WebSocket messages to only process the device we're viewing
+        try {
+          const receivedMessage = JSON.parse(msg.data);
+          
+          // Only process messages for this specific device
+          if (receivedMessage.device_id === parseInt(device_id, 10)) {
+            // console.log('Received update for our device.', msg);
+            setLoading('Received update at ' + new Date() + '.');
+            setDetails(updateDetails(detailsRef, msg.data));
+          }
+          // Ignore messages for other devices
+        } catch (e) {
+          console.log('Error parsing WebSocket message:', e);
+        }
       }
       // console.log('details', details);
     };
