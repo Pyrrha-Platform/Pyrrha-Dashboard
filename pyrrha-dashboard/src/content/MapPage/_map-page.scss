@@ -210,6 +210,4 @@ $ui-01: theme.$background;
   height: 5rem;
 }
 
-.cds--data-table tbody tr[data-hovered='true'] td {
-  background: #353535;
-}
+/* Removed custom hover styling to use Carbon Design System default table hover behavior */

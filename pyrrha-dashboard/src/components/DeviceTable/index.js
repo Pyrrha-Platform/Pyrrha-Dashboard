@@ -44,6 +44,20 @@ const formatRows = (rows) =>
     );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
+    // Add units to sensor values for consistent display
+    if (typeof rowCopy['carbon_monoxide'] === 'number') {
+      rowCopy['carbon_monoxide'] = `${rowCopy['carbon_monoxide'].toFixed(1)} ppm`;
+    }
+    if (typeof rowCopy['nitrogen_dioxide'] === 'number') {
+      rowCopy['nitrogen_dioxide'] = `${rowCopy['nitrogen_dioxide'].toFixed(1)} ppm`;
+    }
+    if (typeof rowCopy['temperature'] === 'number') {
+      rowCopy['temperature'] = `${rowCopy['temperature'].toFixed(1)}°C`;
+    }
+    if (typeof rowCopy['humidity'] === 'number') {
+      rowCopy['humidity'] = `${rowCopy['humidity'].toFixed(1)}%`;
+    }
+
     // rowCopy['peak_acc'] += ' gals'
     // console.log('formatRows rowCopy', rowCopy);
     return rowCopy;
@@ -64,7 +78,18 @@ const getDeviceStatus = (timeAgo) => {
 };
 
 const getStatus = (type, value, increment) => {
-  const color = Utils.getStatusColor(type, value, increment, 0);
+  // Extract numeric value from formatted strings like "5.2 ppm", "23.1°C", "45.2%"
+  let numericValue = value;
+  if (typeof value === 'string') {
+    // Parse the number from the beginning of the string
+    numericValue = parseFloat(value);
+    // If parsing fails, return green (safe default)
+    if (isNaN(numericValue)) {
+      return 'with-circle status-green';
+    }
+  }
+  
+  const color = Utils.getStatusColor(type, numericValue, increment, 0);
   if (color == Constants.RED) {
     return 'with-circle status-red';
   } else if (color == Constants.YELLOW) {
@@ -76,17 +101,23 @@ const getStatus = (type, value, increment) => {
 
 // Index depends on what header position it's in
 const getRowClasses = (cell, indexCells) => {
+  let result;
   if (indexCells === 1) {
-    return getDeviceStatus(cell.value);
+    result = getDeviceStatus(cell.value);
   } else if (indexCells === 3) {
-    return getStatus('CO', cell.value, 'now');
+    result = getStatus('CO', cell.value, 'now');
+    console.log(`DeviceTable DEBUG - CO: value="${cell.value}", result="${result}"`);
   } else if (indexCells === 4) {
-    return getStatus('NO2', cell.value, 'now');
+    result = getStatus('NO2', cell.value, 'now');
+    console.log(`DeviceTable DEBUG - NO2: value="${cell.value}", result="${result}"`);
   } else if (indexCells === 5) {
-    return getStatus('Tmp', cell.value, 'now');
+    result = getStatus('Tmp', cell.value, 'now');
+    console.log(`DeviceTable DEBUG - Temperature: value="${cell.value}", result="${result}"`);
   } else if (indexCells === 6) {
-    return getStatus('Hum', cell.value, 'now');
+    result = getStatus('Hum', cell.value, 'now');
+    console.log(`DeviceTable DEBUG - Humidity: value="${cell.value}", result="${result}"`);
   }
+  return result;
 };
 
 const DeviceTable = ({

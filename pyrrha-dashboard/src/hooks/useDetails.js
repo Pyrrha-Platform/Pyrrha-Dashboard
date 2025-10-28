@@ -66,6 +66,9 @@ const updateDetails = (details, message) => {
           if (oldReading.device_id === newReading.device_id) {
             // console.log('Replacing an old reading with a new one in the array', newMessage);
 
+            // Preserve device_name from database
+            newReading.device_name = oldReading.device_name;
+
             newMessage.carbon_monoxide_gauge_10min =
               oldReading.carbon_monoxide_gauge_10min;
             newMessage.carbon_monoxide_gauge_30min =
@@ -125,6 +128,9 @@ const updateDetails = (details, message) => {
       newDetails.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
           // console.log('Replacing a single old reading with a new one', newMessage);
+
+          // Preserve device_name from database
+          newMessage.device_name = oldReading.device_name;
 
           newMessage.carbon_monoxide_gauge_10min =
             oldReading.carbon_monoxide_gauge_10min;

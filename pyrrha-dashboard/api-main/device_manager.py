@@ -27,6 +27,7 @@ class device_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             cursor = conn.cursor()
@@ -49,8 +50,10 @@ class device_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return device
 
@@ -65,6 +68,7 @@ class device_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             cursor = conn.cursor()
@@ -84,8 +88,10 @@ class device_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return device
 
@@ -100,6 +106,7 @@ class device_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             cursor = conn.cursor()
@@ -118,8 +125,10 @@ class device_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return device
 
@@ -136,6 +145,7 @@ class device_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             cursor = conn.cursor()
@@ -163,8 +173,10 @@ class device_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return device
 
@@ -182,6 +194,7 @@ class device_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_all_devices - before cursor")
@@ -217,7 +230,9 @@ class device_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals() and cursor:
+                cursor.close()
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return devices

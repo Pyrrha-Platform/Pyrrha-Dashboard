@@ -27,6 +27,7 @@ class firefighter_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4"
             )
 
             cursor = conn.cursor()
@@ -49,8 +50,10 @@ class firefighter_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals():
+                cursor.close()
+            if 'conn' in locals():
+                conn.close()
 
         return firefighter
 
@@ -65,6 +68,7 @@ class firefighter_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4"
             )
 
             cursor = conn.cursor()
@@ -85,8 +89,10 @@ class firefighter_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals():
+                cursor.close()
+            if 'conn' in locals():
+                conn.close()
 
         return firefighter
 
@@ -101,6 +107,7 @@ class firefighter_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4"
             )
 
             cursor = conn.cursor()
@@ -122,8 +129,10 @@ class firefighter_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals():
+                cursor.close()
+            if 'conn' in locals():
+                conn.close()
 
         return firefighter
 
@@ -140,6 +149,7 @@ class firefighter_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4"
             )
 
             cursor = conn.cursor()
@@ -168,8 +178,10 @@ class firefighter_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals():
+                cursor.close()
+            if 'conn' in locals():
+                conn.close()
 
         return firefighter
 
@@ -185,6 +197,7 @@ class firefighter_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4"
             )
 
             cursor = conn.cursor()
@@ -216,7 +229,9 @@ class firefighter_manager(object):
             return None
 
         finally:
-            cursor.close()
-            conn.close()
+            if 'cursor' in locals():
+                cursor.close()
+            if 'conn' in locals():
+                conn.close()
 
         return firefighters
