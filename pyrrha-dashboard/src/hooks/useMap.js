@@ -52,6 +52,23 @@ const updateMap = (map, message) => {
               'Replacing an old reading with a new one in the array',
               newMessage,
             );
+            // Ensure WebSocket message has proper id field for map table display
+            if (newReading.device_name && !newReading.id) {
+              newReading.id = newReading.device_name;
+            }
+            // Format sensor values with units for consistency with API data
+            if (typeof newReading.carbon_monoxide === 'number') {
+              newReading.carbon_monoxide = `${newReading.carbon_monoxide.toFixed(1)} ppm`;
+            }
+            if (typeof newReading.nitrogen_dioxide === 'number') {
+              newReading.nitrogen_dioxide = `${newReading.nitrogen_dioxide.toFixed(1)} ppm`;
+            }
+            if (typeof newReading.temperature === 'number') {
+              newReading.temperature = `${newReading.temperature.toFixed(1)}°C`;
+            }
+            if (typeof newReading.humidity === 'number') {
+              newReading.humidity = `${newReading.humidity.toFixed(1)}%`;
+            }
             newMap.current = Utils.arrayRemove(newMap.current, oldReading);
             newMap.current.push(newReading);
           }
@@ -68,6 +85,23 @@ const updateMap = (map, message) => {
             'Replacing a single old reading with a new one',
             newMessage,
           );
+          // Ensure WebSocket message has proper id field for map table display
+          if (newMessage.device_name && !newMessage.id) {
+            newMessage.id = newMessage.device_name;
+          }
+          // Format sensor values with units for consistency with API data
+          if (typeof newMessage.carbon_monoxide === 'number') {
+            newMessage.carbon_monoxide = `${newMessage.carbon_monoxide.toFixed(1)} ppm`;
+          }
+          if (typeof newMessage.nitrogen_dioxide === 'number') {
+            newMessage.nitrogen_dioxide = `${newMessage.nitrogen_dioxide.toFixed(1)} ppm`;
+          }
+          if (typeof newMessage.temperature === 'number') {
+            newMessage.temperature = `${newMessage.temperature.toFixed(1)}°C`;
+          }
+          if (typeof newMessage.humidity === 'number') {
+            newMessage.humidity = `${newMessage.humidity.toFixed(1)}%`;
+          }
           console.log('Merged new and old readings', newMessage);
           newMap.current = Utils.arrayRemove(newMap.current, oldReading);
           newMap.current.push(newMessage);
@@ -76,6 +110,23 @@ const updateMap = (map, message) => {
       });
       if (!matchedOldReading) {
         console.log('Adding a new reading', newMessage);
+        // Ensure WebSocket message has proper id field for map table display
+        if (newMessage.device_name && !newMessage.id) {
+          newMessage.id = newMessage.device_name;
+        }
+        // Format sensor values with units for consistency with API data
+        if (typeof newMessage.carbon_monoxide === 'number') {
+          newMessage.carbon_monoxide = `${newMessage.carbon_monoxide.toFixed(1)} ppm`;
+        }
+        if (typeof newMessage.nitrogen_dioxide === 'number') {
+          newMessage.nitrogen_dioxide = `${newMessage.nitrogen_dioxide.toFixed(1)} ppm`;
+        }
+        if (typeof newMessage.temperature === 'number') {
+          newMessage.temperature = `${newMessage.temperature.toFixed(1)}°C`;
+        }
+        if (typeof newMessage.humidity === 'number') {
+          newMessage.humidity = `${newMessage.humidity.toFixed(1)}%`;
+        }
         newMap.current.push(newMessage);
       }
       console.log(newMap);

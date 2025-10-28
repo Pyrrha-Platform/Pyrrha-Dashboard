@@ -16,7 +16,10 @@ class Utils {
   static arcTween = (newAngle) => {
     return function (d) {
       // Check for valid numeric angle to prevent NaN in SVG paths
-      const safeAngle = (newAngle != null && !isNaN(newAngle) && isFinite(newAngle)) ? newAngle : 0;
+      const safeAngle =
+        newAngle != null && !isNaN(newAngle) && isFinite(newAngle)
+          ? newAngle
+          : 0;
       const interpolate = d3.interpolate(d.endAngle, safeAngle);
       return function (t) {
         d.endAngle = interpolate(t);

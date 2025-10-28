@@ -8,15 +8,11 @@ const headers = [
     key: 'lastCheckin',
   },
   {
-    header: 'User',
-    key: 'firefighter_last',
-  },
-  {
     header: 'CO',
     key: 'carbon_monoxide',
   },
   {
-    header: 'NO2',
+    header: 'NO₂',
     key: 'nitrogen_dioxide',
   },
   {

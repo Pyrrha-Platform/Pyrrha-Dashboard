@@ -30,6 +30,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_dashboard - before cursor")
@@ -70,15 +71,16 @@ class dashboard_manager(object):
                         }
                     )
                 # firefighters = data
-                conn.close()
             else:
                 self._logger.debug("get_dashboard - NO HAY INFORMACION")
-                conn.close()
                 return None
         except Exception as e:
             self._logger.debug("get_dashboard - Estoy en la excepcion")
             self._logger.debug(e)
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return devices
 
@@ -95,6 +97,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_dashboard_now - before cursor")
@@ -147,16 +150,17 @@ class dashboard_manager(object):
                             "device_name": i[8] if i[8] else f"Device {i[0]}",
                         }
                     )
-                conn.close()
             else:
                 self._logger.debug("get_dashboard_now - NO HAY INFORMACION")
-                conn.close()
                 return None
 
         except Exception as e:
             self._logger.debug("get_dashboard_now - Estoy en la excepcion")
             self._logger.debug(e)
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return devices
 
@@ -173,6 +177,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_dashboard_details - before cursor")
@@ -238,16 +243,17 @@ class dashboard_manager(object):
                             "nitrogen_dioxide_gauge_480min": "{:.2f}".format(i[33]),
                         }
                     )
-                conn.close()
             else:
                 self._logger.debug("get_dashboard_details - NO HAY INFORMACION")
-                conn.close()
                 return None
 
         except Exception as e:
             self._logger.debug("get_dashboard_details - Estoy en la excepcion")
             self._logger.debug(e)
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return details
 
@@ -289,6 +295,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_dashboard_chart_details - before cursor")
@@ -345,16 +352,17 @@ class dashboard_manager(object):
                             "value": "{:.2f}".format(i[2]),
                         }
                     )
-                conn.close()
             else:
                 self._logger.debug("get_dashboard_chart_details - NO HAY INFORMACION")
-                conn.close()
                 return None
 
         except Exception as e:
             self._logger.debug("get_dashboard_chart_details - Estoy en la excepcion")
             self._logger.debug(e)
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return chart
 
@@ -371,6 +379,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             cursor = conn.cursor()
@@ -394,10 +403,11 @@ class dashboard_manager(object):
             else:
                 device_active = False
 
-            conn.close()
-
         except Exception as e:
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return device_active
 
@@ -416,6 +426,7 @@ class dashboard_manager(object):
                 host=self._host,
                 database=self._database,
                 port=self._port,
+                init_command="SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
             )
 
             self._logger.debug("get_map_now - before cursor")
@@ -426,7 +437,8 @@ class dashboard_manager(object):
                 SELECT 
                     device_readings.*,
                     d.latitude,
-                    d.longitude
+                    d.longitude,
+                    d.name as device_name
                 FROM (
                     SELECT 
                         device_id,
@@ -459,39 +471,43 @@ class dashboard_manager(object):
                     
                     # Extract data from query result
                     # Query returns: device_id, temperature, humidity, carbon_monoxide, nitrogen_dioxide, 
-                    # timestamp_mins, device_timestamp, latest_reading_for_device, latitude, longitude
+                    # timestamp_mins, device_timestamp, latest_reading_for_device, latitude, longitude, device_name
+                    device_name = i[10] if i[10] else f"Prometeo:00:00:00:00:00:{str(i[0]).zfill(2)}"
+                    # Format sensor values with units for consistent display
+                    temperature_val = float(i[1]) if i[1] is not None else 0.0
+                    humidity_val = float(i[2]) if i[2] is not None else 0.0  
+                    co_val = float(i[3]) if i[3] is not None else 0.0
+                    no2_val = float(i[4]) if i[4] is not None else 0.0
+                    
                     device_data = {
                         "device_id": str(i[0]),
-                        "id": str(i[0]),
-                        "temperature": float(i[1]) if i[1] is not None else 0.0,
-                        "humidity": float(i[2]) if i[2] is not None else 0.0,
-                        "carbon_monoxide": float(i[3]) if i[3] is not None else 0.0,
-                        "nitrogen_dioxide": float(i[4]) if i[4] is not None else 0.0,
+                        "id": device_name,  # Use device name for the Device column instead of numeric ID
+                        "temperature": temperature_val,
+                        "humidity": humidity_val,
+                        "carbon_monoxide": co_val,
+                        "nitrogen_dioxide": no2_val,
                         "timestamp_mins": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[5] else None,
                         "device_timestamp": i[6].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[6] else None,
                         "lastCheckin": i[5].strftime("%Y-%m-%dT%H:%M:%S+00:00") if i[5] else None,
                         "latitude": float(i[8]) if i[8] is not None else None,
                         "longitude": float(i[9]) if i[9] is not None else None,
                         "device_version": 1,
-                        "isUserOwner": True,
-                        "firefighter_code": f"Device {str(i[0])[-2:]}",
-                        "firefighter_email": f"device{str(i[0])[-2:]}@pyrrha.com",
-                        "firefighter_first": "Device",
-                        "firefighter_last": f"User {str(i[0])[-2:]}"
+                        "isUserOwner": True
                     }
                     devices.append(device_data)
                 
                 map = {"devices": devices}
 
-                conn.close()
             else:
                 self._logger.debug("get_map_now - NO HAY INFORMACION")
-                conn.close()
                 return None
 
         except Exception as e:
             self._logger.debug("get_map_now - Estoy en la excepcion")
             self._logger.debug(e)
             return None
+        finally:
+            if 'conn' in locals() and conn:
+                conn.close()
 
         return map
