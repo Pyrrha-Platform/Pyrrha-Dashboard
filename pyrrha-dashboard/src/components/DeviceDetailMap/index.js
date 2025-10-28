@@ -30,7 +30,7 @@ const DeviceDetailMap = ({ device }) => {
     }).addControl(
       new mapboxgl.AttributionControl({
         compact: true,
-      }),
+      })
     );
 
     map.current.once('load', () => {

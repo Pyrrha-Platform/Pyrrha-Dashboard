@@ -1,17 +1,13 @@
-name: linter
+name: Dashboard Linting
 
 on:
-  # Execute on every push to any branch
   push:
-    branches:
-      - "**"
-  # Execute on every pull request to the master branch
+    branches: ["**"]
   pull_request_target:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  linter:
+  lint:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -27,20 +23,17 @@ jobs:
           cache-dependency-path: './pyrrha-dashboard/yarn.lock'
 
       - name: Install dependencies
-        run: |
-          yarn install
+        run: yarn install
 
+      # JavaScript/React Linting (matches current Dashboard workflow)
       - name: Lint JavaScript/React with ESLint
-        run: |
-          yarn lint
+        run: yarn lint
 
       - name: Format check with Prettier
-        run: |
-          yarn format:diff
+        run: yarn format:diff
 
       - name: Type check (if applicable)
         run: |
-          # Check if project has TypeScript files
           if find . -name "*.ts" -o -name "*.tsx" | head -1 | grep -q .; then
             yarn tsc --noEmit || echo "No TypeScript configuration found"
           else
@@ -48,9 +41,9 @@ jobs:
           fi
 
       - name: Run tests
-        run: |
-          yarn test --coverage --watchAll=false
+        run: yarn test --coverage --watchAll=false
 
+      # Python Flask API Linting
       - name: Set up Python for Flask API linting
         uses: actions/setup-python@v5
         with:
@@ -61,20 +54,22 @@ jobs:
           cd api-main
           if [ -f venv/bin/activate ]; then
             source venv/bin/activate
-            black --check --diff . || echo "Black formatting check failed for Flask API"
+            black --check --diff --line-length=127 .
           else
             pip install black
-            black --check --diff . || echo "Black formatting check failed for Flask API"
+            black --check --diff --line-length=127 .
           fi
 
+      # Node.js Auth API Linting  
       - name: Lint Node.js auth API
         run: |
           cd api-auth
           if [ -f package.json ]; then
             npm install
-            npx prettier --check "**/*.js" || echo "Prettier check failed for auth API"
+            npx prettier --check "**/*.js"
           fi
 
+      # Dockerfile Linting
       - name: Dockerfile linting
         run: |
           npm install -g dockerfilelint

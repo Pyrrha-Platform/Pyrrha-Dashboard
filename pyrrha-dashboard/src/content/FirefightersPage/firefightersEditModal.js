@@ -66,7 +66,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        },
+        }
       );
 
       if (response.ok) {
@@ -126,8 +126,7 @@ const FirefightersEditModal = ({ row, loadFirefighters }) => {
         }
         primaryButtonDisabled={isLoading}
         secondaryButtonText={t('content.firefighters.cancel')}
-        shouldSubmitOnEnter
-      >
+        shouldSubmitOnEnter>
         {error && (
           <InlineNotification
             kind="error"

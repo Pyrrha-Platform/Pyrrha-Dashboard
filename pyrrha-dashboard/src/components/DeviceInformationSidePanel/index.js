@@ -23,15 +23,13 @@ const DeviceInformationSidePanel = ({ device, onRequestClose }) => {
         size="xs"
         secondaryButtonText={t('content.modal_basic.cancel')}
         primaryButtonText={t('content.modal_basic.confirm')}
-        onRequestClose={() => setTestModalOpen(false)}
-      >
+        onRequestClose={() => setTestModalOpen(false)}>
         {t('content.devices.sidePanel.modalTestText')}
       </Modal>
       <div className="device-side-panel__header">
         <h4
           className={`device-side-panel__title with-circle status-${device.statusColor}`}
-          data-after="true"
-        >
+          data-after="true">
           Device {device.id}
         </h4>
         {device.isUserOwner && (

@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDashboard = async () => {
   try {
     const data = await client(
-      `${Constants.API_BASE_URL}/api-main/v1/dashboard-now`,
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-now`
     );
     // console.log(data);
     if (data.devices) {
@@ -55,7 +55,7 @@ const updateDashboard = (dashboard, message) => {
             // console.log( 'Replacing an old reading with a new one in the array', newMessage);
             newDashboard.current = Utils.arrayRemove(
               newDashboard.current,
-              oldReading,
+              oldReading
             );
             newDashboard.current.push(newReading);
           }
@@ -72,7 +72,7 @@ const updateDashboard = (dashboard, message) => {
           // console.log('Merged new and old readings', newMessage);
           newDashboard.current = Utils.arrayRemove(
             newDashboard.current,
-            oldReading,
+            oldReading
           );
           newDashboard.current.push(newMessage);
           matchedOldReading = true;
@@ -86,7 +86,7 @@ const updateDashboard = (dashboard, message) => {
     }
   }
   return newDashboard.current.sort((a, b) =>
-    a.device_id < b.device_id ? 1 : -1,
+    a.device_id < b.device_id ? 1 : -1
   );
 };
 

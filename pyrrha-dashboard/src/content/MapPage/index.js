@@ -72,7 +72,7 @@ const MapPage = (props) => {
 
   useEffect(() => {
     setCurrentlyVisibleDevices(
-      devices.slice((page - 1) * pageSize, page * pageSize),
+      devices.slice((page - 1) * pageSize, page * pageSize)
     );
   }, [page, pageSize, devices]);
 

@@ -40,16 +40,18 @@ const formatRows = (rows) =>
       ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
     rowCopy['lastCheckin'] = timeAgo.format(
-      new Date(rowCopy['timestamp_mins']),
+      new Date(rowCopy['timestamp_mins'])
     );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
     // Add units to sensor values for consistent display
     if (typeof rowCopy['carbon_monoxide'] === 'number') {
-      rowCopy['carbon_monoxide'] = `${rowCopy['carbon_monoxide'].toFixed(1)} ppm`;
+      rowCopy['carbon_monoxide'] =
+        `${rowCopy['carbon_monoxide'].toFixed(1)} ppm`;
     }
     if (typeof rowCopy['nitrogen_dioxide'] === 'number') {
-      rowCopy['nitrogen_dioxide'] = `${rowCopy['nitrogen_dioxide'].toFixed(1)} ppm`;
+      rowCopy['nitrogen_dioxide'] =
+        `${rowCopy['nitrogen_dioxide'].toFixed(1)} ppm`;
     }
     if (typeof rowCopy['temperature'] === 'number') {
       rowCopy['temperature'] = `${rowCopy['temperature'].toFixed(1)}°C`;
@@ -88,7 +90,7 @@ const getStatus = (type, value, increment) => {
       return 'with-circle status-green';
     }
   }
-  
+
   const color = Utils.getStatusColor(type, numericValue, increment, 0);
   if (color == Constants.RED) {
     return 'with-circle status-red';
@@ -106,16 +108,24 @@ const getRowClasses = (cell, indexCells) => {
     result = getDeviceStatus(cell.value);
   } else if (indexCells === 3) {
     result = getStatus('CO', cell.value, 'now');
-    console.log(`DeviceTable DEBUG - CO: value="${cell.value}", result="${result}"`);
+    console.log(
+      `DeviceTable DEBUG - CO: value="${cell.value}", result="${result}"`
+    );
   } else if (indexCells === 4) {
     result = getStatus('NO2', cell.value, 'now');
-    console.log(`DeviceTable DEBUG - NO2: value="${cell.value}", result="${result}"`);
+    console.log(
+      `DeviceTable DEBUG - NO2: value="${cell.value}", result="${result}"`
+    );
   } else if (indexCells === 5) {
     result = getStatus('Tmp', cell.value, 'now');
-    console.log(`DeviceTable DEBUG - Temperature: value="${cell.value}", result="${result}"`);
+    console.log(
+      `DeviceTable DEBUG - Temperature: value="${cell.value}", result="${result}"`
+    );
   } else if (indexCells === 6) {
     result = getStatus('Hum', cell.value, 'now');
-    console.log(`DeviceTable DEBUG - Humidity: value="${cell.value}", result="${result}"`);
+    console.log(
+      `DeviceTable DEBUG - Humidity: value="${cell.value}", result="${result}"`
+    );
   }
   return result;
 };
@@ -168,8 +178,7 @@ const DeviceTable = ({
         secondaryButtonText={t('content.common.cancel')}
         primaryButtonText={t('content.common.confirm')}
         onRequestClose={() => setShouldShowRemoveMenu(false)}
-        onRequestSubmit={removeDevice}
-      >
+        onRequestSubmit={removeDevice}>
         {removeDeviceLoading ? <Loading /> : null}
         <p>{t('content.devices.deviceRemoveModal.removeDeviceText')}</p>
         <p className="mart-1">
@@ -179,8 +188,7 @@ const DeviceTable = ({
       <DataTable
         rows={formatRows(currentlyVisibleDevices)}
         headers={headers}
-        className="device-table"
-      >
+        className="device-table">
         {({
           rows,
           headers,
@@ -195,8 +203,7 @@ const DeviceTable = ({
             <TableToolbar
               {...getToolbarProps()}
               aria-label="data table toolbar"
-              size="small"
-            >
+              size="small">
               <TableToolbarContent>
                 <TableToolbarSearch
                   expanded={true}
@@ -209,8 +216,7 @@ const DeviceTable = ({
               {...getTableProps()}
               overflowMenuOnHover={false}
               tabIndex={0}
-              aria-label={'table'}
-            >
+              aria-label={'table'}>
               <TableHead>
                 <TableRow>
                   <TableExpandHeader />
@@ -222,8 +228,7 @@ const DeviceTable = ({
                       key={`header-${header.header}`}
                       className={
                         headerIndex === 0 ? 'sticky-column left' : undefined
-                      }
-                    >
+                      }>
                       {header.header}
                     </TableHeader>
                   ))}
@@ -236,7 +241,7 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < devices.length,
+                      (page - 1) * pageSize + rowIndex < devices.length
                   )
                   .map((row, rowIndex) => {
                     const deviceIndex = (page - 1) * pageSize + rowIndex;
@@ -247,8 +252,7 @@ const DeviceTable = ({
                           {...getRowProps({ row })}
                           data-hovered={currentHoveredDevice === deviceIndex}
                           onMouseEnter={() => onDeviceHover(deviceIndex)}
-                          onMouseLeave={() => onDeviceHover(undefined)}
-                        >
+                          onMouseLeave={() => onDeviceHover(undefined)}>
                           {loading
                             ? null
                             : row.cells.map((cell, indexCells) => (
@@ -258,13 +262,11 @@ const DeviceTable = ({
                                     indexCells === 0
                                       ? 'sticky-column left'
                                       : undefined
-                                  }
-                                >
+                                  }>
                                   <span
                                     tabIndex={0}
                                     className={getRowClasses(cell, indexCells)}
-                                    aria-label={`${headers[indexCells].header} is ${cell.value}`}
-                                  >
+                                    aria-label={`${headers[indexCells].header} is ${cell.value}`}>
                                     {indexCells === 0
                                       ? cell.value
                                       : Array.isArray(cell.value)
@@ -299,8 +301,7 @@ const DeviceTable = ({
                         </TableExpandRow>
                         <TableExpandedRow
                           colSpan={headers.length + 2}
-                          className="device-expandable-row"
-                        >
+                          className="device-expandable-row">
                           <div className="device-chart" tabIndex={0}>
                             <DeviceDetailMap device={devices[deviceIndex]} />
                           </div>

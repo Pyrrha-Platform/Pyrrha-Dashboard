@@ -43,8 +43,7 @@ function PyrrhaHeader(props) {
         prefix="Pyrrha"
         onClick={() => {
           setPage('Dashboard');
-        }}
-      >
+        }}>
         Platform
       </HeaderName>
       {(Constants.AUTH_DISABLED || currentUser.isAuth) && (
@@ -55,8 +54,7 @@ function PyrrhaHeader(props) {
             isCurrentPage={page === 'Dashboard'}
             onClick={() => {
               setPage('Dashboard');
-            }}
-          >
+            }}>
             {t('components.header.dashboard')}
           </HeaderMenuItem>
           <HeaderMenuItem
@@ -65,8 +63,7 @@ function PyrrhaHeader(props) {
             isCurrentPage={page === 'Map'}
             onClick={() => {
               setPage('Map');
-            }}
-          >
+            }}>
             {t('components.header.map')}
           </HeaderMenuItem>
           <HeaderMenu
@@ -74,16 +71,14 @@ function PyrrhaHeader(props) {
             menuLinkName={t('components.header.manage')}
             isActive={
               page === 'Devices' || page === 'Firefighters' || page === 'Events'
-            }
-          >
+            }>
             <HeaderMenuItem
               element={Link}
               to="/devices"
               isCurrentPage={page === 'Devices'}
               onClick={() => {
                 setPage('Devices');
-              }}
-            >
+              }}>
               {t('components.header.devices')}
             </HeaderMenuItem>
             <HeaderMenuItem
@@ -92,8 +87,7 @@ function PyrrhaHeader(props) {
               isCurrentPage={page === 'Firefighters'}
               onClick={() => {
                 setPage('Firefighters');
-              }}
-            >
+              }}>
               {t('components.header.firefighters')}
             </HeaderMenuItem>
             <HeaderMenuItem
@@ -102,8 +96,7 @@ function PyrrhaHeader(props) {
               isCurrentPage={page === 'Events'}
               onClick={() => {
                 setPage('Events');
-              }}
-            >
+              }}>
               {t('components.header.events')}
             </HeaderMenuItem>
           </HeaderMenu>
@@ -113,8 +106,7 @@ function PyrrhaHeader(props) {
         <HeaderGlobalAction
           aria-label="Translate"
           onClick={() => setActive(!active)}
-          isActive={active}
-        >
+          isActive={active}>
           <Translate size={20} />
         </HeaderGlobalAction>
         {currentUser.isAuth && (
@@ -123,8 +115,7 @@ function PyrrhaHeader(props) {
             onClick={() => {
               navigate('/profile');
               setPage('Profile');
-            }}
-          >
+            }}>
             <UserAvatar size={20} />
           </HeaderGlobalAction>
         )}
@@ -138,8 +129,7 @@ function PyrrhaHeader(props) {
               setLocale('en-us');
               setActive(false);
               changeLanguage('en');
-            }}
-          >
+            }}>
             {t('components.header.english')}
           </SwitcherItem>
           <SwitcherItem
@@ -149,8 +139,7 @@ function PyrrhaHeader(props) {
               setLocale('es-es');
               setActive(false);
               changeLanguage('es');
-            }}
-          >
+            }}>
             {t('components.header.spanish')}
           </SwitcherItem>
           <SwitcherItem
@@ -160,8 +149,7 @@ function PyrrhaHeader(props) {
               setLocale('ca-es');
               setActive(false);
               changeLanguage('ca');
-            }}
-          >
+            }}>
             {t('components.header.catalan')}
           </SwitcherItem>
         </Switcher>

@@ -58,7 +58,7 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -105,8 +105,7 @@ const FirefightersAddModal = ({ loadFirefighters }) => {
         primaryButtonText={t('content.firefighters.save')}
         secondaryButtonText={t('content.firefighters.cancel')}
         primaryButtonDisabled={loading}
-        size="sm"
-      >
+        size="sm">
         {error && (
           <InlineNotification
             kind="error"

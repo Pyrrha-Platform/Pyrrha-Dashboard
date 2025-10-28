@@ -36,7 +36,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
 
     const [yellowThreshold, redThreshold] = Utils.getChartLimit(
       type,
-      increment,
+      increment
     );
 
     // Add X axis --> it is a time format
@@ -47,7 +47,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
           // console.log("d.device_timestamp", d.device_timestamp);
           // console.log("d.device_timestamp d3.utcParse", d3.utcParse("%Y-%m-%dT%H:%M:%S")(d.device_timestamp));
           return d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp);
-        }),
+        })
       )
       .range([0, width]);
 
@@ -60,7 +60,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .append('text')
       .attr(
         'transform',
-        'translate(' + width / 2 + ', ' + (height + margin.top + 20) + ')',
+        'translate(' + width / 2 + ', ' + (height + margin.top + 20) + ')'
       )
       .style('text-anchor', 'middle')
       .text(t('content.details.time'));
@@ -129,13 +129,13 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
           .line()
           .x(function (d) {
             return x(
-              d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp),
+              d3.utcParse('%Y-%m-%dT%H:%M:%S+00:00')(d.device_timestamp)
             );
           })
           .y(function (d) {
             return y(d.value);
           })
-          .curve(d3.curveLinear),
+          .curve(d3.curveLinear)
       );
 
     // Tooltip
@@ -162,7 +162,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
             </li>
           </ul>
         </div>    
-      `,
+      `
         )
         .style('opacity', 1)
         .transition()
@@ -192,7 +192,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
               </li>
             </ul>
           </div>    
-        `,
+        `
         )
         .style('left', event.pageX + 10 + 'px')
         .style('top', event.pageY + 10 + 'px');

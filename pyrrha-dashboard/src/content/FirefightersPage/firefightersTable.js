@@ -38,7 +38,7 @@ const NewFirefightersTable = () => {
     setError(null);
     try {
       const data = await client(
-        `${Constants.API_BASE_URL}/api-main/v1/firefighters`,
+        `${Constants.API_BASE_URL}/api-main/v1/firefighters`
       );
       setFirefighters(data.firefighters || []);
     } catch (e) {

@@ -31,7 +31,7 @@ const NewEventsTable = () => {
   const loadEvents = useCallback(async () => {
     try {
       const response = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/events`,
+        `${Constants.API_BASE_URL}/api-main/v1/events`
       );
       const data = await response.json();
 
@@ -113,8 +113,7 @@ const NewEventsTable = () => {
                     {headers.map((header) => (
                       <TableHeader
                         key={header.key}
-                        {...getHeaderProps({ header })}
-                      >
+                        {...getHeaderProps({ header })}>
                         {header.header}
                       </TableHeader>
                     ))}

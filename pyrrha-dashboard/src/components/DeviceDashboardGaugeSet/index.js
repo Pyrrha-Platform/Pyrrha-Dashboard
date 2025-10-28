@@ -45,8 +45,8 @@ function DeviceDashboardGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds(),
-    ),
+      now.getUTCMilliseconds()
+    )
   );
   const utcTimeDifference =
     utcCurrentDate.getTime() - utcTimestampDate.getTime();
@@ -97,8 +97,7 @@ function DeviceDashboardGaugeSet({
                   <Link
                     to={'/details/' + device_id}
                     className="cds--link label-firefighter"
-                    title={device_name || device_id}
-                  >
+                    title={device_name || device_id}>
                     {device_name || `Device ${device_id}`}
                     <br />
                   </Link>
@@ -136,7 +135,7 @@ function DeviceDashboardGaugeSet({
                     gauge={Utils.getPercentage(
                       'CO',
                       carbon_monoxide,
-                      increment,
+                      increment
                     )}
                   />
                 </div>
@@ -153,7 +152,7 @@ function DeviceDashboardGaugeSet({
                     gauge={Utils.getPercentage(
                       'NO2',
                       nitrogen_dioxide,
-                      increment,
+                      increment
                     )}
                   />
                 </div>

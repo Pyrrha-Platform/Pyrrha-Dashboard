@@ -52,7 +52,7 @@ const LoginPage = (props) => {
         return setError(t(err));
       }
     },
-    [loginId, setCurrentUser, t, navigate],
+    [loginId, setCurrentUser, t, navigate]
   );
 
   return (
@@ -78,8 +78,7 @@ const LoginPage = (props) => {
             }}
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -200, opacity: 0 }}
-          >
+            exit={{ x: -200, opacity: 0 }}>
             <div className="login__supportingContainer">
               {step === 2 ? (
                 <p className="login__forgotPassword">
