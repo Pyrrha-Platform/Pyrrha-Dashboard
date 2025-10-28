@@ -18,7 +18,7 @@ const DevicesDeleteModal = ({ row, loadDevices }) => {
         `${Constants.API_BASE_URL}/api-main/v1/devices/${deviceId}`,
         {
           method: 'DELETE',
-        }
+        },
       );
 
       if (response.ok) {

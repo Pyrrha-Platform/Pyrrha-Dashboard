@@ -45,8 +45,8 @@ function DeviceDashboardGaugeSet({
       now.getUTCHours(),
       now.getUTCMinutes(),
       now.getUTCSeconds(),
-      now.getUTCMilliseconds()
-    )
+      now.getUTCMilliseconds(),
+    ),
   );
   const utcTimeDifference =
     utcCurrentDate.getTime() - utcTimestampDate.getTime();
@@ -135,7 +135,7 @@ function DeviceDashboardGaugeSet({
                     gauge={Utils.getPercentage(
                       'CO',
                       carbon_monoxide,
-                      increment
+                      increment,
                     )}
                   />
                 </div>
@@ -152,7 +152,7 @@ function DeviceDashboardGaugeSet({
                     gauge={Utils.getPercentage(
                       'NO2',
                       nitrogen_dioxide,
-                      increment
+                      increment,
                     )}
                   />
                 </div>

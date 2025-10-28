@@ -28,7 +28,7 @@ const DevicesEditModal = ({ row, loadDevices }) => {
             model,
             version,
           }),
-        }
+        },
       );
 
       if (response.ok) {

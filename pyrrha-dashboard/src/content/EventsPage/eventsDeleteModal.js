@@ -17,7 +17,7 @@ const EventsDeleteModal = ({ row, loadEvents }) => {
         `${Constants.API_BASE_URL}/api-main/v1/events/${eventId}`,
         {
           method: 'DELETE',
-        }
+        },
       );
 
       if (response.ok) {

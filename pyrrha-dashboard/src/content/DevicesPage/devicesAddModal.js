@@ -25,7 +25,7 @@ const DevicesAddModal = ({ loadDevices }) => {
             model,
             version,
           }),
-        }
+        },
       );
 
       if (response.ok) {
