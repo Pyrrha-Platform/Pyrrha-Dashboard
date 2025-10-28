@@ -40,7 +40,7 @@ const formatRows = (rows) =>
       ? [rowCopy['latitude'], rowCopy['longitude']]
       : 'Unavailable';
     rowCopy['lastCheckin'] = timeAgo.format(
-      new Date(rowCopy['timestamp_mins'])
+      new Date(rowCopy['timestamp_mins']),
     );
     rowCopy['lastCheckinRaw'] = new Date(rowCopy['timestamp_mins']);
 
@@ -109,22 +109,22 @@ const getRowClasses = (cell, indexCells) => {
   } else if (indexCells === 3) {
     result = getStatus('CO', cell.value, 'now');
     console.log(
-      `DeviceTable DEBUG - CO: value="${cell.value}", result="${result}"`
+      `DeviceTable DEBUG - CO: value="${cell.value}", result="${result}"`,
     );
   } else if (indexCells === 4) {
     result = getStatus('NO2', cell.value, 'now');
     console.log(
-      `DeviceTable DEBUG - NO2: value="${cell.value}", result="${result}"`
+      `DeviceTable DEBUG - NO2: value="${cell.value}", result="${result}"`,
     );
   } else if (indexCells === 5) {
     result = getStatus('Tmp', cell.value, 'now');
     console.log(
-      `DeviceTable DEBUG - Temperature: value="${cell.value}", result="${result}"`
+      `DeviceTable DEBUG - Temperature: value="${cell.value}", result="${result}"`,
     );
   } else if (indexCells === 6) {
     result = getStatus('Hum', cell.value, 'now');
     console.log(
-      `DeviceTable DEBUG - Humidity: value="${cell.value}", result="${result}"`
+      `DeviceTable DEBUG - Humidity: value="${cell.value}", result="${result}"`,
     );
   }
   return result;
@@ -241,7 +241,7 @@ const DeviceTable = ({
                   // Make sure we don't try to display more than possible
                   .filter(
                     (_, rowIndex) =>
-                      (page - 1) * pageSize + rowIndex < devices.length
+                      (page - 1) * pageSize + rowIndex < devices.length,
                   )
                   .map((row, rowIndex) => {
                     const deviceIndex = (page - 1) * pageSize + rowIndex;

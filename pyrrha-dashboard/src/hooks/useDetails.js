@@ -11,7 +11,7 @@ const client = async (url, options) => {
 const fetchDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `${Constants.API_BASE_URL}/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.details) {
@@ -27,7 +27,7 @@ const fetchDetails = async (device_id, increment, type) => {
 const fetchChartDetails = async (device_id, increment, type) => {
   try {
     const data = await client(
-      `${Constants.API_BASE_URL}/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`
+      `${Constants.API_BASE_URL}/api-main/v1/dashboard-chart-details/${device_id}/${increment}/${type}`,
     );
     // console.log(data);
     if (data.chart) {
@@ -115,7 +115,7 @@ const updateDetails = (details, message) => {
 
             newDetails.current = Utils.arrayRemove(
               newDetails.current,
-              oldReading
+              oldReading,
             );
             newDetails.current.push(newReading);
           }
@@ -126,7 +126,7 @@ const updateDetails = (details, message) => {
       // latest reading for the device, or add it
       // console.log('object', newMessage);
       let foundExistingReading = false;
-      
+
       newDetails.current.forEach((oldReading) => {
         if (oldReading.device_id === newMessage.device_id) {
           foundExistingReading = true;
@@ -180,7 +180,7 @@ const updateDetails = (details, message) => {
             oldReading.nitrogen_dioxide_twa_480min;
           newDetails.current = Utils.arrayRemove(
             newDetails.current,
-            oldReading
+            oldReading,
           );
 
           newDetails.current.push(newMessage);
@@ -254,7 +254,7 @@ const useDetails = (device_id, inc, ty) => {
         // Filter WebSocket messages to only process the device we're viewing
         try {
           const receivedMessage = JSON.parse(msg.data);
-          
+
           // Only process messages for this specific device
           if (receivedMessage.device_id === parseInt(device_id, 10)) {
             // console.log('Received update for our device.', msg);

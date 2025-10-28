@@ -129,7 +129,7 @@ const Map = () => {
                 latitude={latitude}
                 increment={'now'}
               />
-            )
+            ),
           )}
         </div>
       )}

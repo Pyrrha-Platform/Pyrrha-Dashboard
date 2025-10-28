@@ -143,13 +143,13 @@ const NewDevicesTable = () => {
                           <DeviceDetailMap
                             device={{
                               name: row.cells.find(
-                                (cell) => cell.info.header === 'name'
+                                (cell) => cell.info.header === 'name',
                               )?.value,
                               latitude: row.cells.find(
-                                (cell) => cell.info.header === 'latitude'
+                                (cell) => cell.info.header === 'latitude',
                               )?.value,
                               longitude: row.cells.find(
-                                (cell) => cell.info.header === 'longitude'
+                                (cell) => cell.info.header === 'longitude',
                               )?.value,
                             }}
                           />

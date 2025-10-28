@@ -40,21 +40,21 @@ const EventsAddModal = ({ loadEvents }) => {
     try {
       // Load event types
       const eventTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/event-types`
+        `${Constants.API_BASE_URL}/api-main/v1/event-types`,
       );
       const eventTypesData = await eventTypesResponse.json();
       setEventTypes(eventTypesData.event_types || []);
 
       // Load fuel types
       const fuelTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/fuel-types`
+        `${Constants.API_BASE_URL}/api-main/v1/fuel-types`,
       );
       const fuelTypesData = await fuelTypesResponse.json();
       setFuelTypes(fuelTypesData.fuel_types || []);
 
       // Load status options
       const statusResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/status`
+        `${Constants.API_BASE_URL}/api-main/v1/status`,
       );
       const statusData = await statusResponse.json();
       setStatusOptions(statusData.status_options || []);
@@ -82,7 +82,7 @@ const EventsAddModal = ({ loadEvents }) => {
             end_time: endTime,
             extra_info: extraInfo,
           }),
-        }
+        },
       );
 
       if (response.ok) {
@@ -136,7 +136,7 @@ const EventsAddModal = ({ loadEvents }) => {
             items={eventTypes}
             itemToString={(item) => (item ? item.event_description : '')}
             selectedItem={eventTypes.find(
-              (item) => item.event_id === eventType
+              (item) => item.event_id === eventType,
             )}
             onChange={({ selectedItem }) =>
               setEventType(selectedItem ? selectedItem.event_id : '')
@@ -164,7 +164,7 @@ const EventsAddModal = ({ loadEvents }) => {
             items={statusOptions}
             itemToString={(item) => (item ? item.status_description : '')}
             selectedItem={statusOptions.find(
-              (item) => item.status_id === status
+              (item) => item.status_id === status,
             )}
             onChange={({ selectedItem }) =>
               setStatus(selectedItem ? selectedItem.status_id : '')

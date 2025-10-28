@@ -34,9 +34,19 @@ export default [
   },
 
   {
-    files: ['api-auth/**/*.js', 'server.js', 'src/setupProxy.js', 'src/serviceWorker.js'],
+    files: [
+      'api-auth/**/*.js',
+      'server.js',
+      'src/setupProxy.js',
+      'src/serviceWorker.js',
+    ],
     languageOptions: {
-      globals: { ...globals.node, module: 'readonly', require: 'readonly', process: 'readonly' },
+      globals: {
+        ...globals.node,
+        module: 'readonly',
+        require: 'readonly',
+        process: 'readonly',
+      },
       sourceType: 'script', // CJS files
     },
   },

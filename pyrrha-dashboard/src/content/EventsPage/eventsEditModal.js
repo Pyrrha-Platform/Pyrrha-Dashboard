@@ -43,21 +43,21 @@ const EventsEditModal = ({ row, loadEvents }) => {
     try {
       // Load event types
       const eventTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/event-types`
+        `${Constants.API_BASE_URL}/api-main/v1/event-types`,
       );
       const eventTypesData = await eventTypesResponse.json();
       setEventTypes(eventTypesData.event_types || []);
 
       // Load fuel types
       const fuelTypesResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/fuel-types`
+        `${Constants.API_BASE_URL}/api-main/v1/fuel-types`,
       );
       const fuelTypesData = await fuelTypesResponse.json();
       setFuelTypes(fuelTypesData.fuel_types || []);
 
       // Load status options
       const statusResponse = await fetch(
-        `${Constants.API_BASE_URL}/api-main/v1/status`
+        `${Constants.API_BASE_URL}/api-main/v1/status`,
       );
       const statusData = await statusResponse.json();
       setStatusOptions(statusData.status || []);
@@ -70,13 +70,13 @@ const EventsEditModal = ({ row, loadEvents }) => {
     if (row && row.cells) {
       setName(row.cells.find((cell) => cell.id.includes('name'))?.value || '');
       setEventType(
-        row.cells.find((cell) => cell.id.includes('type'))?.value || ''
+        row.cells.find((cell) => cell.id.includes('type'))?.value || '',
       );
       setStatus(
-        row.cells.find((cell) => cell.id.includes('status'))?.value || ''
+        row.cells.find((cell) => cell.id.includes('status'))?.value || '',
       );
       setEventDate(
-        row.cells.find((cell) => cell.id.includes('date'))?.value || ''
+        row.cells.find((cell) => cell.id.includes('date'))?.value || '',
       );
       // Additional fields can be populated here when available
     }
@@ -102,7 +102,7 @@ const EventsEditModal = ({ row, loadEvents }) => {
             end_time: endTime,
             extra_info: extraInfo,
           }),
-        }
+        },
       );
 
       if (response.ok) {
@@ -149,7 +149,7 @@ const EventsEditModal = ({ row, loadEvents }) => {
             items={eventTypes}
             itemToString={(item) => (item ? item.event_description : '')}
             selectedItem={eventTypes.find(
-              (item) => item.event_id === eventType
+              (item) => item.event_id === eventType,
             )}
             onChange={({ selectedItem }) =>
               setEventType(selectedItem ? selectedItem.event_id : '')
@@ -177,7 +177,7 @@ const EventsEditModal = ({ row, loadEvents }) => {
             items={statusOptions}
             itemToString={(item) => (item ? item.status_description : '')}
             selectedItem={statusOptions.find(
-              (item) => item.status_id === status
+              (item) => item.status_id === status,
             )}
             onChange={({ selectedItem }) =>
               setStatus(selectedItem ? selectedItem.status_id : '')

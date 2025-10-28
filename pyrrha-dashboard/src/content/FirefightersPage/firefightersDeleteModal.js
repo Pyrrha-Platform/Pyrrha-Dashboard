@@ -26,7 +26,7 @@ const FirefightersDeleteModal = ({ row, loadFirefighters }) => {
         `${Constants.API_BASE_URL}/api-main/v1/firefighters/${firefighterId}`,
         {
           method: 'DELETE',
-        }
+        },
       );
 
       if (response.ok) {
