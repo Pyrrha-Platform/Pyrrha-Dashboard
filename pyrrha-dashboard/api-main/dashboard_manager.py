@@ -256,9 +256,9 @@ class dashboard_manager(object):
 
         chart = []
 
-        self._logger.debug("get_dashboard_chart_details - device_id:", device_id)
-        self._logger.debug("get_dashboard_chart_details - increment:", increment)
-        self._logger.debug("get_dashboard_chart_details - type:", type)
+        self._logger.debug(f"get_dashboard_chart_details - device_id: {device_id}")
+        self._logger.debug(f"get_dashboard_chart_details - increment: {increment}")
+        self._logger.debug(f"get_dashboard_chart_details - type: {type}")
 
         # Default column names
         ty = "carbon_monoxide_twa_"
@@ -325,7 +325,7 @@ class dashboard_manager(object):
             self._logger.debug(sql)
 
             self._logger.debug(
-                "get_dashboard_chart_details - get latest readings for", column
+                f"get_dashboard_chart_details - get latest readings for {column}"
             )
             cursor.execute(sql, (device_id,))
 

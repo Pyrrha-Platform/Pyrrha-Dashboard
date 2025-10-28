@@ -15,7 +15,9 @@ class Utils {
   // Manages transitions of gauge angles
   static arcTween = (newAngle) => {
     return function (d) {
-      const interpolate = d3.interpolate(d.endAngle, newAngle);
+      // Check for valid numeric angle to prevent NaN in SVG paths
+      const safeAngle = (newAngle != null && !isNaN(newAngle) && isFinite(newAngle)) ? newAngle : 0;
+      const interpolate = d3.interpolate(d.endAngle, safeAngle);
       return function (t) {
         d.endAngle = interpolate(t);
         return Constants.ARC(d);
@@ -32,7 +34,7 @@ class Utils {
 
   // Whole number or to a given number of decimal places
   static formatFloat = (value, places) => {
-    if (!isNaN(value)) {
+    if (value != null && !isNaN(value) && isFinite(value)) {
       return +parseFloat(value).toFixed(places);
     }
     return '-';
@@ -41,6 +43,11 @@ class Utils {
   // Get the percentage as a float between 0 and 1 to determine the angle
   static getPercentage = (type, value, increment) => {
     let number = 0.0;
+
+    // Check if value is valid to prevent NaN calculations
+    if (value == null || isNaN(value) || !isFinite(value)) {
+      return 0.0;
+    }
 
     // Carbon monoxide
     if (type === 'CO') {

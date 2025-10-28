@@ -131,12 +131,14 @@ body {
   padding-right: 0;
 }
 
+/* Removed custom InlineNotification styling to use Carbon Design System defaults
 .cds--inline-notification--info,
 .cds--inline-notification--error,
 .cds--inline-notification--warning {
   background: #393939;
   color: #fff;
 }
+*/
 
 @media (min-width: 82rem) {
   .cds--modal-container--xs {
