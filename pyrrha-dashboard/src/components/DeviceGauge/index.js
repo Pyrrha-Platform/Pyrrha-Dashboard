@@ -6,7 +6,8 @@ import Utils from '../../utils/Utils';
 function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
   const ref = useRef();
 
-  const url_safe_device_id = device_id;
+  // Use the numeric device ID directly (should be 1, 2, 3, 4 from database)
+  const url_safe_device_id = device_id ? device_id.toString() : 'unknown';
 
   /*
   console.log("DeviceGauge");
