@@ -1,4 +1,5 @@
 import React, { useContext, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { Grid, Column } from '@carbon/react';
 import {
   DataTable,
@@ -26,10 +27,6 @@ const NewDevicesTable = () => {
   const [fetched, setFetched] = React.useState(false);
   const { t } = useContext(AppContext);
 
-  React.useEffect(() => {
-    loadDevices();
-  }, [fetched]);
-
   const loadDevices = useCallback(async () => {
     try {
       const apiUrl = `${Constants.API_BASE_URL}/api-main/v1/devices`;
@@ -41,6 +38,10 @@ const NewDevicesTable = () => {
       console.log('DevicesTable error:', error);
     }
   }, []);
+
+  React.useEffect(() => {
+    loadDevices();
+  }, [fetched, loadDevices]);
 
   // Form header data
   const headerData = [
@@ -165,6 +166,10 @@ const NewDevicesTable = () => {
       </Column>
     </Grid>
   );
+};
+
+NewDevicesTable.propTypes = {
+  // No props expected for this component
 };
 
 export default NewDevicesTable;

@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import React, { useRef, useEffect, useContext } from 'react';
+import React, { useRef, useEffect, useContext, useCallback } from 'react';
 import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
 import AppContext from '../../context/app';
@@ -20,12 +20,7 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .attr('height', height + margin.top + margin.bottom);
   }, []);
 
-  // On first load
-  useEffect(() => {
-    draw(device_id, type, data, unit);
-  }, [data]);
-
-  const draw = (device_id, type, data, unit) => {
+  const draw = useCallback((device_id, type, data, unit) => {
     // console.log("draw()");
     d3.select(ref.current).selectAll('*').remove();
 
@@ -225,7 +220,12 @@ function DeviceChart({ device_id, type, data, unit, limit, increment }) {
       .on('mouseover', mouseover)
       .on('mousemove', mousemove)
       .on('mouseout', mouseout);
-  };
+  }, []);
+
+  // On first load
+  useEffect(() => {
+    draw(device_id, type, data, unit);
+  }, [data, draw, device_id, type, unit]);
 
   return <svg ref={ref}></svg>;
 }

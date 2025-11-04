@@ -43,7 +43,7 @@ if (process.env.VCAP_APPLICATION) {
         '⚠️  Using default session secret for development. Set up vcap-local.json for production.',
       );
     }
-  } catch (error) {
+  } catch (_error) {
     secret = 'dev-session-secret-change-in-production';
     console.warn(
       '⚠️  Could not load vcap-local.json, using default session secret.',

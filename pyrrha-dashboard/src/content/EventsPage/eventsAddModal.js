@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import {
   TextInput,
   DatePicker,
@@ -31,12 +31,7 @@ const EventsAddModal = ({ loadEvents }) => {
 
   const { t } = useContext(AppContext);
 
-  // Load dropdown options
-  useEffect(() => {
-    loadDropdownOptions();
-  }, []);
-
-  const loadDropdownOptions = async () => {
+  const loadDropdownOptions = useCallback(async () => {
     try {
       // Load event types
       const eventTypesResponse = await fetch(
@@ -61,7 +56,12 @@ const EventsAddModal = ({ loadEvents }) => {
     } catch (error) {
       console.error('Error loading dropdown options:', error);
     }
-  };
+  }, []);
+
+  // Load dropdown options
+  useEffect(() => {
+    loadDropdownOptions();
+  }, [loadDropdownOptions]);
 
   const handleSubmit = async () => {
     try {

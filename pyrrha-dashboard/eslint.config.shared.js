@@ -37,6 +37,21 @@ export default [
     },
   },
 
+  // CommonJS files (require/module.exports)
+  {
+    files: ['**/*.cjs', '**/check-workspace.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+      globals: { ...globals.node },
+    },
+    rules: {
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-console': 'off',
+      'prefer-const': 'error',
+    },
+  },
+
   // Node.js server files (API backends, MQTT client, WebSocket server)
   {
     files: [

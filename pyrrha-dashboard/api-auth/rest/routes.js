@@ -32,7 +32,7 @@ const apiKeyAuth = (req, res, next) => {
         const vcapConfig = require('../vcap-local.json');
         apiKey = vcapConfig.user_vars?.pyrrha_api_key;
       }
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Could not load vcap-local.json for API key');
     }
 
