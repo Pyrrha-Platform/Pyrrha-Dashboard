@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const nodeFetch = require('node-fetch');
 const generator = require('generate-password');
 const qs = require('qs');
 
@@ -16,7 +16,7 @@ if (process.env.VCAP_APPLICATION) {
       const vcapConfig = require('../vcap-local.json');
       TENET_ID = vcapConfig.services?.AppID?.credentials?.tenantId;
     }
-  } catch (error) {
+  } catch (_error) {
     console.warn('⚠️  Could not load vcap-local.json for AppID tenant ID');
   }
 
@@ -48,7 +48,7 @@ class AppIdManagement {
           const vcapConfig = require('../vcap-local.json');
           this.apiKey = vcapConfig.ibm_cloud?.api_key;
         }
-      } catch (error) {
+      } catch (_error) {
         console.warn(
           '⚠️  Could not load vcap-local.json for IBM Cloud API key',
         );
@@ -70,15 +70,18 @@ class AppIdManagement {
       grant_type: 'urn:ibm:params:oauth:grant-type:apikey',
     });
 
-    const response = await fetch('https://iam.cloud.ibm.com/identity/token', {
-      method: 'POST',
-      body: data,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+    const response = await nodeFetch(
+      'https://iam.cloud.ibm.com/identity/token',
+      {
+        method: 'POST',
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
 
-        Accept: 'application/json',
+          Accept: 'application/json',
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       console.error(await response.json());
@@ -114,7 +117,7 @@ class AppIdManagement {
 
     const formattedEmail = email.replace('@', '%40');
 
-    const response = await fetch(
+    const response = await nodeFetch(
       `https://us-south.appid.cloud.ibm.com/management/v4/${TENET_ID}/cloud_directory/Users?query=${formattedEmail}`,
       {
         method: 'GET',
@@ -152,7 +155,7 @@ class AppIdManagement {
       }),
     });
 
-    const response = await fetch(
+    const response = await nodeFetch(
       `https://us-south.appid.cloud.ibm.com/management/v4/${TENET_ID}/cloud_directory/sign_up`,
       {
         method: 'POST',

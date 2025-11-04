@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import {
   TextInput,
   DatePicker,
@@ -31,15 +31,7 @@ const EventsEditModal = ({ row, loadEvents }) => {
 
   const { t } = useContext(AppContext);
 
-  // Load dropdown options and populate form when modal opens
-  useEffect(() => {
-    if (open) {
-      loadDropdownOptions();
-      populateForm();
-    }
-  }, [open, row]);
-
-  const loadDropdownOptions = async () => {
+  const loadDropdownOptions = useCallback(async () => {
     try {
       // Load event types
       const eventTypesResponse = await fetch(
@@ -64,9 +56,9 @@ const EventsEditModal = ({ row, loadEvents }) => {
     } catch (error) {
       console.error('Error loading dropdown options:', error);
     }
-  };
+  }, []);
 
-  const populateForm = () => {
+  const populateForm = useCallback(() => {
     if (row && row.cells) {
       setName(row.cells.find((cell) => cell.id.includes('name'))?.value || '');
       setEventType(
@@ -80,7 +72,15 @@ const EventsEditModal = ({ row, loadEvents }) => {
       );
       // Additional fields can be populated here when available
     }
-  };
+  }, [row]);
+
+  // Load dropdown options and populate form when modal opens
+  useEffect(() => {
+    if (open) {
+      loadDropdownOptions();
+      populateForm();
+    }
+  }, [open, row, loadDropdownOptions, populateForm]);
 
   const handleSubmit = async () => {
     try {

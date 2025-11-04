@@ -24,10 +24,6 @@ const NewEventsTable = () => {
   const [fetched, setFetched] = React.useState(false);
   const { t } = useContext(AppContext);
 
-  React.useEffect(() => {
-    loadEvents();
-  }, [fetched]);
-
   const loadEvents = useCallback(async () => {
     try {
       const response = await fetch(
@@ -49,6 +45,10 @@ const NewEventsTable = () => {
       console.log(e);
     }
   }, []);
+
+  React.useEffect(() => {
+    loadEvents();
+  }, [fetched, loadEvents]);
 
   // Form header data
   const headerData = [

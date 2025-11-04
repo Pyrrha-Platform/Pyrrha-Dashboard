@@ -12,8 +12,8 @@ if (process.env.VCAP_APPLICATION) {
       const vcapConfig = require('../vcap-local.json');
       secret = vcapConfig.user_vars?.jwt_secret;
     }
-  } catch (error) {
-    console.warn('⚠️  Could not load vcap-local.json for JWT secret');
+  } catch (_error) {
+    console.log(_error);
   }
 
   // Use development default if no secret found

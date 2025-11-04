@@ -22,7 +22,7 @@ function resetStream() {
  * * the acclerations stream. Removed for now since
  * * the chart on the client is not rendered.
  */
-function addToStream() {
+function _addToStream() {
   if (pool.length === 0) {
     resetStream();
   }
