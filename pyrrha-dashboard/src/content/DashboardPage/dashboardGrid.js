@@ -20,6 +20,24 @@ const DashboardGrid = () => {
   ] = useDashboard();
   const { t } = useContext(AppContext);
 
+  // Debug logging for dashboard rendering
+  console.log('DashboardGrid - rendering with dashboard:', dashboard);
+  console.log('DashboardGrid - dashboard length:', dashboard?.length);
+  if (dashboard && dashboard.length > 0) {
+    console.log(
+      'DashboardGrid - device_ids in dashboard:',
+      dashboard.map((d) => d.device_id),
+    );
+    console.log(
+      'DashboardGrid - device objects:',
+      dashboard.map((d) => ({
+        id: d.device_id,
+        name: d.device_name,
+        co: d.carbon_monoxide,
+      })),
+    );
+  }
+
   return (
     <Grid className="dashboard-content main-container" fullWidth>
       <Column sm={4} md={8} lg={16}>

@@ -1,9 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  TableCell,
-  OverflowMenu,
-  OverflowMenuItem,
-} from 'carbon-components-react';
+import { TableCell, OverflowMenu, OverflowMenuItem } from '@carbon/react';
 import AppContext from '../../context/app';
 
 const DeviceOverflowMenu = ({ id, device, onModify, onRemove }) => {

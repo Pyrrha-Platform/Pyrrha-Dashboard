@@ -1,11 +1,16 @@
 import React, { useContext } from 'react';
-import { ContentSwitcher, Switch } from 'carbon-components-react';
+import {
+  ContentSwitcher,
+  Switch,
+  InlineNotification,
+  Grid,
+  Column,
+} from '@carbon/react';
 import '@carbon/charts/styles.css';
 import DeviceDetailsGaugeSet from '../../components/DeviceDetailsGaugeSet';
 import DeviceChartHolder from '../../components/DeviceChartHolder';
 import useDetails from '../../hooks/useDetails';
 import AppContext from '../../context/app';
-import { InlineNotification, Grid, Column } from '@carbon/react';
 
 // Table and data
 const DetailsGrid = (params) => {

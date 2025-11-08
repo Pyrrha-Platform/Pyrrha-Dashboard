@@ -1,9 +1,16 @@
 import * as d3 from 'd3';
-import React, { useRef, useEffect, useContext, useCallback } from 'react';
+import React, { useRef, useEffect, useContext, useCallback, memo } from 'react';
 import Constants from '../../utils/Constants';
 import Utils from '../../utils/Utils';
 
-function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
+const DeviceGauge = memo(function DeviceGauge({
+  device_id,
+  type,
+  value,
+  unit,
+  increment,
+  gauge,
+}) {
   const ref = useRef();
 
   // Use the numeric device ID directly (should be 1, 2, 3, 4 from database)
@@ -37,6 +44,9 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
     console.log("gauge", gauge);
     console.log("----");
     */
+
+      // Clear all existing content first to prevent accumulation
+      svg.selectAll('*').remove();
 
       svg
         .append('g')
@@ -126,15 +136,23 @@ function DeviceGauge({ device_id, type, value, unit, increment, gauge }) {
       .select(ref.current)
       .attr('width', width)
       .attr('height', height);
-    draw(svg, url_safe_device_id, type, value, unit, increment, gauge);
-  }, [draw, url_safe_device_id, type, value, unit, increment, gauge]);
 
-  // When data changes
+    // Only draw initial gauge on mount or when core structure changes
+    draw(svg, url_safe_device_id, type, value, unit, increment, gauge);
+  }, [draw, url_safe_device_id, type, increment]); // Remove value, unit, gauge from deps
+
+  // When data changes, update existing elements
   useEffect(() => {
-    change(url_safe_device_id, type, value, unit, increment, gauge);
-  }, [value, change, url_safe_device_id, type, unit, increment, gauge]);
+    // Only update if the gauge has been drawn (elements exist)
+    const existingElement = d3.select(
+      '#angle-' + type + '-' + increment + '-' + url_safe_device_id,
+    );
+    if (!existingElement.empty()) {
+      change(url_safe_device_id, type, value, unit, increment, gauge);
+    }
+  }, [value, gauge, change, url_safe_device_id, type, unit, increment]); // Keep value and gauge here for updates
 
   return <svg ref={ref}></svg>;
-}
+});
 
 export default DeviceGauge;

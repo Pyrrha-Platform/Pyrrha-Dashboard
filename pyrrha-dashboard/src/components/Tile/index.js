@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tile } from 'carbon-components-react';
+import { Tile } from '@carbon/react';
 
 export default function index({ title, main, small }) {
   return (

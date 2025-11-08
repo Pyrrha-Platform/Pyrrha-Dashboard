@@ -4,7 +4,7 @@ import Field from '../../components/Field';
 import AppContext from '../../context/app';
 import AuthClient from '../../hooks/useAuth';
 import Utils from '../../utils/Utils';
-import { Button } from 'carbon-components-react';
+import { Button } from '@carbon/react';
 import { ArrowRight32 } from '@carbon/icons-react';
 
 function ProfilePage(props) {
