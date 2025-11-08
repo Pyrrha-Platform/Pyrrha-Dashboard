@@ -6,7 +6,7 @@ import {
   Form,
   Checkbox,
   InlineLoading,
-} from 'carbon-components-react';
+} from '@carbon/react';
 import AppContext from '../../context/app';
 import { ArrowRight32, ArrowLeft16 } from '@carbon/icons-react';
 

@@ -19,7 +19,7 @@ import {
   Pagination,
   Modal,
   Loading,
-} from 'carbon-components-react';
+} from '@carbon/react';
 
 import DeviceOverflowMenu from './DeviceOverflowMenu';
 import React, { Fragment, useContext, useEffect } from 'react';

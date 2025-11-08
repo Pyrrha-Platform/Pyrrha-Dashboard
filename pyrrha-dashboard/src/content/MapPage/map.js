@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import '@carbon/charts/styles.css';
-import { Tile } from 'carbon-components-react';
+import { Tile } from '@carbon/react';
 import DeviceMap from '../../components/DeviceMap';
 import useMap from '../../hooks/useMap';
 import AppContext from '../../context/app';

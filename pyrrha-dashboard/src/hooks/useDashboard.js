@@ -24,70 +24,151 @@ const fetchDashboard = async () => {
   }
 };
 
-const updateDashboard = (dashboard, message) => {
-  // console.log('dashboard', dashboard);
-  // console.log('message', message);
+const updateDashboard = (dashboardRef, message) => {
+  console.log('updateDashboard - current dashboard:', dashboardRef.current);
+  console.log('updateDashboard - message:', message);
 
-  let newDashboard = { current: [] };
-  if (
-    dashboard !== undefined &&
-    dashboard.current !== undefined &&
-    dashboard.current !== null &&
-    dashboard.current.length !== 0
-  ) {
-    newDashboard = JSON.parse(JSON.stringify(dashboard));
+  // Work with the current dashboard state from ref
+  let currentDashboard = dashboardRef.current || [];
+  let newDashboard = [...currentDashboard]; // Create a copy
+
+  // console.log('currentDashboard', currentDashboard);
+
+  const rawMessage = JSON.parse(message);
+
+  // Handle both single device and array of devices
+  let newMessage;
+
+  if (Array.isArray(rawMessage)) {
+    // Already an array of devices - normalize each device
+    newMessage = rawMessage.map((device) => ({
+      device_id: device.device_id,
+      device_name: device.device_name,
+      device_timestamp:
+        device.device_timestamp && device.device_timestamp.includes('+00:00')
+          ? device.device_timestamp
+          : (device.device_timestamp || '') + '+00:00',
+      timestamp_mins:
+        device.device_timestamp && device.device_timestamp.includes('+00:00')
+          ? device.device_timestamp
+          : (device.device_timestamp || '') + '+00:00',
+      carbon_monoxide: parseFloat(device.carbon_monoxide) || 0,
+      nitrogen_dioxide: parseFloat(device.nitrogen_dioxide) || 0,
+      temperature: parseFloat(device.temperature) || 0,
+      humidity: parseFloat(device.humidity) || 0,
+      // Keep extra fields if they exist
+      ...(device.acrolein !== undefined && {
+        acrolein: parseFloat(device.acrolein) || 0,
+      }),
+      ...(device.benzene !== undefined && {
+        benzene: parseFloat(device.benzene) || 0,
+      }),
+      ...(device.formaldehyde !== undefined && {
+        formaldehyde: parseFloat(device.formaldehyde) || 0,
+      }),
+      ...(device.device_battery_level !== undefined && {
+        device_battery_level: device.device_battery_level,
+      }),
+      ...(device.firefighter_id !== undefined && {
+        firefighter_id: device.firefighter_id,
+      }),
+      ...(device.type !== undefined && { type: device.type }),
+    }));
+  } else {
+    // Single device - normalize to single object
+    newMessage = {
+      device_id: rawMessage.device_id,
+      device_name: rawMessage.device_name,
+      device_timestamp:
+        rawMessage.device_timestamp &&
+        rawMessage.device_timestamp.includes('+00:00')
+          ? rawMessage.device_timestamp
+          : (rawMessage.device_timestamp || '') + '+00:00',
+      timestamp_mins:
+        rawMessage.device_timestamp &&
+        rawMessage.device_timestamp.includes('+00:00')
+          ? rawMessage.device_timestamp
+          : (rawMessage.device_timestamp || '') + '+00:00',
+      carbon_monoxide: parseFloat(rawMessage.carbon_monoxide) || 0,
+      nitrogen_dioxide: parseFloat(rawMessage.nitrogen_dioxide) || 0,
+      temperature: parseFloat(rawMessage.temperature) || 0,
+      humidity: parseFloat(rawMessage.humidity) || 0,
+      // Keep extra fields if they exist
+      ...(rawMessage.acrolein !== undefined && {
+        acrolein: parseFloat(rawMessage.acrolein) || 0,
+      }),
+      ...(rawMessage.benzene !== undefined && {
+        benzene: parseFloat(rawMessage.benzene) || 0,
+      }),
+      ...(rawMessage.formaldehyde !== undefined && {
+        formaldehyde: parseFloat(rawMessage.formaldehyde) || 0,
+      }),
+      ...(rawMessage.device_battery_level !== undefined && {
+        device_battery_level: rawMessage.device_battery_level,
+      }),
+      ...(rawMessage.firefighter_id !== undefined && {
+        firefighter_id: rawMessage.firefighter_id,
+      }),
+      ...(rawMessage.type !== undefined && { type: rawMessage.type }),
+    };
   }
 
-  // console.log('newDashboard', newDashboard);
-
-  const newMessage = JSON.parse(message);
-  newMessage.device_timestamp += '+00:00';
+  console.log('Normalized message:', newMessage);
 
   // console.log(typeof newMessage, newMessage);
   if (typeof newMessage === 'object') {
     if (newMessage instanceof Array) {
-      // For each item in the newDashboard.current array, check to see if
-      // there's a replacement in the newMessage array, then replace
-      // console.log('array', newMessage);
-      newDashboard.current.forEach((oldReading) => {
-        newMessage.forEach((newReading) => {
-          if (oldReading.device_id === newReading.device_id) {
-            // console.log( 'Replacing an old reading with a new one in the array', newMessage);
-            newDashboard.current = Utils.arrayRemove(
-              newDashboard.current,
-              oldReading,
-            );
-            newDashboard.current.push(newReading);
-          }
-        });
+      // Multiple device updates - process each device in the array
+      console.log('Processing array of', newMessage.length, 'devices');
+
+      newMessage.forEach((deviceUpdate) => {
+        console.log(
+          'Processing device update for device_id:',
+          deviceUpdate.device_id,
+        );
+
+        // Find and replace existing device or add new one
+        const existingDeviceIndex = newDashboard.findIndex(
+          (device) => device.device_id === deviceUpdate.device_id,
+        );
+
+        if (existingDeviceIndex !== -1) {
+          console.log(
+            'Replacing existing device at index:',
+            existingDeviceIndex,
+          );
+          newDashboard[existingDeviceIndex] = deviceUpdate;
+        } else {
+          console.log('Adding new device');
+          newDashboard.push(deviceUpdate);
+        }
       });
     } else {
       // It's a single device update, replace the
       // latest reading for the device, or add it
-      // console.log('object', newMessage);
-      let matchedOldReading = false;
-      newDashboard.current.forEach((oldReading) => {
-        if (oldReading.device_id === newMessage.device_id) {
-          // console.log('Replacing a single old reading with a new one', newMessage);
-          // console.log('Merged new and old readings', newMessage);
-          newDashboard.current = Utils.arrayRemove(
-            newDashboard.current,
-            oldReading,
-          );
-          newDashboard.current.push(newMessage);
-          matchedOldReading = true;
-        }
-      });
-      if (!matchedOldReading) {
-        // console.log('Adding a new reading', newMessage);
-        newDashboard.current.push(newMessage);
+      console.log(
+        'Processing single device update for device_id:',
+        newMessage.device_id,
+      );
+
+      // Find and replace existing device or add new one
+      const existingDeviceIndex = newDashboard.findIndex(
+        (device) => device.device_id === newMessage.device_id,
+      );
+
+      if (existingDeviceIndex !== -1) {
+        console.log('Replacing existing device at index:', existingDeviceIndex);
+        // Replace the existing device
+        newDashboard[existingDeviceIndex] = newMessage;
+      } else {
+        console.log('Adding new device');
+        // Add new device
+        newDashboard.push(newMessage);
       }
       // console.log(newDashboard);
     }
   }
-  return newDashboard.current.sort((a, b) =>
-    a.device_id < b.device_id ? 1 : -1,
-  );
+  return newDashboard.sort((a, b) => (a.device_id < b.device_id ? 1 : -1));
 };
 
 const setRiskLevels = (dashboard, setNormal, setWarning, setDanger) => {
@@ -156,9 +237,10 @@ const useDashboard = () => {
       if (msg.data === 'Connection Opened') {
         setLoading('Connection opened.');
       } else {
-        // console.log('Received update.', msg);
+        console.log('Received update.', msg.data);
         setLoading('Received update at ' + new Date() + '.');
         const updatedDashboard = updateDashboard(dashboardRef, msg.data);
+        console.log('Updated dashboard:', updatedDashboard);
         setDashboard(updatedDashboard);
         setRiskLevels(updatedDashboard, setNormal, setWarning, setDanger);
       }
@@ -173,7 +255,7 @@ const useDashboard = () => {
       setLoading('Connection closed.');
       socket.close(1000, 'Dashboard disconnecting.');
     };
-  }, [message]);
+  }, []); // Remove message dependency to prevent websocket reconnection on every message
 
   return [
     // loading,

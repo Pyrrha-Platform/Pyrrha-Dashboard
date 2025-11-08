@@ -1,7 +1,7 @@
 import React, { useContext, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { InlineNotification } from 'carbon-components-react';
+import { InlineNotification } from '@carbon/react';
 
 import AppContext from '../../context/app';
 import LoginInput from '../../components/LoginInput';
