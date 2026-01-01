@@ -21,7 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^2.6.13",
     "passport": "^0.7.0",
-    "qs": "^6.14.0"
+    "qs": "^6.14.1"
   },
   "scripts": {
     "clean": "yarn cache clean && yarn install",
